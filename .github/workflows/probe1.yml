@@ -1,0 +1,269 @@
+name: probe-1-directional-pair
+
+on:
+  workflow_dispatch:
+    inputs:
+      controller_run_id:
+        description: Previous confirmation run for infrastructure retries; empty on first run
+        required: false
+        type: string
+        default: ''
+      expected_sha:
+        description: Exact frozen repository commit
+        required: true
+        type: string
+      auto_continue:
+        description: Dispatch bounded infrastructure retries automatically
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Checkout exact frozen commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+
+      - name: Materialize the fixed design on first run
+        if: inputs.controller_run_id == ''
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = '${{ inputs.expected_sha }}'
+          mkdir controller
+          python probe1/scripts/lean_design.py freeze \
+            --output controller/selected-design.json \
+            --repository-commit "$GITHUB_SHA"
+
+      - name: Initialize confirmation state
+        if: inputs.controller_run_id == ''
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = '${{ inputs.expected_sha }}'
+          python probe1/scripts/confirmation_controller.py init \
+            --selected controller/selected-design.json \
+            --expected-commit "$GITHUB_SHA" \
+            --state controller/confirmation-state.json \
+            --wave controller/next-wave.json
+
+      - name: Download retry controller state
+        if: inputs.controller_run_id != ''
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: confirmation-controller-state
+          path: controller
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.controller_run_id }}
+
+      - name: Verify state and expose pending replicates
+        id: matrix
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = '${{ inputs.expected_sha }}'
+          python probe1/scripts/lean_design.py verify-selected \
+            --selected controller/selected-design.json \
+            --expected-commit "$GITHUB_SHA"
+          test "$(jq -r .status controller/next-wave.json)" = running
+          test "$(jq '.matrix | length' controller/next-wave.json)" -ge 1
+          test "$(jq '.matrix | length' controller/next-wave.json)" -le 256
+          echo "matrix=$(jq -c '{include:.matrix}' controller/next-wave.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Preserve byte-exact controller input
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: confirmation-controller-input
+          path: controller/
+          if-no-files-found: error
+          retention-days: 90
+
+  execute:
+    needs: plan
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    name: confirm / ${{ matrix.replication_id }} / attempt ${{ matrix.attempt_id }}
+    steps:
+      - name: Checkout exact frozen commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout pinned OpenTelemetry Demo source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+
+      - name: Download byte-exact selected design
+        if: always()
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: confirmation-controller-input
+          path: controller
+
+      - name: Verify runtime and execute randomized A5/B5 pair
+        run: |
+          set -euo pipefail
+          python probe1/scripts/verify_runtime.py --upstream-dir upstream/otel-demo --check-runner
+          python probe1/scripts/run_pair.py \
+            --upstream-dir upstream/otel-demo \
+            --phase confirmation \
+            --selected "$PWD/controller/selected-design.json" \
+            --expected-commit "$GITHUB_SHA" \
+            --replication-id '${{ matrix.replication_id }}' \
+            --attempt-id '${{ matrix.attempt_id }}' \
+            --artifact-dir 'artifacts/${{ matrix.replication_id }}-a${{ matrix.attempt_id }}'
+
+      - name: Synthesize an invalid attempt after an earlier workflow failure
+        if: always()
+        run: |
+          set -euo pipefail
+          source_dir='artifacts/${{ matrix.replication_id }}-a${{ matrix.attempt_id }}'
+          if ! test -f "$source_dir/pair-result.json"; then
+            mkdir -p "$source_dir"
+            python probe1/scripts/synthesize_invalid_pair.py \
+              --selected controller/selected-design.json \
+              --replication-id '${{ matrix.replication_id }}' \
+              --attempt-id '${{ matrix.attempt_id }}' \
+              --output "$source_dir/pair-result.json"
+          fi
+
+      - name: Package storage-bounded lossless evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          source_dir='artifacts/${{ matrix.replication_id }}-a${{ matrix.attempt_id }}'
+          upload_dir='upload/${{ matrix.replication_id }}-a${{ matrix.attempt_id }}'
+          test -f "$source_dir/pair-result.json"
+          mkdir -p "$upload_dir"
+          cp "$source_dir/pair-result.json" "$upload_dir/pair-result.json"
+          if ! tar -czf "$upload_dir/evidence.tar.gz" -C "$source_dir" .; then
+            jq '.valid = false | .primary = null | .reason_codes = ((.reason_codes // []) + ["evidence_packaging_failed"])' \
+              "$source_dir/pair-result.json" > "$upload_dir/pair-result.json"
+            rm -f "$upload_dir/evidence.tar.gz"
+          elif test "$(stat --format=%s "$upload_dir/evidence.tar.gz")" -gt 500000; then
+            jq '.valid = false | .primary = null | .reason_codes = ((.reason_codes // []) + ["evidence_archive_exceeds_500000_bytes"])' \
+              "$source_dir/pair-result.json" > "$upload_dir/pair-result.json"
+            rm "$upload_dir/evidence.tar.gz"
+          fi
+
+      - name: Upload complete or invalid paired attempt
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: confirmation-${{ matrix.replication_id }}-a${{ matrix.attempt_id }}
+          path: upload/
+          if-no-files-found: warn
+          retention-days: 90
+          compression-level: 0
+
+  aggregate:
+    if: always() && needs.plan.result == 'success'
+    needs: [plan, execute]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout exact frozen commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Download controller input
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: confirmation-controller-input
+          path: controller
+
+      - name: Download all available paired results
+        continue-on-error: true
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          pattern: confirmation-*-a*
+          path: confirmation-artifacts
+
+      - name: Advance bounded retry controller
+        run: |
+          set -euo pipefail
+          cp controller/confirmation-state.json confirmation-state.json
+          cp controller/selected-design.json selected-design.json
+          python probe1/scripts/confirmation_controller.py ingest \
+            --state confirmation-state.json \
+            --results-root confirmation-artifacts \
+            --wave next-wave.json \
+            --workflow-run-id "$GITHUB_RUN_ID"
+
+      - name: Upload updated controller state
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: confirmation-controller-state
+          path: |
+            confirmation-state.json
+            next-wave.json
+            selected-design.json
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Analyze terminal confirmation state
+        run: |
+          set -euo pipefail
+          if test "$(jq -r .status confirmation-state.json)" != running; then
+            docker build --file probe1/analysis/Dockerfile --tag rasmussen-probe1-analysis:submission .
+            docker run --rm --user "$(id -u):$(id -g)" \
+              --volume "$PWD:/work" \
+              rasmussen-probe1-analysis:submission \
+              --state /work/confirmation-state.json \
+              --selected /work/selected-design.json \
+              --output-dir /work/results
+          fi
+
+      - name: Write confirmation status
+        run: |
+          echo "Status: $(jq -r .status confirmation-state.json)" >> "$GITHUB_STEP_SUMMARY"
+          if test -f results/summary.json; then
+            echo "N: $(jq -r '.primary.N // "not evaluated"' results/summary.json)" >> "$GITHUB_STEP_SUMMARY"
+            echo "K: $(jq -r '.primary.K // "not evaluated"' results/summary.json)" >> "$GITHUB_STEP_SUMMARY"
+            echo "Proportion: $(jq -r '.primary.proportion // "not evaluated"' results/summary.json)" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload terminal analysis
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: confirmation-analysis
+          path: |
+            results/summary.json
+            results/replicate-level.csv
+            results/results.tex
+          if-no-files-found: ignore
+          retention-days: 90
+
+      - name: Dispatch infrastructure retry wave
+        if: inputs.auto_continue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if test "$(jq -r .status confirmation-state.json)" = running; then
+            gh workflow run probe1.yml \
+              --ref "$GITHUB_REF_NAME" \
+              -f controller_run_id="$GITHUB_RUN_ID" \
+              -f expected_sha="$GITHUB_SHA" \
+              -f auto_continue=true
+          fi

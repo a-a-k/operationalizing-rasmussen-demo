@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "protocol_version": "experiment2-0.1",
+  "workflow_run_id": 32352460425,
+  "repository_commit": "8e39973a3addcb8fa3e20b5ac177405f9fcae1d3",
+  "status": "no-feasible-candidate",
+  "expected_results": 12,
+  "received_results": 12,
+  "selected_candidate_id": null,
+  "candidate_summaries": [
+    {"candidate_id": "r32-s022", "rate": 32, "critical_quota": 0.22, "valid_replications": 2, "pattern_replications": 0, "eligible": false},
+    {"candidate_id": "r32-s019", "rate": 32, "critical_quota": 0.19, "valid_replications": 2, "pattern_replications": 0, "eligible": false},
+    {"candidate_id": "r32-s016", "rate": 32, "critical_quota": 0.16, "valid_replications": 2, "pattern_replications": 0, "eligible": false},
+    {"candidate_id": "r40-s022", "rate": 40, "critical_quota": 0.22, "valid_replications": 2, "pattern_replications": 0, "eligible": false},
+    {"candidate_id": "r40-s019", "rate": 40, "critical_quota": 0.19, "valid_replications": 1, "pattern_replications": 1, "eligible": false},
+    {"candidate_id": "r40-s016", "rate": 40, "critical_quota": 0.16, "valid_replications": 2, "pattern_replications": 0, "eligible": false}
+  ]
+}

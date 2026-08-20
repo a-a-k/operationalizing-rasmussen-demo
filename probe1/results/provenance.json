@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "execution_source_commit": "0045b9bca366683e68faa6c02cbd96bf9b8156b8",
+  "workflow_run_ids": [31761065301, 31768746018],
+  "selected_valid_pairs": 256,
+  "recorded_attempts": 259,
+  "source_asset_sha256": {
+    "confirmation-attempt-evidence.tar": "036ea49d010eacac76e8b66cc44845adb3868887e1ac4e9b6821660648fdaebb",
+    "confirmation-state.json": "20edc7b0dbfa5c4578d02fadeb6ba86f115cf1651f21dc38ef0d0fd0965b2817",
+    "evidence-selection.json": "34962cc18e450fdc6cdb7455e773ae5db7c0609296c13c624ac3385962199cc1",
+    "replicate-level.csv": "025a77e596fff86c7d9f22c286e85addfa3a231246f2878f5f14bc2479010c88",
+    "summary.json": "2e5bef1e61eea489d55a64f1d8d9849b846f21d8465ba0fd00508aab9b0d3b6d"
+  },
+  "packaging_note": "The submission-facing history and paths were consolidated after execution. The recorded aggregate and replicate rows were not recomputed during packaging."
+}

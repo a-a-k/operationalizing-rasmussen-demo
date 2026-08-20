@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "study_protocol_version": "experiment2-confirmation-0.2",
+  "measurement_protocol_version": "experiment2-0.1",
+  "experiment_id": "joint-allocation-confirmation-v0.2",
+  "selection_provenance": {
+    "pilot_run_id": 32352460425,
+    "pilot_repository_commit": "8e39973a3addcb8fa3e20b5ac177405f9fcae1d3",
+    "pilot_formal_status": "no-feasible-candidate",
+    "selection_rule": "After the pilot returned no formally eligible candidate, its sole observed interaction window was fixed for a separate follow-up; reported frequencies use only 32 new blocks.",
+    "disclosure": "The window had one complete pattern replication and one pattern-consistent but invalid replication with a missing payment-only intervention after a pre-intervention checkout restart. Pilot observations are excluded from the follow-up result."
+  },
+  "selected_candidate": {
+    "candidate_id": "r40-s019",
+    "rate": 40,
+    "critical_quota": 0.19
+  },
+  "attempted_blocks": 32,
+  "block_id_format": "c%03d",
+  "condition_orders": {
+    "o1": ["checkout_only", "payment_only", "shipping_only", "joint"],
+    "o2": ["payment_only", "shipping_only", "joint", "checkout_only"],
+    "o3": ["shipping_only", "joint", "checkout_only", "payment_only"],
+    "o4": ["joint", "checkout_only", "payment_only", "shipping_only"]
+  },
+  "order_rule": "o(((block_number - 1) mod 4) + 1)",
+  "analysis": {
+    "primary_estimand": "P(all three single conditions safe and joint unsafe | all four points valid)",
+    "confidence_level": 0.95,
+    "invalid_block_sensitivity": "count each invalid attempted block as a non-pattern"
+  },
+  "geometry": {
+    "single_risk_directed_change": 0.7743913818697754,
+    "joint_risk_directed_change": 1.6587620439526836
+  }
+}

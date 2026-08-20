@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+artifacts/
+upstream/
+confirmation-artifacts/
+selected-design.json
+confirmation-state.json
+next-wave.json
+/results/
+protocol/
+experiment_protocol_ru_v*.md

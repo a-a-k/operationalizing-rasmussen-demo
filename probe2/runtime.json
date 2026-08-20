@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "protocol_version": "experiment2-0.1",
+  "parent_runtime_lock": "probe1/runtime.json",
+  "parent_runtime_lock_sha256": "48a3225868b9f032b6ff484b01383d71901d9bec2e725d2f3fea8c9fa400e942",
+  "compose_override": "probe1/compose.lock.yaml",
+  "compose_override_sha256": "68030084c2a0f1dc26d24f23eb1ef5353438a4c27db13ca0593e2bc55e952480",
+  "environment_file": "probe1/otel.env",
+  "environment_file_sha256": "2550a11ddeee1889dcce8de683be788b9477e6bbf88b8755123c3a58e83097a4",
+  "runner": {
+    "label": "ubuntu-24.04",
+    "logical_cpus": 4,
+    "minimum_memory_gib": 14
+  },
+  "workload": {
+    "warmup_seconds": 60,
+    "baseline_seconds": 90,
+    "stabilization_seconds": 30,
+    "test_seconds": 90,
+    "time_unit": "1s",
+    "pre_allocated_vus": 800,
+    "max_vus": 800,
+    "graceful_stop_seconds": 30,
+    "http_timeout_seconds": 5,
+    "slo_p95_ms": 500,
+    "slo_error_rate": 0.01,
+    "minimum_started_fraction": 0.99
+  },
+  "evidence": {
+    "diagnostic_log_tail_lines": 100,
+    "point_archive_max_bytes": 1000000
+  }
+}

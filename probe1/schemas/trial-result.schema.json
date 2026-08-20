@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/a-a-k/operationalizing-rasmussen-demo/experiment/schemas/trial-result.schema.json",
+  "type": "object",
+  "required": [
+    "protocol_version", "trial_id", "point_id", "replication_id", "attempt_id", "spec_sha256",
+    "provenance", "validity", "baseline", "test", "manipulation", "diagnostics"
+  ],
+  "properties": {
+    "protocol_version": {"const": "0.3.3"},
+    "trial_id": {"type": "string"},
+    "point_id": {"type": "string"},
+    "replication_id": {"pattern": "^(calibration|c(00[1-9]|0[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-6]))$"},
+    "attempt_id": {"type": "integer", "minimum": 1, "maximum": 3},
+    "spec_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "provenance": {"type": "object"},
+    "validity": {"type": "object", "required": ["valid", "reason_codes"]},
+    "baseline": {"type": ["object", "null"], "required": ["safe", "p95_ms", "error_rate", "scheduled_iterations", "started_iterations", "successful_iterations", "checkout_requests"]},
+    "test": {"type": ["object", "null"], "required": ["safe", "p95_ms", "error_rate", "scheduled_iterations", "started_iterations", "successful_iterations", "checkout_requests"]},
+    "manipulation": {"type": "object", "required": ["valid", "requested_quotas", "effective_quotas"]},
+    "diagnostics": {"type": "object", "required": ["post_intervention_system_failure", "containers", "throttling_fraction"]}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,99 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      runtime_smoke:
+        description: Start the pinned stack and run the cgroup/k6 smoke gate
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  static:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout experiment repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout pinned OpenTelemetry Demo source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+
+      - name: Run tests and verify immutable runtime inputs
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s probe1/tests -v
+          python -m unittest discover -s probe2/tests -v
+          python probe1/scripts/verify_runtime.py \
+            --upstream-dir upstream/otel-demo \
+            --report artifacts/static-verification.json
+          python probe2/scripts/verify_confirmation.py \
+            --report artifacts/probe2-verification.json
+
+      - name: Save static verification
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: static-verification
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 90
+
+  runtime-smoke:
+    if: github.event_name == 'workflow_dispatch' && inputs.runtime_smoke
+    needs: static
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout experiment repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout pinned OpenTelemetry Demo source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+
+      - name: Verify runner and run Docker/k6 smoke
+        run: |
+          set -euo pipefail
+          python probe1/scripts/verify_runtime.py \
+            --upstream-dir upstream/otel-demo \
+            --check-runner \
+            --report artifacts/runtime-verification.json
+          python probe1/scripts/smoke_runtime.py \
+            --upstream-dir upstream/otel-demo \
+            --artifact-dir artifacts/runtime-smoke
+
+      - name: Save runtime evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: runtime-smoke
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 90

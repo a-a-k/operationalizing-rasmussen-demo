@@ -1,0 +1,137 @@
+name: probe-2-joint-context
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact repository commit containing the fixed design
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Checkout exact confirmation commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+
+      - name: Verify frozen confirmation and tests
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = '${{ inputs.expected_sha }}'
+          python -m unittest discover -s probe2/tests -v
+          python probe2/scripts/verify_confirmation.py --report confirmation-verification.json
+
+      - name: Materialize exact 32-block matrix
+        id: matrix
+        run: |
+          set -euo pipefail
+          matrix="$(PYTHONPATH=probe2/scripts python - <<'PY'
+          import json
+          from pathlib import Path
+          from confirmation_common import confirmation_matrix, load_confirmation_design
+          design = load_confirmation_design(Path.cwd())
+          print(json.dumps({'include': confirmation_matrix(design)}, separators=(',', ':')))
+          PY
+          )"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+      - name: Save confirmation verification
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: joint-confirmation-verification
+          path: confirmation-verification.json
+          if-no-files-found: error
+          retention-days: 90
+
+  execute:
+    needs: plan
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    name: ${{ matrix.block_id }} / ${{ matrix.order_id }}
+    steps:
+      - name: Checkout exact confirmation commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Checkout pinned OpenTelemetry Demo source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+
+      - name: Verify runner and execute four fresh-stack conditions
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = '${{ inputs.expected_sha }}'
+          python probe2/scripts/verify_confirmation.py --check-runner
+          python probe2/scripts/run_confirmation_block.py \
+            --upstream-dir upstream/otel-demo \
+            --block-id '${{ matrix.block_id }}' \
+            --order-id '${{ matrix.order_id }}' \
+            --artifact-dir 'artifacts/${{ matrix.block_id }}'
+
+      - name: Upload complete block evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: joint-confirmation-${{ matrix.block_id }}
+          path: artifacts/
+          if-no-files-found: warn
+          retention-days: 90
+          compression-level: 6
+
+  aggregate:
+    if: always() && needs.plan.result == 'success'
+    needs: [plan, execute]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact confirmation commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Download all confirmation blocks
+        continue-on-error: true
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          pattern: joint-confirmation-c*
+          path: confirmation-artifacts
+
+      - name: Apply frozen confirmation analysis
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = '${{ inputs.expected_sha }}'
+          python probe2/scripts/analyze_confirmation.py \
+            --results-root confirmation-artifacts \
+            --repository-commit "$GITHUB_SHA" \
+            --output-dir confirmation-results
+          cat confirmation-results/confirmation-summary.json >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload confirmation result
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: joint-confirmation-result
+          path: confirmation-results/
+          if-no-files-found: error
+          retention-days: 90
