@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "study_version": "followup-0.1.0",
+  "parent_runtime": "probe1/runtime.json",
+  "parent_runtime_sha256": "48a3225868b9f032b6ff484b01383d71901d9bec2e725d2f3fea8c9fa400e942",
+  "compose_override_sha256": "68030084c2a0f1dc26d24f23eb1ef5353438a4c27db13ca0593e2bc55e952480",
+  "environment_file_sha256": "2550a11ddeee1889dcce8de683be788b9477e6bbf88b8755123c3a58e83097a4",
+  "memory_and_restart_policy": "Unchanged pinned Compose, including checkout's 20 MiB memory ceiling, GOMEMLIMIT=16MiB and restart=unless-stopped. Events and segmented memory counters diagnose failures; this follow-up does not isolate memory from CPU as a separate intervention.",
+  "workload": {
+    "pre_allocated_vus": 800,
+    "max_vus": 800,
+    "time_unit": "1s",
+    "graceful_stop_seconds": 30,
+    "minimum_started_fraction": 0.99,
+    "slo_p95_ms": 500,
+    "slo_error_rate": 0.01,
+    "capacity_basis": "Maximum rate times two HTTP timeouts: max(32*20,40*10)=640 occupied VUs; 800 adds 25% overhead allowance. Capacity and generator CPU are verified, not assumed, during every point."
+  },
+  "observation": {
+    "sample_interval_seconds": 2,
+    "cgroup_refresh_seconds": 6,
+    "compose_log_tail_lines": 200,
+    "preserve_gzip_raw_metrics": true,
+    "docker_events": ["oom", "die", "restart", "start", "kill", "stop", "destroy"],
+    "restart_rule": "Post-intervention restart/OOM is diagnostic only; never changes the SLO label or triggers a replacement.",
+    "counter_rule": "No counter delta is computed across a changed cgroup inode, a changed PID, or a counter reset.",
+    "generator_headroom_rule": "Record host CPU and generator cgroup CPU; report maximum and mean without a fitted cutoff. The primary generator-validity gate is at least 99% started in baseline and test."
+  }
+}

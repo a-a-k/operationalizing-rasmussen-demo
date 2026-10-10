@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/a-a-k/operationalizing-rasmussen-demo/experiment/schemas/trial-result.schema.json",
+  "$id": "urn:closed-allocation:trial-result",
   "type": "object",
   "required": [
     "protocol_version", "trial_id", "point_id", "replication_id", "attempt_id", "spec_sha256",

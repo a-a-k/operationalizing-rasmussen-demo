@@ -15,7 +15,7 @@ Probe 2 compares **one local component with its joint allocation context**. It
 asks whether knowing that one service has a particular quota is sufficient when
 the same quota can occur in different closed reallocations.
 
-Together they support the narrower empirical statement used by the paper:
+Together they address the following narrower empirical statement:
 
 > In a closed allocation, radial magnitude does not encode risk direction, and
 > one component does not encode joint allocation context.
@@ -44,7 +44,8 @@ whether “more drift” and “more risk-directed drift” are the same stateme
 Each of 256 paired replications ran A5 and B5 on fresh stacks. Pair order was
 balanced exactly: 128 ran `A5 -> B5` and 128 ran `B5 -> A5`. Of the selected
 attempts, 253 completed on the first infrastructure attempt and three on the
-second. All 256 pairs passed the validity gates.
+second. All 256 pairs passed the gates actually executed, but that execution
+omitted the intended generator gate described below.
 
 ### What was observed
 
@@ -73,6 +74,57 @@ as an uncensored latency estimate because many B5 requests reached the timeout.
 Every row, order, SLO value, and selected attempt is available in the
 [replicate-level CSV](probe1/results/replicate-level.csv); the exact aggregate
 and bootstrap output is in [summary.json](probe1/results/summary.json).
+
+### Historical generator deviation and sensitivity
+
+The intended gate required at least 99% of scheduled operations to start. It was
+used during selection but omitted from the confirmation execution path. Forty-nine
+B5 test windows fell below it; the lowest started fraction was 5113/5760 (88.8%).
+A5 started every scheduled operation in all 256 retained pairs.
+
+| Analysis population | Paired reversals | Exact 95% interval |
+| --- | ---: | ---: |
+| Originally executed series | 221/256 | 0.815--0.903 |
+| Conditional subset satisfying the intended gate | 172/207 | 0.773--0.879 |
+
+All 49 low-started B5 windows also violated latency alone. Computing errors with
+started rather than scheduled operations did not change any recorded SLO label.
+This preserves the existence of the contrast, but does not retroactively make
+the execution conform to its intended fixed-load contract. The conditional
+analysis selects on a post-intervention observation associated with degradation
+and must not replace the full series silently.
+
+The generator had 320 VUs. Each operation made two sequential requests, each
+with a ten-second timeout; the observed maximum full-iteration duration exceeded
+twenty seconds. Thus a one-timeout capacity calculation was insufficient. The
+[separate fixed follow-up](probe3/) uses 800 VUs, dedicated started/finished
+counters and a 99%-started gate during both baseline and test. It retains all
+recoverable gate-failing outcomes in a separately identified analysis.
+
+### What the restart evidence does and does not show
+
+Checkout restarted after intervention in 225 B5 trials, including all 221
+unsafe B5 trials. Additional post-intervention restarts affected astronomy-db
+in 99 B5 trials, frontend in four and payment in two. A5 had no such restarts.
+These are system-failure diagnostics, not alternative SLO labels.
+
+Inspection snapshots reported `OOMKilled=false`, but a running container's
+snapshot and `ExitCode=0` do not identify a previous process's exit cause after
+automatic restart. The pinned checkout configuration has a 20 MiB container
+memory ceiling, `GOMEMLIMIT=16MiB` and `restart=unless-stopped`. The retained
+historical logs do not establish the cause or precise failure timeline; in
+particular, CPU throttling causing OOM is not demonstrated.
+
+Checkout CPU counters reset across the restarts. Its whole-window throttling
+fraction was therefore unavailable in 225 B5 trials; negative counter deltas
+must not be interpreted as utilization. The new follow-up records Docker
+exit/OOM events and segmented cgroup CPU/memory samples with timing relative to
+intervention and measurement. It preserves memory/restart settings, so it still
+does not isolate a CPU-only failure cause.
+
+Both probes run the generator and other services on the same four-vCPU runner.
+Matching `cpu.max` establishes the configured ceilings and correctness of quota
+manipulation, not a physically reserved closed pool or constant actual usage.
 
 ### Interpretation
 
@@ -161,6 +213,12 @@ overall median mixes the two modes and is not the primary result.
 All 32 block summaries, validity reasons, per-condition p95 values, error rates,
 and pattern labels are in [Probe 2 summary.json](probe2/results/summary.json).
 
+All Probe 2 test windows started their scheduled operations. Two complete unsafe
+witnesses (`c018` and `c027`) had no post-intervention system restart, so the
+local-context contrast is not exclusively a restart phenomenon. Their latency
+nevertheless saturated near the five-second timeout; they do not establish a
+gradual, uncensored approach to an SLO boundary.
+
 ### Interpretation
 
 The eight complete blocks are repeated witnesses to a representational blind
@@ -219,3 +277,17 @@ how often such a boundary appears in production systems.
 The executable definitions are in [Probe 1's workflow](.github/workflows/probe1.yml)
 and [Probe 2's workflow](.github/workflows/probe2.yml). Runtime integrity checks
 are in the [verification workflow](.github/workflows/verify.yml).
+
+## Additional fixed follow-up
+
+The [new series](probe3/) has 16 corrected A/B pairs and 12 six-condition context
+blocks. It compares matched group sums and counts with differing balances, and
+permuted allocations with equal balances and differing service assignments.
+Both contrast directions, technical invalidity and all recoverable outcomes are
+reported. No observations are pooled with the historical counts above.
+
+Until it completes, these are design questions, not additional empirical claims.
+The execution workflow retains raw metrics, diagnostic events, per-point results
+and an aggregate report. Historical execution identifiers and evidence checksums
+remain in each series' result provenance; documentation contains no links back
+to an identifying source hosting account.

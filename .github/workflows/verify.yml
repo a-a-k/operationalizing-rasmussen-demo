@@ -39,13 +39,17 @@ jobs:
       - name: Run tests and verify immutable runtime inputs
         run: |
           set -euo pipefail
+          sha256sum --check SHA256SUMS
           python -m unittest discover -s probe1/tests -v
           python -m unittest discover -s probe2/tests -v
+          python -m unittest discover -s probe3/tests -v
           python probe1/scripts/verify_runtime.py \
             --upstream-dir upstream/otel-demo \
             --report artifacts/static-verification.json
           python probe2/scripts/verify_confirmation.py \
             --report artifacts/probe2-verification.json
+          python probe3/scripts/study.py verify \
+            --report artifacts/followup-verification.json
 
       - name: Save static verification
         if: always()
