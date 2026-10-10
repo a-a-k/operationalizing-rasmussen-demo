@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "study_version": "threshold-scenarios-0.1.0",
+  "purpose": "Small descriptive comparison of local-quota and compositional thresholds across fixed redistribution directions. No expected SLO labels are assigned.",
+  "randomization_salt": "threshold-scenarios-20261010-v0.1.0",
+  "rates": [40, 64],
+  "repetitions": 3,
+  "http_timeout_seconds": 5,
+  "warmup_seconds": 60,
+  "baseline_seconds": 90,
+  "stabilization_seconds": 30,
+  "test_seconds": 90,
+  "reference": {"checkout": 0.30, "payment": 0.30, "shipping": 0.30, "ad": 0.10},
+  "group_g": ["checkout", "payment", "shipping"],
+  "group_h": ["ad"],
+  "group_selection": "Keep the structural contrast: the three controlled participants in the tested checkout operation versus the quota recipient outside that operation. This is not a claim of uniform service criticality or an independently optimized risk direction.",
+  "panels": {
+    "joint": {
+      "reference": {"checkout": 0.30, "payment": 0.30, "shipping": 0.30, "ad": 0.10},
+      "joint_024": {"checkout": 0.24, "payment": 0.24, "shipping": 0.24, "ad": 0.28},
+      "joint_019": {"checkout": 0.19, "payment": 0.19, "shipping": 0.19, "ad": 0.43},
+      "joint_014": {"checkout": 0.14, "payment": 0.14, "shipping": 0.14, "ad": 0.58},
+      "joint_010": {"checkout": 0.10, "payment": 0.10, "shipping": 0.10, "ad": 0.70},
+      "joint_007": {"checkout": 0.07, "payment": 0.07, "shipping": 0.07, "ad": 0.79}
+    },
+    "selective": {
+      "checkout_only_007": {"checkout": 0.07, "payment": 0.30, "shipping": 0.30, "ad": 0.33},
+      "payment_only_007": {"checkout": 0.30, "payment": 0.07, "shipping": 0.30, "ad": 0.33},
+      "shipping_only_007": {"checkout": 0.30, "payment": 0.30, "shipping": 0.07, "ad": 0.33},
+      "checkout_skew_007": {"checkout": 0.07, "payment": 0.17, "shipping": 0.18, "ad": 0.58},
+      "payment_skew_007": {"checkout": 0.17, "payment": 0.07, "shipping": 0.18, "ad": 0.58},
+      "shipping_skew_007": {"checkout": 0.17, "payment": 0.18, "shipping": 0.07, "ad": 0.58}
+    }
+  },
+  "replacement_rule": "No replacement, outcome-based scenario deletion, optional extension, or automatic additional waves.",
+  "allocation_semantics": "The four configured CPU ceilings sum to 1 CPU; they are not reserved physical capacity. Other containers and the generator share the host. Every point starts from a fresh stack and a measured reference baseline.",
+  "analysis": {
+    "kind": "Exploratory in-sample threshold comparison; no calibration/test split or fitted deployment detector.",
+    "pool_rates": false,
+    "binary_success_criterion": null,
+    "tie_decimals": 12,
+    "methods": ["R_group", "checkout_quota", "payment_quota", "shipping_quota", "minimum_group_quota", "group_sum", "reduced_count", "E", "d_A", "local_or"],
+    "local_or": "Exhaust all separate checkout/payment/shipping quota thresholds, combined with OR; each channel may also be disabled. This is an in-sample oracle baseline, not a trained detector.",
+    "comparison": "Show all deterministic thresholds and the greatest number of detected unsafe points achievable at each integer false-positive budget. Budgets are display coordinates, not success criteria. Equal scores are never split by outcome.",
+    "reporting": "Report every planned point, invalid reasons, all recoverable outcomes, and post-intervention failures. No causal lead-time or out-of-sample accuracy claim. A single trajectory is not executed; the redistribution paths are reconstructed from independently measured allocation points. Advertisement performance and adaptive pressure are not measured."
+  }
+}

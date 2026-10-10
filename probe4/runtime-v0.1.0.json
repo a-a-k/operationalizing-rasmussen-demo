@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "study_version": "threshold-scenarios-0.1.0",
+  "parent_runtime": "probe3/runtime-v0.1.1.json",
+  "parent_runtime_sha256": "b327ba590548452c1035ecdce0221f62bbd8e85505be13e892e3e9e6cdb15d7e",
+  "compose_overlay": "probe4/memory-v0.1.0.yaml",
+  "memory_override": {
+    "checkout_memory_bytes": 268435456,
+    "checkout_gomemlimit": "192MiB",
+    "reason": "Increase fixed checkout memory reserve before all new observations to reduce the previously dominant 20-MiB OOM mechanism. This is a new runtime; do not pool with historical series or assume OOM is impossible. All other images, memory limits and restart policies remain pinned."
+  },
+  "workload": {
+    "pre_allocated_vus": 800,
+    "max_vus": 800,
+    "minimum_started_fraction": 0.99,
+    "capacity_basis": "64 iterations/s * two HTTP timeouts of 5s * 1.25 = 800 VUs; fixed for all phases and both loads. Reuse the measured-started-fraction gate."
+  }
+}
