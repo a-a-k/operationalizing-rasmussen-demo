@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -16,9 +17,16 @@ from analyze_lean import clopper_pearson  # noqa: E402
 from experimentlib import canonical_json, sha256_file, write_json  # noqa: E402
 from verify_runtime import verify_actions, verify_runner, verify_structure, verify_upstream  # noqa: E402
 
-VERSION = "followup-0.1.0"
-DESIGN = "probe3/design-v0.1.0.json"
-RUNTIME = "probe3/runtime-v0.1.0.json"
+VERSION = "followup-0.1.1"
+DESIGN = "probe3/design-v0.1.1.json"
+RUNTIME = "probe3/runtime-v0.1.1.json"
+
+
+def project_name(run_id: str, block_id: str, point_id: str) -> str:
+    name = f"followup-{run_id}-{block_id}-{point_id}".replace("_", "-").lower()
+    if not re.fullmatch(r"[a-z0-9][a-z0-9_-]*", name):
+        raise ValueError("invalid Compose project name")
+    return name
 
 
 def load(path: Path) -> dict[str, Any]:
@@ -99,6 +107,9 @@ def validate(design: Mapping[str, Any], runtime: Mapping[str, Any]) -> None:
         raise ValueError("unexpected executor timing")
     if design["analysis"]["binary_success_criterion"] is not None:
         raise ValueError("this descriptive study has no binary success threshold")
+    for row in matrix(design):
+        for point_id in row["order"]:
+            project_name("123", row["block_id"], point_id)
     for arm_id, arm in design["arms"].items():
         rows = [r for r in matrix(design) if r["arm"] == arm_id]
         for position in range(len(arm["points"])):

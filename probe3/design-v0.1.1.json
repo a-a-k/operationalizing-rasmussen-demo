@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
-  "study_version": "followup-0.1.0",
+  "study_version": "followup-0.1.1",
+  "execution_revision": "Execution-only correction: normalize Compose project names to lowercase. Allocations, repetitions, randomization salt/order, timings, SLO and analysis are unchanged from setup-aborted 0.1.0.",
   "purpose": "Corrected fixed-load A/B replication and descriptive tests of compositional reduction against simple alternatives; no detector is fitted.",
   "randomization_salt": "closed-allocation-followup-20261010-v0.1.0",
   "replacement_rule": "No replacement, optional stopping, outcome-based point selection, or automatic extension.",

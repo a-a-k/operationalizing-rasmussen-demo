@@ -20,7 +20,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "probe3/scripts"))
-from study import DESIGN, RUNTIME, VERSION, features, generator_valid, load, matrix, validate, verify
+from study import DESIGN, RUNTIME, VERSION, features, generator_valid, load, matrix, project_name, validate, verify
 from measure import quantile, summarize
 from observe import checked_delta
 from analyze import analyze, pair_counts, save
@@ -33,6 +33,14 @@ class DesignTests(unittest.TestCase):
 
     def test_fixed_inputs_and_action_pins(self):
         self.assertTrue(verify(ROOT)["valid"])
+
+    def test_every_compose_project_name_is_valid(self):
+        self.assertEqual(project_name("1", "ab-003", "A"), "followup-1-ab-003-a")
+        for row in matrix(self.design):
+            for name in row["order"]:
+                self.assertRegex(project_name("1", row["block_id"], name), r"^[a-z0-9][a-z0-9_-]*$")
+        with self.assertRaises(ValueError):
+            project_name("1", "ab-003", "bad/point")
 
     def test_matrix_deterministic_and_position_balanced(self):
         rows = matrix(self.design)

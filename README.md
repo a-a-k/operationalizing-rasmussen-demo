@@ -52,8 +52,8 @@ probe2/
   results/summary.json    aggregate plus block-level results
   scripts/, tests/, k6/   execution, analysis, and checks
 probe3/
-  design-v0.1.0.json      fixed 16-pair / 12-six-condition follow-up
-  runtime-v0.1.0.json     generator and diagnostic overlay
+  design-v0.1.1.json      fixed 16-pair / 12-six-condition follow-up
+  runtime-v0.1.1.json     generator and diagnostic overlay
   scripts/, tests/, k6/   separate runner, measurements and descriptive analysis
 .github/workflows/
   verify.yml              static verification and optional runtime smoke test

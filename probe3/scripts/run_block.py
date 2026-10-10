@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from measure import summarize
-from study import DESIGN, ROOT, RUNTIME, VERSION, features, generator_valid, load, matrix, verify, write_json, sha256_file
+from study import DESIGN, ROOT, RUNTIME, VERSION, features, generator_valid, load, matrix, project_name, verify, write_json, sha256_file
 from run_trial import compose_prefix, inspect_all, inspect_container, read_container_cgroup_file, wait_for_stack
 
 
@@ -155,7 +155,7 @@ def diagnostic_summary(folder: Path, intervention: str | None, measurement_end: 
 def point(repo: Path, upstream: Path, parent: dict, runtime: dict, arm: dict,
           arm_id: str, block_id: str, point_id: str, folder: Path) -> dict:
     folder.mkdir(parents=True, exist_ok=False)
-    project = f"followup-{os.environ['GITHUB_RUN_ID']}-{block_id}-{point_id}".replace("_", "-")
+    project = project_name(os.environ["GITHUB_RUN_ID"], block_id, point_id)
     generator = project + "-k6"
     prefix = compose_prefix(repo, upstream, project)
     spec = {"study_version": VERSION, "arm": arm_id, "block_id": block_id, "point_id": point_id,
@@ -332,8 +332,9 @@ def main() -> int:
     if args.smoke:
         arm = dict(design["arms"]["ab"])
         arm.update({"rate": 1, "warmup_seconds": 15, "baseline_seconds": 10, "stabilization_seconds": 5,
-                    "test_seconds": 10, "points": {"reference": arm["reference"]}})
-        row = {"arm": "smoke", "block_id": "smoke", "order": ["reference"]}
+                    "test_seconds": 10, "points": {"A": arm["reference"]}})
+        # Exercise an actual uppercase endpoint ID, with safe reference quotas.
+        row = {"arm": "smoke", "block_id": "smoke", "order": ["A"]}
     else:
         row = next(r for r in matrix(design) if r["block_id"] == args.block_id)
         arm = design["arms"][row["arm"]]
@@ -347,7 +348,7 @@ def main() -> int:
              "repository_commit": os.environ["GITHUB_SHA"], "workflow_run_id": os.environ["GITHUB_RUN_ID"]}
     write_json(output / "block-result.json", block)
     if args.smoke:
-        p = results["reference"]
+        p = results["A"]
         diagnostic_ok = p.get("diagnostics", {}).get("generator_sample_intervals", 0) > 0
         return 0 if block["valid"] and diagnostic_ok else 1
     return 0

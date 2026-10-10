@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       expected_sha:
-        description: Exact commit containing followup-0.1.0 and its scripts
+        description: Exact commit containing followup-0.1.1 and its scripts
         required: true
         type: string
       execute:

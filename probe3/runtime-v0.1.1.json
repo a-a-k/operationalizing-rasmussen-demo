@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "study_version": "followup-0.1.0",
+  "study_version": "followup-0.1.1",
   "parent_runtime": "probe1/runtime.json",
   "parent_runtime_sha256": "48a3225868b9f032b6ff484b01383d71901d9bec2e725d2f3fea8c9fa400e942",
   "compose_override_sha256": "68030084c2a0f1dc26d24f23eb1ef5353438a4c27db13ca0593e2bc55e952480",

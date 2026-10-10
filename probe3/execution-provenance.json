@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "current_study_version": "followup-0.1.1",
+  "setup_attempts": [
+    {
+      "study_version": "followup-0.1.0",
+      "repository_commit": "14d878feb7e67b24a51bfaeaead0efd509a1f1b4",
+      "workflow_run_id": 38057343837,
+      "status": "preflight-failed",
+      "reason": "Historical CSV checksum was taken from a CRLF working copy rather than the canonical LF Git blob. No scientific point started."
+    },
+    {
+      "study_version": "followup-0.1.0",
+      "repository_commit": "9df42e0f8e694790e0dccf31f2ee15fe880126b1",
+      "workflow_run_id": 38057472903,
+      "status": "setup-aborted",
+      "reason": "Smoke reference succeeded, but uppercase A/B identifiers made their Compose project names invalid; A/B stacks did not start. The whole matrix was stopped for this implementation defect, without changing points or inspecting context SLO outcomes.",
+      "analysis_rule": "Preserve as a separate incomplete setup attempt. Do not pool any observations with the corrected fixed series."
+    }
+  ]
+}

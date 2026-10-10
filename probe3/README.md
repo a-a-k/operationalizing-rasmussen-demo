@@ -1,15 +1,22 @@
-# Fixed experimental follow-up (0.1.0)
+# Fixed experimental follow-up (0.1.1)
 
 This is a separate, new series. It does not replace or pool observations with
 [Probe 1](../probe1/) or [Probe 2](../probe2/). Execution is exclusively in GitHub Actions.
 
-The [machine-readable design](design-v0.1.0.json), [runtime overlay](runtime-v0.1.0.json)
+The [machine-readable design](design-v0.1.1.json), [runtime overlay](runtime-v0.1.1.json)
 and execution commit fix every point, repetition and comparison before measurement.
 The overlay references the historical digest-pinned runtime by checksum. All
 containers, health rules, image digests and Actions SHAs are inherited unchanged;
 the generator and observation code are new. Changes to a frozen study require a
 new version. There is no pilot search, replacement, automatic extension or
 outcome-dependent selection.
+
+Revision 0.1.1 fixes a setup error: uppercase endpoint identifiers A/B were used
+verbatim in Compose project names, which require lowercase. The initial matrix
+was stopped for this implementation defect; its observations are not pooled
+with the corrected series. The points, count, salt/order and analysis did not
+change. [Execution provenance](execution-provenance.json) records both setup
+attempts without linking to an identifying hosting account.
 
 ## Questions and fixed scope
 
