@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import gzip
+import hashlib
 import json
 import math
 import ast
@@ -55,6 +56,13 @@ class DesignTests(unittest.TestCase):
 class IntegrityTests(unittest.TestCase):
     def setUp(self):
         self.design, self.runtime = load(ROOT / DESIGN), load(ROOT / RUNTIME)
+
+    def test_checksum_manifest_matches_lf_checkout(self):
+        for line in (ROOT / "SHA256SUMS").read_text(encoding="utf-8").splitlines():
+            expected, relative = line.split("  ", 1)
+            # Every listed input is text; .gitattributes stores it as LF.
+            canonical = (ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertEqual(hashlib.sha256(canonical).hexdigest(), expected, relative)
 
     def test_no_document_sources_or_identifying_docs_and_comments(self):
         paths = subprocess.check_output(
