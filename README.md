@@ -16,6 +16,7 @@ request p95 is at most 500 ms and the error rate is below 1%.
 | [Probe 2](probe2/) | The same 0.19-CPU local quota is applied to checkout, payment, or shipping alone, and then to all three jointly, within balanced cyclic four-condition blocks. | Does one component's quota represent the joint allocation context? | Every valid singleton point was safe. The joint point was unsafe in 9/32 blocks; the complete within-block pattern occurred in 8/28 valid blocks (exact 95% CI 0.132--0.487). [Blocks and aggregate](probe2/results/summary.json) |
 | [Fixed follow-up](probe3/) | Corrected A/B plus six fixed context conditions matched on simple summaries; 104 fresh-stack points. | Does the A/B contrast recur with adequate generator capacity, and what do balance, sum, count and minimum retain or lose? | New observations only; no pooling or fitted detector. Results are reported separately when execution completes. |
 | [Threshold scenarios](probe4/) | Twelve fixed redistribution states at two loads, five repetitions; 120 new fresh-stack points with increased checkout and database memory reserves. | How do balance and local or combined quota thresholds trade off missed SLO violations and false alarms on these scenarios? | Exploratory in-sample comparison of all thresholds, reported separately; no calibration split, binary scientific criterion, or pooling. |
+| [Adaptive migration](probe5/) | Twenty paired sequential adaptation/control histories with simultaneous checkout and advertising workloads. | Can measured recipient output pressure motivate successive closed-budget transfers that erode checkout performance and cross its SLO boundary? | Separate constructed mechanism test; gains, crossings and unchanged controls are measured, not assumed. No detector-superiority claim. |
 
 Probe 1 shows that distance from a reference composition is not a risk direction:
 a larger radial change can remain safe while a smaller, risk-directed change
@@ -62,6 +63,7 @@ probe3/
   probe2.yml              complete 32-block reproduction
   followup.yml            verification, smoke and the fixed 28-job follow-up
   scenarios.yml           maximum-load reference gate and fixed 20-job comparison
+  migration.yml           concurrent-workload gate and 20 paired sequential histories
 ```
 
 There is one fixed design and runtime per series; the new follow-up is explicitly
@@ -80,6 +82,7 @@ python -m unittest discover -s probe1/tests -v
 python -m unittest discover -s probe2/tests -v
 python -B -m unittest discover -s probe3/tests -v
 python -B -m unittest discover -s probe4/tests -v
+python -B -m unittest discover -s probe5/tests -v
 ```
 
 Use the Actions interface for the authoritative checks:
