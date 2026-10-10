@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
-  "study_version": "threshold-scenarios-0.1.0",
+  "study_version": "threshold-scenarios-0.1.1",
   "parent_runtime": "probe3/runtime-v0.1.1.json",
   "parent_runtime_sha256": "b327ba590548452c1035ecdce0221f62bbd8e85505be13e892e3e9e6cdb15d7e",
-  "compose_overlay": "probe4/memory-v0.1.0.yaml",
+  "compose_overlay": "probe4/memory-v0.1.1.yaml",
   "memory_override": {
     "checkout_memory_bytes": 268435456,
     "checkout_gomemlimit": "192MiB",
-    "reason": "Increase fixed checkout memory reserve before all new observations to reduce the previously dominant 20-MiB OOM mechanism. This is a new runtime; do not pool with historical series or assume OOM is impossible. All other images, memory limits and restart policies remain pinned."
+    "astronomy_db_memory_bytes": 1073741824,
+    "reason": "Keep checkout reserve and increase PostgreSQL from 80 MiB to 1 GiB before all corrected observations. This fixed engineering reserve addresses directly observed pre-intervention database OOM, not an outcome-selected CPU allocation. All other images, limits and restart policies remain pinned. Do not pool with the cancelled attempt or assume OOM is impossible."
   },
   "workload": {
     "pre_allocated_vus": 800,

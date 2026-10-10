@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "probe4/scripts"))
-from scenarios import DESIGN, OVERLAY, RUNTIME, VERSION, arm, compose_prefix, engine, features, load, matrix, measurement_engine, sha256_file, validate, verify, write_json
+from scenarios import DESIGN, OVERLAY, RUNTIME, VERSION, arm, compose_prefix, engine, features, load, matrix, measurement_engine, sha256_file, smoke_spec, smoke_valid, validate, verify, write_json
 from compare import SIGNS, analyze, collect, compare, local_or_table, save, threshold_table
 
 
@@ -27,7 +27,7 @@ class DesignTests(unittest.TestCase):
 
     def test_fixed_inputs_verify(self):
         report = verify()
-        self.assertEqual((report["blocks"], report["point_trials"]), (12, 72))
+        self.assertEqual((report["blocks"], report["point_trials"]), (20, 120))
 
     def test_all_points_repeated_and_order_deterministic(self):
         rows = matrix(self.design)
@@ -35,7 +35,7 @@ class DesignTests(unittest.TestCase):
         for rate in self.design["rates"]:
             for panel in self.design["panels"]:
                 group = [r for r in rows if r["rate"] == rate and r["panel"] == panel]
-                self.assertEqual(len(group), 3)
+                self.assertEqual(len(group), 5)
                 for row in group:
                     self.assertEqual(set(row["order"]), set(self.design["panels"][panel]))
         self.assertGreater(len({tuple(r["order"]) for r in rows}), 2)
@@ -75,6 +75,26 @@ class DesignTests(unittest.TestCase):
             self.assertEqual(runner.VERSION, VERSION)
             self.assertEqual(runner.compose_prefix(ROOT, ROOT, "x")[-2:], ["-f", str(ROOT / OVERLAY)])
         self.assertEqual((engine.VERSION, engine.DESIGN, engine.RUNTIME, engine.compose_prefix), original)
+
+    def test_smoke_checks_full_duration_maximum_load_reference(self):
+        row, spec = smoke_spec(self.design)
+        self.assertEqual(row["rate"], 64)
+        self.assertEqual(row["order"], ["reference"])
+        self.assertEqual(spec["points"]["reference"], spec["reference"])
+        for field in ["warmup_seconds", "baseline_seconds", "stabilization_seconds", "test_seconds"]:
+            self.assertEqual(spec[field], self.design[field])
+
+    def test_smoke_rejects_reference_slo_failure_or_restart(self):
+        p = {"valid": True, "test": {"safe": True}, "diagnostics": {"generator_sample_intervals": 2},
+             "post_intervention_failures": {}}
+        self.assertTrue(smoke_valid(p))
+        p["post_intervention_failures"] = {"astronomy-db": {"restart_delta": 1}}
+        self.assertFalse(smoke_valid(p))
+        p["post_intervention_failures"] = {}
+        p["test"]["safe"] = False
+        self.assertFalse(smoke_valid(p))
+        p.update(valid=False, test=None)
+        self.assertFalse(smoke_valid(p))
 
 
 class ComparisonTests(unittest.TestCase):
@@ -148,7 +168,7 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(report["rates"]["40"]["valid"]["unsafe"], 0)
         self.assertEqual(report["rates"]["40"]["all_recoverable"]["unsafe"], 1)
         self.assertEqual(report["valid_points"], 5)
-        self.assertEqual(len(rows), 72)
+        self.assertEqual(len(rows), 120)
         self.assertFalse(next(r for r in rows if r["point_id"] == "joint_019" and r["recorded"])["unsafe"])
 
     def test_missing_latency_is_measured_unsafe(self):

@@ -15,10 +15,10 @@ sys.path.insert(0, str(ROOT / "probe3/scripts"))
 import run_block as engine
 from study import features, load, sha256_file, verify as verify_parent, write_json
 
-VERSION = "threshold-scenarios-0.1.0"
-DESIGN = "probe4/design-v0.1.0.json"
-RUNTIME = "probe4/runtime-v0.1.0.json"
-OVERLAY = "probe4/memory-v0.1.0.yaml"
+VERSION = "threshold-scenarios-0.1.1"
+DESIGN = "probe4/design-v0.1.1.json"
+RUNTIME = "probe4/runtime-v0.1.1.json"
+OVERLAY = "probe4/memory-v0.1.1.yaml"
 BASE_COMPOSE = engine.compose_prefix
 
 
@@ -39,6 +39,19 @@ def arm(design: dict, row: dict) -> dict:
     return {**design, "rate": row["rate"], "points": design["panels"][row["panel"]]}
 
 
+def smoke_spec(design: dict) -> tuple[dict, dict]:
+    row = {"block_id": "smoke", "panel": "joint", "rate": max(design["rates"]),
+           "repetition": 0, "order": ["reference"]}
+    return row, arm(design, row)
+
+
+def smoke_valid(point: dict) -> bool:
+    return (point["valid"] and point["test"]["safe"]
+            and not point.get("post_intervention_failures")
+            and not any(e["post_intervention"] for e in point.get("diagnostics", {}).get("failure_events", []))
+            and point.get("diagnostics", {}).get("generator_sample_intervals", 0) > 0)
+
+
 def compose_prefix(repo: Path, upstream: Path, project: str) -> list[str]:
     return [*BASE_COMPOSE(repo, upstream, project), "-f", str(repo / OVERLAY)]
 
@@ -46,7 +59,7 @@ def compose_prefix(repo: Path, upstream: Path, project: str) -> list[str]:
 def validate(design: dict, runtime: dict) -> None:
     if design["study_version"] != VERSION or runtime["study_version"] != VERSION:
         raise ValueError("scenario version mismatch")
-    if design["rates"] != [40, 64] or design["repetitions"] != 3:
+    if design["rates"] != [40, 64] or design["repetitions"] != 5:
         raise ValueError("unexpected fixed loads or repeat count")
     if set(design["panels"]) != {"joint", "selective"} or any(len(p) != 6 for p in design["panels"].values()):
         raise ValueError("expected two six-point panels")
@@ -70,6 +83,8 @@ def validate(design: dict, runtime: dict) -> None:
         raise ValueError("unexpected memory reserve")
     if runtime["memory_override"]["checkout_gomemlimit"] != "192MiB":
         raise ValueError("unexpected Go memory limit")
+    if runtime["memory_override"]["astronomy_db_memory_bytes"] != 1024 * 1024 * 1024:
+        raise ValueError("unexpected PostgreSQL memory reserve")
     if design["analysis"]["binary_success_criterion"] is not None or design["analysis"]["pool_rates"]:
         raise ValueError("no binary scientific criterion or pooled-load analysis")
 
@@ -92,6 +107,9 @@ def verify(repo: Path = ROOT, upstream: Path | None = None, check_runner: bool =
             raise ValueError("rendered checkout memory differs")
         if checkout["environment"]["GOMEMLIMIT"] != runtime["memory_override"]["checkout_gomemlimit"]:
             raise ValueError("rendered GOMEMLIMIT differs")
+        database = rendered["services"]["astronomy-db"]
+        if int(database["deploy"]["resources"]["limits"]["memory"]) != runtime["memory_override"]["astronomy_db_memory_bytes"]:
+            raise ValueError("rendered PostgreSQL memory differs")
         report["rendered_compose_sha256"] = hashlib.sha256(
             json.dumps(rendered, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     return report
@@ -124,9 +142,7 @@ def execute(upstream: Path, block_id: str, output: Path, smoke: bool = False) ->
                "runner_image_version": os.getenv("ImageVersion"), "cpu_count": os.cpu_count(),
                "verification": verification, "repository_commit": os.environ["GITHUB_SHA"]})
     if smoke:
-        row = {"block_id": "smoke", "panel": "joint", "rate": 1, "repetition": 0, "order": ["reference"]}
-        spec = arm(design, row)
-        spec.update(warmup_seconds=15, baseline_seconds=10, stabilization_seconds=5, test_seconds=10)
+        row, spec = smoke_spec(design)
     else:
         row = next(r for r in matrix(design) if r["block_id"] == block_id)
         spec = arm(design, row)
@@ -144,7 +160,7 @@ def execute(upstream: Path, block_id: str, output: Path, smoke: bool = False) ->
     write_json(output / "block-result.json", block)
     if smoke:
         p = points["reference"]
-        return 0 if p["valid"] and p.get("diagnostics", {}).get("generator_sample_intervals", 0) > 0 else 1
+        return 0 if smoke_valid(p) else 1
     return 0
 
 

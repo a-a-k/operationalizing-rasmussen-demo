@@ -6,3 +6,8 @@ services:
           memory: 256M
     environment:
       GOMEMLIMIT: 192MiB
+  astronomy-db:
+    deploy:
+      resources:
+        limits:
+          memory: 1024M

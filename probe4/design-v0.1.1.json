@@ -1,10 +1,11 @@
 {
   "schema_version": 1,
-  "study_version": "threshold-scenarios-0.1.0",
+  "study_version": "threshold-scenarios-0.1.1",
+  "execution_revision": "Increase fixed PostgreSQL memory reserve after pre-intervention database OOM in cancelled 0.1.0. Verify the reference at the maximum planned load before the matrix. At explicit request, use five instead of three repetitions for 20 parallel jobs. Allocations, loads, order salt, scientific phase timings, SLO and threshold comparison are unchanged; never pool attempts.",
   "purpose": "Small descriptive comparison of local-quota and compositional thresholds across fixed redistribution directions. No expected SLO labels are assigned.",
   "randomization_salt": "threshold-scenarios-20261010-v0.1.0",
   "rates": [40, 64],
-  "repetitions": 3,
+  "repetitions": 5,
   "http_timeout_seconds": 5,
   "warmup_seconds": 60,
   "baseline_seconds": 90,

@@ -9,7 +9,7 @@ No scenario is assigned an expected safe or unsafe outcome.
 ## Fixed scope
 
 There are 12 allocations, two fixed checkout loads (40 and 64 iterations/s),
-and three repetitions: 72 fresh-stack point trials in 12 parallel jobs. Each
+and five repetitions: 120 fresh-stack point trials in 20 parallel jobs. Each
 job measures six points in a deterministic hash-randomized order. It starts a
 new stack and storage, measures the reference baseline, then applies one CPU
 allocation for every point. Order is randomized, not exactly position-balanced.
@@ -37,15 +37,18 @@ differences between those permutations are retained as limitations of the score.
 
 ## Runtime and outcome
 
-[design-v0.1.0.json](design-v0.1.0.json) fixes scenarios, timings, loads, repeats
-and analysis. [runtime-v0.1.0.json](runtime-v0.1.0.json) inherits the pinned
+[design-v0.1.1.json](design-v0.1.1.json) fixes scenarios, timings, loads, repeats
+and analysis. [runtime-v0.1.1.json](runtime-v0.1.1.json) inherits the pinned
 deployment and corrected 800-VU measurement path from the preceding follow-up.
-The separate [memory overlay](memory-v0.1.0.yaml) gives checkout a fixed 256-MiB
-limit and GOMEMLIMIT=192MiB for all new observations. This reduces dependence on
-the historical 20-MiB ceiling; it does not guarantee freedom from OOM or isolate
-every possible failure mechanism. All other image digests and restart policies
-remain unchanged. Rendered Compose, image inspection and resource samples are
-retained.
+The separate [memory overlay](memory-v0.1.1.yaml) gives checkout a fixed 256-MiB
+limit and GOMEMLIMIT=192MiB, and PostgreSQL a fixed 1-GiB limit, for all corrected
+observations. The first attempt was cancelled after pre-intervention database
+OOM at its original 80-MiB ceiling. Its measurements are not pooled with this
+execution. Allocations and loads are unchanged; repetitions were increased from
+three to five before the corrected execution. Memory reserve does not guarantee
+freedom from OOM or isolate every failure mechanism. All image digests and restart
+policies remain unchanged. Rendered Compose, inspections and resource samples
+are retained.
 
 Every point uses 60 s warmup, 90 s reference baseline, 30 s loaded stabilization,
 and 90 s test, with up to 30 s graceful completion per phase. There are two
@@ -79,7 +82,7 @@ The automatic result artifact contains:
 - `RESULTS.md`: scenario outcomes and complete false-alarm-budget tables;
 - `comparison.json`: all rules, confusion counts and envelopes;
 - `thresholds.csv`: every threshold and its TP/FP/FN/TN counts;
-- `point-level.csv`: all 72 planned observations, including missing/invalid points.
+- `point-level.csv`: all 120 planned observations, including missing/invalid points.
 
 Valid outcomes and all recoverable outcomes are reported separately. Nothing is
 pooled with previous probes. Raw k6 streams and diagnostic traces are retained
@@ -89,7 +92,10 @@ in each job artifact, separately from the compact comparison.
 
 Run `allocation-threshold-scenarios` in GitHub Actions with `expected_sha` set
 to the exact input commit and `execute=true`. Static tests and an end-to-end
-smoke precede the fixed matrix; `execute=false` performs only that verification.
+reference gate at the maximum planned load and full scientific durations precedes
+the fixed matrix. The reference must remain SLO-safe without failures; this
+engineering gate is not a success criterion for redistributed allocations.
+`execute=false` performs only that verification.
 The workflow does not launch additional campaigns. Local work is limited to:
 
 ```bash

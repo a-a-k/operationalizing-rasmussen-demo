@@ -1,0 +1,13 @@
+{
+  "superseded_attempt": {
+    "study_version": "threshold-scenarios-0.1.0",
+    "execution_commit": "98c31d0b1903eb1962bc6a8931e2e52f7ab9ce8c",
+    "workflow_run_id": 38069198895,
+    "disposition": "Cancelled on request after observed pre-intervention PostgreSQL OOM at the pinned 80-MiB limit. No pooling with the corrected runtime.",
+    "original_inputs": "Retained in the execution commit; not an alternative active design."
+  },
+  "corrected_execution": {
+    "study_version": "threshold-scenarios-0.1.1",
+    "changes": "PostgreSQL memory 80 MiB to 1 GiB; full-duration maximum-load reference gate; five rather than three repeats to use 20 parallel jobs on request. No change to scenario quotas, rates, scientific timings, SLO definition, or threshold comparison."
+  }
+}

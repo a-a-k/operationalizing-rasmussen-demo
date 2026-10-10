@@ -8,7 +8,7 @@ import statistics
 from collections import Counter
 from pathlib import Path
 
-from scenarios import DESIGN, ROOT, RUNTIME, VERSION, arm, features, load, matrix, sha256_file, write_json
+from scenarios import DESIGN, OVERLAY, ROOT, RUNTIME, VERSION, arm, features, load, matrix, sha256_file, write_json
 
 SIGNS = {"R_group": 1, "checkout_quota": -1, "payment_quota": -1,
          "shipping_quota": -1, "minimum_group_quota": -1, "group_sum": -1,
@@ -69,7 +69,7 @@ def collect(repo: Path, design: dict, blocks: dict, commit: str) -> tuple[list[d
     if set(blocks) - set(expected):
         raise ValueError("unexpected block IDs")
     hashes = {"design_sha256": sha256_file(repo / DESIGN), "runtime_sha256": sha256_file(repo / RUNTIME),
-              "overlay_sha256": sha256_file(repo / "probe4/memory-v0.1.0.yaml")}
+              "overlay_sha256": sha256_file(repo / OVERLAY)}
     rows = []
     for bid, spec in expected.items():
         block = blocks.get(bid)
@@ -148,7 +148,7 @@ def markdown(report: dict) -> str:
     text = ["# Allocation scenarios: threshold comparison", "",
             "Exploratory, in-sample comparison; no held-out prediction, binary scientific success criterion, or pooling with earlier observations.", "",
             f"Recorded {report['recorded_points']}/{report['planned_points']} points; valid {report['valid_points']}. Missing blocks: {report['missing_blocks']}.", "",
-            "Checkout uses a fixed 256-MiB memory reserve and GOMEMLIMIT=192MiB in this new series. OOM/restart is diagnostic, never an SLO-label override or exclusion.", ""]
+            "Fixed memory reserves: checkout 256 MiB (GOMEMLIMIT=192MiB), PostgreSQL 1 GiB. OOM/restart is diagnostic, never an SLO-label override or exclusion. No pooling with the cancelled runtime attempt.", ""]
     for rate, data in report["rates"].items():
         text.extend([f"## Fixed load: {rate} iterations/s", "",
                      "| Allocation | CPU: checkout / payment / shipping / ad | Balance displacement | Unsafe / valid | Unsafe / recoverable | Failures / OOM | Median p95, valid (ms) |",
@@ -176,7 +176,7 @@ def markdown(report: dict) -> str:
                  "Multiple redistribution directions expand the tested state context; the joint panel alone would merely compare monotone reparameterizations. Identical balance values with different SLO outcomes remain evidence against scalar sufficiency and are not discarded.", "",
                  "The reference allocation is a sham intervention, not an expected-safe label. Baseline failures can prevent a test; missing and invalid points remain in the point table. Recoverable technical-invalid outcomes are also compared separately. Results at the two loads are never pooled.", "",
                  "These are independently measured allocations, not a temporally observed adaptive process. They show representation and discrimination on fixed scenarios, not adaptation incentives, advertisement performance, early warning, or general operational reliability.", "",
-                 "Full rules, confusion counts and false-alarm-budget envelopes: comparison.json and thresholds.csv. All 72 planned point records, including missing/invalid observations: point-level.csv.", ""])
+                 f"Full rules, confusion counts and false-alarm-budget envelopes: comparison.json and thresholds.csv. All {report['planned_points']} planned point records, including missing/invalid observations: point-level.csv.", ""])
     return "\n".join(text)
 
 
