@@ -87,3 +87,18 @@ download them for archival before expiration.
 The compact result contains `summary.json`, `trajectory-level.csv`,
 `paired-epochs.csv` and `RESULTS.md`. Digest-pinned images, full action SHAs and
 the pinned upstream RPC definition are inherited and checked before execution.
+
+## Recorded execution
+
+The [committed results](results/) contain 19 retained pairs from 20 planned runners.
+Every retained adaptive history crossed the checkout SLO boundary after 8--13
+transfers, whereas every unchanged control stayed safe through all 18 epochs.
+Advertising goodput was higher in every matched crossing contrast, including
+after subtracting each history's own baseline. Sixteen of 214 individual adaptive
+moves nevertheless reduced goodput; all remain in the data.
+
+One runner lost communication and produced no artifact. It was not replaced or
+counted as an SLO outcome. The execution and aggregate completeness check therefore
+failed, although the 19 saved pairs passed their measurement and history checks.
+See the [interpretation and provenance](results/README.md) for exact counts,
+the missing block, and the boundary of the supported claim.

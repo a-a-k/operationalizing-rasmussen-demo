@@ -1,0 +1,895 @@
+{
+  "analysis": {
+    "binary_success_criterion": null,
+    "failure_rule": "SLO labels depend exclusively on checkout p95 and unsuccessful scheduled iterations. Post-baseline restarts/OOM are diagnostics, not automatic exclusions or label overrides. Technical-invalid readable outcomes remain visible. Pre-adaptation baseline failures prevent interpreting that history as initially safe.",
+    "main_evidence": "Show both objectives and allocation coordinates at every epoch, the observed drift crossing (or its absence), and the matched no-transfer control. Count complete valid histories, crossings, gains and losses without a majority criterion.",
+    "monitoring_scope": "Report cumulative balance displacement, Euclidean/Aitchison radial displacement, each quota and each quota's cumulative loss. No fitted warning cutoff or detector-superiority claim. Along one monotone path, a component threshold can encode the same crossing as a balance threshold.",
+    "paired_contrast": "For every common valid epoch, report the drift-minus-control checkout latency and the difference between their goodput changes from their own baselines. The contrast at the drift's first unsafe epoch is descriptive and outcome-selected, not a preselected causal estimand.",
+    "replacement_rule": "No replacements, optional extensions, outcome-based pruning, or pooling with other series."
+  },
+  "counts": {
+    "control": {
+      "baseline_valid": 19,
+      "histories_with_unsafe_epoch": 0,
+      "stop_reasons": {
+        "move_limit_reached": 19
+      },
+      "valid_histories": 19
+    },
+    "drift": {
+      "baseline_valid": 19,
+      "histories_with_unsafe_epoch": 19,
+      "stop_reasons": {
+        "observed_slo_boundary": 19
+      },
+      "valid_histories": 19
+    }
+  },
+  "crossings": [
+    {
+      "block_id": "migration-001",
+      "contrast": {
+        "block_id": "migration-001",
+        "control_goodput": 278.05,
+        "control_safe": true,
+        "drift_goodput": 1861.5833333333333,
+        "drift_safe": false,
+        "epoch": 11,
+        "goodput_change_difference": 1588.6333333333332,
+        "latency_difference_ms": 504.8679280499995,
+        "valid_pair": true
+      },
+      "drift_crossing": 11
+    },
+    {
+      "block_id": "migration-002",
+      "contrast": {
+        "block_id": "migration-002",
+        "control_goodput": 485.93333333333334,
+        "control_safe": true,
+        "drift_goodput": 4182.8,
+        "drift_safe": false,
+        "epoch": 13,
+        "goodput_change_difference": 3698.411111111111,
+        "latency_difference_ms": 594.8274592499998,
+        "valid_pair": true
+      },
+      "drift_crossing": 13
+    },
+    {
+      "block_id": "migration-003",
+      "contrast": {
+        "block_id": "migration-003",
+        "control_goodput": 264.1666666666667,
+        "control_safe": true,
+        "drift_goodput": 1697.1,
+        "drift_safe": false,
+        "epoch": 10,
+        "goodput_change_difference": 1425.5111111111112,
+        "latency_difference_ms": 559.4029300499999,
+        "valid_pair": true
+      },
+      "drift_crossing": 10
+    },
+    {
+      "block_id": "migration-004",
+      "contrast": {
+        "block_id": "migration-004",
+        "control_goodput": 396.3833333333333,
+        "control_safe": true,
+        "drift_goodput": 2816.1666666666665,
+        "drift_safe": false,
+        "epoch": 13,
+        "goodput_change_difference": 2413.8277777777776,
+        "latency_difference_ms": 873.8389818499998,
+        "valid_pair": true
+      },
+      "drift_crossing": 13
+    },
+    {
+      "block_id": "migration-005",
+      "contrast": {
+        "block_id": "migration-005",
+        "control_goodput": 286.3666666666667,
+        "control_safe": true,
+        "drift_goodput": 1449.5833333333333,
+        "drift_safe": false,
+        "epoch": 8,
+        "goodput_change_difference": 1166.1388888888887,
+        "latency_difference_ms": 392.05747824999924,
+        "valid_pair": true
+      },
+      "drift_crossing": 8
+    },
+    {
+      "block_id": "migration-007",
+      "contrast": {
+        "block_id": "migration-007",
+        "control_goodput": 342.85,
+        "control_safe": true,
+        "drift_goodput": 2126.4333333333334,
+        "drift_safe": false,
+        "epoch": 11,
+        "goodput_change_difference": 1782.1388888888891,
+        "latency_difference_ms": 539.5007754499998,
+        "valid_pair": true
+      },
+      "drift_crossing": 11
+    },
+    {
+      "block_id": "migration-008",
+      "contrast": {
+        "block_id": "migration-008",
+        "control_goodput": 323.8833333333333,
+        "control_safe": true,
+        "drift_goodput": 2317.5833333333335,
+        "drift_safe": false,
+        "epoch": 11,
+        "goodput_change_difference": 1996.1000000000004,
+        "latency_difference_ms": 459.7081856499998,
+        "valid_pair": true
+      },
+      "drift_crossing": 11
+    },
+    {
+      "block_id": "migration-009",
+      "contrast": {
+        "block_id": "migration-009",
+        "control_goodput": 338.45,
+        "control_safe": true,
+        "drift_goodput": 2921.2,
+        "drift_safe": false,
+        "epoch": 13,
+        "goodput_change_difference": 2578.9388888888884,
+        "latency_difference_ms": 794.8520894999997,
+        "valid_pair": true
+      },
+      "drift_crossing": 13
+    },
+    {
+      "block_id": "migration-010",
+      "contrast": {
+        "block_id": "migration-010",
+        "control_goodput": 381.18333333333334,
+        "control_safe": true,
+        "drift_goodput": 3136.983333333333,
+        "drift_safe": false,
+        "epoch": 13,
+        "goodput_change_difference": 2754.511111111111,
+        "latency_difference_ms": 826.2569909999995,
+        "valid_pair": true
+      },
+      "drift_crossing": 13
+    },
+    {
+      "block_id": "migration-011",
+      "contrast": {
+        "block_id": "migration-011",
+        "control_goodput": 303.0833333333333,
+        "control_safe": true,
+        "drift_goodput": 1759.85,
+        "drift_safe": false,
+        "epoch": 10,
+        "goodput_change_difference": 1462.822222222222,
+        "latency_difference_ms": 564.8224851499999,
+        "valid_pair": true
+      },
+      "drift_crossing": 10
+    },
+    {
+      "block_id": "migration-012",
+      "contrast": {
+        "block_id": "migration-012",
+        "control_goodput": 406.96666666666664,
+        "control_safe": true,
+        "drift_goodput": 3091.766666666667,
+        "drift_safe": false,
+        "epoch": 13,
+        "goodput_change_difference": 2697.3,
+        "latency_difference_ms": 774.9868086999994,
+        "valid_pair": true
+      },
+      "drift_crossing": 13
+    },
+    {
+      "block_id": "migration-013",
+      "contrast": {
+        "block_id": "migration-013",
+        "control_goodput": 290.75,
+        "control_safe": true,
+        "drift_goodput": 1714.2666666666667,
+        "drift_safe": false,
+        "epoch": 10,
+        "goodput_change_difference": 1421.538888888889,
+        "latency_difference_ms": 490.67539884999985,
+        "valid_pair": true
+      },
+      "drift_crossing": 10
+    },
+    {
+      "block_id": "migration-014",
+      "contrast": {
+        "block_id": "migration-014",
+        "control_goodput": 267.46666666666664,
+        "control_safe": true,
+        "drift_goodput": 1860.5333333333333,
+        "drift_safe": false,
+        "epoch": 11,
+        "goodput_change_difference": 1594.2111111111112,
+        "latency_difference_ms": 507.5929476499997,
+        "valid_pair": true
+      },
+      "drift_crossing": 11
+    },
+    {
+      "block_id": "migration-015",
+      "contrast": {
+        "block_id": "migration-015",
+        "control_goodput": 297.03333333333336,
+        "control_safe": true,
+        "drift_goodput": 1698.4333333333334,
+        "drift_safe": false,
+        "epoch": 10,
+        "goodput_change_difference": 1394.2888888888888,
+        "latency_difference_ms": 446.18538435000005,
+        "valid_pair": true
+      },
+      "drift_crossing": 10
+    },
+    {
+      "block_id": "migration-016",
+      "contrast": {
+        "block_id": "migration-016",
+        "control_goodput": 297.1,
+        "control_safe": true,
+        "drift_goodput": 1738.45,
+        "drift_safe": false,
+        "epoch": 10,
+        "goodput_change_difference": 1443.9722222222222,
+        "latency_difference_ms": 436.7414503499999,
+        "valid_pair": true
+      },
+      "drift_crossing": 10
+    },
+    {
+      "block_id": "migration-017",
+      "contrast": {
+        "block_id": "migration-017",
+        "control_goodput": 264.78333333333336,
+        "control_safe": true,
+        "drift_goodput": 1822.6833333333334,
+        "drift_safe": false,
+        "epoch": 10,
+        "goodput_change_difference": 1563.8,
+        "latency_difference_ms": 524.09811795,
+        "valid_pair": true
+      },
+      "drift_crossing": 10
+    },
+    {
+      "block_id": "migration-018",
+      "contrast": {
+        "block_id": "migration-018",
+        "control_goodput": 445.4,
+        "control_safe": true,
+        "drift_goodput": 3024.3333333333335,
+        "drift_safe": false,
+        "epoch": 13,
+        "goodput_change_difference": 2575.477777777778,
+        "latency_difference_ms": 731.9423297999991,
+        "valid_pair": true
+      },
+      "drift_crossing": 13
+    },
+    {
+      "block_id": "migration-019",
+      "contrast": {
+        "block_id": "migration-019",
+        "control_goodput": 261.43333333333334,
+        "control_safe": true,
+        "drift_goodput": 1973.3833333333334,
+        "drift_safe": false,
+        "epoch": 11,
+        "goodput_change_difference": 1718.1055555555556,
+        "latency_difference_ms": 416.3705964999998,
+        "valid_pair": true
+      },
+      "drift_crossing": 11
+    },
+    {
+      "block_id": "migration-020",
+      "contrast": {
+        "block_id": "migration-020",
+        "control_goodput": 511.01666666666665,
+        "control_safe": true,
+        "drift_goodput": 4556.05,
+        "drift_safe": false,
+        "epoch": 13,
+        "goodput_change_difference": 4036.7111111111117,
+        "latency_difference_ms": 594.61623875,
+        "valid_pair": true
+      },
+      "drift_crossing": 13
+    }
+  ],
+  "histories": {
+    "migration-001": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 6,
+        "positive_goodput_moves": 12,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 11,
+        "exception": null,
+        "first_unsafe_epoch": 11,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 10,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-002": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 5,
+        "positive_goodput_moves": 13,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 13,
+        "exception": null,
+        "first_unsafe_epoch": 13,
+        "negative_goodput_moves": 0,
+        "positive_goodput_moves": 13,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-003": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 6,
+        "positive_goodput_moves": 12,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 10,
+        "exception": null,
+        "first_unsafe_epoch": 10,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 9,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-004": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 4,
+        "positive_goodput_moves": 14,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 13,
+        "exception": null,
+        "first_unsafe_epoch": 13,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 12,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-005": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 4,
+        "positive_goodput_moves": 14,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 8,
+        "exception": null,
+        "first_unsafe_epoch": 8,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 7,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-007": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 6,
+        "positive_goodput_moves": 12,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 11,
+        "exception": null,
+        "first_unsafe_epoch": 11,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 10,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-008": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 6,
+        "positive_goodput_moves": 12,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 11,
+        "exception": null,
+        "first_unsafe_epoch": 11,
+        "negative_goodput_moves": 0,
+        "positive_goodput_moves": 11,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-009": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 6,
+        "positive_goodput_moves": 12,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 13,
+        "exception": null,
+        "first_unsafe_epoch": 13,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 12,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-010": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 5,
+        "positive_goodput_moves": 13,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 13,
+        "exception": null,
+        "first_unsafe_epoch": 13,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 12,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-011": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 6,
+        "positive_goodput_moves": 12,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 10,
+        "exception": null,
+        "first_unsafe_epoch": 10,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 9,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-012": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 5,
+        "positive_goodput_moves": 13,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 13,
+        "exception": null,
+        "first_unsafe_epoch": 13,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 12,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-013": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 4,
+        "positive_goodput_moves": 14,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 10,
+        "exception": null,
+        "first_unsafe_epoch": 10,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 9,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-014": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 7,
+        "positive_goodput_moves": 11,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 11,
+        "exception": null,
+        "first_unsafe_epoch": 11,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 10,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-015": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 5,
+        "positive_goodput_moves": 13,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 10,
+        "exception": null,
+        "first_unsafe_epoch": 10,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 9,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-016": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 5,
+        "positive_goodput_moves": 13,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 10,
+        "exception": null,
+        "first_unsafe_epoch": 10,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 9,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-017": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 6,
+        "positive_goodput_moves": 12,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 10,
+        "exception": null,
+        "first_unsafe_epoch": 10,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 9,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-018": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 5,
+        "positive_goodput_moves": 13,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 13,
+        "exception": null,
+        "first_unsafe_epoch": 13,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 12,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-019": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 4,
+        "positive_goodput_moves": 14,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 11,
+        "exception": null,
+        "first_unsafe_epoch": 11,
+        "negative_goodput_moves": 1,
+        "positive_goodput_moves": 10,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    },
+    "migration-020": {
+      "control": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 18,
+        "exception": null,
+        "first_unsafe_epoch": null,
+        "negative_goodput_moves": 6,
+        "positive_goodput_moves": 12,
+        "stop_reason": "move_limit_reached",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      },
+      "drift": {
+        "baseline_reasons": [],
+        "baseline_valid": true,
+        "diagnostic_errors": [],
+        "epochs": 13,
+        "exception": null,
+        "first_unsafe_epoch": 13,
+        "negative_goodput_moves": 0,
+        "positive_goodput_moves": 13,
+        "stop_reason": "observed_slo_boundary",
+        "system_failure_epochs": 0,
+        "valid_history": true,
+        "zero_goodput_moves": 0
+      }
+    }
+  },
+  "missing_blocks": [
+    "migration-006"
+  ],
+  "planned_blocks": 20,
+  "received_blocks": 19,
+  "repository_commit": "2ef95678d96df210bfa7694be12d5f08c1890c9f",
+  "status": "incomplete",
+  "study_version": "adaptive-migration-0.1.0"
+}

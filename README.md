@@ -16,7 +16,7 @@ request p95 is at most 500 ms and the error rate is below 1%.
 | [Probe 2](probe2/) | The same 0.19-CPU local quota is applied to checkout, payment, or shipping alone, and then to all three jointly, within balanced cyclic four-condition blocks. | Does one component's quota represent the joint allocation context? | Every valid singleton point was safe. The joint point was unsafe in 9/32 blocks; the complete within-block pattern occurred in 8/28 valid blocks (exact 95% CI 0.132--0.487). [Blocks and aggregate](probe2/results/summary.json) |
 | [Fixed follow-up](probe3/) | Corrected A/B plus six fixed context conditions matched on simple summaries; 104 fresh-stack points. | Does the A/B contrast recur with adequate generator capacity, and what do balance, sum, count and minimum retain or lose? | New observations only; no pooling or fitted detector. Results are reported separately when execution completes. |
 | [Threshold scenarios](probe4/) | Twelve fixed redistribution states at two loads, five repetitions; 120 new fresh-stack points with increased checkout and database memory reserves. | How do balance and local or combined quota thresholds trade off missed SLO violations and false alarms on these scenarios? | Exploratory in-sample comparison of all thresholds, reported separately; no calibration split, binary scientific criterion, or pooling. |
-| [Adaptive migration](probe5/) | Twenty paired sequential adaptation/control histories with simultaneous checkout and advertising workloads. | Can measured recipient output pressure motivate successive closed-budget transfers that erode checkout performance and cross its SLO boundary? | Separate constructed mechanism test; gains, crossings and unchanged controls are measured, not assumed. No detector-superiority claim. |
+| [Adaptive migration](probe5/) | Twenty planned paired sequential adaptation/control histories with simultaneous checkout and advertising workloads. | Can measured recipient output pressure motivate successive closed-budget transfers that erode checkout performance and cross its SLO boundary? | Nineteen pairs were retained; one runner lost communication and supplied no artifact. All 19 adaptive histories crossed the SLO boundary after 8--13 transfers; all 19 unchanged controls remained safe. Advertising goodput increased relative to the matched controls. No detector-superiority claim. [Results and limitations](probe5/results/) |
 
 Probe 1 shows that distance from a reference composition is not a risk direction:
 a larger radial change can remain safe while a smaller, risk-directed change
@@ -97,6 +97,9 @@ Use the Actions interface for the authoritative checks:
 5. Run `allocation-threshold-scenarios` with its exact commit and `execute=true`
    for the separate 120-point exploratory comparison. It has a maximum-load gate
    and a fixed matrix, with no automatic additional waves.
+6. Run `adaptive-boundary-migration` with its exact commit and `execute=true`
+   for the separate 20-pair sequential mechanism test. Its engineering gate
+   verifies simultaneous workloads; no replacement jobs are dispatched.
 
 Full reruns are deliberately manual and computationally expensive. The compact
 reported evidence is committed under each probe's `results/` directory, so
