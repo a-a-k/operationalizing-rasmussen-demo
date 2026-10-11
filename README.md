@@ -17,12 +17,15 @@ request p95 is at most 500 ms and the error rate is below 1%.
 | [Fixed follow-up](probe3/) | Corrected A/B plus six fixed context conditions matched on simple summaries; 104 fresh-stack points. | Does the A/B contrast recur with adequate generator capacity, and what do balance, sum, count and minimum retain or lose? | New observations only; no pooling or fitted detector. Results are reported separately when execution completes. |
 | [Threshold scenarios](probe4/) | Twelve fixed redistribution states at two loads, five repetitions; 120 new fresh-stack points with increased checkout and database memory reserves. | How do balance and local or combined quota thresholds trade off missed SLO violations and false alarms on these scenarios? | Exploratory in-sample comparison of all thresholds, reported separately; no calibration split, binary scientific criterion, or pooling. |
 | [Adaptive migration](probe5/) | Twenty planned paired sequential adaptation/control histories with simultaneous checkout and advertising workloads. | Can measured recipient output pressure motivate successive closed-budget transfers that erode checkout performance and cross its SLO boundary? | Nineteen pairs were retained; one runner lost communication and supplied no artifact. All 19 adaptive histories crossed the SLO boundary after 8--13 transfers; all 19 unchanged controls remained safe. Advertising goodput increased relative to the matched controls. No detector-superiority claim. [Results and limitations](probe5/results/) |
-| [Joint CPU/memory migration](probe6/) | Twenty planned four-history blocks: control, CPU-only, RAM-only and joint transfers, with separately closed budgets. | Can joint adaptation violate the SLO at a step where both single-resource histories remain safe? | New separate exploratory design; no results yet. A four-history engineering gate requires actual memory-cap binding before campaign execution. |
+| [Joint CPU/memory follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) | Twenty planned four-history blocks: control, CPU-only, RAM-only and joint transfers, with separately closed budgets and a fixed six-step path. | Can joint adaptation violate the SLO at a step where both single-resource histories remain safe? | Separate engineering-informed follow-up; no campaign results yet. Prior engineering observations are not pooled with these blocks. |
 
 The first joint-resource engineering execution found no binding memory ceiling,
 so its twenty-block campaign did not start. A separate fixed
-[nine-condition RAM range check](probe6/RAM_CALIBRATION_v0.1.0.md) investigates
-ceilings near observed consumption; its engineering data are not campaign results.
+[nine-condition RAM range check](probe6/RAM_CALIBRATION_v0.1.0.md) found safe
+outcomes with memory-cap events at 32/28 MiB and unsafe outcomes at 24/20 MiB,
+one observation per ceiling. Its engineering data are not campaign results.
+The active [v0.2.0 follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) fixes a new path
+before twenty new blocks; the previously executed definitions remain unchanged.
 
 Probe 1 shows that distance from a reference composition is not a risk direction:
 a larger radial change can remain safe while a smaller, risk-directed change
@@ -71,6 +74,8 @@ probe3/
   scenarios.yml           maximum-load reference gate and fixed 20-job comparison
   migration.yml           concurrent-workload gate and 20 paired sequential histories
   joint-resources.yml     memory-binding engineering gate and 20 four-history blocks
+  ram-calibration.yml     separate fixed nine-condition RAM engineering check
+  joint-resources-v0.2.yml  fixed engineering-informed 20-block follow-up
 ```
 
 There is one fixed design and runtime per series; the new follow-up is explicitly
@@ -108,10 +113,12 @@ Use the Actions interface for the authoritative checks:
 6. Run `adaptive-boundary-migration` with its exact commit and `execute=true`
    for the separate 20-pair sequential mechanism test. Its engineering gate
    verifies simultaneous workloads; no replacement jobs are dispatched.
-7. Run `joint-cpu-memory-migration` with its exact commit and `execute=true`
-   for the separate twenty-block CPU/memory comparison. It starts only after
-   its four engineering histories establish instrumentation integrity and real
-   memory-cap binding. Use `execute=false` for engineering observations only.
+7. The historical `joint-cpu-memory-migration` retains the original v0.1.0
+   engineering-gated design. It is not the active CPU/memory follow-up.
+8. Run `joint-cpu-memory-followup` with its exact commit for the active v0.2.0
+   twenty-block comparison. Its fixed six-step path and separate scripts use
+   the observed RAM range; every history independently checks its baseline.
+   No prior engineering data enter the new block-level aggregate.
 
 Full reruns are deliberately manual and computationally expensive. The compact
 reported evidence is committed under each probe's `results/` directory, so

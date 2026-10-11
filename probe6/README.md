@@ -1,5 +1,12 @@
 # Joint CPU/memory boundary migration
 
+The active engineering-informed follow-up is documented in
+[JOINT_RESOURCES_v0.2.0.md](JOINT_RESOURCES_v0.2.0.md). The separate RAM range
+check is documented in [RAM_CALIBRATION_v0.1.0.md](RAM_CALIBRATION_v0.1.0.md).
+The remainder of this page describes the historical v0.1.0 design; its initial
+engineering execution did not observe a binding memory cap, so its campaign
+never started. Previously executed inputs and scripts remain unchanged.
+
 This separate exploratory series tests whether the observed safety of one
 resource adaptation depends on another resource allocation. It neither replaces
 nor pools earlier results. No observation from this series has yet been reported.
