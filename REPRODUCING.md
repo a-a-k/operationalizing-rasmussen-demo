@@ -80,3 +80,7 @@ from a CSV. Preserve raw artifacts separately before expiry for new reruns.
 Keep the committed compact evidence available through review and subsequent
 archival use. Actions retention is not the repository's archival lifetime.
 Preserve a durable snapshot of the exact reviewed commit and its checksum manifest.
+
+The manifest excludes only itself and LICENSE. A review mirror may redact the
+copyright holder without changing the measurement evidence. This exception
+does not permit changes to code, data, designs or interpretation documents.

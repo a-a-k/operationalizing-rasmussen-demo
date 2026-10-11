@@ -79,7 +79,10 @@ analyses are explicitly versioned and do not alter frozen experiments.
 Committed observations, aggregates and rules are the reviewable archive;
 reading them does not depend on short-lived Actions artifacts. Native streams
 and diagnostics are distinct execution artifacts, not reconstructed by compact
-tables. [SHA256SUMS](SHA256SUMS) covers archived files using canonical LF text bytes.
+tables. [SHA256SUMS](SHA256SUMS) covers code, data and documentation using
+canonical LF text bytes. LICENSE is excluded so redacting its copyright holder
+in a review mirror does not invalidate code/data verification; the original
+license attribution is retained in the source repository.
 
 ## License
 

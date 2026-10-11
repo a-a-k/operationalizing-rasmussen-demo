@@ -43,6 +43,18 @@ class ArchiveTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     checks.verify_links(p)
 
+    def test_license_redaction_does_not_relax_data_checksums(self):
+        with tempfile.TemporaryDirectory() as name:
+            p = Path(name)
+            (p / "data.csv").write_text("value\n1\n")
+            (p / "LICENSE").write_text("Copyright: [redacted]")
+            digest = checks.sha256_lf(p / "data.csv")
+            (p / "SHA256SUMS").write_text(f"{digest}  data.csv\n")
+            self.assertEqual(checks.verify_checksums(p), 1)
+            (p / "data.csv").write_text("value\n2\n")
+            with self.assertRaises(ValueError):
+                checks.verify_checksums(p)
+
 
 if __name__ == "__main__":
     unittest.main()

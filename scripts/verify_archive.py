@@ -42,7 +42,7 @@ def verify_checksums(root: Path) -> int:
             raise ValueError(f"Checksum mismatch: {relative}")
         recorded[relative] = expected
     actual = {p.relative_to(root).as_posix() for p in archive_paths(root)
-              if p.name != "SHA256SUMS"}
+              if p.relative_to(root).as_posix() not in {"SHA256SUMS", "LICENSE"}}
     if set(recorded) != actual:
         raise ValueError(f"Manifest coverage mismatch: {sorted(set(recorded) ^ actual)}")
     return len(recorded)
