@@ -1,0 +1,1072 @@
+{
+  "analysis": {
+    "binary_success_criterion": null,
+    "confidence_level": 0.95,
+    "interpretation": "Distinct feature values do not establish predictive superiority. Matched-feature witnesses establish only a loss of state context. Same-balance outcome discordance limits the sufficiency of the chosen scalar balance.",
+    "report_all_recoverable_points": true,
+    "report_reverse_contrasts": true,
+    "scope": "New descriptive evidence only; never pool with Probe 1 or Probe 2."
+  },
+  "arms": {
+    "ab": {
+      "comparisons": {
+        "radial_reversal": {
+          "all_recoverable_pairs": {
+            "both_safe": 6,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 16,
+            "discordant": 10,
+            "left_safe_right_unsafe": {
+              "K": 10,
+              "N": 16,
+              "clopper_pearson_95": [
+                0.3543460943020781,
+                0.8480163249188779
+              ],
+              "proportion": 0.625
+            },
+            "left_unsafe_right_safe": {
+              "K": 0,
+              "N": 16,
+              "clopper_pearson_95": [
+                0.0,
+                0.2059072142078226
+              ],
+              "proportion": 0.0
+            },
+            "median_p95_difference_right_minus_left_ms": 9831.93433625
+          },
+          "id": "radial_reversal",
+          "left": "A",
+          "left_safe_right_unsafe_block_ids": [
+            "ab-001",
+            "ab-003",
+            "ab-004",
+            "ab-005",
+            "ab-006",
+            "ab-007",
+            "ab-011",
+            "ab-012",
+            "ab-014",
+            "ab-016"
+          ],
+          "left_unsafe_right_safe_block_ids": [],
+          "matched_features": [],
+          "missing_or_invalid_pairs": 0,
+          "right": "B",
+          "valid_pairs": {
+            "both_safe": 6,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 16,
+            "discordant": 10,
+            "left_safe_right_unsafe": {
+              "K": 10,
+              "N": 16,
+              "clopper_pearson_95": [
+                0.3543460943020781,
+                0.8480163249188779
+              ],
+              "proportion": 0.625
+            },
+            "left_unsafe_right_safe": {
+              "K": 0,
+              "N": 16,
+              "clopper_pearson_95": [
+                0.0,
+                0.2059072142078226
+              ],
+              "proportion": 0.0
+            },
+            "median_p95_difference_right_minus_left_ms": 9831.93433625
+          },
+          "valid_pairs_without_snapshot_failures": {
+            "both_safe": 6,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 7,
+            "discordant": 1,
+            "left_safe_right_unsafe": {
+              "K": 1,
+              "N": 7,
+              "clopper_pearson_95": [
+                0.0036102968619005854,
+                0.578723197043195
+              ],
+              "proportion": 0.14285714285714285
+            },
+            "left_unsafe_right_safe": {
+              "K": 0,
+              "N": 7,
+              "clopper_pearson_95": [
+                0.0,
+                0.4096163972250031
+              ],
+              "proportion": 0.0
+            },
+            "median_p95_difference_right_minus_left_ms": 212.46868464999997
+          }
+        }
+      },
+      "complete_valid_blocks": 16,
+      "planned_blocks": 16,
+      "points": {
+        "A": {
+          "features": {
+            "E": 0.40099875311526845,
+            "R_group": -0.008350592916784222,
+            "checkout_quota": 0.3,
+            "d_A": 1.4479615750380617,
+            "group_sum": 0.3,
+            "minimum_group_quota": 0.3,
+            "recipient_quota": 0.7,
+            "reduced_count": 1
+          },
+          "invalid_reason_counts": {},
+          "median_p95_ms_valid": 88.16797410000001,
+          "post_intervention_failure_points": 0,
+          "post_intervention_oom_event_points": 0,
+          "quotas": {
+            "checkout": 0.3,
+            "payment": 0.62,
+            "shipping": 0.08
+          },
+          "recorded_points": 16,
+          "recoverable_points": 16,
+          "runner_image_counts": {
+            "20261004.327.1": 16
+          },
+          "unsafe_all_recoverable": {
+            "K": 0,
+            "N": 16,
+            "clopper_pearson_95": [
+              0.0,
+              0.2059072142078226
+            ],
+            "proportion": 0.0
+          },
+          "unsafe_valid": {
+            "K": 0,
+            "N": 16,
+            "clopper_pearson_95": [
+              0.0,
+              0.2059072142078226
+            ],
+            "proportion": 0.0
+          },
+          "valid_points": 16
+        },
+        "B": {
+          "features": {
+            "E": 0.34292856398964494,
+            "R_group": 1.2957515427510125,
+            "checkout_quota": 0.12,
+            "d_A": 1.2957515427510125,
+            "group_sum": 0.12,
+            "minimum_group_quota": 0.12,
+            "recipient_quota": 0.88,
+            "reduced_count": 1
+          },
+          "invalid_reason_counts": {},
+          "median_p95_ms_valid": 10000.760116675,
+          "post_intervention_failure_points": 9,
+          "post_intervention_oom_event_points": 9,
+          "quotas": {
+            "checkout": 0.12,
+            "payment": 0.44,
+            "shipping": 0.44
+          },
+          "recorded_points": 16,
+          "recoverable_points": 16,
+          "runner_image_counts": {
+            "20261004.327.1": 16
+          },
+          "unsafe_all_recoverable": {
+            "K": 10,
+            "N": 16,
+            "clopper_pearson_95": [
+              0.3543460943020781,
+              0.8480163249188779
+            ],
+            "proportion": 0.625
+          },
+          "unsafe_valid": {
+            "K": 10,
+            "N": 16,
+            "clopper_pearson_95": [
+              0.3543460943020781,
+              0.8480163249188779
+            ],
+            "proportion": 0.625
+          },
+          "valid_points": 16
+        }
+      },
+      "received_blocks": 16
+    },
+    "context": {
+      "comparisons": {
+        "fixed_checkout_context": {
+          "all_recoverable_pairs": {
+            "both_safe": 4,
+            "both_unsafe": 1,
+            "complete_latency_pairs": 10,
+            "discordant": 5,
+            "left_safe_right_unsafe": {
+              "K": 5,
+              "N": 10,
+              "clopper_pearson_95": [
+                0.18708602844739863,
+                0.8129139715526013
+              ],
+              "proportion": 0.5
+            },
+            "left_unsafe_right_safe": {
+              "K": 0,
+              "N": 10,
+              "clopper_pearson_95": [
+                0.0,
+                0.3084971078187607
+              ],
+              "proportion": 0.0
+            },
+            "median_p95_difference_right_minus_left_ms": 2374.311472675
+          },
+          "id": "fixed_checkout_context",
+          "left": "anchor_019",
+          "left_safe_right_unsafe_block_ids": [
+            "context-002",
+            "context-004",
+            "context-007",
+            "context-010",
+            "context-011"
+          ],
+          "left_unsafe_right_safe_block_ids": [],
+          "matched_features": [
+            "checkout_quota",
+            "group_sum",
+            "reduced_count",
+            "recipient_quota"
+          ],
+          "missing_or_invalid_pairs": 2,
+          "right": "payment_011",
+          "valid_pairs": {
+            "both_safe": 4,
+            "both_unsafe": 1,
+            "complete_latency_pairs": 10,
+            "discordant": 5,
+            "left_safe_right_unsafe": {
+              "K": 5,
+              "N": 10,
+              "clopper_pearson_95": [
+                0.18708602844739863,
+                0.8129139715526013
+              ],
+              "proportion": 0.5
+            },
+            "left_unsafe_right_safe": {
+              "K": 0,
+              "N": 10,
+              "clopper_pearson_95": [
+                0.0,
+                0.3084971078187607
+              ],
+              "proportion": 0.0
+            },
+            "median_p95_difference_right_minus_left_ms": 2374.311472675
+          },
+          "valid_pairs_without_snapshot_failures": {
+            "both_safe": 3,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 3,
+            "discordant": 0,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 3,
+              "clopper_pearson_95": [
+                0.0,
+                0.7075982261787133
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 0,
+              "N": 3,
+              "clopper_pearson_95": [
+                0.0,
+                0.7075982261787133
+              ],
+              "proportion": 0.0
+            },
+            "median_p95_difference_right_minus_left_ms": 111.2123021999999
+          }
+        },
+        "same_balance_checkout_payment": {
+          "all_recoverable_pairs": {
+            "both_safe": 7,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 11,
+            "discordant": 4,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.0,
+                0.28491415291815436
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 4,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.10926344381909811,
+                0.6920952849883226
+              ],
+              "proportion": 0.36363636363636365
+            },
+            "median_p95_difference_right_minus_left_ms": -167.5898955999998
+          },
+          "id": "same_balance_checkout_payment",
+          "left": "checkout_015",
+          "left_safe_right_unsafe_block_ids": [],
+          "left_unsafe_right_safe_block_ids": [
+            "context-001",
+            "context-003",
+            "context-010",
+            "context-011"
+          ],
+          "matched_features": [
+            "group_sum",
+            "minimum_group_quota",
+            "reduced_count",
+            "recipient_quota",
+            "R_group",
+            "E",
+            "d_A"
+          ],
+          "missing_or_invalid_pairs": 1,
+          "right": "payment_015",
+          "valid_pairs": {
+            "both_safe": 7,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 11,
+            "discordant": 4,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.0,
+                0.28491415291815436
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 4,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.10926344381909811,
+                0.6920952849883226
+              ],
+              "proportion": 0.36363636363636365
+            },
+            "median_p95_difference_right_minus_left_ms": -167.5898955999998
+          },
+          "valid_pairs_without_snapshot_failures": {
+            "both_safe": 7,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 7,
+            "discordant": 0,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 7,
+              "clopper_pearson_95": [
+                0.0,
+                0.4096163972250031
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 0,
+              "N": 7,
+              "clopper_pearson_95": [
+                0.0,
+                0.4096163972250031
+              ],
+              "proportion": 0.0
+            },
+            "median_p95_difference_right_minus_left_ms": -60.1708429
+          }
+        },
+        "same_balance_checkout_shipping": {
+          "all_recoverable_pairs": {
+            "both_safe": 7,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 10,
+            "discordant": 3,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 10,
+              "clopper_pearson_95": [
+                0.0,
+                0.3084971078187607
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 3,
+              "N": 10,
+              "clopper_pearson_95": [
+                0.06673951117773452,
+                0.6524528500599971
+              ],
+              "proportion": 0.3
+            },
+            "median_p95_difference_right_minus_left_ms": -174.2023154249999
+          },
+          "id": "same_balance_checkout_shipping",
+          "left": "checkout_015",
+          "left_safe_right_unsafe_block_ids": [],
+          "left_unsafe_right_safe_block_ids": [
+            "context-001",
+            "context-010",
+            "context-011"
+          ],
+          "matched_features": [
+            "group_sum",
+            "minimum_group_quota",
+            "reduced_count",
+            "recipient_quota",
+            "R_group",
+            "E",
+            "d_A"
+          ],
+          "missing_or_invalid_pairs": 2,
+          "right": "shipping_015",
+          "valid_pairs": {
+            "both_safe": 7,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 10,
+            "discordant": 3,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 10,
+              "clopper_pearson_95": [
+                0.0,
+                0.3084971078187607
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 3,
+              "N": 10,
+              "clopper_pearson_95": [
+                0.06673951117773452,
+                0.6524528500599971
+              ],
+              "proportion": 0.3
+            },
+            "median_p95_difference_right_minus_left_ms": -174.2023154249999
+          },
+          "valid_pairs_without_snapshot_failures": {
+            "both_safe": 7,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 7,
+            "discordant": 0,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 7,
+              "clopper_pearson_95": [
+                0.0,
+                0.4096163972250031
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 0,
+              "N": 7,
+              "clopper_pearson_95": [
+                0.0,
+                0.4096163972250031
+              ],
+              "proportion": 0.0
+            },
+            "median_p95_difference_right_minus_left_ms": -78.46330514999997
+          }
+        },
+        "sum_vs_checkout": {
+          "all_recoverable_pairs": {
+            "both_safe": 6,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 11,
+            "discordant": 5,
+            "left_safe_right_unsafe": {
+              "K": 4,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.10926344381909811,
+                0.6920952849883226
+              ],
+              "proportion": 0.36363636363636365
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.002298972213814262,
+                0.4127799169883827
+              ],
+              "proportion": 0.09090909090909091
+            },
+            "median_p95_difference_right_minus_left_ms": 146.35225905
+          },
+          "id": "sum_vs_checkout",
+          "left": "balanced_021",
+          "left_safe_right_unsafe_block_ids": [
+            "context-001",
+            "context-003",
+            "context-010",
+            "context-011"
+          ],
+          "left_unsafe_right_safe_block_ids": [
+            "context-006"
+          ],
+          "matched_features": [
+            "group_sum",
+            "reduced_count",
+            "recipient_quota"
+          ],
+          "missing_or_invalid_pairs": 1,
+          "right": "checkout_015",
+          "valid_pairs": {
+            "both_safe": 6,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 11,
+            "discordant": 5,
+            "left_safe_right_unsafe": {
+              "K": 4,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.10926344381909811,
+                0.6920952849883226
+              ],
+              "proportion": 0.36363636363636365
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.002298972213814262,
+                0.4127799169883827
+              ],
+              "proportion": 0.09090909090909091
+            },
+            "median_p95_difference_right_minus_left_ms": 146.35225905
+          },
+          "valid_pairs_without_snapshot_failures": {
+            "both_safe": 6,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 7,
+            "discordant": 1,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 7,
+              "clopper_pearson_95": [
+                0.0,
+                0.4096163972250031
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 7,
+              "clopper_pearson_95": [
+                0.0036102968619005854,
+                0.578723197043195
+              ],
+              "proportion": 0.14285714285714285
+            },
+            "median_p95_difference_right_minus_left_ms": 48.04523224999977
+          }
+        },
+        "sum_vs_payment": {
+          "all_recoverable_pairs": {
+            "both_safe": 11,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 12,
+            "discordant": 1,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 12,
+              "clopper_pearson_95": [
+                0.0,
+                0.2646484693970509
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 12,
+              "clopper_pearson_95": [
+                0.0021075932318602303,
+                0.38479616515094395
+              ],
+              "proportion": 0.08333333333333333
+            },
+            "median_p95_difference_right_minus_left_ms": 13.848029124999925
+          },
+          "id": "sum_vs_payment",
+          "left": "balanced_021",
+          "left_safe_right_unsafe_block_ids": [],
+          "left_unsafe_right_safe_block_ids": [
+            "context-006"
+          ],
+          "matched_features": [
+            "group_sum",
+            "reduced_count",
+            "recipient_quota"
+          ],
+          "missing_or_invalid_pairs": 0,
+          "right": "payment_015",
+          "valid_pairs": {
+            "both_safe": 11,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 12,
+            "discordant": 1,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 12,
+              "clopper_pearson_95": [
+                0.0,
+                0.2646484693970509
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 12,
+              "clopper_pearson_95": [
+                0.0021075932318602303,
+                0.38479616515094395
+              ],
+              "proportion": 0.08333333333333333
+            },
+            "median_p95_difference_right_minus_left_ms": 13.848029124999925
+          },
+          "valid_pairs_without_snapshot_failures": {
+            "both_safe": 10,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 11,
+            "discordant": 1,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.0,
+                0.28491415291815436
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.002298972213814262,
+                0.4127799169883827
+              ],
+              "proportion": 0.09090909090909091
+            },
+            "median_p95_difference_right_minus_left_ms": 13.829970499999845
+          }
+        },
+        "sum_vs_shipping": {
+          "all_recoverable_pairs": {
+            "both_safe": 10,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 11,
+            "discordant": 1,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.0,
+                0.28491415291815436
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.002298972213814262,
+                0.4127799169883827
+              ],
+              "proportion": 0.09090909090909091
+            },
+            "median_p95_difference_right_minus_left_ms": -9.987083799999837
+          },
+          "id": "sum_vs_shipping",
+          "left": "balanced_021",
+          "left_safe_right_unsafe_block_ids": [],
+          "left_unsafe_right_safe_block_ids": [
+            "context-006"
+          ],
+          "matched_features": [
+            "group_sum",
+            "reduced_count",
+            "recipient_quota"
+          ],
+          "missing_or_invalid_pairs": 1,
+          "right": "shipping_015",
+          "valid_pairs": {
+            "both_safe": 10,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 11,
+            "discordant": 1,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.0,
+                0.28491415291815436
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.002298972213814262,
+                0.4127799169883827
+              ],
+              "proportion": 0.09090909090909091
+            },
+            "median_p95_difference_right_minus_left_ms": -9.987083799999837
+          },
+          "valid_pairs_without_snapshot_failures": {
+            "both_safe": 10,
+            "both_unsafe": 0,
+            "complete_latency_pairs": 11,
+            "discordant": 1,
+            "left_safe_right_unsafe": {
+              "K": 0,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.0,
+                0.28491415291815436
+              ],
+              "proportion": 0.0
+            },
+            "left_unsafe_right_safe": {
+              "K": 1,
+              "N": 11,
+              "clopper_pearson_95": [
+                0.002298972213814262,
+                0.4127799169883827
+              ],
+              "proportion": 0.09090909090909091
+            },
+            "median_p95_difference_right_minus_left_ms": -9.987083799999837
+          }
+        }
+      },
+      "complete_valid_blocks": 8,
+      "planned_blocks": 12,
+      "points": {
+        "anchor_019": {
+          "features": {
+            "E": 0.38105117766515295,
+            "R_group": 1.6587620439526833,
+            "checkout_quota": 0.19,
+            "d_A": 1.6587620439526836,
+            "group_sum": 0.5700000000000001,
+            "minimum_group_quota": 0.19,
+            "recipient_quota": 0.43,
+            "reduced_count": 3
+          },
+          "invalid_reason_counts": {
+            "baseline_slo_unsafe": 1,
+            "pre_intervention_system_failure": 1
+          },
+          "median_p95_ms_valid": 165.0387905749999,
+          "post_intervention_failure_points": 0,
+          "post_intervention_oom_event_points": 0,
+          "quotas": {
+            "ad": 0.43,
+            "checkout": 0.19,
+            "payment": 0.19,
+            "shipping": 0.19
+          },
+          "recorded_points": 12,
+          "recoverable_points": 10,
+          "runner_image_counts": {
+            "20261004.327.1": 12
+          },
+          "unsafe_all_recoverable": {
+            "K": 1,
+            "N": 10,
+            "clopper_pearson_95": [
+              0.0025285785444617804,
+              0.4450161170281952
+            ],
+            "proportion": 0.1
+          },
+          "unsafe_valid": {
+            "K": 1,
+            "N": 10,
+            "clopper_pearson_95": [
+              0.0025285785444617804,
+              0.4450161170281952
+            ],
+            "proportion": 0.1
+          },
+          "valid_points": 10
+        },
+        "balanced_021": {
+          "features": {
+            "E": 0.3117691453623979,
+            "R_group": 1.4419390207663116,
+            "checkout_quota": 0.21,
+            "d_A": 1.4419390207663119,
+            "group_sum": 0.63,
+            "minimum_group_quota": 0.21,
+            "recipient_quota": 0.37,
+            "reduced_count": 3
+          },
+          "invalid_reason_counts": {},
+          "median_p95_ms_valid": 137.51753324999987,
+          "post_intervention_failure_points": 0,
+          "post_intervention_oom_event_points": 0,
+          "quotas": {
+            "ad": 0.37,
+            "checkout": 0.21,
+            "payment": 0.21,
+            "shipping": 0.21
+          },
+          "recorded_points": 12,
+          "recoverable_points": 12,
+          "runner_image_counts": {
+            "20261004.327.1": 12
+          },
+          "unsafe_all_recoverable": {
+            "K": 1,
+            "N": 12,
+            "clopper_pearson_95": [
+              0.0021075932318602303,
+              0.38479616515094395
+            ],
+            "proportion": 0.08333333333333333
+          },
+          "unsafe_valid": {
+            "K": 1,
+            "N": 12,
+            "clopper_pearson_95": [
+              0.0021075932318602303,
+              0.38479616515094395
+            ],
+            "proportion": 0.08333333333333333
+          },
+          "valid_points": 12
+        },
+        "checkout_015": {
+          "features": {
+            "E": 0.32031234756093935,
+            "R_group": 1.4619758034833241,
+            "checkout_quota": 0.15,
+            "d_A": 1.5115032884428294,
+            "group_sum": 0.63,
+            "minimum_group_quota": 0.15,
+            "recipient_quota": 0.37,
+            "reduced_count": 3
+          },
+          "invalid_reason_counts": {
+            "baseline_slo_unsafe": 1
+          },
+          "median_p95_ms_valid": 288.8866683499998,
+          "post_intervention_failure_points": 4,
+          "post_intervention_oom_event_points": 4,
+          "quotas": {
+            "ad": 0.37,
+            "checkout": 0.15,
+            "payment": 0.24,
+            "shipping": 0.24
+          },
+          "recorded_points": 12,
+          "recoverable_points": 11,
+          "runner_image_counts": {
+            "20261004.327.1": 12
+          },
+          "unsafe_all_recoverable": {
+            "K": 4,
+            "N": 11,
+            "clopper_pearson_95": [
+              0.10926344381909811,
+              0.6920952849883226
+            ],
+            "proportion": 0.36363636363636365
+          },
+          "unsafe_valid": {
+            "K": 4,
+            "N": 11,
+            "clopper_pearson_95": [
+              0.10926344381909811,
+              0.6920952849883226
+            ],
+            "proportion": 0.36363636363636365
+          },
+          "valid_points": 11
+        },
+        "payment_011": {
+          "features": {
+            "E": 0.3974921382870358,
+            "R_group": 1.7150957896711736,
+            "checkout_quota": 0.19,
+            "d_A": 1.8305873652917433,
+            "group_sum": 0.5700000000000001,
+            "minimum_group_quota": 0.11,
+            "recipient_quota": 0.43,
+            "reduced_count": 3
+          },
+          "invalid_reason_counts": {},
+          "median_p95_ms_valid": 5000.968545725,
+          "post_intervention_failure_points": 9,
+          "post_intervention_oom_event_points": 9,
+          "quotas": {
+            "ad": 0.43,
+            "checkout": 0.19,
+            "payment": 0.11,
+            "shipping": 0.27
+          },
+          "recorded_points": 12,
+          "recoverable_points": 12,
+          "runner_image_counts": {
+            "20261004.327.1": 12
+          },
+          "unsafe_all_recoverable": {
+            "K": 8,
+            "N": 12,
+            "clopper_pearson_95": [
+              0.34887550641881415,
+              0.9007539088504166
+            ],
+            "proportion": 0.6666666666666666
+          },
+          "unsafe_valid": {
+            "K": 8,
+            "N": 12,
+            "clopper_pearson_95": [
+              0.34887550641881415,
+              0.9007539088504166
+            ],
+            "proportion": 0.6666666666666666
+          },
+          "valid_points": 12
+        },
+        "payment_015": {
+          "features": {
+            "E": 0.32031234756093935,
+            "R_group": 1.4619758034833241,
+            "checkout_quota": 0.24,
+            "d_A": 1.5115032884428294,
+            "group_sum": 0.63,
+            "minimum_group_quota": 0.15,
+            "recipient_quota": 0.37,
+            "reduced_count": 3
+          },
+          "invalid_reason_counts": {},
+          "median_p95_ms_valid": 127.45945142499997,
+          "post_intervention_failure_points": 1,
+          "post_intervention_oom_event_points": 1,
+          "quotas": {
+            "ad": 0.37,
+            "checkout": 0.24,
+            "payment": 0.15,
+            "shipping": 0.24
+          },
+          "recorded_points": 12,
+          "recoverable_points": 12,
+          "runner_image_counts": {
+            "20261004.327.1": 12
+          },
+          "unsafe_all_recoverable": {
+            "K": 0,
+            "N": 12,
+            "clopper_pearson_95": [
+              0.0,
+              0.2646484693970509
+            ],
+            "proportion": 0.0
+          },
+          "unsafe_valid": {
+            "K": 0,
+            "N": 12,
+            "clopper_pearson_95": [
+              0.0,
+              0.2646484693970509
+            ],
+            "proportion": 0.0
+          },
+          "valid_points": 12
+        },
+        "shipping_015": {
+          "features": {
+            "E": 0.32031234756093935,
+            "R_group": 1.4619758034833241,
+            "checkout_quota": 0.24,
+            "d_A": 1.5115032884428294,
+            "group_sum": 0.63,
+            "minimum_group_quota": 0.15,
+            "recipient_quota": 0.37,
+            "reduced_count": 3
+          },
+          "invalid_reason_counts": {
+            "pre_intervention_system_failure": 1
+          },
+          "median_p95_ms_valid": 109.13800184999994,
+          "post_intervention_failure_points": 0,
+          "post_intervention_oom_event_points": 0,
+          "quotas": {
+            "ad": 0.37,
+            "checkout": 0.24,
+            "payment": 0.24,
+            "shipping": 0.15
+          },
+          "recorded_points": 12,
+          "recoverable_points": 11,
+          "runner_image_counts": {
+            "20261004.327.1": 12
+          },
+          "unsafe_all_recoverable": {
+            "K": 0,
+            "N": 11,
+            "clopper_pearson_95": [
+              0.0,
+              0.28491415291815436
+            ],
+            "proportion": 0.0
+          },
+          "unsafe_valid": {
+            "K": 0,
+            "N": 11,
+            "clopper_pearson_95": [
+              0.0,
+              0.28491415291815436
+            ],
+            "proportion": 0.0
+          },
+          "valid_points": 11
+        }
+      },
+      "received_blocks": 12
+    }
+  },
+  "design_sha256": "fce9b3aa6a80f15242fea2540c41cfc922cdfbbe474d9dd4f44f155d9717fe34",
+  "diagnostic_note": "Restarts and OOM never override latency/error SLO labels. All recoverable outcomes are retained separately from generator-valid/manipulation-valid subsets.",
+  "interval_note": "Descriptive exact binomial intervals, conditional on the stated subsets and under independent-repeat assumptions; not detector accuracy or general production risk.",
+  "missing_blocks": [],
+  "no_restart_subset_note": "Conditional descriptive subset without snapshot-detected post-intervention failures; selection is on a post-intervention diagnostic, not a separate randomized intervention or a causal CPU-only estimate. Full event traces are retained separately.",
+  "planned_blocks": 28,
+  "received_blocks": 28,
+  "repository_commit": "56b1404dbe21776ee410c55eab1d6a6e12cfcd8f",
+  "runtime_sha256": "b327ba590548452c1035ecdce0221f62bbd8e85505be13e892e3e9e6cdb15d7e",
+  "status": "complete",
+  "study_version": "followup-0.1.1"
+}

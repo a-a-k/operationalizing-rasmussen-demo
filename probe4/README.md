@@ -90,6 +90,13 @@ in each job artifact, separately from the compact comparison.
 
 ## Execution
 
+The corrected execution is complete: 109/120 points were valid. The
+[interpretation](results/README.md), [point records](results/point-level.csv),
+[all thresholds](results/thresholds.csv) and [comparison](results/comparison.json)
+are archived. At zero observed false alarms the local-OR comparator detected
+more violations than the group balance at both loads. This in-sample result is
+retained, not presented as a favorable or independently validated detector test.
+
 Run `allocation-threshold-scenarios` in GitHub Actions with `expected_sha` set
 to the exact input commit and `execute=true`. Static tests and an end-to-end
 reference gate at the maximum planned load and full scientific durations precedes

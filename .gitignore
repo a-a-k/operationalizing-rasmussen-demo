@@ -11,3 +11,9 @@ next-wave.json
 /results/
 protocol/
 experiment_protocol_ru_v*.md
+*.pdf
+*.tex
+*.bib
+*.docx
+*.pptx
+*_sources.zip

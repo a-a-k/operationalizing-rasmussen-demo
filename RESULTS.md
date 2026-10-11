@@ -1,293 +1,175 @@
-# Interpretation of the recorded runs
+# Results and interpretation
 
-This document connects the committed observations to the claims they can and
-cannot support. The source data are the [Probe 1 aggregate](probe1/results/summary.json),
-the [Probe 1 replicate table](probe1/results/replicate-level.csv), and the
-[Probe 2 aggregate with all block summaries](probe2/results/summary.json).
+The evidence supports a measurement model for closed resource adaptation:
+complete selected allocation state, consistent relative-drift geometry, and
+histories joining pressure, actions, recipient output and external outcomes.
+Runtime observations, representational witnesses, mathematical checks and
+exploratory detector comparisons have distinct roles.
 
-## The two questions are different
+## Sequential CPU migration: competing outcomes before and at crossing
 
-Probe 1 compares **direction with radial magnitude**. It asks whether the size
-of a closed reallocation, measured only as distance from a reference, identifies
-the operationally risky direction.
+[Probe 5](probe5/) planned 20 fresh runners, each with two fresh-stack histories
+in balanced order. Runtime state persisted within each history. Starting at
+(checkout, payment, shipping, ad) = (.30,.30,.30,.10), each adaptive decision
+moved .04 CPU to advertising from a cyclic donor. The gate used preceding safe
+checkout performance and positive advertising CPU throttling.
 
-Probe 2 compares **one local component with its joint allocation context**. It
-asks whether knowing that one service has a particular quota is sufficient when
-the same quota can occur in different closed reallocations.
+Checkout received 40 scheduled operations/s; advertising used eight closed-loop
+VUs. Advertising goodput is successful nonempty responses/s, not revenue.
+The competing workloads have different semantics.
 
-Together they address the following narrower empirical statement:
-
-> In a closed allocation, radial magnitude does not encode risk direction, and
-> one component does not encode joint allocation context.
-
-The statement that a finite closed allocation has a compositional state space is
-a mathematical consequence of closure; the runtime probes do not prove that
-every Rasmussen-style system is literally a CPU simplex.
-
-## Probe 1: direction versus radial magnitude
-
-### What was compared
-
-The [fixed design](probe1/design.json) starts from the normalized CPU allocation
-`(checkout, payment, shipping) = (0.40, 0.30, 0.30)` and compares two endpoints:
-
-| Endpoint | CPU allocation | Euclidean distance | Aitchison radial distance | Risk-directed coordinate |
-| --- | --- | ---: | ---: | ---: |
-| A5 | `(0.30, 0.62, 0.08)` | 0.401 | 1.448 | -0.008 |
-| B5 | `(0.12, 0.44, 0.44)` | 0.343 | 1.296 | 1.296 |
-
-A5 is farther from the reference under both radial distances. Its movement is,
-however, almost orthogonal to the predefined checkout-risk direction. B5 is
-radially nearer but moves strongly in that direction. This construction tests
-whether “more drift” and “more risk-directed drift” are the same statement.
-
-Each of 256 paired replications ran A5 and B5 on fresh stacks. Pair order was
-balanced exactly: 128 ran `A5 -> B5` and 128 ran `B5 -> A5`. Of the selected
-attempts, 253 completed on the first infrastructure attempt and three on the
-second. All 256 pairs passed the gates actually executed, but that execution
-omitted the intended generator gate described below.
-
-### What was observed
-
-The primary paired outcome is `Y = 1` when A5 is SLO-safe and B5 is SLO-unsafe
-in the same replication.
-
-| Observation | Count |
-| --- | ---: |
-| Valid pairs | 256 |
-| A5 safe | 256/256 |
-| B5 unsafe | 221/256 |
-| Full paired reversal (`Y=1`) | 221/256 = 0.863 |
-| Exact 95% interval for the fixed-design reversal proportion | 0.815--0.903 |
-| B5 safe | 35/256 |
-
-A5's median p95 was 107.3 ms and its maximum p95 was 292.3 ms; no A5 run
-crossed either SLO boundary. B5's median p95 was about 10,001 ms, which reflects
-the configured request timeout rather than a precisely measured tail beyond ten
-seconds. B5 crossed the latency boundary in 220 runs, the error-rate boundary in
-209 runs, and at least one boundary in 221 runs.
-
-The median normalized p95 contrast `(B5 p95 - A5 p95) / 500 ms` was 19.685. It
-is useful as a scale-free paired contrast, but its magnitude should not be read
-as an uncensored latency estimate because many B5 requests reached the timeout.
-
-Every row, order, SLO value, and selected attempt is available in the
-[replicate-level CSV](probe1/results/replicate-level.csv); the exact aggregate
-and bootstrap output is in [summary.json](probe1/results/summary.json).
-
-### Historical generator deviation and sensitivity
-
-The intended gate required at least 99% of scheduled operations to start. It was
-used during selection but omitted from the confirmation execution path. Forty-nine
-B5 test windows fell below it; the lowest started fraction was 5113/5760 (88.8%).
-A5 started every scheduled operation in all 256 retained pairs.
-
-| Analysis population | Paired reversals | Exact 95% interval |
-| --- | ---: | ---: |
-| Originally executed series | 221/256 | 0.815--0.903 |
-| Conditional subset satisfying the intended gate | 172/207 | 0.773--0.879 |
-
-All 49 low-started B5 windows also violated latency alone. Computing errors with
-started rather than scheduled operations did not change any recorded SLO label.
-This preserves the existence of the contrast, but does not retroactively make
-the execution conform to its intended fixed-load contract. The conditional
-analysis selects on a post-intervention observation associated with degradation
-and must not replace the full series silently.
-
-The generator had 320 VUs. Each operation made two sequential requests, each
-with a ten-second timeout; the observed maximum full-iteration duration exceeded
-twenty seconds. Thus a one-timeout capacity calculation was insufficient. The
-[separate fixed follow-up](probe3/) uses 800 VUs, dedicated started/finished
-counters and a 99%-started gate during both baseline and test. It retains all
-recoverable gate-failing outcomes in a separately identified analysis.
-
-### What the restart evidence does and does not show
-
-Checkout restarted after intervention in 225 B5 trials, including all 221
-unsafe B5 trials. Additional post-intervention restarts affected astronomy-db
-in 99 B5 trials, frontend in four and payment in two. A5 had no such restarts.
-These are system-failure diagnostics, not alternative SLO labels.
-
-Inspection snapshots reported `OOMKilled=false`, but a running container's
-snapshot and `ExitCode=0` do not identify a previous process's exit cause after
-automatic restart. The pinned checkout configuration has a 20 MiB container
-memory ceiling, `GOMEMLIMIT=16MiB` and `restart=unless-stopped`. The retained
-historical logs do not establish the cause or precise failure timeline; in
-particular, CPU throttling causing OOM is not demonstrated.
-
-Checkout CPU counters reset across the restarts. Its whole-window throttling
-fraction was therefore unavailable in 225 B5 trials; negative counter deltas
-must not be interpreted as utilization. The new follow-up records Docker
-exit/OOM events and segmented cgroup CPU/memory samples with timing relative to
-intervention and measurement. It preserves memory/restart settings, so it still
-does not isolate a CPU-only failure cause.
-
-Both probes run the generator and other services on the same four-vCPU runner.
-Matching `cpu.max` establishes the configured ceilings and correctness of quota
-manipulation, not a physically reserved closed pool or constant actual usage.
-
-### Interpretation
-
-The experiment gives a repeated constructive counterexample to ranking risk by
-distance alone. Both Euclidean distance and radial Aitchison distance call A5
-the larger change, yet A5 was always safe and B5 was usually unsafe. The
-predefined directional balance orders the pair in the operationally relevant
-direction.
-
-This is evidence for the usefulness of a **directed compositional coordinate**,
-not evidence that Aitchison radial distance is a better detector than Euclidean
-distance. In this construction both radial distances fail for the same reason:
-they discard direction.
-
-The 35 safe B5 runs matter. They show that the endpoint is not deterministically
-unsafe on every GitHub runner. Therefore 221/256 is evidence of recurrence in
-this fixed runtime, not a universal reliability estimate and not a production
-failure probability.
-
-### Relation to ordinary thresholds
-
-A checkout-quota rule tailored to this exact construction could also distinguish
-A5 (`checkout=0.30`) from B5 (`checkout=0.12`). Probe 1 therefore does not show
-that the balance is uniquely capable or operationally superior to every local
-alert. Its contribution is more specific: the balance derives an interpretable
-risk direction from the closed allocation, whereas an undirected drift score
-cannot express that direction.
-
-## Probe 2: local quota versus joint context
-
-### Why a second probe was needed
-
-Probe 1 leaves open the objection that a service-specific checkout threshold
-could reproduce its ordering. Probe 2 removes that shortcut by holding the
-locally observed quota fixed while changing the rest of the allocation.
-
-The [fixed follow-up design](probe2/design.json) starts from
-`(checkout, payment, shipping, ad) = (0.30, 0.30, 0.30, 0.10)` and uses four
-conditions:
-
-| Condition | CPU allocation `(checkout, payment, shipping, ad)` |
+| Observation | Result |
 | --- | --- |
-| checkout only | `(0.19, 0.30, 0.30, 0.21)` |
-| payment only | `(0.30, 0.19, 0.30, 0.21)` |
-| shipping only | `(0.30, 0.30, 0.19, 0.21)` |
-| joint | `(0.19, 0.19, 0.19, 0.43)` |
+| Planned / received runner pairs | 20 / 19; one outcome unknown |
+| Adaptive SLO crossings | 19/19 received, at steps 8--13 |
+| Unsafe unchanged controls | 0/19; controls observed through step 18 |
+| Moves increasing / decreasing recipient goodput | 198 / 16 of 214 |
+| Recorded restart/OOM measurement windows | 0 |
+| Median baseline-adjusted goodput gain over control at first crossing | +1718.1 responses/s |
 
-Thus, for each critical service, the local value `0.19` appears once in a
-singleton allocation and again in the joint allocation. A rule that sees only
-that service's quota receives the same input in both contexts.
+### Retrospective comparison at step 6
 
-The confirmation attempted 32 four-condition blocks. Condition order rotated
-through four predefined orders, eight blocks per order, and each point used a
-fresh stack. Twenty-eight blocks had all four valid points. Four were invalid:
-one because the baseline SLO was already unsafe and three because of a
-pre-intervention restart/OOM. They were not silently replaced.
+Step 6 completes two donor cycles and was selected retrospectively. For each
+metric and pair the contrast is:
+(adaptive_step6 - adaptive_baseline) - (control_step6 - control_baseline).
 
-### What was observed
+All 19 pairs were technically valid and both histories remained SLO-safe.
+Adaptive allocations were (.22,.22,.22,.34).
 
-| Condition | Valid points | Safe | Unsafe | Median p95 |
-| --- | ---: | ---: | ---: | ---: |
-| checkout only | 30 | 30 | 0 | 245.2 ms |
-| payment only | 31 | 31 | 0 | 128.0 ms |
-| shipping only | 31 | 31 | 0 | 115.5 ms |
-| joint | 32 | 23 | 9 | 317.4 ms |
+| Control-adjusted change | Median | Range | Positive pairs |
+| --- | ---: | ---: | ---: |
+| Advertising goodput (responses/s) | +863.9 | +723.9 to +1964.9 | 19/19 |
+| Checkout p95 (ms) | +47.1 | +6.8 to +155.3 | 19/19 |
 
-The complete within-block witness requires all three singleton conditions to be
-safe and the joint condition to be unsafe. It occurred in eight of 28 valid
-blocks: `c003`, `c008`, `c014`, `c018`, `c021`, `c025`, `c027`, and `c029`.
-The descriptive exact 95% interval is 0.132--0.487.
+Useful recipient gains accompanied checkout deterioration while the external
+SLO still held. Every received adaptive history later crossed the boundary;
+unchanged controls stayed safe. This is a constructed runtime analogue of
+locally useful adaptation accumulating toward an acceptability boundary.
 
-There were nine unsafe joint points rather than eight. In `c004`, the joint
-point was unsafe and the payment-only and shipping-only points were safe, but
-checkout-only was invalid after a pre-intervention restart/OOM. That block
-cannot establish the complete paired contrast, so it is not counted as a full
-witness. Counting every invalid attempted block as a non-witness gives the
-conservative sensitivity value 8/32 = 0.25 (exact 95% interval 0.115--0.434).
+Step-6 selection is retrospective; first-crossing contrasts are outcome-selected.
+Neither is an isolated transfer's causal effect or a validated predictor.
+The prescribed path also allows a local quota or step index to encode progress.
 
-The joint p95 distribution is visibly bimodal: safe runs are in the hundreds of
-milliseconds, while unsafe runs are near the five-second request timeout and
-have substantial errors. Consequently, the joint median of 317.4 ms does not
-mean that the unsafe observations were marginal. The median within-valid-block
-contrast between joint p95 and the largest singleton p95 was 71.9 ms, but this
-overall median mixes the two modes and is not the primary result.
+Evidence: [every window](probe5/results/trajectory-level.csv),
+[paired epochs](probe5/results/paired-epochs.csv),
+[aggregate](probe5/results/summary.json),
+[step-6 inputs and contrasts](probe5/results/history-v0.1.0/step6-pairs.csv),
+[full ILR history](probe5/results/history-v0.1.0/ilr-history.csv), and
+[execution provenance / missing runner](probe5/results/README.md).
 
-All 32 block summaries, validity reasons, per-condition p95 values, error rates,
-and pattern labels are in [Probe 2 summary.json](probe2/results/summary.json).
+## CPU/RAM histories: joint resource context
 
-All Probe 2 test windows started their scheduled operations. Two complete unsafe
-witnesses (`c018` and `c027`) had no post-intervention system restart, so the
-local-context contrast is not exclusively a restart phenomenon. Their latency
-nevertheless saturated near the five-second timeout; they do not establish a
-gradual, uncensored approach to an SLO boundary.
+The separate [Probe 6 follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) received all
+20 four-history blocks: control, CPU-only, RAM-only and joint. Each step moved
+.03 CPU and/or 4 MiB from checkout to advertising within separately closed
+budgets. Engineering checks informed the RAM range but are not campaign data.
 
-### Interpretation
+Five blocks had a matched joint-unsafe step with safe control, CPU-only and
+RAM-only histories: 5/20, descriptive exact 95% interval 8.7--49.1%.
+Crossings: joint 20/20, CPU-only 14/20, RAM-only 17/20, control 0/20.
+CPU-only crossed earlier than joint in one block.
 
-The eight complete blocks are repeated witnesses to a representational blind
-spot: a local quota of 0.19 can occur with a safe SLO when only one critical
-service is reduced and with an unsafe SLO when the critical services are reduced
-together. A detector whose complete state is only that one local quota cannot
-distinguish those two cases.
+Block 020, step 5:
 
-The group balance changes by 0.774 in a singleton condition and by 1.659 in the
-joint condition. It therefore retains the joint context in one interpretable
-coordinate. No alert threshold was fitted or evaluated on this coordinate.
+| History | Checkout CPU | RAM MiB | p95 ms | Unsuccessful operations | SLO |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Control | .30 | 48 | 106.5 | 0/2400 | Safe |
+| CPU-only | .15 | 48 | 206.6 | 0/2400 | Safe |
+| RAM-only | .30 | 28 | 109.7 | 0/2400 | Safe |
+| Joint | .15 | 28 | 192.0 | 48/2400 | Unsafe |
 
-Probe 2 is not a failed detector trial because it was not designed to estimate
-classifier accuracy. It also does not establish that the joint condition is
-unsafe in most runs: only 9/32 joint points were unsafe. If the claim were
-“joint allocation fails more than half the time,” these data would not support
-it. The actual claim is existential and constructive: the blind spot occurred
-repeatedly under new follow-up runs.
+The same local CPU value and the same local RAM value each occurred with safe
+and unsafe outcomes. Their joint context matters. Different preceding
+allocations and queue states prevent interpreting this as an isolated factorial
+causal interaction or a general safety-region topology.
 
-### Relation to ordinary thresholds
+At joint first crossings, baseline-adjusted advertising gains over control
+were positive in all 20 blocks (median +671.1 responses/s). RAM-only step-6
+contrasts were weaker: median +2.8, range -124.3 to +113.0, 13 positive and
+seven negative. CPU pressure is weak motivation for RAM-only transfers when
+extra RAM yields little recipient benefit.
 
-A univariate quota threshold for one service cannot reproduce the full witness,
-because the local quota is identical in the singleton and joint conditions. A
-multivariate rule, a group-sum rule, or an application-specific combination of
-CPU alerts could distinguish them. The probe therefore supports the balance as
-a compact and principled compositional representation; it does not claim that
-the balance is the only possible detector or that it has demonstrated better
-precision or recall.
+Evidence: [interpretation / engineering provenance](probe6/results/README.md),
+[all windows](probe6/results/joint-v0.2.0/trajectory-level.csv),
+[complete and incomplete steps](probe6/results/joint-v0.2.0/four-way-epochs.csv),
+and [aggregate](probe6/results/joint-v0.2.0/summary.json).
 
-## Selection provenance for Probe 2
+## Geometry: complete state and comparable relative drift
 
-The [pilot summary](probe2/pilot-provenance.json) records 12 pilot replications
-over six candidate windows. No candidate met the pilot's formal eligibility
-rule. The 0.19-CPU, 40-requests/s window was the sole observed interaction
-window: it had one complete pattern replication and one pattern-consistent but
-invalid replication. That window was fixed for the separate 32-block follow-up;
-none of the pilot observations is included in 8/28 or 9/32.
+Full ILR recovers the selected positive composition. CPU's four parts require
+three coordinates; RAM's two parts require one. A balance is one projection.
+CPU and RAM remain separate compositions; budgets and workload remain context.
 
-This separation avoids reusing the same observations as confirmation, but the
-data-dependent choice still limits generalization. The follow-up demonstrates
-that the phenomenon can recur at that constructed boundary; it does not estimate
-how often such a boundary appears in production systems.
+Applying equal positive multiplicative factors and closing the budget gives
+the same full ILR displacement at different starts. Six synthetic checks
+reproduced this known property. Aitchison distance was constant (CPU 0.790041;
+RAM 0.776836), while Euclidean share distance varied (CPU 0.130375--0.156347;
+RAM 0.029149--0.057645). Euclidean share distance still measures additive change.
+Equal relative movement does not imply equal SLO consequences.
 
-## Bottom line
+All 594 CPU and 551 CPU/RAM source windows are retained separately with original
+labels and validity. These dependent windows are not 1,145 independent
+replications. Synthetic endpoints have no SLO labels. Product-metric weights
+are declared conventions, not calibrated risk weights.
 
-- Probe 1 strongly supports the fixed-runtime claim that radial magnitude can
-  mis-rank operational risk and that a directed balance captures the relevant
-  direction in the constructed pair.
-- Probe 2 supports the existence of a local-threshold blind spot through eight
-  complete new within-block witnesses, while showing that the phenomenon is
-  variable at the selected boundary.
-- Neither probe demonstrates predictive superiority over all CPU alerting,
-  production prevalence, or a universal mapping from Rasmussen's model to CPU
-  allocations.
+Evidence: [definitions](geometry/README.md),
+[properties](geometry/results/v0.1.0/metric-properties.csv),
+[full coordinates](geometry/results/v0.1.0/trajectory-coordinates.csv),
+[verification](geometry/results/v0.1.0/summary.json), and
+[figure / interpretation](geometry/results/v0.1.0/RESULTS.md).
 
-The executable definitions are in [Probe 1's workflow](.github/workflows/probe1.yml)
-and [Probe 2's workflow](.github/workflows/probe2.yml). Runtime integrity checks
-are in the [verification workflow](.github/workflows/verify.yml).
+## Fixed endpoints: limits of scalar reductions
 
-## Additional fixed follow-up
+The corrected [Probe 3](probe3/results/README.md) enforced the generator gate.
+All 28 blocks and 104 point attempts were received. The 16 valid A/B pairs
+showed farther A safe in 16/16 and nearer B unsafe in 10/16; both radial
+distances lost direction. Nine B points had post-intervention failures,
+retained as diagnostics. Timeout-saturated latency is censored.
 
-The [new series](probe3/) has 16 corrected A/B pairs and 12 six-condition context
-blocks. It compares matched group sums and counts with differing balances, and
-permuted allocations with equal balances and differing service assignments.
-Both contrast directions, technical invalidity and all recoverable outcomes are
-reported. No observations are pooled with the historical counts above.
+Permuting (.15,.24,.24) over the functional services with ad at .37 preserves
+the group balance, sum, minimum and both radial distances. Checkout-low was
+unsafe in 4/11 valid points; payment-low and shipping-low were safe in 12/12
+and 11/11. Matched discordances were 4/11 and 3/10 with no reverse contrasts.
+This demonstrates loss of service identity in scalar summaries, including
+the chosen balance. Full coordinates retain those distinctions; their
+predictive usefulness was not evaluated here.
 
-Until it completes, these are design questions, not additional empirical claims.
-The execution workflow retains raw metrics, diagnostic events, per-point results
-and an aggregate report. Historical execution identifiers and evidence checksums
-remain in each series' result provenance; documentation contains no links back
-to an identifying source hosting account.
+Evidence: [point outcomes / invalid reasons](probe3/results/point-level.csv),
+[block inputs](probe3/results/block-level.json),
+[intervals and both contrast directions](probe3/results/summary.json), and
+[generated tables](probe3/results/RESULTS.md).
+
+## Threshold comparison: retain the unfavorable result
+
+[Probe 4](probe4/results/README.md) had 109 valid points of 120 attempts.
+Eleven baseline/pre-intervention failures remain in the table. Thresholds were
+selected and evaluated in-sample, separately at each load. Local OR exhausts
+independent service cutoffs and is more flexible than one balance threshold.
+
+| Load | Unsafe / valid | Balance detections at zero observed false alarms | Local OR detections |
+| --- | ---: | ---: | ---: |
+| 40/s | 33/60 | 10/33 | 30/33 |
+| 64/s | 39/49 | 22/39 | 30/39 |
+
+The scalar balance did not outperform local OR on these scenarios. This is not
+a comparison of full ILR with equally capable raw-share predictors. In-sample
+envelopes are descriptive, not held-out alert performance. There is no binary
+scientific success criterion.
+
+Evidence: [all 120 records](probe4/results/point-level.csv),
+[every threshold](probe4/results/thresholds.csv),
+[rules and envelopes](probe4/results/comparison.json), and
+[complete tables](probe4/results/RESULTS.md).
+
+## Historical evidence and the overall conclusion
+
+Original Probes 1--2 are separate in
+[historical-endpoints.md](docs/historical-endpoints.md), including the omitted
+generator gate, conditional sensitivity, restarts, timeouts and pilot selection.
+Their counts are not combined with follow-ups.
+
+The evidence supports full allocation histories and relative-drift geometry
+with consequences measured externally. It does not establish universal alert
+superiority, causality from geometry, production prevalence or an allocation-only
+prediction of acceptability. Budget-aware observability integration, snapshot
+correctness, overhead and diagnostic usefulness are concrete next evaluations.

@@ -1,0 +1,37 @@
+{
+  "source": "probe5/results/trajectory-level.csv",
+  "source_sha256_lf": "63ba28948b60572c9ca07377908159676132be79899eb3765ca7ef364ecdee7e",
+  "parts": [
+    "checkout",
+    "payment",
+    "shipping",
+    "ad"
+  ],
+  "resource": "CPU",
+  "administrative_budget_cpu": 1.0,
+  "basis_rows": [
+    [
+      0.2886751345948129,
+      0.2886751345948129,
+      0.2886751345948129,
+      -0.8660254037844386
+    ],
+    [
+      0.816496580927726,
+      -0.4082482904638631,
+      -0.4082482904638631,
+      0.0
+    ],
+    [
+      0.0,
+      0.7071067811865475,
+      -0.7071067811865475,
+      0.0
+    ]
+  ],
+  "reference": "Each history's recorded epoch-0 allocation",
+  "execution_design": "probe5/design-v0.1.0.json",
+  "time_index": "Recorded epoch; actual decision/window timestamps are absent from the aggregate CSV",
+  "registered_path_length": "Sum of successive full ILR displacement lengths at the recorded epoch frequency.",
+  "scope": "Saved-data descriptive analysis only. No new workloads, fitted warning rule, scientific pass threshold, inferred timestamps, outcome-based filtering or pooling."
+}

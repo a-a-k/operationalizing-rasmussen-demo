@@ -1,0 +1,38 @@
+{
+  "analysis_version": "cpu-history-0.1.0",
+  "selection": "Retrospective: two complete donor cycles, selected after the recorded execution.",
+  "comparison_step": 6,
+  "summary_unit": "Runner pair; repeated windows within a pair are dependent.",
+  "source_sha256_lf": "63ba28948b60572c9ca07377908159676132be79899eb3765ca7ef364ecdee7e",
+  "planned_pairs": 20,
+  "pair_count": 19,
+  "missing_planned_pairs": [
+    "migration-006"
+  ],
+  "valid_and_slo_safe_pairs": 19,
+  "both_positive_pairs": 19,
+  "goodput_change_difference_responses_per_second": {
+    "median": 863.9333333333333,
+    "minimum": 723.9222222222222,
+    "maximum": 1964.9444444444443,
+    "positive": 19,
+    "negative": 0,
+    "zero": 0
+  },
+  "p95_change_difference_ms": {
+    "median": 47.098717649999955,
+    "minimum": 6.762634449999979,
+    "maximum": 155.2840327999994,
+    "positive": 19,
+    "negative": 0,
+    "zero": 0
+  },
+  "shared_step6_adaptive_allocation": [
+    0.22,
+    0.22,
+    0.22,
+    0.34
+  ],
+  "source_windows": 594,
+  "maximum_goodput_normalization_error": 0.0
+}

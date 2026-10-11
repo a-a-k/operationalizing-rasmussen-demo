@@ -1,160 +1,87 @@
-# Closed-allocation runtime probes
+# Closed-allocation drift measurement
 
-This repository contains fixed designs, GitHub Actions workflows, analysis code,
-and recorded results for constructive runtime probes of closed allocations.
+Executable runtime probes and saved-data analyses for observing resource
+adaptation under closed administrative budgets. The measurement layer retains
+the complete selected allocation, expresses relative movement in full isometric
+log-ratio (ILR) coordinates, and connects the history to observed pressure,
+actions, recipient output and external service outcomes.
 
-The probes use a digest-pinned OpenTelemetry Demo deployment and a fixed sum of
-configured CPU ceilings, not reserved or necessarily consumed CPU. An SLO outcome
-is measured externally with k6 and is safe only when
-request p95 is at most 500 ms and the error rate is below 1%.
+The runtime uses a digest-pinned OpenTelemetry Demo deployment. CPU ceilings
+are configured limits, not reserved or necessarily consumed CPU. CPU and RAM
+have separate budgets. Checkout is SLO-safe only when request p95 is at most
+500 ms and unsuccessful scheduled operations are below 1%; restart/OOM remains
+a diagnostic and never overrides that label.
 
-## What was tested
+## Start here
 
-| Probe | Comparison | Question | Observed result |
+- [Results and their interpretation](RESULTS.md): comparisons, conclusions and limits.
+- [Reproduction guide](REPRODUCING.md): offline checks and manual runtime workflows.
+- [Sequential CPU evidence](probe5/results/README.md), including the separate
+  [retrospective pre-crossing analysis](probe5/results/history-v0.1.0/README.md).
+- [Joint CPU/RAM evidence](probe6/results/README.md).
+- [Full-coordinate and metric checks](geometry/results/v0.1.0/RESULTS.md).
+
+## Evidence map
+
+Each row is a separate series. Counts are never pooled across campaigns, and
+synthetic transformations are not additional runtime observations.
+
+| Evidence | Comparison | Recorded result | Data |
 | --- | --- | --- | --- |
-| [Probe 1](probe1/) | Two reallocations from the same three-service reference composition. A is farther from the reference by both Euclidean and Aitchison radial distance; B moves much farther in the checkout-risk direction. | Does radial drift magnitude identify the operationally risky direction? | A was safe in 256/256 retained pairs; the radially nearer B was unsafe in 221/256. The paired reversal rate was 0.863 (exact 95% CI 0.815--0.903). Historical generator-gate deviation: see below. [Aggregate](probe1/results/summary.json) · [replicates](probe1/results/replicate-level.csv) |
-| [Probe 2](probe2/) | The same 0.19-CPU local quota is applied to checkout, payment, or shipping alone, and then to all three jointly, within balanced cyclic four-condition blocks. | Does one component's quota represent the joint allocation context? | Every valid singleton point was safe. The joint point was unsafe in 9/32 blocks; the complete within-block pattern occurred in 8/28 valid blocks (exact 95% CI 0.132--0.487). [Blocks and aggregate](probe2/results/summary.json) |
-| [Fixed follow-up](probe3/) | Corrected A/B plus six fixed context conditions matched on simple summaries; 104 fresh-stack points. | Does the A/B contrast recur with adequate generator capacity, and what do balance, sum, count and minimum retain or lose? | New observations only; no pooling or fitted detector. Results are reported separately when execution completes. |
-| [Threshold scenarios](probe4/) | Twelve fixed redistribution states at two loads, five repetitions; 120 new fresh-stack points with increased checkout and database memory reserves. | How do balance and local or combined quota thresholds trade off missed SLO violations and false alarms on these scenarios? | Exploratory in-sample comparison of all thresholds, reported separately; no calibration split, binary scientific criterion, or pooling. |
-| [Adaptive migration](probe5/) | Twenty planned paired sequential adaptation/control histories with simultaneous checkout and advertising workloads. | Can measured recipient output pressure motivate successive closed-budget transfers that erode checkout performance and cross its SLO boundary? | Nineteen pairs were retained; one runner lost communication and supplied no artifact. All 19 adaptive histories crossed the SLO boundary after 8--13 transfers; all 19 unchanged controls remained safe. Advertising goodput increased relative to the matched controls. No detector-superiority claim. [Results and limitations](probe5/results/) |
-| [Joint CPU/memory follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) | Twenty four-history blocks: control, CPU-only, RAM-only and joint transfers, with separately closed budgets and a fixed six-step path. | Can joint adaptation violate the SLO at a step where both single-resource histories remain safe? | All 20 blocks were valid. Five contained a matched joint-only unsafe witness; every control remained safe. Joint histories crossed the SLO in 20/20, CPU-only in 14/20, RAM-only in 17/20. Separate engineering-informed observations, not detector reliability. [Data and interpretation](probe6/results/) |
+| Sequential CPU migration (Probe 5) | Pressure-motivated transfers versus unchanged controls | 19/20 planned pairs received. All 19 adaptive histories crossed at steps 8--13; controls stayed safe. At retrospective step 6 all pairs were still safe, with positive control-adjusted changes in both goodput and checkout p95. | [Trajectories](probe5/results/trajectory-level.csv), [paired epochs](probe5/results/paired-epochs.csv), [step-6 pairs](probe5/results/history-v0.1.0/step6-pairs.csv) |
+| Joint CPU/RAM follow-up (Probe 6) | Control, CPU-only, RAM-only and joint histories | 20 valid blocks; five matched joint-only unsafe witnesses. Crossings: joint 20/20, CPU-only 14/20, RAM-only 17/20, control 0/20. | [Trajectories](probe6/results/joint-v0.2.0/trajectory-level.csv), [matched steps](probe6/results/joint-v0.2.0/four-way-epochs.csv) |
+| Geometry verification | Full ILR and equal multiplicative updates across starting states | Six unlabeled synthetic checks; 1,145 saved windows retained in separate series. Equal relative updates have equal ILR displacement; Euclidean share distance describes additive change. | [Checks](geometry/results/v0.1.0/metric-properties.csv), [coordinates](geometry/results/v0.1.0/trajectory-coordinates.csv), [figure](geometry/results/v0.1.0/geometry.svg) |
+| Fixed endpoints (Probe 3) | Corrected A/B and matched-summary service permutations | A safe in 16/16, nearer B unsafe in 10/16. Equal-balance permutations: checkout-low unsafe in 4/11; payment-low and shipping-low safe in 12/12 and 11/11. | [Interpretation](probe3/results/README.md), [all 104 points](probe3/results/point-level.csv), [aggregate](probe3/results/summary.json) |
+| Threshold scenarios (Probe 4) | Twelve configurations, two loads, five repetitions | 109/120 points valid. At zero observed false alarms, balance detected 10/33 and 22/39 unsafe points; local OR detected 30/33 and 30/39. In-sample only. | [Interpretation](probe4/results/README.md), [points](probe4/results/point-level.csv), [all rules](probe4/results/thresholds.csv) |
 
-The first joint-resource engineering execution found no binding memory ceiling,
-so its twenty-block campaign did not start. A separate fixed
-[nine-condition RAM range check](probe6/RAM_CALIBRATION_v0.1.0.md) found safe
-outcomes with memory-cap events at 32/28 MiB and unsafe outcomes at 24/20 MiB,
-one observation per ceiling. Its engineering data are not campaign results.
-The active [v0.2.0 follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) fixed its new path
-before twenty new blocks. Its [complete results](probe6/results/) and the separate
-calibration are committed; the previously executed definitions remain unchanged.
+Historical [Probe 1](probe1/) and [Probe 2](probe2/) are preserved separately:
+221/256 paired reversals and 8/28 complete context witnesses, respectively.
+Probe 1 omitted its intended generator-start gate; its conditional sensitivity
+analysis is not a corrected execution. See the
+[historical interpretation](docs/historical-endpoints.md) for deviations,
+timeouts, failure diagnostics and selection provenance.
 
-Probe 1 shows that distance from a reference composition is not a risk direction:
-a larger radial change can remain safe while a smaller, risk-directed change
-violates the SLO. Probe 2 supplies repeated witnesses that an unchanged local
-quota does not encode what happened to the rest of a closed allocation. The
-second result does not claim superiority over arbitrary multivariate, group-sum,
-or application-specific detectors.
+## What this establishes
 
-No binary success threshold or majority rule is used for either result. Counts,
-proportions, and exact intervals are reported descriptively.
+Runtime histories instantiate a constructed adaptation mechanism: measured
+recipient pressure motivates closed transfers, useful recipient output grows,
+and another service approaches and crosses an externally measured boundary.
+Fixed endpoints demonstrate information lost by radial magnitude and a single
+group projection. Full ILR coordinates preserve the selected allocation; known
+compositional geometry gives relative changes a consistent scale.
 
-**Historical deviation:** Probe 1's executed confirmation omitted its intended
-99%-started generator gate. Forty-nine B windows fell below it. Applying that
-gate retrospectively gives 172 reversals among 207 retained pairs (exact 95% CI
-0.773--0.879), a conditional sensitivity analysis, not a corrected execution.
-The separate follow-up uses 800 fixed VUs and enforces the gate during every
-baseline and test. The original designs, execution code and data remain intact.
+These results establish a measurement basis, not a universally better detector,
+production failure probability, human-behavior model or calibrated safe region.
+Platform integration, diagnostic usefulness and held-out prediction remain
+separate evaluations. Budgets, workload and runtime history still condition outcomes.
 
-For a claim-by-claim account of the runs, including the safe B cases, invalid
-blocks, timeout censoring, pilot provenance, and comparison with ordinary CPU
-thresholds, see the **[full results interpretation](RESULTS.md)**.
+## Verification without running a workload
 
-A separate [compositional geometry verification](geometry/) checks the complete
-ILR representation, metric invariance and the saved CPU/CPU-RAM trajectories.
-It is a post-run analysis with no new workloads, fitted alert thresholds or SLO
-labels assigned to synthetic transformations. Geometric consistency and
-predictive detector performance are different questions.
-Its [completed results and figure](geometry/results/v0.1.0/RESULTS.md) preserve
-all 1,145 source windows in separate series and demonstrate the fixed relative
-update's metric consistency across different initial compositions.
-
-## Repository map
-
-```text
-probe1/
-  design.json             fixed directional-pair design
-  runtime.json            pinned runtime and measurement contract
-  results/                aggregate and replicate-level results
-  scripts/, tests/, k6/   execution, analysis, and checks
-probe2/
-  design.json             fixed joint-context follow-up design
-  runtime.json            pinned follow-up runtime
-  pilot-provenance.json   selection provenance; not part of the estimand
-  results/summary.json    aggregate plus block-level results
-  scripts/, tests/, k6/   execution, analysis, and checks
-probe3/
-  design-v0.1.1.json      fixed 16-pair / 12-six-condition follow-up
-  runtime-v0.1.1.json     generator and diagnostic overlay
-  scripts/, tests/, k6/   separate runner, measurements and descriptive analysis
-.github/workflows/
-  verify.yml              static verification and optional runtime smoke test
-  probe1.yml              complete 256-pair reproduction
-  probe2.yml              complete 32-block reproduction
-  followup.yml            verification, smoke and the fixed 28-job follow-up
-  scenarios.yml           maximum-load reference gate and fixed 20-job comparison
-  migration.yml           concurrent-workload gate and 20 paired sequential histories
-  joint-resources.yml     memory-binding engineering gate and 20 four-history blocks
-  ram-calibration.yml     separate fixed nine-condition RAM engineering check
-  joint-resources-v0.2.yml  fixed engineering-informed 20-block follow-up
-  geometry.yml            lightweight geometric analysis of saved observations
-```
-
-There is one fixed design and runtime per series; the new follow-up is explicitly
-versioned and does not replace historical definitions.
-Version identifiers retained inside JSON results are immutable execution
-provenance, not alternative active designs.
-
-## Reproduction
-
-The experiments are intentionally executed in GitHub Actions because runner
-shape, Docker/cgroup behavior, action revisions, and upstream source are part of
-the runtime contract. Local execution is limited to lightweight unit tests.
+Python 3.13 and its standard library suffice; no Docker, network or data-science
+packages are needed:
 
 ```bash
-python -m unittest discover -s probe1/tests -v
-python -m unittest discover -s probe2/tests -v
-python -B -m unittest discover -s probe3/tests -v
-python -B -m unittest discover -s probe4/tests -v
-python -B -m unittest discover -s probe5/tests -v
-python -B -m unittest discover -s probe6/tests -v
+python -B scripts/verify_archive.py
 ```
 
-Use the Actions interface for the authoritative checks:
+This checks checksums, local documentation links, anonymity, all unit-test suites
+and saved-data analysis, including the step-6 contrasts. Full experiments run
+only in the manual workflows in [REPRODUCING.md](REPRODUCING.md).
+Pushing changes runs static verification only, not a workload campaign.
 
-1. Run `verify` for the static gates and optional pinned-stack smoke test.
-2. Run `probe-1-directional-pair` with `expected_sha` set to the exact commit,
-   an empty `controller_run_id`, and `auto_continue=true`.
-3. Run `probe-2-joint-context` with `expected_sha` set to the same exact commit.
-4. Run `fixed-experimental-followup` with its exact commit and `execute=true`.
-   Its own smoke gate precedes the fixed matrix; it does not search for points
-   or dispatch additional waves. Use `execute=false` for verification only.
-5. Run `allocation-threshold-scenarios` with its exact commit and `execute=true`
-   for the separate 120-point exploratory comparison. It has a maximum-load gate
-   and a fixed matrix, with no automatic additional waves.
-6. Run `adaptive-boundary-migration` with its exact commit and `execute=true`
-   for the separate 20-pair sequential mechanism test. Its engineering gate
-   verifies simultaneous workloads; no replacement jobs are dispatched.
-7. The historical `joint-cpu-memory-migration` retains the original v0.1.0
-   engineering-gated design. It is not the active CPU/memory follow-up.
-8. Run `joint-cpu-memory-followup` with its exact commit for the active v0.2.0
-   twenty-block comparison. Its fixed six-step path and separate scripts use
-   the observed RAM range; every history independently checks its baseline.
-   No prior engineering data enter the new block-level aggregate.
+## Provenance and retention
 
-Full reruns are deliberately manual and computationally expensive. The compact
-reported evidence is committed under each probe's `results/` directory, so
-review does not depend on the retention lifetime of GitHub Actions artifacts.
+Executed designs, image digests, action revisions and primary observations are
+preserved. Execution identifiers and commits in metadata refer to the original
+runs, without identifying source-hosting links in documentation. Post-run
+analyses are explicitly versioned and do not alter frozen experiments.
 
-## Provenance boundary
-
-The repository was reorganized and its history compacted only
-after the reported executions. The recorded run identifiers and execution
-commits remain in result metadata. The committed counts and replicate/block-level
-observations use the current descriptive analysis schema; repository checksums
-are provided in `SHA256SUMS`.
-
-Probe 2's pilot found no formally eligible candidate. For the separate follow-up
-we fixed the pilot's sole observed interaction window (0.19 CPU at 40 requests/s);
-the reported frequency uses only 32 new blocks. The pilot summary is retained
-solely to make this choice auditable.
-
-## Scope
-
-This artifact establishes constructive counterexamples in one controlled
-runtime instantiation. It does not estimate production prevalence, predictive
-accuracy, or the general reliability of a detector.
+Committed observations, aggregates and rules are the reviewable archive;
+reading them does not depend on short-lived Actions artifacts. Native streams
+and diagnostics are distinct execution artifacts, not reconstructed by compact
+tables. [SHA256SUMS](SHA256SUMS) covers archived files using canonical LF text bytes.
 
 ## License
 
-The artifact code is released under the MIT License. The upstream OpenTelemetry
-Demo remains under its own license.
+Artifact code is released under the [MIT License](LICENSE). Upstream
+OpenTelemetry Demo retains its own license.

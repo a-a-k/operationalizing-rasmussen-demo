@@ -73,17 +73,30 @@ class IntegrityTests(unittest.TestCase):
             self.assertEqual(hashlib.sha256(canonical).hexdigest(), expected, relative)
 
     def test_no_document_sources_or_identifying_docs_and_comments(self):
-        paths = subprocess.check_output(
-            ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
-            cwd=ROOT, text=True,
-        ).split("\0")
+        has_git = (ROOT / ".git").exists()
+        if has_git:
+            paths = subprocess.check_output(
+                ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+                cwd=ROOT, text=True,
+            ).split("\0")
+        else:
+            excluded = {".git", ".venv", "artifacts", "upstream", "__pycache__",
+                        ".pytest_cache", "confirmation-artifacts", "protocol"}
+            paths = [p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*")
+                     if p.is_file() and not set(p.relative_to(ROOT).parts) & excluded
+                     and p.relative_to(ROOT).parts[0] != "results"]
         # Use local identity only to detect leaks; never write it into an artifact.
         identities = []
-        for key in ("user.name", "user.email"):
+        for key in (("user.name", "user.email") if has_git else ()):
             p = subprocess.run(["git", "config", "--get", key], cwd=ROOT, text=True, capture_output=True)
             if p.returncode == 0 and len(p.stdout.strip()) > 3:
                 identities.append(p.stdout.strip())
-        origin = subprocess.check_output(["git", "remote", "get-url", "origin"], cwd=ROOT, text=True).strip()
+        origin = ""
+        if has_git:
+            result = subprocess.run(["git", "remote", "get-url", "origin"],
+                                    cwd=ROOT, text=True, capture_output=True)
+            if result.returncode == 0:
+                origin = result.stdout.strip()
         origin = origin.removesuffix(".git")
         for relative in filter(None, paths):
             p = ROOT / relative
@@ -106,7 +119,8 @@ class IntegrityTests(unittest.TestCase):
                                   if line.lstrip().startswith(("#", "//", "/*", "*")))
             else:
                 continue
-            self.assertNotIn(origin, text, relative)
+            if origin:
+                self.assertNotIn(origin, text, relative)
             for identity in identities:
                 self.assertNotIn(identity.casefold(), text.casefold(), relative)
 

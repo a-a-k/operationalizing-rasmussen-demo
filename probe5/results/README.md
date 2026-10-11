@@ -53,6 +53,13 @@ were not guaranteed to improve output; the 16 negative changes remain visible.
 
 ## Interpretation
 
+A separate [retrospective step-6 analysis](history-v0.1.0/README.md) now
+compares both baseline-relative goodput and p95 changes with control, before
+the SLO crossing. All 19 pairs were still safe; both contrasts were positive.
+Its [per-pair inputs](history-v0.1.0/step6-pairs.csv) and
+[full-coordinate history](history-v0.1.0/ilr-history.csv) are versioned post-run
+outputs, not a change to the frozen experiment.
+
 The constructed runtime mechanism occurred: measured output pressure motivated
 successive reallocations while checkout was still acceptable at each decision;
 the recipient's measured output increased, and checkout eventually crossed its

@@ -145,6 +145,12 @@ services remain part of the external runtime context.
 
 ## Running and reading the evidence
 
+The corrected series is complete. Its [archived interpretation](results/README.md),
+[all 104 points](results/point-level.csv), [block inputs](results/block-level.json)
+and [aggregate](results/summary.json) are available without an Actions download.
+The A/B contrast recurred in 10/16 pairs; equal-balance service permutations
+also produced discordant outcomes. These results are reported separately.
+
 Run [fixed-experimental-followup](../.github/workflows/followup.yml) with the exact
 commit in `expected_sha`. With `execute=false` it runs only verification and an
 end-to-end smoke outside the sample. With `execute=true`, a successful smoke

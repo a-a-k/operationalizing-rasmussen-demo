@@ -40,11 +40,7 @@ jobs:
         run: |
           set -euo pipefail
           sha256sum --check SHA256SUMS
-          python -m unittest discover -s probe1/tests -v
-          python -m unittest discover -s probe2/tests -v
-          python -m unittest discover -s probe3/tests -v
-          python -m unittest discover -s probe6/tests -v
-          python -B -m unittest discover -s geometry/tests -v
+          python -B scripts/verify_archive.py --report artifacts/archive-verification.json
           python probe6/scripts/joint_resources.py verify --upstream-dir upstream/otel-demo
           python probe1/scripts/verify_runtime.py \
             --upstream-dir upstream/otel-demo \
