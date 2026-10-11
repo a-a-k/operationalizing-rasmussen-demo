@@ -64,6 +64,25 @@ Actions artifacts are retained for 90 days; the completed output is additionally
 archived in this directory so review need not depend on artifact expiry.
 Source checksums use LF text bytes as stored in Git.
 
+## Completed result
+
+The completed [interpretation and table](results/v0.1.0/RESULTS.md),
+[full observed coordinates](results/v0.1.0/trajectory-coordinates.csv),
+[synthetic checks](results/v0.1.0/metric-properties.csv),
+[machine-readable verification](results/v0.1.0/summary.json), and
+[figure](results/v0.1.0/geometry.svg) are archived together.
+The two source series contribute 594 CPU-migration windows and 551 CPU/RAM
+windows, kept separate. All six synthetic checks remain unlabeled.
+
+For an identical relative update across the three starting compositions,
+Aitchison distance is constant: CPU 0.790041, RAM 0.776836. Euclidean share
+distance varies: CPU 0.130375--0.156347, RAM 0.029149--0.057645.
+The maximum observed distance/angle verification error is below 1.4e-15.
+This is geometric consistency for relative drift, not evidence that unchanged
+SLO risks can be transported to new allocations.
+
+![Relative drift geometry and observed runtime outcomes](results/v0.1.0/geometry.svg)
+
 Local lightweight check:
 
 ```bash

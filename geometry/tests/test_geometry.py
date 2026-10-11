@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import csv
 import json
 import math
 import sys
@@ -15,7 +16,7 @@ from geometry import (CPU_BASIS, RAM_BASIS, aitchison, angle, close, difference,
                       distance, ilr, inverse_ilr, norm, perturb, product,
                       rotate_basis, share_euclidean, validate_basis)
 from analyze import (DESIGN, VERSION, analyze, load_sources, results_markdown,
-                     runtime_coordinates, save, synthetic_checks)
+                     runtime_coordinates, save, synthetic_checks, text_sha)
 
 
 class GeometryTests(unittest.TestCase):
@@ -148,6 +149,25 @@ class AnalysisTests(unittest.TestCase):
             self.assertEqual(ET.parse(Path(tmp) / 'geometry.svg').getroot().tag, '{http://www.w3.org/2000/svg}svg')
         self.assertIn('not an additional workload campaign', results_markdown(first[0]))
         with self.assertRaises(ValueError): analyze(ROOT, 'main', '0')
+
+    def test_archived_workflow_result_matches_sources_and_preserves_every_window(self):
+        archive = ROOT / 'geometry/results/v0.1.0'
+        recorded = json.loads((archive / 'summary.json').read_text(encoding='utf-8'))
+        for path, expected in recorded['input_sha256_lf'].items():
+            self.assertEqual(text_sha(ROOT / path), expected, path)
+        replay, _, rows = analyze(ROOT, recorded['execution_commit'], recorded['execution_run_id'])
+        replay_counts = json.loads(json.dumps(replay['observed_counts_separate_series']))
+        self.assertEqual(recorded['observed_counts_separate_series'], replay_counts)
+        with (archive / 'trajectory-coordinates.csv').open(encoding='utf-8', newline='') as handle:
+            persisted = list(csv.DictReader(handle))
+        self.assertEqual(len(persisted), len(rows))
+        for actual, expected in zip(persisted, rows):
+            for key, value in expected.items():
+                if value is None: self.assertEqual(actual[key], '')
+                elif isinstance(value, float): self.assertAlmostEqual(float(actual[key]), value, delta=1e-10)
+                else: self.assertEqual(actual[key], str(value))
+        with (archive / 'metric-properties.csv').open(encoding='utf-8', newline='') as handle:
+            self.assertTrue(all(r['slo_safe'] == '' for r in csv.DictReader(handle)))
 
 
 if __name__ == '__main__':

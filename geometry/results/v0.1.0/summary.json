@@ -1,0 +1,170 @@
+{
+  "analysis_version": "compositional-geometry-0.1.0",
+  "evidence_boundary": "Post-run geometric analysis, not a new workload campaign or a fitted detector. Synthetic states have no SLO labels. Known metric properties are implementation checks, not newly discovered empirical laws. Product weights are an explicit convention, not learned risk weights.",
+  "execution_commit": "290d9701483b7368f3b65c2ef94d27d6e326d07a",
+  "execution_run_id": "38128412179",
+  "input_sha256_lf": {
+    "geometry/design-v0.1.0.json": "a38facf94177bbf3fa3faa319a59c36db6f799c7e62630eef14d33c42f1e10b0",
+    "geometry/scripts/analyze.py": "0688ec39b8154db3866ab93a921dbe42c0aaf9b90bcbebbf47de67854610dea6",
+    "geometry/scripts/geometry.py": "cecc1c040b5fb8b16d36ea278a864fbc15b98767edaa6d16e64522ad3176af6f",
+    "probe5/design-v0.1.0.json": "67c4f7e9cbdc1db276f4ff27a43bbac57bd84e938080662ddcfedfd8b4fe6503",
+    "probe5/results/trajectory-level.csv": "63ba28948b60572c9ca07377908159676132be79899eb3765ca7ef364ecdee7e",
+    "probe6/design-v0.2.0.json": "951ad1aca27ada553585c05ce039f2f07170f43908b43a3091c4284256bd7cb8",
+    "probe6/results/joint-v0.2.0/trajectory-level.csv": "aa39aa403eeca0007b4c7fcfd2a94e97374328b1a5182ba77ab07eba9357d8eb"
+  },
+  "numerical_checks_passed": true,
+  "numerical_tolerance": 1e-10,
+  "observed_counts_separate_series": {
+    "joint": {
+      "blocks": 20,
+      "planned_source_blocks": 20,
+      "policies": {
+        "control": {
+          "adaptation_windows": 120,
+          "first_unsafe_epochs": {},
+          "histories": 20,
+          "histories_with_valid_unsafe": 0,
+          "invalid_windows": 0,
+          "unsafe_windows": 0,
+          "windows": 140
+        },
+        "cpu": {
+          "adaptation_windows": 116,
+          "first_unsafe_epochs": {
+            "3": 1,
+            "5": 1,
+            "6": 12
+          },
+          "histories": 20,
+          "histories_with_valid_unsafe": 14,
+          "invalid_windows": 0,
+          "unsafe_windows": 14,
+          "windows": 136
+        },
+        "joint": {
+          "adaptation_windows": 115,
+          "first_unsafe_epochs": {
+            "5": 5,
+            "6": 15
+          },
+          "histories": 20,
+          "histories_with_valid_unsafe": 20,
+          "invalid_windows": 0,
+          "unsafe_windows": 20,
+          "windows": 135
+        },
+        "ram": {
+          "adaptation_windows": 120,
+          "first_unsafe_epochs": {
+            "6": 17
+          },
+          "histories": 20,
+          "histories_with_valid_unsafe": 17,
+          "invalid_windows": 0,
+          "unsafe_windows": 17,
+          "windows": 140
+        }
+      },
+      "source_blocks_without_observations": 0,
+      "total_windows": 551,
+      "witnesses": [
+        {
+          "block_id": "resources-005",
+          "epoch": 5
+        },
+        {
+          "block_id": "resources-007",
+          "epoch": 6
+        },
+        {
+          "block_id": "resources-008",
+          "epoch": 5
+        },
+        {
+          "block_id": "resources-010",
+          "epoch": 5
+        },
+        {
+          "block_id": "resources-020",
+          "epoch": 5
+        }
+      ]
+    },
+    "migration": {
+      "blocks": 19,
+      "planned_source_blocks": 20,
+      "policies": {
+        "control": {
+          "adaptation_windows": 342,
+          "first_unsafe_epochs": {},
+          "histories": 19,
+          "histories_with_valid_unsafe": 0,
+          "invalid_windows": 0,
+          "unsafe_windows": 0,
+          "windows": 361
+        },
+        "drift": {
+          "adaptation_windows": 214,
+          "first_unsafe_epochs": {
+            "8": 1,
+            "10": 6,
+            "11": 5,
+            "13": 7
+          },
+          "histories": 19,
+          "histories_with_valid_unsafe": 19,
+          "invalid_windows": 0,
+          "unsafe_windows": 19,
+          "windows": 233
+        }
+      },
+      "source_blocks_without_observations": 1,
+      "total_windows": 594
+    }
+  },
+  "product_metric_weights": {
+    "cpu": 1.0,
+    "ram": 1.0
+  },
+  "runtime_verification_max_errors": {
+    "basis_angle": 1.3183898417423734e-15,
+    "basis_distance": 4.440892098500626e-16,
+    "cpu_isometry": 4.440892098500626e-16,
+    "historical_cpu_balance": 4.440892098500626e-16,
+    "historical_cpu_distance": 4.440892098500626e-16,
+    "historical_ram_balance": 2.220446049250313e-16,
+    "ram_isometry": 1.6653345369377348e-16
+  },
+  "synthetic_properties": {
+    "cpu": {
+      "aitchison_max": 0.7900409635638072,
+      "aitchison_min": 0.790040963563807,
+      "alternate_basis_distance_max_error": 1.1102230246251565e-16,
+      "common_perturbation_distance_max_error": 3.3306690738754696e-16,
+      "common_perturbation_vector_max_error": 4.577566798522237e-16,
+      "equal_update_vector_max_error": 3.1401849173675503e-16,
+      "euclidean_max": 0.15634719199411434,
+      "euclidean_min": 0.13037457905664562,
+      "ilr_isometry_max_error": 1.1102230246251565e-16,
+      "inverse_ilr_max_error": 5.551115123125783e-17
+    },
+    "ram": {
+      "aitchison_max": 0.7768361992120932,
+      "aitchison_min": 0.7768361992120931,
+      "alternate_basis_distance_max_error": 2.220446049250313e-16,
+      "common_perturbation_distance_max_error": 3.3306690738754696e-16,
+      "common_perturbation_vector_max_error": 4.440892098500626e-16,
+      "equal_update_vector_max_error": 4.440892098500626e-16,
+      "euclidean_max": 0.05764457455325125,
+      "euclidean_min": 0.029149348692530577,
+      "ilr_isometry_max_error": 2.220446049250313e-16,
+      "inverse_ilr_max_error": 2.7755575615628914e-17
+    },
+    "subcomposition_example": {
+      "full_aitchison": 0.6276095150374829,
+      "full_euclidean_shares": 0.14142135623730956,
+      "subset_aitchison": 0.4901290717342735,
+      "subset_euclidean_shares": 0.23570226039551584
+    }
+  }
+}

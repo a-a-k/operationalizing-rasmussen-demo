@@ -54,6 +54,9 @@ ILR representation, metric invariance and the saved CPU/CPU-RAM trajectories.
 It is a post-run analysis with no new workloads, fitted alert thresholds or SLO
 labels assigned to synthetic transformations. Geometric consistency and
 predictive detector performance are different questions.
+Its [completed results and figure](geometry/results/v0.1.0/RESULTS.md) preserve
+all 1,145 source windows in separate series and demonstrate the fixed relative
+update's metric consistency across different initial compositions.
 
 ## Repository map
 
