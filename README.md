@@ -49,6 +49,12 @@ For a claim-by-claim account of the runs, including the safe B cases, invalid
 blocks, timeout censoring, pilot provenance, and comparison with ordinary CPU
 thresholds, see the **[full results interpretation](RESULTS.md)**.
 
+A separate [compositional geometry verification](geometry/) checks the complete
+ILR representation, metric invariance and the saved CPU/CPU-RAM trajectories.
+It is a post-run analysis with no new workloads, fitted alert thresholds or SLO
+labels assigned to synthetic transformations. Geometric consistency and
+predictive detector performance are different questions.
+
 ## Repository map
 
 ```text
@@ -77,6 +83,7 @@ probe3/
   joint-resources.yml     memory-binding engineering gate and 20 four-history blocks
   ram-calibration.yml     separate fixed nine-condition RAM engineering check
   joint-resources-v0.2.yml  fixed engineering-informed 20-block follow-up
+  geometry.yml            lightweight geometric analysis of saved observations
 ```
 
 There is one fixed design and runtime per series; the new follow-up is explicitly

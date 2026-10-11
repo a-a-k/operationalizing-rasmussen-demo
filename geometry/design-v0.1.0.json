@@ -1,0 +1,28 @@
+{
+  "analysis_version": "compositional-geometry-0.1.0",
+  "sources": {
+    "migration": {
+      "design": "probe5/design-v0.1.0.json",
+      "design_sha256": "67c4f7e9cbdc1db276f4ff27a43bbac57bd84e938080662ddcfedfd8b4fe6503",
+      "observations": "probe5/results/trajectory-level.csv",
+      "observations_sha256": "63ba28948b60572c9ca07377908159676132be79899eb3765ca7ef364ecdee7e"
+    },
+    "joint": {
+      "design": "probe6/design-v0.2.0.json",
+      "design_sha256": "951ad1aca27ada553585c05ce039f2f07170f43908b43a3091c4284256bd7cb8",
+      "observations": "probe6/results/joint-v0.2.0/trajectory-level.csv",
+      "observations_sha256": "aa39aa403eeca0007b4c7fcfd2a94e97374328b1a5182ba77ab07eba9357d8eb"
+    }
+  },
+  "cpu_parts": ["checkout", "payment", "shipping", "ad"],
+  "ram_parts": ["checkout", "ad"],
+  "cpu_coordinates": ["functional_vs_ad", "checkout_vs_payment_shipping", "payment_vs_shipping"],
+  "ram_coordinates": ["checkout_vs_ad"],
+  "synthetic_backgrounds": {"source": "joint", "policy": "joint", "epochs": [0, 3, 6]},
+  "relative_update": {"cpu": [0.5, 1.0, 1.0, 1.5], "ram": [0.5, 1.5]},
+  "common_perturbation": {"cpu": [1.0, 2.0, 0.5, 3.0], "ram": [2.0, 0.5]},
+  "alternate_cpu_basis_rotation_degrees": 30,
+  "product_metric_weights": {"cpu": 1.0, "ram": 1.0},
+  "absolute_numerical_tolerance": 1e-10,
+  "evidence_boundary": "Post-run geometric analysis, not a new workload campaign or a fitted detector. Synthetic states have no SLO labels. Known metric properties are implementation checks, not newly discovered empirical laws. Product weights are an explicit convention, not learned risk weights."
+}
