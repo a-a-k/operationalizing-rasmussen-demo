@@ -43,6 +43,8 @@ jobs:
           python -m unittest discover -s probe1/tests -v
           python -m unittest discover -s probe2/tests -v
           python -m unittest discover -s probe3/tests -v
+          python -m unittest discover -s probe6/tests -v
+          python probe6/scripts/joint_resources.py verify --upstream-dir upstream/otel-demo
           python probe1/scripts/verify_runtime.py \
             --upstream-dir upstream/otel-demo \
             --report artifacts/static-verification.json

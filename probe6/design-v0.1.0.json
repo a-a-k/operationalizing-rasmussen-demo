@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "study_version": "joint-resource-migration-0.1.0",
+  "purpose": "A bounded exploratory test of joint CPU/memory adaptation and an externally measured performance boundary. No topological inference or detector-superiority claim.",
+  "replications": 20,
+  "randomization_salt": "joint-resource-migration-20261011-v0.1.0",
+  "policies": ["control", "cpu", "ram", "joint"],
+  "reference": {"checkout": 0.30, "payment": 0.30, "shipping": 0.30, "ad": 0.10},
+  "group_g": ["checkout", "payment", "shipping"],
+  "group_h": ["ad"],
+  "memory_reference_bytes": {"checkout": 268435456, "ad": 536870912},
+  "donor": "checkout",
+  "recipient": "ad",
+  "transfer_cpu": 0.02,
+  "transfer_memory_bytes": 16777216,
+  "maximum_moves": 12,
+  "checkout_rate": 40,
+  "http_timeout_seconds": 5,
+  "warmup_seconds": 60,
+  "baseline_seconds": 90,
+  "stabilization_seconds": 15,
+  "measurement_seconds": 60,
+  "advertising": {"vus": 8, "rpc_timeout_seconds": 2, "context_keys": ["clothing"]},
+  "engineering": {"warmup_seconds": 30, "baseline_seconds": 60, "stabilization_seconds": 10, "measurement_seconds": 30, "maximum_moves": 12},
+  "controller": {
+    "decision": "For cpu, ram and joint, take the next fixed transfer only if the preceding measured checkout outcome is safe, the measurement is valid, and advertising CPU throttling is positive. This is an output-pressure-motivated exploratory resource-transfer heuristic, not an optimizer or evidence of recipient memory pressure. Keep all realized gains and losses.",
+    "control": "Perform all 12 sham updates unless measurement infrastructure fails. A readable unsafe control outcome does not stop the history.",
+    "stop": "Stop adaptive histories after their first valid unsafe checkout epoch, absent/unobserved advertising CPU pressure, measurement failure or the move limit.",
+    "update_order": "Update checkout, payment, shipping, then ad. CPU and memory are updated together per container, with swap disabled for the memory-controlled containers. Transfers are not atomic across containers: archive the update journal and validate both closed budgets before and after measurement."
+  },
+  "analysis": {
+    "binary_success_criterion": null,
+    "witness": "At the same measured epoch within a fresh-runner block, all four histories have valid initially safe baselines and valid measurements; control, cpu and ram are safe while joint is unsafe. Report every matched epoch, including alternative patterns. Do not impute later epochs after a policy stops.",
+    "frequency": "Count blocks with at least one observed witness and show the number of fully valid blocks, observed complete four-way epochs, and missing or invalid data. This is a descriptive bounded-path observation, not a fixed-time causal estimand or a detector reliability estimate.",
+    "memory_gate": "Before the campaign, four separate engineering histories must pass baseline and instrumentation checks. At least one ram or joint history must show a positive within-cgroup memory.events max or oom/oom_kill increment after adaptation. This verifies that the memory cap actually binds, not that the desired joint-only SLO contrast occurs. Engineering observations are never pooled with campaign blocks.",
+    "reward": "Successful advertising responses per second, including zero output and all negative/zero changes. Allocation to advertising is not itself evidence of efficiency improvement. Inspect memory-only and joint reward effects separately.",
+    "failure_rule": "Safe/unsafe depends exclusively on externally measured checkout p95 and unsuccessful scheduled iterations. Post-adaptation restart/OOM is diagnostic only, never an automatic exclusion or label override. Lost primary observations and resource-configuration mismatches are technical-invalid; retain every readable outcome.",
+    "scope": "CPU and memory are separate compositions with their own fixed configured totals; workload intensity is fixed. The experiment does not establish downward closure of safe adaptations, a simplicial complex, or superiority over multivariate rules.",
+    "replacement_rule": "No outcome-based replacements, extensions, grid search, pooling or automatic parameter changes. An engineering failure stops the campaign."
+  }
+}

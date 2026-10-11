@@ -1,0 +1,216 @@
+name: joint-cpu-memory-migration
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact commit containing joint-resource-migration-0.1.0
+        required: true
+        type: string
+      execute:
+        description: Run 20 four-history blocks only after the separate memory-binding engineering gate passes
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: joint-cpu-memory-migration
+  cancel-in-progress: false
+
+env:
+  EXPECTED_SHA: ${{ inputs.expected_sha }}
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout experiment commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Checkout pinned runtime source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+          fetch-depth: 1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Verify fixed inputs and lightweight tests
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          sha256sum --check SHA256SUMS
+          python -m unittest discover -s probe6/tests -v
+          python probe6/scripts/joint_resources.py verify --upstream-dir upstream/otel-demo
+
+  engineering:
+    needs: verify
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        policy: [control, cpu, ram, joint]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    name: engineering-${{ matrix.policy }}
+    env:
+      POLICY: ${{ matrix.policy }}
+    steps:
+      - name: Checkout experiment commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Checkout pinned runtime source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+          fetch-depth: 1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Exercise the fixed path and both effective resource limits
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          python probe6/scripts/joint_resources.py run --upstream-dir upstream/otel-demo \
+            --policy "$POLICY" --artifact-dir "artifacts/engineering-$POLICY"
+      - name: Preserve every engineering observation
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: resources-engineering-${{ matrix.policy }}
+          path: artifacts/
+          if-no-files-found: warn
+          retention-days: 14
+          compression-level: 1
+
+  gate:
+    if: always() && needs.verify.result == 'success'
+    needs: [verify, engineering]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Checkout experiment commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Download available engineering histories
+        continue-on-error: true
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          pattern: resources-engineering-*
+          path: engineering-artifacts
+      - name: Require instrumentation integrity and actual memory-cap binding
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          python probe6/scripts/joint_resources.py gate --results-root engineering-artifacts \
+            --output-dir engineering-result --repository-commit "$GITHUB_SHA"
+      - name: Fixed 20-runner matrix
+        id: matrix
+        run: |
+          matrix="$(python probe6/scripts/joint_resources.py matrix)"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+      - name: Show engineering outcome
+        if: always()
+        run: |
+          if test -f engineering-result/GATE.md; then
+            cat engineering-result/GATE.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Preserve engineering decision
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: resources-engineering-result
+          path: engineering-result/
+          if-no-files-found: warn
+          retention-days: 90
+
+  execute:
+    if: inputs.execute
+    needs: gate
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix: ${{ fromJSON(needs.gate.outputs.matrix) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    name: ${{ matrix.block_id }}
+    env:
+      BLOCK_ID: ${{ matrix.block_id }}
+    steps:
+      - name: Checkout experiment commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Checkout pinned runtime source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+          fetch-depth: 1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Run four fresh-stack sequential histories
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          python probe6/scripts/joint_resources.py run --upstream-dir upstream/otel-demo \
+            --block-id "$BLOCK_ID" --artifact-dir "artifacts/$BLOCK_ID"
+      - name: Preserve all histories including invalid and short histories
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: resources-block-${{ matrix.block_id }}
+          path: artifacts/
+          if-no-files-found: warn
+          retention-days: 14
+          compression-level: 1
+
+  aggregate:
+    if: always() && inputs.execute && needs.gate.result == 'success'
+    needs: [gate, execute]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout experiment commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Download available campaign blocks only
+        continue-on-error: true
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          pattern: resources-block-*
+          path: resources-artifacts
+      - name: Analyze every history and matched four-way epoch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          python probe6/scripts/analyze_resources.py --results-root resources-artifacts \
+            --output-dir resources-results --repository-commit "$GITHUB_SHA"
+          cat resources-results/RESULTS.md >> "$GITHUB_STEP_SUMMARY"
+          python -c 'import json; from pathlib import Path; s=json.loads(Path("resources-results/summary.json").read_text()); assert s["status"] == "complete", "Missing blocks remain recorded"'
+      - name: Preserve compact results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: resources-results
+          path: resources-results/
+          if-no-files-found: warn
+          retention-days: 90

@@ -17,6 +17,7 @@ request p95 is at most 500 ms and the error rate is below 1%.
 | [Fixed follow-up](probe3/) | Corrected A/B plus six fixed context conditions matched on simple summaries; 104 fresh-stack points. | Does the A/B contrast recur with adequate generator capacity, and what do balance, sum, count and minimum retain or lose? | New observations only; no pooling or fitted detector. Results are reported separately when execution completes. |
 | [Threshold scenarios](probe4/) | Twelve fixed redistribution states at two loads, five repetitions; 120 new fresh-stack points with increased checkout and database memory reserves. | How do balance and local or combined quota thresholds trade off missed SLO violations and false alarms on these scenarios? | Exploratory in-sample comparison of all thresholds, reported separately; no calibration split, binary scientific criterion, or pooling. |
 | [Adaptive migration](probe5/) | Twenty planned paired sequential adaptation/control histories with simultaneous checkout and advertising workloads. | Can measured recipient output pressure motivate successive closed-budget transfers that erode checkout performance and cross its SLO boundary? | Nineteen pairs were retained; one runner lost communication and supplied no artifact. All 19 adaptive histories crossed the SLO boundary after 8--13 transfers; all 19 unchanged controls remained safe. Advertising goodput increased relative to the matched controls. No detector-superiority claim. [Results and limitations](probe5/results/) |
+| [Joint CPU/memory migration](probe6/) | Twenty planned four-history blocks: control, CPU-only, RAM-only and joint transfers, with separately closed budgets. | Can joint adaptation violate the SLO at a step where both single-resource histories remain safe? | New separate exploratory design; no results yet. A four-history engineering gate requires actual memory-cap binding before campaign execution. |
 
 Probe 1 shows that distance from a reference composition is not a risk direction:
 a larger radial change can remain safe while a smaller, risk-directed change
@@ -64,6 +65,7 @@ probe3/
   followup.yml            verification, smoke and the fixed 28-job follow-up
   scenarios.yml           maximum-load reference gate and fixed 20-job comparison
   migration.yml           concurrent-workload gate and 20 paired sequential histories
+  joint-resources.yml     memory-binding engineering gate and 20 four-history blocks
 ```
 
 There is one fixed design and runtime per series; the new follow-up is explicitly
@@ -83,6 +85,7 @@ python -m unittest discover -s probe2/tests -v
 python -B -m unittest discover -s probe3/tests -v
 python -B -m unittest discover -s probe4/tests -v
 python -B -m unittest discover -s probe5/tests -v
+python -B -m unittest discover -s probe6/tests -v
 ```
 
 Use the Actions interface for the authoritative checks:
@@ -100,6 +103,10 @@ Use the Actions interface for the authoritative checks:
 6. Run `adaptive-boundary-migration` with its exact commit and `execute=true`
    for the separate 20-pair sequential mechanism test. Its engineering gate
    verifies simultaneous workloads; no replacement jobs are dispatched.
+7. Run `joint-cpu-memory-migration` with its exact commit and `execute=true`
+   for the separate twenty-block CPU/memory comparison. It starts only after
+   its four engineering histories establish instrumentation integrity and real
+   memory-cap binding. Use `execute=false` for engineering observations only.
 
 Full reruns are deliberately manual and computationally expensive. The compact
 reported evidence is committed under each probe's `results/` directory, so
