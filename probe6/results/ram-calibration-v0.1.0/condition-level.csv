@@ -1,0 +1,10 @@
+condition_id,checkout_mib,received,baseline_valid,valid,safe,p95_ms,error_rate,checkout_memory_peak_mib,kernel_memory_cap_hit,post_intervention_oom_events,system_failure,ad_goodput,reason_codes,exception
+control,256,True,True,True,True,91.68085249999989,0.0004166666666666667,26.1015625,False,0,False,140.01666666666668,,
+ram-064,64,True,True,True,True,91.8670097,0.0,25.28125,False,0,False,73.65,,
+ram-048,48,True,True,True,True,76.68553424999988,0.0,25.7578125,False,0,False,114.95,,
+ram-040,40,True,True,True,True,114.57262524999993,0.0,26.2734375,False,0,False,71.58333333333333,,
+ram-036,36,True,True,True,True,117.98772609999996,0.0,28.08203125,False,0,False,51.13333333333333,,
+ram-032,32,True,True,True,True,110.04011019999996,0.0,19.1875,True,0,False,56.583333333333336,,
+ram-028,28,True,True,True,True,115.62976399999998,0.0,19.453125,True,0,False,55.38333333333333,,
+ram-024,24,True,True,True,False,114.36377984999996,0.017916666666666668,19.5390625,True,2,True,49.43333333333333,,
+ram-020,20,True,True,True,False,88.40815735,0.11875,19.3515625,True,7,True,175.63333333333333,,

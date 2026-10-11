@@ -17,15 +17,16 @@ request p95 is at most 500 ms and the error rate is below 1%.
 | [Fixed follow-up](probe3/) | Corrected A/B plus six fixed context conditions matched on simple summaries; 104 fresh-stack points. | Does the A/B contrast recur with adequate generator capacity, and what do balance, sum, count and minimum retain or lose? | New observations only; no pooling or fitted detector. Results are reported separately when execution completes. |
 | [Threshold scenarios](probe4/) | Twelve fixed redistribution states at two loads, five repetitions; 120 new fresh-stack points with increased checkout and database memory reserves. | How do balance and local or combined quota thresholds trade off missed SLO violations and false alarms on these scenarios? | Exploratory in-sample comparison of all thresholds, reported separately; no calibration split, binary scientific criterion, or pooling. |
 | [Adaptive migration](probe5/) | Twenty planned paired sequential adaptation/control histories with simultaneous checkout and advertising workloads. | Can measured recipient output pressure motivate successive closed-budget transfers that erode checkout performance and cross its SLO boundary? | Nineteen pairs were retained; one runner lost communication and supplied no artifact. All 19 adaptive histories crossed the SLO boundary after 8--13 transfers; all 19 unchanged controls remained safe. Advertising goodput increased relative to the matched controls. No detector-superiority claim. [Results and limitations](probe5/results/) |
-| [Joint CPU/memory follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) | Twenty planned four-history blocks: control, CPU-only, RAM-only and joint transfers, with separately closed budgets and a fixed six-step path. | Can joint adaptation violate the SLO at a step where both single-resource histories remain safe? | Separate engineering-informed follow-up; no campaign results yet. Prior engineering observations are not pooled with these blocks. |
+| [Joint CPU/memory follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) | Twenty four-history blocks: control, CPU-only, RAM-only and joint transfers, with separately closed budgets and a fixed six-step path. | Can joint adaptation violate the SLO at a step where both single-resource histories remain safe? | All 20 blocks were valid. Five contained a matched joint-only unsafe witness; every control remained safe. Joint histories crossed the SLO in 20/20, CPU-only in 14/20, RAM-only in 17/20. Separate engineering-informed observations, not detector reliability. [Data and interpretation](probe6/results/) |
 
 The first joint-resource engineering execution found no binding memory ceiling,
 so its twenty-block campaign did not start. A separate fixed
 [nine-condition RAM range check](probe6/RAM_CALIBRATION_v0.1.0.md) found safe
 outcomes with memory-cap events at 32/28 MiB and unsafe outcomes at 24/20 MiB,
 one observation per ceiling. Its engineering data are not campaign results.
-The active [v0.2.0 follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) fixes a new path
-before twenty new blocks; the previously executed definitions remain unchanged.
+The active [v0.2.0 follow-up](probe6/JOINT_RESOURCES_v0.2.0.md) fixed its new path
+before twenty new blocks. Its [complete results](probe6/results/) and the separate
+calibration are committed; the previously executed definitions remain unchanged.
 
 Probe 1 shows that distance from a reference composition is not a risk direction:
 a larger radial change can remain safe while a smaller, risk-directed change

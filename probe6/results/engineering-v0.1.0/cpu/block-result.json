@@ -1,0 +1,2752 @@
+{
+  "block_id": "engineering-cpu",
+  "cohort": "engineering",
+  "histories": {
+    "cpu": {
+      "baseline": {
+        "advertising": {
+          "attempts": 1685,
+          "completions_inside_window": 1677,
+          "connection_failures": 0,
+          "cpu_cores_mean": 0.09803735550866516,
+          "goodput_per_second": 27.95,
+          "k6_exit_code": 0,
+          "resource_intervals": 30,
+          "successful_inside_window": 1677,
+          "throttled_period_fraction_mean": 0.9966666666666666,
+          "window_ended_ms": 1791702168508,
+          "window_started_ms": 1791702108508
+        },
+        "checkout": {
+          "checkout_requests_completed": 2400,
+          "checkout_requests_started": 2400,
+          "dropped_iterations": 0,
+          "error_count": 0,
+          "error_rate": 0.0,
+          "failed_iterations": 0,
+          "finished_iterations": 2400,
+          "k6_exit_code": 0,
+          "k6_reported_dropped_iterations": 0,
+          "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+          "operation_max_ms": 797.0,
+          "operation_p95_ms": 134.04999999999973,
+          "p95_ms": 123.06491524999997,
+          "safe": true,
+          "scheduled_iterations": 2400,
+          "started_fraction": 1.0,
+          "started_iterations": 2400,
+          "successful_iterations": 2400,
+          "unfinished_iterations": 0,
+          "vus_observed_max": 16.0
+        },
+        "checkout_window_started_ms": 1791702108699.1738,
+        "ended_at": "2026-10-11T07:02:48.917026+00:00",
+        "reason_codes": [],
+        "resources": {
+          "ad": {
+            "memory_current_bytes_max": 344264704,
+            "memory_events_increment": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "sample_count": 30
+          },
+          "checkout": {
+            "memory_current_bytes_max": 27811840,
+            "memory_events_increment": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "sample_count": 30
+          }
+        },
+        "started_at": "2026-10-11T07:01:48.248713+00:00",
+        "valid": true,
+        "workload_overlap_fraction": 0.99681376953125
+      },
+      "baseline_limits_end": {
+        "configured_cpu_total": 1.0,
+        "configured_memory_total": 805306368,
+        "raw": {
+          "ad": {
+            "cgroup_inode": "8907",
+            "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+            "cpu.max": "10000 100000",
+            "memory": 536870912,
+            "memory.current": "345604096",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+            "memory.max": "536870912",
+            "memory.swap.max": "0",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "memory_swap": 536870912,
+            "nano_cpus": 100000000,
+            "pid": 4763,
+            "restarting": false,
+            "running": true
+          },
+          "checkout": {
+            "cgroup_inode": "9251",
+            "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+            "cpu.max": "30000 100000",
+            "memory": 268435456,
+            "memory.current": "26423296",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+            "memory.max": "268435456",
+            "memory.swap.max": "0",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "memory_swap": 268435456,
+            "nano_cpus": 300000000,
+            "pid": 5938,
+            "restarting": false,
+            "running": true
+          },
+          "payment": {
+            "cgroup_inode": "8649",
+            "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+            "cpu.max": "30000 100000",
+            "nano_cpus": 300000000,
+            "pid": 4700,
+            "restarting": false,
+            "running": true
+          },
+          "shipping": {
+            "cgroup_inode": "8821",
+            "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+            "cpu.max": "30000 100000",
+            "nano_cpus": 300000000,
+            "pid": 4751,
+            "restarting": false,
+            "running": true
+          }
+        },
+        "reason_codes": [],
+        "requested_cpu": {
+          "ad": 0.1,
+          "checkout": 0.3,
+          "payment": 0.3,
+          "shipping": 0.3
+        },
+        "requested_memory": {
+          "ad": 536870912,
+          "checkout": 268435456
+        },
+        "valid": true
+      },
+      "baseline_limits_start": {
+        "configured_cpu_total": 1.0,
+        "configured_memory_total": 805306368,
+        "raw": {
+          "ad": {
+            "cgroup_inode": "8907",
+            "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+            "cpu.max": "10000 100000",
+            "memory": 536870912,
+            "memory.current": "271548416",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+            "memory.max": "536870912",
+            "memory.swap.max": "0",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "memory_swap": 536870912,
+            "nano_cpus": 100000000,
+            "pid": 4763,
+            "restarting": false,
+            "running": true
+          },
+          "checkout": {
+            "cgroup_inode": "9251",
+            "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+            "cpu.max": "30000 100000",
+            "memory": 268435456,
+            "memory.current": "15671296",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+            "memory.max": "268435456",
+            "memory.swap.max": "0",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0
+            },
+            "memory_swap": 268435456,
+            "nano_cpus": 300000000,
+            "pid": 5938,
+            "restarting": false,
+            "running": true
+          },
+          "payment": {
+            "cgroup_inode": "8649",
+            "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+            "cpu.max": "30000 100000",
+            "nano_cpus": 300000000,
+            "pid": 4700,
+            "restarting": false,
+            "running": true
+          },
+          "shipping": {
+            "cgroup_inode": "8821",
+            "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+            "cpu.max": "30000 100000",
+            "nano_cpus": 300000000,
+            "pid": 4751,
+            "restarting": false,
+            "running": true
+          }
+        },
+        "reason_codes": [],
+        "requested_cpu": {
+          "ad": 0.1,
+          "checkout": 0.3,
+          "payment": 0.3,
+          "shipping": 0.3
+        },
+        "requested_memory": {
+          "ad": 536870912,
+          "checkout": 268435456
+        },
+        "valid": true
+      },
+      "baseline_reason_codes": [],
+      "baseline_valid": true,
+      "diagnostic_errors": [],
+      "epochs": [
+        {
+          "advertising": {
+            "attempts": 2256,
+            "completions_inside_window": 2248,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.11834543990065212,
+            "goodput_per_second": 74.93333333333334,
+            "k6_exit_code": 0,
+            "resource_intervals": 15,
+            "successful_inside_window": 2248,
+            "throttled_period_fraction_mean": 1.0,
+            "window_ended_ms": 1791702211418,
+            "window_started_ms": 1791702181418
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 273.0,
+            "operation_p95_ms": 132.0,
+            "p95_ms": 120.31280339999999,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 5.0
+          },
+          "checkout_window_started_ms": 1791702181561.9,
+          "coordinates": {
+            "cpu_E": 0.028284271247461867,
+            "cpu_R_group": 0.1778116263036702,
+            "cpu_checkout_quota": 0.28,
+            "cpu_d_A": 0.18652163054035514,
+            "cpu_group_sum": 0.88,
+            "cpu_minimum_group_quota": 0.28,
+            "cpu_recipient_quota": 0.12,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 27.95,
+            "ad_throttling": 0.9966666666666666,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:03:31.750060+00:00",
+          "epoch": 1,
+          "goodput_change": 46.983333333333334,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "12000 100000",
+                "memory": 536870912,
+                "memory.current": "363520000",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 120000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "28000 100000",
+                "memory": 268435456,
+                "memory.current": "29110272",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 280000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.12,
+              "checkout": 0.28,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "12000 100000",
+                "memory": 536870912,
+                "memory.current": "345698304",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 120000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "28000 100000",
+                "memory": 268435456,
+                "memory.current": "26423296",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 280000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.12,
+              "checkout": 0.28,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.12,
+            "checkout": 0.28,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 370794496,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            },
+            "checkout": {
+              "memory_current_bytes_max": 33525760,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            }
+          },
+          "started_at": "2026-10-11T07:03:01.126907+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.9952033365885417
+        },
+        {
+          "advertising": {
+            "attempts": 3868,
+            "completions_inside_window": 3860,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.1375874422099111,
+            "goodput_per_second": 128.66666666666666,
+            "k6_exit_code": 0,
+            "resource_intervals": 15,
+            "successful_inside_window": 3860,
+            "throttled_period_fraction_mean": 0.992982456140351,
+            "window_ended_ms": 1791702253792,
+            "window_started_ms": 1791702223792
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 184.0,
+            "operation_p95_ms": 133.0,
+            "p95_ms": 121.7632339,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 4.0
+          },
+          "checkout_window_started_ms": 1791702223974.536,
+          "coordinates": {
+            "cpu_E": 0.05656854249492379,
+            "cpu_R_group": 0.3327031598807415,
+            "cpu_checkout_quota": 0.26,
+            "cpu_d_A": 0.3526234444300966,
+            "cpu_group_sum": 0.86,
+            "cpu_minimum_group_quota": 0.26,
+            "cpu_recipient_quota": 0.14,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 74.93333333333334,
+            "ad_throttling": 1.0,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:04:14.135572+00:00",
+          "epoch": 2,
+          "goodput_change": 53.73333333333332,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "14000 100000",
+                "memory": 536870912,
+                "memory.current": "406339584",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 140000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "26000 100000",
+                "memory": 268435456,
+                "memory.current": "36409344",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 260000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.14,
+              "checkout": 0.26,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "14000 100000",
+                "memory": 536870912,
+                "memory.current": "363540480",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 140000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "26000 100000",
+                "memory": 268435456,
+                "memory.current": "29372416",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 260000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.14,
+              "checkout": 0.26,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.14,
+            "checkout": 0.26,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 408203264,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            },
+            "checkout": {
+              "memory_current_bytes_max": 29827072,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            }
+          },
+          "started_at": "2026-10-11T07:03:43.533149+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.9939154703776042
+        },
+        {
+          "advertising": {
+            "attempts": 5645,
+            "completions_inside_window": 5637,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.1584063590797874,
+            "goodput_per_second": 187.9,
+            "k6_exit_code": 0,
+            "resource_intervals": 15,
+            "successful_inside_window": 5637,
+            "throttled_period_fraction_mean": 1.0,
+            "window_ended_ms": 1791702296338,
+            "window_started_ms": 1791702266338
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 189.0,
+            "operation_p95_ms": 120.0,
+            "p95_ms": 109.27768494999998,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 5.0
+          },
+          "checkout_window_started_ms": 1791702266505.833,
+          "coordinates": {
+            "cpu_E": 0.08485281374238571,
+            "cpu_R_group": 0.4714510775072835,
+            "cpu_checkout_quota": 0.24,
+            "cpu_d_A": 0.5054319751244378,
+            "cpu_group_sum": 0.84,
+            "cpu_minimum_group_quota": 0.24,
+            "cpu_recipient_quota": 0.16,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 128.66666666666666,
+            "ad_throttling": 0.992982456140351,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:04:56.727944+00:00",
+          "epoch": 3,
+          "goodput_change": 59.23333333333335,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "16000 100000",
+                "memory": 536870912,
+                "memory.current": "440115200",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 160000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "24000 100000",
+                "memory": 268435456,
+                "memory.current": "29753344",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 240000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.16,
+              "checkout": 0.24,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "16000 100000",
+                "memory": 536870912,
+                "memory.current": "406347776",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 160000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "24000 100000",
+                "memory": 268435456,
+                "memory.current": "29401088",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 240000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.16,
+              "checkout": 0.24,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.16,
+            "checkout": 0.24,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 431083520,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            },
+            "checkout": {
+              "memory_current_bytes_max": 30625792,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            }
+          },
+          "started_at": "2026-10-11T07:04:26.077338+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.99440556640625
+        },
+        {
+          "advertising": {
+            "attempts": 16373,
+            "completions_inside_window": 16365,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.17212275348497813,
+            "goodput_per_second": 545.5,
+            "k6_exit_code": 0,
+            "resource_intervals": 15,
+            "successful_inside_window": 16365,
+            "throttled_period_fraction_mean": 0.9875,
+            "window_ended_ms": 1791702338904,
+            "window_started_ms": 1791702308904
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 291.0,
+            "operation_p95_ms": 156.04999999999995,
+            "p95_ms": 150.01801509999993,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 8.0
+          },
+          "checkout_window_started_ms": 1791702309074.82,
+          "coordinates": {
+            "cpu_E": 0.11313708498984758,
+            "cpu_R_group": 0.5985721994843214,
+            "cpu_checkout_quota": 0.22,
+            "cpu_d_A": 0.649937995270527,
+            "cpu_group_sum": 0.82,
+            "cpu_minimum_group_quota": 0.22,
+            "cpu_recipient_quota": 0.18,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 187.9,
+            "ad_throttling": 1.0,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:05:39.248030+00:00",
+          "epoch": 4,
+          "goodput_change": 357.6,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "18000 100000",
+                "memory": 536870912,
+                "memory.current": "444358656",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 180000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "22000 100000",
+                "memory": 268435456,
+                "memory.current": "29347840",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 220000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.18,
+              "checkout": 0.22,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "18000 100000",
+                "memory": 536870912,
+                "memory.current": "439672832",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 180000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "22000 100000",
+                "memory": 268435456,
+                "memory.current": "30015488",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 220000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.18,
+              "checkout": 0.22,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.18,
+            "checkout": 0.22,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 450945024,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            },
+            "checkout": {
+              "memory_current_bytes_max": 34369536,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            }
+          },
+          "started_at": "2026-10-11T07:05:08.667463+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.9943059977213542
+        },
+        {
+          "advertising": {
+            "attempts": 19246,
+            "completions_inside_window": 19238,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.19370919111224488,
+            "goodput_per_second": 641.2666666666667,
+            "k6_exit_code": 0,
+            "resource_intervals": 15,
+            "successful_inside_window": 19238,
+            "throttled_period_fraction_mean": 0.9859649122807017,
+            "window_ended_ms": 1791702381269,
+            "window_started_ms": 1791702351269
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 458.0,
+            "operation_p95_ms": 190.04999999999995,
+            "p95_ms": 181.35953005,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 8.0
+          },
+          "checkout_window_started_ms": 1791702351446.5251,
+          "coordinates": {
+            "cpu_E": 0.1414213562373095,
+            "cpu_R_group": 0.7173307615830964,
+            "cpu_checkout_quota": 0.2,
+            "cpu_d_A": 0.790040963563807,
+            "cpu_group_sum": 0.8,
+            "cpu_minimum_group_quota": 0.2,
+            "cpu_recipient_quota": 0.2,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 545.5,
+            "ad_throttling": 0.9875,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:06:21.597957+00:00",
+          "epoch": 5,
+          "goodput_change": 95.76666666666665,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "20000 100000",
+                "memory": 536870912,
+                "memory.current": "444866560",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 200000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "20000 100000",
+                "memory": 268435456,
+                "memory.current": "29040640",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 200000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.2,
+              "checkout": 0.2,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "20000 100000",
+                "memory": 536870912,
+                "memory.current": "444108800",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 200000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "20000 100000",
+                "memory": 268435456,
+                "memory.current": "29605888",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 200000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.2,
+              "checkout": 0.2,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.2,
+            "checkout": 0.2,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 449716224,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            },
+            "checkout": {
+              "memory_current_bytes_max": 33939456,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            }
+          },
+          "started_at": "2026-10-11T07:05:51.041934+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.9940824951171875
+        },
+        {
+          "advertising": {
+            "attempts": 21175,
+            "completions_inside_window": 21168,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.21114573780325382,
+            "goodput_per_second": 705.6,
+            "k6_exit_code": 0,
+            "resource_intervals": 15,
+            "successful_inside_window": 21168,
+            "throttled_period_fraction_mean": 0.9833333333333333,
+            "window_ended_ms": 1791702423685,
+            "window_started_ms": 1791702393685
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 412.0,
+            "operation_p95_ms": 215.0999999999999,
+            "p95_ms": 201.87231854999993,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 9.0
+          },
+          "checkout_window_started_ms": 1791702393884.659,
+          "coordinates": {
+            "cpu_E": 0.16970562748477142,
+            "cpu_R_group": 0.8302867595714061,
+            "cpu_checkout_quota": 0.18,
+            "cpu_d_A": 0.9291598257118426,
+            "cpu_group_sum": 0.78,
+            "cpu_minimum_group_quota": 0.18,
+            "cpu_recipient_quota": 0.22,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 641.2666666666667,
+            "ad_throttling": 0.9859649122807017,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:07:04.068872+00:00",
+          "epoch": 6,
+          "goodput_change": 64.33333333333337,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "22000 100000",
+                "memory": 536870912,
+                "memory.current": "445263872",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 220000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "18000 100000",
+                "memory": 268435456,
+                "memory.current": "28286976",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 180000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.22,
+              "checkout": 0.18,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "22000 100000",
+                "memory": 536870912,
+                "memory.current": "444866560",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 220000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "18000 100000",
+                "memory": 268435456,
+                "memory.current": "29040640",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 180000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.22,
+              "checkout": 0.18,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.22,
+            "checkout": 0.18,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 450215936,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            },
+            "checkout": {
+              "memory_current_bytes_max": 34484224,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            }
+          },
+          "started_at": "2026-10-11T07:06:33.421466+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.9933447021484375
+        },
+        {
+          "advertising": {
+            "attempts": 24599,
+            "completions_inside_window": 24591,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.2299128013263948,
+            "goodput_per_second": 819.7,
+            "k6_exit_code": 0,
+            "resource_intervals": 15,
+            "successful_inside_window": 24591,
+            "throttled_period_fraction_mean": 0.9803921568627451,
+            "window_ended_ms": 1791702466291,
+            "window_started_ms": 1791702436291
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 595.0,
+            "operation_p95_ms": 366.14999999999986,
+            "p95_ms": 361.99222724999987,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 17.0
+          },
+          "checkout_window_started_ms": 1791702436455.2642,
+          "coordinates": {
+            "cpu_E": 0.1979898987322333,
+            "cpu_R_group": 0.9396418561337823,
+            "cpu_checkout_quota": 0.16,
+            "cpu_d_A": 1.070681737149624,
+            "cpu_group_sum": 0.76,
+            "cpu_minimum_group_quota": 0.16,
+            "cpu_recipient_quota": 0.24,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 705.6,
+            "ad_throttling": 0.9833333333333333,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:07:46.655165+00:00",
+          "epoch": 7,
+          "goodput_change": 114.10000000000002,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "24000 100000",
+                "memory": 536870912,
+                "memory.current": "445837312",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 240000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "16000 100000",
+                "memory": 268435456,
+                "memory.current": "29945856",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 160000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.24,
+              "checkout": 0.16,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "24000 100000",
+                "memory": 536870912,
+                "memory.current": "445259776",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 240000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "16000 100000",
+                "memory": 268435456,
+                "memory.current": "28286976",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 160000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.24,
+              "checkout": 0.16,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.24,
+            "checkout": 0.16,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 452743168,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            },
+            "checkout": {
+              "memory_current_bytes_max": 30384128,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            }
+          },
+          "started_at": "2026-10-11T07:07:16.039619+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.9945245279947916
+        },
+        {
+          "advertising": {
+            "attempts": 27335,
+            "completions_inside_window": 27327,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.2502850286926172,
+            "goodput_per_second": 910.9,
+            "k6_exit_code": 0,
+            "resource_intervals": 15,
+            "successful_inside_window": 27327,
+            "throttled_period_fraction_mean": 0.9814814814814814,
+            "window_ended_ms": 1791702508731,
+            "window_started_ms": 1791702478731
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 682.0,
+            "operation_p95_ms": 449.0999999999999,
+            "p95_ms": 435.8846914499998,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 21.0
+          },
+          "checkout_window_started_ms": 1791702478947.0652,
+          "coordinates": {
+            "cpu_E": 0.2262741699796952,
+            "cpu_R_group": 1.0475080671052734,
+            "cpu_checkout_quota": 0.14,
+            "cpu_d_A": 1.2184052924239361,
+            "cpu_group_sum": 0.74,
+            "cpu_minimum_group_quota": 0.14,
+            "cpu_recipient_quota": 0.26,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 819.7,
+            "ad_throttling": 0.9803921568627451,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:08:29.111953+00:00",
+          "epoch": 8,
+          "goodput_change": 91.19999999999993,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "26000 100000",
+                "memory": 536870912,
+                "memory.current": "446464000",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 260000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "14000 100000",
+                "memory": 268435456,
+                "memory.current": "38780928",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 140000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.26,
+              "checkout": 0.14,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "26000 100000",
+                "memory": 536870912,
+                "memory.current": "445837312",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 260000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "14000 100000",
+                "memory": 268435456,
+                "memory.current": "29704192",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 140000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.26,
+              "checkout": 0.14,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.26,
+            "checkout": 0.14,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 446681088,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            },
+            "checkout": {
+              "memory_current_bytes_max": 34856960,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 15
+            }
+          },
+          "started_at": "2026-10-11T07:07:58.491933+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.9927978271484375
+        },
+        {
+          "advertising": {
+            "attempts": 29206,
+            "completions_inside_window": 29198,
+            "connection_failures": 0,
+            "cpu_cores_mean": 0.2652094547644986,
+            "goodput_per_second": 973.2666666666667,
+            "k6_exit_code": 0,
+            "resource_intervals": 16,
+            "successful_inside_window": 29198,
+            "throttled_period_fraction_mean": 0.9642113095238095,
+            "window_ended_ms": 1791702551487,
+            "window_started_ms": 1791702521487
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 1113.0,
+            "operation_p95_ms": 735.0999999999999,
+            "p95_ms": 725.5428468,
+            "safe": false,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 29.0
+          },
+          "checkout_window_started_ms": 1791702521657.4941,
+          "coordinates": {
+            "cpu_E": 0.2545584412271571,
+            "cpu_R_group": 1.1561869218603622,
+            "cpu_checkout_quota": 0.12,
+            "cpu_d_A": 1.377132528780941,
+            "cpu_group_sum": 0.72,
+            "cpu_minimum_group_quota": 0.12,
+            "cpu_recipient_quota": 0.28,
+            "cpu_reduced_count": 1,
+            "ram_balance_displacement": 0.0,
+            "ram_donor_share": 0.3333333333333333,
+            "ram_recipient_share": 0.6666666666666666
+          },
+          "decision_input": {
+            "ad_goodput": 910.9,
+            "ad_throttling": 0.9814814814814814,
+            "checkout_safe": true
+          },
+          "donor_memory_cap_hit": false,
+          "ended_at": "2026-10-11T07:09:12.074800+00:00",
+          "epoch": 9,
+          "goodput_change": 62.366666666666674,
+          "limits_end": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "28000 100000",
+                "memory": 536870912,
+                "memory.current": "446836736",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 280000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "12000 100000",
+                "memory": 268435456,
+                "memory.current": "30642176",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 120000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.28,
+              "checkout": 0.12,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "limits_start": {
+            "configured_cpu_total": 1.0,
+            "configured_memory_total": 805306368,
+            "raw": {
+              "ad": {
+                "cgroup_inode": "8907",
+                "container_id": "4a0d6a30dae329d363b5f56c0d8eedfc04a7dfee36c3080a61759a19ce787ad5",
+                "cpu.max": "28000 100000",
+                "memory": 536870912,
+                "memory.current": "446464000",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "536870912",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 536870912,
+                "nano_cpus": 280000000,
+                "pid": 4763,
+                "restarting": false,
+                "running": true
+              },
+              "checkout": {
+                "cgroup_inode": "9251",
+                "container_id": "3e5d7401c415c269fd75041173dc886aa5911195c4c319d7f5b22644d7608149",
+                "cpu.max": "12000 100000",
+                "memory": 268435456,
+                "memory.current": "29241344",
+                "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+                "memory.max": "268435456",
+                "memory.swap.max": "0",
+                "memory_events": {
+                  "high": 0,
+                  "low": 0,
+                  "max": 0,
+                  "oom": 0,
+                  "oom_group_kill": 0,
+                  "oom_kill": 0
+                },
+                "memory_swap": 268435456,
+                "nano_cpus": 120000000,
+                "pid": 5938,
+                "restarting": false,
+                "running": true
+              },
+              "payment": {
+                "cgroup_inode": "8649",
+                "container_id": "84d2cf6324cff15bfd5a38b6892fabf6837bd26e6794ad30a8257f429f3ef24a",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4700,
+                "restarting": false,
+                "running": true
+              },
+              "shipping": {
+                "cgroup_inode": "8821",
+                "container_id": "75b465ebac914dbfccc45f1c2463c08efe480b5401f0e671a8307fd880b0e73f",
+                "cpu.max": "30000 100000",
+                "nano_cpus": 300000000,
+                "pid": 4751,
+                "restarting": false,
+                "running": true
+              }
+            },
+            "reason_codes": [],
+            "requested_cpu": {
+              "ad": 0.28,
+              "checkout": 0.12,
+              "payment": 0.3,
+              "shipping": 0.3
+            },
+            "requested_memory": {
+              "ad": 536870912,
+              "checkout": 268435456
+            },
+            "valid": true
+          },
+          "memory_bytes": {
+            "ad": 536870912,
+            "checkout": 268435456
+          },
+          "quotas": {
+            "ad": 0.28,
+            "checkout": 0.12,
+            "payment": 0.3,
+            "shipping": 0.3
+          },
+          "reason_codes": [],
+          "resources": {
+            "ad": {
+              "memory_current_bytes_max": 453365760,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 14
+            },
+            "checkout": {
+              "memory_current_bytes_max": 32296960,
+              "memory_events_increment": {
+                "high": 0,
+                "low": 0,
+                "max": 0,
+                "oom": 0,
+                "oom_group_kill": 0,
+                "oom_kill": 0
+              },
+              "sample_count": 14
+            }
+          },
+          "started_at": "2026-10-11T07:08:41.234432+00:00",
+          "system_failures": {},
+          "valid": true,
+          "workload_overlap_fraction": 0.9943168619791667
+        }
+      ],
+      "policy": "cpu",
+      "pre_adaptation_failures": {},
+      "stop_reason": "observed_slo_boundary"
+    }
+  },
+  "order": [
+    "cpu"
+  ],
+  "repository_commit": "63c7450160a991f98d86b76da78a1f84a7999b18",
+  "runner_image": "ubuntu24",
+  "runner_image_version": "20261004.327.1",
+  "study_version": "joint-resource-migration-0.1.0",
+  "verification": {
+    "design_sha256": "f99325511d6ff5ece167c15022b7fbdec2c9969bf29b67a890dee516b03432f2",
+    "overlay_sha256": "d325d2ee7ee22aab6382c3a85e65a91ad371b6a6a8c9bb642271b8793e3df5c3",
+    "parent_verification": {
+      "blocks": 20,
+      "design_sha256": "67c4f7e9cbdc1db276f4ff27a43bbac57bd84e938080662ddcfedfd8b4fe6503",
+      "overlay_sha256": "8b9b74f6b4be7a9ea450e576e4ab0382e7bad4981b7f68537115abbbfc1c12fc",
+      "parent_verification": {
+        "blocks": 28,
+        "design_sha256": "fce9b3aa6a80f15242fea2540c41cfc922cdfbbe474d9dd4f44f155d9717fe34",
+        "feature_table": {
+          "ab": {
+            "A": {
+              "E": 0.40099875311526845,
+              "R_group": -0.008350592916784222,
+              "checkout_quota": 0.3,
+              "d_A": 1.4479615750380617,
+              "group_sum": 0.3,
+              "minimum_group_quota": 0.3,
+              "recipient_quota": 0.7,
+              "reduced_count": 1
+            },
+            "B": {
+              "E": 0.34292856398964494,
+              "R_group": 1.2957515427510125,
+              "checkout_quota": 0.12,
+              "d_A": 1.2957515427510125,
+              "group_sum": 0.12,
+              "minimum_group_quota": 0.12,
+              "recipient_quota": 0.88,
+              "reduced_count": 1
+            }
+          },
+          "context": {
+            "anchor_019": {
+              "E": 0.38105117766515295,
+              "R_group": 1.6587620439526833,
+              "checkout_quota": 0.19,
+              "d_A": 1.6587620439526836,
+              "group_sum": 0.5700000000000001,
+              "minimum_group_quota": 0.19,
+              "recipient_quota": 0.43,
+              "reduced_count": 3
+            },
+            "balanced_021": {
+              "E": 0.3117691453623979,
+              "R_group": 1.4419390207663116,
+              "checkout_quota": 0.21,
+              "d_A": 1.4419390207663119,
+              "group_sum": 0.63,
+              "minimum_group_quota": 0.21,
+              "recipient_quota": 0.37,
+              "reduced_count": 3
+            },
+            "checkout_015": {
+              "E": 0.32031234756093935,
+              "R_group": 1.4619758034833241,
+              "checkout_quota": 0.15,
+              "d_A": 1.5115032884428294,
+              "group_sum": 0.63,
+              "minimum_group_quota": 0.15,
+              "recipient_quota": 0.37,
+              "reduced_count": 3
+            },
+            "payment_011": {
+              "E": 0.3974921382870358,
+              "R_group": 1.7150957896711736,
+              "checkout_quota": 0.19,
+              "d_A": 1.8305873652917433,
+              "group_sum": 0.5700000000000001,
+              "minimum_group_quota": 0.11,
+              "recipient_quota": 0.43,
+              "reduced_count": 3
+            },
+            "payment_015": {
+              "E": 0.32031234756093935,
+              "R_group": 1.4619758034833241,
+              "checkout_quota": 0.24,
+              "d_A": 1.5115032884428294,
+              "group_sum": 0.63,
+              "minimum_group_quota": 0.15,
+              "recipient_quota": 0.37,
+              "reduced_count": 3
+            },
+            "shipping_015": {
+              "E": 0.32031234756093935,
+              "R_group": 1.4619758034833241,
+              "checkout_quota": 0.24,
+              "d_A": 1.5115032884428294,
+              "group_sum": 0.63,
+              "minimum_group_quota": 0.15,
+              "recipient_quota": 0.37,
+              "reduced_count": 3
+            }
+          }
+        },
+        "point_trials": 104,
+        "repository_commit": "63c7450160a991f98d86b76da78a1f84a7999b18",
+        "runtime_sha256": "b327ba590548452c1035ecdce0221f62bbd8e85505be13e892e3e9e6cdb15d7e",
+        "study_version": "followup-0.1.1",
+        "valid": true
+      },
+      "runtime_sha256": "55ca69f002626f0145606f249222c69b42b688a3699852ab21eaef71bef7092d",
+      "study_version": "adaptive-migration-0.1.0",
+      "valid": true
+    },
+    "runtime_sha256": "7e6af3da6116c72e63af122648bfa69bd18100dbd0b5dd60be6fbd0f93fa0b94",
+    "study_version": "joint-resource-migration-0.1.0",
+    "valid": true
+  },
+  "workflow_run_id": "38119850102"
+}
