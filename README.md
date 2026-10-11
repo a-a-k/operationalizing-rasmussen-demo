@@ -19,6 +19,11 @@ request p95 is at most 500 ms and the error rate is below 1%.
 | [Adaptive migration](probe5/) | Twenty planned paired sequential adaptation/control histories with simultaneous checkout and advertising workloads. | Can measured recipient output pressure motivate successive closed-budget transfers that erode checkout performance and cross its SLO boundary? | Nineteen pairs were retained; one runner lost communication and supplied no artifact. All 19 adaptive histories crossed the SLO boundary after 8--13 transfers; all 19 unchanged controls remained safe. Advertising goodput increased relative to the matched controls. No detector-superiority claim. [Results and limitations](probe5/results/) |
 | [Joint CPU/memory migration](probe6/) | Twenty planned four-history blocks: control, CPU-only, RAM-only and joint transfers, with separately closed budgets. | Can joint adaptation violate the SLO at a step where both single-resource histories remain safe? | New separate exploratory design; no results yet. A four-history engineering gate requires actual memory-cap binding before campaign execution. |
 
+The first joint-resource engineering execution found no binding memory ceiling,
+so its twenty-block campaign did not start. A separate fixed
+[nine-condition RAM range check](probe6/RAM_CALIBRATION_v0.1.0.md) investigates
+ceilings near observed consumption; its engineering data are not campaign results.
+
 Probe 1 shows that distance from a reference composition is not a risk direction:
 a larger radial change can remain safe while a smaller, risk-directed change
 violates the SLO. Probe 2 supplies repeated witnesses that an unchanged local

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "study_version": "ram-range-calibration-0.1.0",
+  "parent_runtime": "probe6/runtime-v0.1.0.json",
+  "parent_runtime_sha256": "7e6af3da6116c72e63af122648bfa69bd18100dbd0b5dd60be6fbd0f93fa0b94",
+  "parent_runner": "probe6/scripts/joint_resources.py",
+  "parent_runner_sha256": "9ab78b652c810512f82bfa192f5fa9ab86f7aec33be3373828902599628872dd",
+  "compose_overlay": "probe6/memory-v0.1.0.yaml",
+  "compose_overlay_sha256": "d325d2ee7ee22aab6382c3a85e65a91ad371b6a6a8c9bb642271b8793e3df5c3",
+  "workload": "Inherit the pinned two simultaneous generators, 800 fixed checkout VUs, 8 advertising VUs, SLO definition, required containers and 300-second startup timeout. No dynamically selected capacity or Go/application changes.",
+  "resource_semantics": "Fixed sum of configured memory ceilings, not reserved memory. Swapping is disabled for both controlled containers. Update donor then recipient; intermediate sums are not atomic. Journal every attempted command, then validate both target ceilings before and after measurement.",
+  "data": "Preserve baseline and test raw checkout streams, native advertising summaries, effective-resource snapshots, update journal, container events and cgroup/host samples. Keep kernel memory-cap evidence separate from post-intervention Docker OOM diagnostics; never difference counters across identities.",
+  "retention": {"raw_days": 14, "compact_days": 90}
+}
