@@ -8,7 +8,7 @@ Use Python 3.13 from the repository root:
 python -B scripts/verify_archive.py
 ```
 
-This checks canonical-LF SHA-256 hashes, local Markdown links, all eight
+This checks canonical-LF SHA-256 hashes, local Markdown links, all nine
 unit-test suites and the saved-data CPU-history analysis. It does not start
 Docker, contact GitHub, install packages or overwrite committed outputs.
 Identity checks inspect local Git configuration solely to detect documentation

@@ -52,7 +52,7 @@ def helmert(values: list[float]) -> list[float]:
 def representation(state: dict, design: dict) -> dict:
     shares = {r: close(state[r], design["parts"]) for r in ("cpu", "memory")}
     return {"shares": shares, "ilr": helmert(shares["cpu"]) + helmert(shares["memory"]),
-            "local": [math.log(state[r][a] / state[r][b]) for r, a, b in design["local_ratios"]]}
+            "local": [math.log(state[r][a] / state[r][b]) / math.sqrt(2) for r, a, b in design["local_ratios"]]}
 
 
 def proposal(state: dict, resource: str, donor: str, receiver: str, amount: float) -> dict:
@@ -90,6 +90,8 @@ def choose(state: dict, previous: dict, design: dict, blocked: set[tuple[str, st
             if state[resource][donor] - amount < floor:
                 continue
             measured = resource_data.get(donor, {})
+            if resource == "cpu" and measured.get("cpu_cores") is None:
+                continue
             if resource == "memory":
                 used = measured.get("memory_peak_bytes")
                 if used is None or state[resource][donor] - amount < used * c["memory_reserve_factor"]:

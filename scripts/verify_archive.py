@@ -11,7 +11,7 @@ from pathlib import Path
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
-SUITES = [f"probe{i}/tests" for i in range(1, 7)] + ["geometry/tests", "tests"]
+SUITES = [f"probe{i}/tests" for i in range(1, 8)] + ["geometry/tests", "tests"]
 IGNORED = {".git", ".venv", "__pycache__", ".pytest_cache", "artifacts",
            "upstream", "confirmation-artifacts", "protocol"}
 

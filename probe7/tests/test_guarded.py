@@ -14,7 +14,7 @@ from model import choose, helmert, initial_state, matrix, proposal, representati
 
 class ModelTests(unittest.TestCase):
     def setUp(self):
-        self.d = json.loads((ROOT / "probe7/design-v0.1.0.json").read_text())
+        self.d = json.loads((ROOT / "probe7/design-v0.1.1.json").read_text())
         self.s = initial_state(self.d, "balanced")
 
     def test_twenty_four_pairs_and_twenty_coordinates(self):
@@ -24,7 +24,7 @@ class ModelTests(unittest.TestCase):
         for named in self.d["initial_states"]:
             state = initial_state(self.d, named["id"])
             self.assertAlmostEqual(sum(state["cpu"].values()), 3.4)
-            self.assertEqual(sum(state["memory"].values()), 4416 * 2**20)
+            self.assertEqual(sum(state["memory"].values()), 4544 * 2**20)
             self.assertEqual(len(representation(state, self.d)["ilr"]), 20)
 
     def test_multiplicative_change_is_initial_state_invariant(self):

@@ -50,6 +50,7 @@ export default function () {
       Array.isArray(response.message.ads) && response.message.ads.length > 0;
   } catch (_) {
     connected = false;
+    sleep(0.01);
   } finally {
     const elapsed = Date.now() - begin;
     finished.add(1);

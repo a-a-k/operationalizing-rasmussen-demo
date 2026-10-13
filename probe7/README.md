@@ -19,9 +19,9 @@ Late and missing records remain violations. No geometry assigns an SLO label.
 
 ## Engineering stage and main series
 
-The [technical pilot](pilot-design-v0.1.0.json) uses two fresh runners with
+The active [technical pilot](pilot-design-v0.1.1.json) uses two fresh runners with
 counterbalanced CPU/RAM trial order. It establishes measurement feasibility
-and actual recipient benefit. The [main definition](design-v0.1.0.json) remains
+and actual recipient benefit. The [main definition](design-v0.1.1.json) remains
 not-ready until that check is assessed. It proposes three initial allocations,
 two loads and four repetitions: 24 paired fresh-stack histories, with twenty
 bounded cycles each. CPU and RAM eligibility may be revised before execution
@@ -54,3 +54,14 @@ Advertising retains native counters and quantiles rather than every RPC trace.
 Resource samples, quota readbacks, rendered Compose and image inspection are
 separate integrity evidence. Memory totals and CPU totals are administrative,
 not reserved host capacity; unselected services and generators are context.
+
+## Technical revision
+
+The first v0.1.0 attempt had one disappearing-PID diagnostic parsing error after
+an advertising restart; its primary observations remain archived separately.
+The other runner completed all engineering windows. v0.1.1 ignores unavailable
+diagnostic frames without overriding primary SLO labels, records Docker events,
+raises advertising's startup reserve to 512 MiB, and warms up for 120 seconds.
+The images and three external requirements are unchanged. A fixed 10-ms retry
+backoff bounds failed advertising reconnection attempts. No main observations
+have yet been collected; the earlier draft is not an alternative active design.

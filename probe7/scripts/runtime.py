@@ -20,10 +20,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 from measurements import accounting, advertising, parse_ack_lines
 from model import choose, initial_state, matrix, proposal, representation
 
-RUNTIME = "probe7/runtime-v0.1.0.json"
-DESIGN = "probe7/design-v0.1.0.json"
-PILOT = "probe7/pilot-design-v0.1.0.json"
-OVERLAY = "probe7/compose-v0.1.0.yaml"
+RUNTIME = "probe7/runtime-v0.1.1.json"
+DESIGN = "probe7/design-v0.1.1.json"
+PILOT = "probe7/pilot-design-v0.1.1.json"
+OVERLAY = "probe7/compose-v0.1.1.yaml"
 
 
 def command(args, check=True):
@@ -38,7 +38,11 @@ def prefix(upstream: Path, project: str) -> list[str]:
 
 
 def apply(state: dict, before: dict | None, journal: Path) -> None:
-    for name in state["cpu"]:
+    names = list(state["cpu"])
+    if before is not None:
+        names.sort(key=lambda n: (state["cpu"][n] - before["cpu"][n] > 0 or
+                                  state["memory"][n] - before["memory"][n] > 0, n))
+    for name in names:
         if before is not None and all(state[r][name] == before[r][name] for r in ("cpu", "memory")):
             continue
         args = ["docker", "update", "--cpus", str(state["cpu"][name]),
@@ -77,7 +81,10 @@ def quotas(state: dict) -> dict:
     for name, fields in cg.items():
         rows[name]["cgroup"] = fields
         if "error" in fields:
-            if rows[name]["running"]:
+            current = json.loads(command(["docker", "inspect", name]).stdout)[0]["State"]
+            changed = current["Pid"] != rows[name]["pid"] or not current["Running"]
+            rows[name]["process_changed_during_readback"] = changed
+            if rows[name]["running"] and not changed:
                 errors.append(name + ":cgroup_unreadable")
             continue
         quota, period = fields["cpu.max"].split()
@@ -115,7 +122,7 @@ def resources(path: Path, start_ms: float, end_ms: float, state: dict) -> dict:
             stamp = dt.datetime.fromisoformat(row["timestamp"]).timestamp() * 1000
             if start_ms <= stamp <= end_ms:
                 for name in values:
-                    if name in row["containers"]:
+                    if name in row["containers"] and "memory_current_bytes" in row["containers"][name]:
                         values[name].append(row["containers"][name])
     result = {}
     for name, samples in values.items():
@@ -198,16 +205,26 @@ def phase(upstream: Path, runtime: dict, profile: dict, state: dict, seconds: in
     if checkout["exit_code"] or ads["exit_code"]:
         reasons.append("generator_exit")
     observed = resources(samples, ads["window_start_ms"], ads["window_end_ms"], state)
-    if not observed["ad"]["samples"]:
-        reasons.append("recipient_resource_samples_missing")
-    croom = min(1 - (checkout["p95_ms"] or float("inf")) / runtime["checkout"]["p95_ms"],
+    checkout_start_ms = None
+    with gzip.open(folder / "checkout/raw-metrics.jsonl.gz", "rt", encoding="utf-8") as f:
+        for line in f:
+            point = json.loads(line)
+            if point.get("type") == "Point" and point.get("metric") == "protocol_iterations_started":
+                checkout_start_ms = dt.datetime.fromisoformat(point["data"]["time"].replace("Z", "+00:00")).timestamp()*1000
+                break
+    overlap = max(0, min(checkout_start_ms + seconds*1000, ads["window_end_ms"]) -
+                  max(checkout_start_ms, ads["window_start_ms"]))/(seconds*1000) if checkout_start_ms is not None else 0
+    if overlap < .9:
+        reasons.append("concurrent_window_overlap_below_90_percent")
+    croom = min(1 - (checkout["p95_ms"] if checkout["p95_ms"] is not None else float("inf")) / runtime["checkout"]["p95_ms"],
                 1 - checkout["error_rate"] / runtime["checkout"]["error_fraction"])
     result = {"valid": not reasons, "reasons": reasons,
               "safe": checkout["safe"] and ads["safe"] and ledger["safe"] is True,
               "checkout": checkout, "advertising": ads, "accounting": ledger,
               "headroom": {"checkout": croom, "advertising": ads["headroom"], "accounting": ledger["headroom"]},
               "allocation": state, "resources": observed, "quota_checks": check,
-              "window_start_ms": ads["window_start_ms"], "window_end_ms": ads["window_end_ms"]}
+              "window_start_ms": ads["window_start_ms"], "window_end_ms": ads["window_end_ms"],
+              "checkout_window_start_ms": checkout_start_ms, "workload_overlap_fraction": overlap}
     write_json(folder / "window.json", result)
     print(json.dumps({"window": folder.name, "valid": result["valid"], "safe": result["safe"],
                       "checkout_p95": checkout["p95_ms"], "ad_goodput": ads["goodput"],
@@ -226,6 +243,11 @@ def history(upstream: Path, spec: dict, profile: dict, state: dict, policy: str,
     baseline_state = {r: dict(q) for r, q in state.items()}
     result = {"policy": policy, "baseline_valid": False, "observations": observations, "transitions": transitions}
     sampler = None
+    events_file = (folder / "container-events.jsonl").open("w", encoding="utf-8")
+    events_error = (folder / "container-events.stderr.log").open("w", encoding="utf-8")
+    events = subprocess.Popen(["docker", "events", "--filter", "type=container",
+                               "--filter", "label=com.docker.compose.project=" + project,
+                               "--format", "{{json .}}"], stdout=events_file, stderr=events_error)
     try:
         command([*compose, "up", "-d", "--no-build", "--pull", "never"])
         ready = {**parent, "required_running_containers": parent["required_running_containers"] + ["accounting", "kafka"],
@@ -235,12 +257,12 @@ def history(upstream: Path, spec: dict, profile: dict, state: dict, policy: str,
         write_json(folder / "initial-quota-checks.json", quotas(state))
         samples = folder / "resource-samples.jsonl"
         write_json(folder / "observer-config.json", {
-            "containers": spec["parts"], "output": str(samples), "stop_file": str(folder / ".observer-stop"),
+            "containers": spec["parts"] + [project+"-c", project+"-a"], "output": str(samples), "stop_file": str(folder / ".observer-stop"),
             "interval_seconds": 2, "refresh_seconds": 6})
         sampler = subprocess.Popen(["sudo", "-n", sys.executable, str(ROOT / "probe3/scripts/observe.py"),
                                     "--config", str(folder / "observer-config.json")])
-        phase(upstream, runtime, profile, state, spec["warmup_seconds"], folder / "warmup", samples, project + "-warm")
-        previous = phase(upstream, runtime, profile, state, spec["baseline_seconds"], folder / "000", samples, project + "-base")
+        phase(upstream, runtime, profile, state, spec["warmup_seconds"], folder / "warmup", samples, project)
+        previous = phase(upstream, runtime, profile, state, spec["baseline_seconds"], folder / "000", samples, project)
         previous.update(epoch=0, representation=representation(state, load(ROOT / DESIGN)))
         observations.append(previous)
         result["baseline_valid"] = previous["valid"] and previous["safe"]
@@ -269,10 +291,11 @@ def history(upstream: Path, spec: dict, profile: dict, state: dict, policy: str,
             apply(state, before, folder / "limit-updates.jsonl")
             time.sleep(spec["stabilization_seconds"])
             measured = phase(upstream, runtime, profile, state, spec["measurement_seconds"],
-                             folder / f"{epoch:03d}", samples, project + "-" + str(epoch))
+                             folder / f"{epoch:03d}", samples, project)
             measured.update(epoch=epoch, representation=representation(state, load(ROOT / DESIGN)), action=action)
             observations.append(measured)
             transition = {"epoch": epoch, "action": action, "before": before, "trial": state,
+                          "window_start_ms": measured["window_start_ms"], "window_end_ms": measured["window_end_ms"],
                           "measured_safe": measured["safe"], "rolled_back": False}
             if action and not action.get("restore") and not pilot:
                 margins = list(measured["headroom"].values())
@@ -304,12 +327,21 @@ def history(upstream: Path, spec: dict, profile: dict, state: dict, policy: str,
         (folder / "compose.log").write_text(logs.stdout + logs.stderr, encoding="utf-8")
         write_json(folder / "final-container-inspect.json", json.loads(command(["docker", "inspect", *spec["parts"]], check=False).stdout or "[]"))
         command([*compose, "down", "--volumes", "--remove-orphans"], check=False)
+        events.terminate()
+        try:
+            events.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            events.kill()
+            events.wait(timeout=5)
+        events_file.close()
+        events_error.close()
         write_json(folder / "history.json", result)
-        if (folder / "resource-samples.jsonl").exists():
-            with (folder / "resource-samples.jsonl").open("rb") as source, gzip.open(folder / "resource-samples.jsonl.gz", "wb") as target:
+        for name in ("resource-samples.jsonl", "container-events.jsonl"):
+          if (folder / name).exists():
+            with (folder / name).open("rb") as source, gzip.open(folder / (name+".gz"), "wb") as target:
                 while chunk := source.read(1024 * 1024):
                     target.write(chunk)
-            (folder / "resource-samples.jsonl").unlink()
+            (folder / name).unlink()
     return result
 
 
