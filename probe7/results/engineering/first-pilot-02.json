@@ -1,0 +1,2459 @@
+{
+  "block_id": "pilot-02",
+  "design": {
+    "ad_vus": 8,
+    "baseline_seconds": 60,
+    "checkout_rates": [
+      24,
+      40
+    ],
+    "cpu": [
+      0.45,
+      0.25,
+      0.45,
+      0.25,
+      0.15,
+      0.15,
+      0.3,
+      0.25,
+      0.25,
+      0.4,
+      0.5
+    ],
+    "cpu_trial": 0.08,
+    "measurement_seconds": 30,
+    "memory_mib": [
+      512,
+      256,
+      256,
+      192,
+      128,
+      128,
+      256,
+      384,
+      256,
+      1024,
+      1024
+    ],
+    "memory_trial_mib": 64,
+    "parts": [
+      "frontend",
+      "cart",
+      "checkout",
+      "payment",
+      "currency",
+      "shipping",
+      "product-catalog",
+      "ad",
+      "accounting",
+      "kafka",
+      "astronomy-db"
+    ],
+    "purpose": "Technical feasibility only; never pooled with the main series.",
+    "receiver": "ad",
+    "stabilization_seconds": 5,
+    "trial_donor": "frontend",
+    "version": "guarded-adaptation-pilot-0.1.0",
+    "warmup_seconds": 60
+  },
+  "execution_commit": "b75dba696b49c2c83cfaedd9a926e00f1bfa3c07",
+  "histories": {
+    "pilot": {
+      "baseline_valid": true,
+      "observations": [
+        {
+          "accounting": {
+            "confirmed": 2400,
+            "headroom": 0.989797609375,
+            "late": 0,
+            "missing": 0,
+            "p99_observed_lag_ms": 51.01195312499986,
+            "safe": true,
+            "timely": 2400,
+            "timely_fraction": 1.0
+          },
+          "advertising": {
+            "attempts": 35204,
+            "exit_code": 0,
+            "finished": 35204,
+            "goodput": 586.6,
+            "headroom": 0.515,
+            "p99_ms": 97,
+            "safe": true,
+            "timely": 35184,
+            "timely_fraction": 0.9994318827405977,
+            "unfinished": 0,
+            "window_end_ms": 1791921602737,
+            "window_start_ms": 1791921542737
+          },
+          "allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "checkout": {
+            "checkout_requests_completed": 2400,
+            "checkout_requests_started": 2400,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "exit_code": 0,
+            "failed_iterations": 0,
+            "finished_iterations": 2400,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 694.0,
+            "operation_p95_ms": 202.04999999999973,
+            "p95_ms": 155.5585624499999,
+            "safe": true,
+            "scheduled_iterations": 2400,
+            "started_fraction": 1.0,
+            "started_iterations": 2400,
+            "successful_iterations": 2400,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 26.0
+          },
+          "epoch": 0,
+          "headroom": {
+            "accounting": 0.989797609375,
+            "advertising": 0.515,
+            "checkout": 0.6888828751000002
+          },
+          "quota_checks": {
+            "cpu_total": 3.4,
+            "memory_total": 4630511616,
+            "reasons": [],
+            "rows": {
+              "accounting": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c9baa4b6b8c5d1387fe0057d7fb6e4a4d262dcd55cef9ea86838236a07131d5",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7611,
+                "restart_count": 0,
+                "running": true
+              },
+              "ad": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "402653184",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "34270189c37909332ce78ba911e31c8ea76d2081cf959248ecbff4298afe0cb9",
+                "cpu": 0.25,
+                "memory": 402653184,
+                "memory_swap": 402653184,
+                "oom_snapshot": false,
+                "pid": 4606,
+                "restart_count": 0,
+                "running": true
+              },
+              "astronomy-db": {
+                "cgroup": {
+                  "cpu.max": "50000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "416b949b7b6b174697a6263f90ab55910c19dc3cb3a9db6ebfc8b8a23b9c04de",
+                "cpu": 0.5,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3988,
+                "restart_count": 0,
+                "running": true
+              },
+              "cart": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "4be7a2494a5c78cd7edc10feb6778f4aa9254e658cb5ee8beaef8b2bca404d97",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5913,
+                "restart_count": 0,
+                "running": true
+              },
+              "checkout": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "6c27605e443be824882d5da41e57967b06c01ac1a4784eb6cf992ae985e1273a",
+                "cpu": 0.45,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7468,
+                "restart_count": 0,
+                "running": true
+              },
+              "currency": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "a7c5cc69aeeffe835b1b44f5e4d4cea0a14e17d3d8d1a03c6d816bca10e5abdd",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 5119,
+                "restart_count": 0,
+                "running": true
+              },
+              "frontend": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "536870912",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c622f9f5223c94712777604b62eb515e8e5dbc77ebdb7fe612ebbd47b66a224",
+                "cpu": 0.45,
+                "memory": 536870912,
+                "memory_swap": 536870912,
+                "oom_snapshot": false,
+                "pid": 7801,
+                "restart_count": 0,
+                "running": true
+              },
+              "kafka": {
+                "cgroup": {
+                  "cpu.max": "40000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5214e4fb57461abda6ed1e955beca8f44709b23c1086058c4e26f59632b55c05",
+                "cpu": 0.4,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3984,
+                "restart_count": 0,
+                "running": true
+              },
+              "payment": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "201326592",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "614c478e1fef50e096f84a6748615755fb7004af826282a21bf6784ebb71b8ca",
+                "cpu": 0.25,
+                "memory": 201326592,
+                "memory_swap": 201326592,
+                "oom_snapshot": false,
+                "pid": 4788,
+                "restart_count": 0,
+                "running": true
+              },
+              "product-catalog": {
+                "cgroup": {
+                  "cpu.max": "30000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "92096cd020654585b7ba7446da4f92c354fc70d48f4a85ca9dbe19a6c8c5332a",
+                "cpu": 0.3,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5926,
+                "restart_count": 0,
+                "running": true
+              },
+              "shipping": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "b0b2c7f710ead7030b1209333f49e9c4efc127edff96806a9b5cf6d34b9e91d6",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 4920,
+                "restart_count": 0,
+                "running": true
+              }
+            },
+            "valid": true
+          },
+          "reasons": [],
+          "representation": {
+            "ilr": [
+              0.4156279366433132,
+              -0.23996290110374582,
+              0.33935878920731083,
+              0.7197625155536002,
+              0.587683633029454,
+              -0.14504626897391637,
+              0.044932446280994284,
+              0.03962669288575997,
+              -0.4104414014821287,
+              -0.5840172447032779,
+              0.4901290717342736,
+              0.2829761515034443,
+              0.44923433859875495,
+              0.710634440081159,
+              0.5802305906157553,
+              -0.15134523948052572,
+              -0.5103467013399767,
+              -0.06780731475215108,
+              -1.3758030126390617,
+              -1.2444606486448244
+            ],
+            "local": [
+              0.5877866649021191,
+              0.5877866649021191,
+              -1.3862943611198906
+            ],
+            "shares": {
+              "cpu": [
+                0.1323529411764706,
+                0.07352941176470588,
+                0.1323529411764706,
+                0.07352941176470588,
+                0.04411764705882353,
+                0.04411764705882353,
+                0.08823529411764706,
+                0.07352941176470588,
+                0.07352941176470588,
+                0.11764705882352942,
+                0.14705882352941177
+              ],
+              "memory": [
+                0.11594202898550725,
+                0.057971014492753624,
+                0.057971014492753624,
+                0.043478260869565216,
+                0.028985507246376812,
+                0.028985507246376812,
+                0.057971014492753624,
+                0.08695652173913043,
+                0.057971014492753624,
+                0.2318840579710145,
+                0.2318840579710145
+              ]
+            }
+          },
+          "resources": {
+            "accounting": {
+              "cpu_cores": 0.0702062872431782,
+              "memory_fraction": 0.4993438720703125,
+              "memory_peak_bytes": 134041600,
+              "samples": 30,
+              "throttling": 0.021842105263157892
+            },
+            "ad": {
+              "cpu_cores": 0.24529417430560194,
+              "memory_fraction": 0.8742167154947916,
+              "memory_peak_bytes": 352006144,
+              "samples": 30,
+              "throttling": 0.9958333333333333
+            },
+            "astronomy-db": {
+              "cpu_cores": 0.06368933584020453,
+              "memory_fraction": 0.12135696411132812,
+              "memory_peak_bytes": 130306048,
+              "samples": 30,
+              "throttling": 0.00992063492063492
+            },
+            "cart": {
+              "cpu_cores": 0.17553140410022353,
+              "memory_fraction": 0.3189544677734375,
+              "memory_peak_bytes": 85618688,
+              "samples": 30,
+              "throttling": 0.04126984126984127
+            },
+            "checkout": {
+              "cpu_cores": 0.11505660711108821,
+              "memory_fraction": 0.095458984375,
+              "memory_peak_bytes": 25624576,
+              "samples": 30,
+              "throttling": 0.0016666666666666668
+            },
+            "currency": {
+              "cpu_cores": 0.03886144039391573,
+              "memory_fraction": 0.038726806640625,
+              "memory_peak_bytes": 5197824,
+              "samples": 30,
+              "throttling": 0.03484126984126985
+            },
+            "frontend": {
+              "cpu_cores": 0.2613720558024819,
+              "memory_fraction": 0.20578765869140625,
+              "memory_peak_bytes": 110481408,
+              "samples": 30,
+              "throttling": 0.146005291005291
+            },
+            "kafka": {
+              "cpu_cores": 0.09456886021032392,
+              "memory_fraction": 0.5208740234375,
+              "memory_peak_bytes": 559284224,
+              "samples": 30,
+              "throttling": 0.08206349206349207
+            },
+            "payment": {
+              "cpu_cores": 0.15133263508345388,
+              "memory_fraction": 0.6622314453125,
+              "memory_peak_bytes": 133324800,
+              "samples": 30,
+              "throttling": 0.42201680672268904
+            },
+            "product-catalog": {
+              "cpu_cores": 0.06690510689530975,
+              "memory_fraction": 0.0702362060546875,
+              "memory_peak_bytes": 18853888,
+              "samples": 30,
+              "throttling": 0.018174603174603177
+            },
+            "shipping": {
+              "cpu_cores": 0.03420986407359675,
+              "memory_fraction": 0.052886962890625,
+              "memory_peak_bytes": 7098368,
+              "samples": 30,
+              "throttling": 0.03501670843776107
+            }
+          },
+          "safe": true,
+          "valid": true,
+          "window_end_ms": 1791921602737,
+          "window_start_ms": 1791921542737
+        },
+        {
+          "accounting": {
+            "confirmed": 1200,
+            "headroom": 0.9912615805664062,
+            "late": 0,
+            "missing": 0,
+            "p99_observed_lag_ms": 43.69209716796875,
+            "safe": true,
+            "timely": 1200,
+            "timely_fraction": 1.0
+          },
+          "action": {
+            "amount": 67108864,
+            "donor": "frontend",
+            "receiver": "ad",
+            "resource": "memory"
+          },
+          "advertising": {
+            "attempts": 29702,
+            "exit_code": 0,
+            "finished": 29702,
+            "goodput": 989.8,
+            "headroom": 0.565,
+            "p99_ms": 87,
+            "safe": true,
+            "timely": 29702,
+            "timely_fraction": 1.0,
+            "unfinished": 0,
+            "window_end_ms": 1791921646119,
+            "window_start_ms": 1791921616119
+          },
+          "allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 469762048,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 469762048,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "exit_code": 0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 377.0,
+            "operation_p95_ms": 201.14999999999986,
+            "p95_ms": 148.96100264999998,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 8.0
+          },
+          "epoch": 1,
+          "headroom": {
+            "accounting": 0.9912615805664062,
+            "advertising": 0.565,
+            "checkout": 0.7020779947
+          },
+          "quota_checks": {
+            "cpu_total": 3.4,
+            "memory_total": 4630511616,
+            "reasons": [],
+            "rows": {
+              "accounting": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c9baa4b6b8c5d1387fe0057d7fb6e4a4d262dcd55cef9ea86838236a07131d5",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7611,
+                "restart_count": 0,
+                "running": true
+              },
+              "ad": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "469762048",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "34270189c37909332ce78ba911e31c8ea76d2081cf959248ecbff4298afe0cb9",
+                "cpu": 0.25,
+                "memory": 469762048,
+                "memory_swap": 469762048,
+                "oom_snapshot": false,
+                "pid": 4606,
+                "restart_count": 0,
+                "running": true
+              },
+              "astronomy-db": {
+                "cgroup": {
+                  "cpu.max": "50000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "416b949b7b6b174697a6263f90ab55910c19dc3cb3a9db6ebfc8b8a23b9c04de",
+                "cpu": 0.5,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3988,
+                "restart_count": 0,
+                "running": true
+              },
+              "cart": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "4be7a2494a5c78cd7edc10feb6778f4aa9254e658cb5ee8beaef8b2bca404d97",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5913,
+                "restart_count": 0,
+                "running": true
+              },
+              "checkout": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "6c27605e443be824882d5da41e57967b06c01ac1a4784eb6cf992ae985e1273a",
+                "cpu": 0.45,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7468,
+                "restart_count": 0,
+                "running": true
+              },
+              "currency": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "a7c5cc69aeeffe835b1b44f5e4d4cea0a14e17d3d8d1a03c6d816bca10e5abdd",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 5119,
+                "restart_count": 0,
+                "running": true
+              },
+              "frontend": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "469762048",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c622f9f5223c94712777604b62eb515e8e5dbc77ebdb7fe612ebbd47b66a224",
+                "cpu": 0.45,
+                "memory": 469762048,
+                "memory_swap": 469762048,
+                "oom_snapshot": false,
+                "pid": 7801,
+                "restart_count": 0,
+                "running": true
+              },
+              "kafka": {
+                "cgroup": {
+                  "cpu.max": "40000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5214e4fb57461abda6ed1e955beca8f44709b23c1086058c4e26f59632b55c05",
+                "cpu": 0.4,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3984,
+                "restart_count": 0,
+                "running": true
+              },
+              "payment": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "201326592",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "614c478e1fef50e096f84a6748615755fb7004af826282a21bf6784ebb71b8ca",
+                "cpu": 0.25,
+                "memory": 201326592,
+                "memory_swap": 201326592,
+                "oom_snapshot": false,
+                "pid": 4788,
+                "restart_count": 0,
+                "running": true
+              },
+              "product-catalog": {
+                "cgroup": {
+                  "cpu.max": "30000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "92096cd020654585b7ba7446da4f92c354fc70d48f4a85ca9dbe19a6c8c5332a",
+                "cpu": 0.3,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5926,
+                "restart_count": 0,
+                "running": true
+              },
+              "shipping": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "b0b2c7f710ead7030b1209333f49e9c4efc127edff96806a9b5cf6d34b9e91d6",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 4920,
+                "restart_count": 0,
+                "running": true
+              }
+            },
+            "valid": true
+          },
+          "reasons": [],
+          "representation": {
+            "ilr": [
+              0.4156279366433132,
+              -0.23996290110374582,
+              0.33935878920731083,
+              0.7197625155536002,
+              0.587683633029454,
+              -0.14504626897391637,
+              0.044932446280994284,
+              0.03962669288575997,
+              -0.4104414014821287,
+              -0.5840172447032779,
+              0.39570811850819027,
+              0.228462188741224,
+              0.410687145860238,
+              0.6807759129772942,
+              0.555851205323912,
+              -0.17194958068759295,
+              -0.6723853417165108,
+              -0.06537730845143667,
+              -1.3736295489294015,
+              -1.2424946767483527
+            ],
+            "local": [
+              0.5877866649021191,
+              0.5877866649021191,
+              -1.3862943611198906
+            ],
+            "shares": {
+              "cpu": [
+                0.1323529411764706,
+                0.07352941176470588,
+                0.1323529411764706,
+                0.07352941176470588,
+                0.04411764705882353,
+                0.04411764705882353,
+                0.08823529411764706,
+                0.07352941176470588,
+                0.07352941176470588,
+                0.11764705882352942,
+                0.14705882352941177
+              ],
+              "memory": [
+                0.10144927536231885,
+                0.057971014492753624,
+                0.057971014492753624,
+                0.043478260869565216,
+                0.028985507246376812,
+                0.028985507246376812,
+                0.057971014492753624,
+                0.10144927536231885,
+                0.057971014492753624,
+                0.2318840579710145,
+                0.2318840579710145
+              ]
+            }
+          },
+          "resources": {
+            "accounting": {
+              "cpu_cores": 0.06469183957680229,
+              "memory_fraction": 0.5138702392578125,
+              "memory_peak_bytes": 137940992,
+              "samples": 15,
+              "throttling": 0.006349206349206349
+            },
+            "ad": {
+              "cpu_cores": 0.2346440249314875,
+              "memory_fraction": 0.7500523158482143,
+              "memory_peak_bytes": 352346112,
+              "samples": 15,
+              "throttling": 0.9833333333333333
+            },
+            "astronomy-db": {
+              "cpu_cores": 0.06459130993545353,
+              "memory_fraction": 0.12295150756835938,
+              "memory_peak_bytes": 132018176,
+              "samples": 15,
+              "throttling": 0.01984126984126984
+            },
+            "cart": {
+              "cpu_cores": 0.17150205680501276,
+              "memory_fraction": 0.2678985595703125,
+              "memory_peak_bytes": 71913472,
+              "samples": 15,
+              "throttling": 0.06984126984126984
+            },
+            "checkout": {
+              "cpu_cores": 0.11142959182209325,
+              "memory_fraction": 0.0943450927734375,
+              "memory_peak_bytes": 25325568,
+              "samples": 15,
+              "throttling": 0.0033333333333333335
+            },
+            "currency": {
+              "cpu_cores": 0.038994309105261436,
+              "memory_fraction": 0.086761474609375,
+              "memory_peak_bytes": 11644928,
+              "samples": 15,
+              "throttling": 0.032857142857142856
+            },
+            "frontend": {
+              "cpu_cores": 0.267851131035725,
+              "memory_fraction": 0.23831612723214285,
+              "memory_peak_bytes": 111951872,
+              "samples": 15,
+              "throttling": 0.18015873015873013
+            },
+            "kafka": {
+              "cpu_cores": 0.10661656022462505,
+              "memory_fraction": 0.5286178588867188,
+              "memory_peak_bytes": 567599104,
+              "samples": 15,
+              "throttling": 0.11444444444444443
+            },
+            "payment": {
+              "cpu_cores": 0.14574351251744797,
+              "memory_fraction": 0.6725056966145834,
+              "memory_peak_bytes": 135393280,
+              "samples": 15,
+              "throttling": 0.4338095238095238
+            },
+            "product-catalog": {
+              "cpu_cores": 0.06686708305630185,
+              "memory_fraction": 0.0945281982421875,
+              "memory_peak_bytes": 25374720,
+              "samples": 15,
+              "throttling": 0.016666666666666666
+            },
+            "shipping": {
+              "cpu_cores": 0.034344113910799515,
+              "memory_fraction": 0.086669921875,
+              "memory_peak_bytes": 11632640,
+              "samples": 15,
+              "throttling": 0.03301587301587302
+            }
+          },
+          "safe": true,
+          "valid": true,
+          "window_end_ms": 1791921646119,
+          "window_start_ms": 1791921616119
+        },
+        {
+          "accounting": {
+            "confirmed": 1200,
+            "headroom": 0.9984965922851563,
+            "late": 0,
+            "missing": 0,
+            "p99_observed_lag_ms": 7.517038574218744,
+            "safe": true,
+            "timely": 1200,
+            "timely_fraction": 1.0
+          },
+          "action": {
+            "restore": true
+          },
+          "advertising": {
+            "attempts": 27402,
+            "exit_code": 0,
+            "finished": 27402,
+            "goodput": 913.1333333333333,
+            "headroom": 0.55,
+            "p99_ms": 90,
+            "safe": true,
+            "timely": 27402,
+            "timely_fraction": 1.0,
+            "unfinished": 0,
+            "window_end_ms": 1791921689489,
+            "window_start_ms": 1791921659489
+          },
+          "allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "exit_code": 0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 355.0,
+            "operation_p95_ms": 144.0,
+            "p95_ms": 120.71478659999997,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 9.0
+          },
+          "epoch": 2,
+          "headroom": {
+            "accounting": 0.9984965922851563,
+            "advertising": 0.55,
+            "checkout": 0.7585704268000001
+          },
+          "quota_checks": {
+            "cpu_total": 3.4,
+            "memory_total": 4630511616,
+            "reasons": [],
+            "rows": {
+              "accounting": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c9baa4b6b8c5d1387fe0057d7fb6e4a4d262dcd55cef9ea86838236a07131d5",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7611,
+                "restart_count": 0,
+                "running": true
+              },
+              "ad": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "402653184",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "34270189c37909332ce78ba911e31c8ea76d2081cf959248ecbff4298afe0cb9",
+                "cpu": 0.25,
+                "memory": 402653184,
+                "memory_swap": 402653184,
+                "oom_snapshot": false,
+                "pid": 4606,
+                "restart_count": 0,
+                "running": true
+              },
+              "astronomy-db": {
+                "cgroup": {
+                  "cpu.max": "50000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "416b949b7b6b174697a6263f90ab55910c19dc3cb3a9db6ebfc8b8a23b9c04de",
+                "cpu": 0.5,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3988,
+                "restart_count": 0,
+                "running": true
+              },
+              "cart": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "4be7a2494a5c78cd7edc10feb6778f4aa9254e658cb5ee8beaef8b2bca404d97",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5913,
+                "restart_count": 0,
+                "running": true
+              },
+              "checkout": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "6c27605e443be824882d5da41e57967b06c01ac1a4784eb6cf992ae985e1273a",
+                "cpu": 0.45,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7468,
+                "restart_count": 0,
+                "running": true
+              },
+              "currency": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "a7c5cc69aeeffe835b1b44f5e4d4cea0a14e17d3d8d1a03c6d816bca10e5abdd",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 5119,
+                "restart_count": 0,
+                "running": true
+              },
+              "frontend": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "536870912",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c622f9f5223c94712777604b62eb515e8e5dbc77ebdb7fe612ebbd47b66a224",
+                "cpu": 0.45,
+                "memory": 536870912,
+                "memory_swap": 536870912,
+                "oom_snapshot": false,
+                "pid": 7801,
+                "restart_count": 0,
+                "running": true
+              },
+              "kafka": {
+                "cgroup": {
+                  "cpu.max": "40000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5214e4fb57461abda6ed1e955beca8f44709b23c1086058c4e26f59632b55c05",
+                "cpu": 0.4,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3984,
+                "restart_count": 0,
+                "running": true
+              },
+              "payment": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "201326592",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "614c478e1fef50e096f84a6748615755fb7004af826282a21bf6784ebb71b8ca",
+                "cpu": 0.25,
+                "memory": 201326592,
+                "memory_swap": 201326592,
+                "oom_snapshot": false,
+                "pid": 4788,
+                "restart_count": 0,
+                "running": true
+              },
+              "product-catalog": {
+                "cgroup": {
+                  "cpu.max": "30000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "92096cd020654585b7ba7446da4f92c354fc70d48f4a85ca9dbe19a6c8c5332a",
+                "cpu": 0.3,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5926,
+                "restart_count": 0,
+                "running": true
+              },
+              "shipping": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "b0b2c7f710ead7030b1209333f49e9c4efc127edff96806a9b5cf6d34b9e91d6",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 4920,
+                "restart_count": 0,
+                "running": true
+              }
+            },
+            "valid": true
+          },
+          "reasons": [],
+          "representation": {
+            "ilr": [
+              0.4156279366433132,
+              -0.23996290110374582,
+              0.33935878920731083,
+              0.7197625155536002,
+              0.587683633029454,
+              -0.14504626897391637,
+              0.044932446280994284,
+              0.03962669288575997,
+              -0.4104414014821287,
+              -0.5840172447032779,
+              0.4901290717342736,
+              0.2829761515034443,
+              0.44923433859875495,
+              0.710634440081159,
+              0.5802305906157553,
+              -0.15134523948052572,
+              -0.5103467013399767,
+              -0.06780731475215108,
+              -1.3758030126390617,
+              -1.2444606486448244
+            ],
+            "local": [
+              0.5877866649021191,
+              0.5877866649021191,
+              -1.3862943611198906
+            ],
+            "shares": {
+              "cpu": [
+                0.1323529411764706,
+                0.07352941176470588,
+                0.1323529411764706,
+                0.07352941176470588,
+                0.04411764705882353,
+                0.04411764705882353,
+                0.08823529411764706,
+                0.07352941176470588,
+                0.07352941176470588,
+                0.11764705882352942,
+                0.14705882352941177
+              ],
+              "memory": [
+                0.11594202898550725,
+                0.057971014492753624,
+                0.057971014492753624,
+                0.043478260869565216,
+                0.028985507246376812,
+                0.028985507246376812,
+                0.057971014492753624,
+                0.08695652173913043,
+                0.057971014492753624,
+                0.2318840579710145,
+                0.2318840579710145
+              ]
+            }
+          },
+          "resources": {
+            "accounting": {
+              "cpu_cores": 0.06743037725790806,
+              "memory_fraction": 0.5144805908203125,
+              "memory_peak_bytes": 138104832,
+              "samples": 15,
+              "throttling": 0.0033333333333333335
+            },
+            "ad": {
+              "cpu_cores": 0.24242205817701565,
+              "memory_fraction": 0.9072672526041666,
+              "memory_peak_bytes": 365314048,
+              "samples": 15,
+              "throttling": 1.0
+            },
+            "astronomy-db": {
+              "cpu_cores": 0.06516065099928357,
+              "memory_fraction": 0.12431716918945312,
+              "memory_peak_bytes": 133484544,
+              "samples": 15,
+              "throttling": 0.013015873015873015
+            },
+            "cart": {
+              "cpu_cores": 0.181928687399066,
+              "memory_fraction": 0.24920654296875,
+              "memory_peak_bytes": 66895872,
+              "samples": 15,
+              "throttling": 0.03677871148459384
+            },
+            "checkout": {
+              "cpu_cores": 0.11916418837423169,
+              "memory_fraction": 0.102630615234375,
+              "memory_peak_bytes": 27549696,
+              "samples": 15,
+              "throttling": 0.0
+            },
+            "currency": {
+              "cpu_cores": 0.041671916175341515,
+              "memory_fraction": 0.0361328125,
+              "memory_peak_bytes": 4849664,
+              "samples": 15,
+              "throttling": 0.0419047619047619
+            },
+            "frontend": {
+              "cpu_cores": 0.24965398557321528,
+              "memory_fraction": 0.21227264404296875,
+              "memory_peak_bytes": 113963008,
+              "samples": 15,
+              "throttling": 0.12123015873015873
+            },
+            "kafka": {
+              "cpu_cores": 0.06584303485692002,
+              "memory_fraction": 0.5281982421875,
+              "memory_peak_bytes": 567148544,
+              "samples": 15,
+              "throttling": 0.029682539682539682
+            },
+            "payment": {
+              "cpu_cores": 0.1415130419253238,
+              "memory_fraction": 0.6258341471354166,
+              "memory_peak_bytes": 125997056,
+              "samples": 15,
+              "throttling": 0.3796825396825397
+            },
+            "product-catalog": {
+              "cpu_cores": 0.06987886331655374,
+              "memory_fraction": 0.078582763671875,
+              "memory_peak_bytes": 21094400,
+              "samples": 15,
+              "throttling": 0.016666666666666666
+            },
+            "shipping": {
+              "cpu_cores": 0.03618446295151425,
+              "memory_fraction": 0.102142333984375,
+              "memory_peak_bytes": 13709312,
+              "samples": 15,
+              "throttling": 0.037142857142857144
+            }
+          },
+          "safe": true,
+          "valid": true,
+          "window_end_ms": 1791921689489,
+          "window_start_ms": 1791921659489
+        },
+        {
+          "accounting": {
+            "confirmed": 1200,
+            "headroom": 0.9985860590820312,
+            "late": 0,
+            "missing": 0,
+            "p99_observed_lag_ms": 7.069704589843748,
+            "safe": true,
+            "timely": 1200,
+            "timely_fraction": 1.0
+          },
+          "action": {
+            "amount": 0.08,
+            "donor": "frontend",
+            "receiver": "ad",
+            "resource": "cpu"
+          },
+          "advertising": {
+            "attempts": 40476,
+            "exit_code": 0,
+            "finished": 40476,
+            "goodput": 1348.9333333333334,
+            "headroom": 0.595,
+            "p99_ms": 81,
+            "safe": true,
+            "timely": 40476,
+            "timely_fraction": 1.0,
+            "unfinished": 0,
+            "window_end_ms": 1791921733022,
+            "window_start_ms": 1791921703022
+          },
+          "allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.33,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.37,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "exit_code": 0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 519.0,
+            "operation_p95_ms": 225.04999999999995,
+            "p95_ms": 147.8574539,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 10.0
+          },
+          "epoch": 3,
+          "headroom": {
+            "accounting": 0.9985860590820312,
+            "advertising": 0.595,
+            "checkout": 0.7042850922
+          },
+          "quota_checks": {
+            "cpu_total": 3.4,
+            "memory_total": 4630511616,
+            "reasons": [],
+            "rows": {
+              "accounting": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c9baa4b6b8c5d1387fe0057d7fb6e4a4d262dcd55cef9ea86838236a07131d5",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7611,
+                "restart_count": 0,
+                "running": true
+              },
+              "ad": {
+                "cgroup": {
+                  "cpu.max": "33000 100000",
+                  "memory.max": "402653184",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "34270189c37909332ce78ba911e31c8ea76d2081cf959248ecbff4298afe0cb9",
+                "cpu": 0.33,
+                "memory": 402653184,
+                "memory_swap": 402653184,
+                "oom_snapshot": false,
+                "pid": 4606,
+                "restart_count": 0,
+                "running": true
+              },
+              "astronomy-db": {
+                "cgroup": {
+                  "cpu.max": "50000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "416b949b7b6b174697a6263f90ab55910c19dc3cb3a9db6ebfc8b8a23b9c04de",
+                "cpu": 0.5,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3988,
+                "restart_count": 0,
+                "running": true
+              },
+              "cart": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "4be7a2494a5c78cd7edc10feb6778f4aa9254e658cb5ee8beaef8b2bca404d97",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5913,
+                "restart_count": 0,
+                "running": true
+              },
+              "checkout": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "6c27605e443be824882d5da41e57967b06c01ac1a4784eb6cf992ae985e1273a",
+                "cpu": 0.45,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7468,
+                "restart_count": 0,
+                "running": true
+              },
+              "currency": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "a7c5cc69aeeffe835b1b44f5e4d4cea0a14e17d3d8d1a03c6d816bca10e5abdd",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 5119,
+                "restart_count": 0,
+                "running": true
+              },
+              "frontend": {
+                "cgroup": {
+                  "cpu.max": "37000 100000",
+                  "memory.max": "536870912",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c622f9f5223c94712777604b62eb515e8e5dbc77ebdb7fe612ebbd47b66a224",
+                "cpu": 0.37,
+                "memory": 536870912,
+                "memory_swap": 536870912,
+                "oom_snapshot": false,
+                "pid": 7801,
+                "restart_count": 0,
+                "running": true
+              },
+              "kafka": {
+                "cgroup": {
+                  "cpu.max": "40000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5214e4fb57461abda6ed1e955beca8f44709b23c1086058c4e26f59632b55c05",
+                "cpu": 0.4,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3984,
+                "restart_count": 0,
+                "running": true
+              },
+              "payment": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "201326592",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "614c478e1fef50e096f84a6748615755fb7004af826282a21bf6784ebb71b8ca",
+                "cpu": 0.25,
+                "memory": 201326592,
+                "memory_swap": 201326592,
+                "oom_snapshot": false,
+                "pid": 4788,
+                "restart_count": 0,
+                "running": true
+              },
+              "product-catalog": {
+                "cgroup": {
+                  "cpu.max": "30000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "92096cd020654585b7ba7446da4f92c354fc70d48f4a85ca9dbe19a6c8c5332a",
+                "cpu": 0.3,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5926,
+                "restart_count": 0,
+                "running": true
+              },
+              "shipping": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "b0b2c7f710ead7030b1209333f49e9c4efc127edff96806a9b5cf6d34b9e91d6",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 4920,
+                "restart_count": 0,
+                "running": true
+              }
+            },
+            "valid": true
+          },
+          "reasons": [],
+          "representation": {
+            "ilr": [
+              0.2772156187769581,
+              -0.3198752900830458,
+              0.28285219705923065,
+              0.6759926974855105,
+              0.5519457262290299,
+              -0.17525031296138574,
+              -0.24092573262063452,
+              0.04927718717824099,
+              -0.40180973698034417,
+              -0.5762096103936466,
+              0.4901290717342736,
+              0.2829761515034443,
+              0.44923433859875495,
+              0.710634440081159,
+              0.5802305906157553,
+              -0.15134523948052572,
+              -0.5103467013399767,
+              -0.06780731475215108,
+              -1.3758030126390617,
+              -1.2444606486448244
+            ],
+            "local": [
+              0.5877866649021191,
+              0.11441035117774412,
+              -1.3862943611198906
+            ],
+            "shares": {
+              "cpu": [
+                0.10882352941176471,
+                0.07352941176470588,
+                0.1323529411764706,
+                0.07352941176470588,
+                0.04411764705882353,
+                0.04411764705882353,
+                0.08823529411764706,
+                0.09705882352941177,
+                0.07352941176470588,
+                0.11764705882352942,
+                0.14705882352941177
+              ],
+              "memory": [
+                0.11594202898550725,
+                0.057971014492753624,
+                0.057971014492753624,
+                0.043478260869565216,
+                0.028985507246376812,
+                0.028985507246376812,
+                0.057971014492753624,
+                0.08695652173913043,
+                0.057971014492753624,
+                0.2318840579710145,
+                0.2318840579710145
+              ]
+            }
+          },
+          "resources": {
+            "accounting": {
+              "cpu_cores": 0.06328768801984734,
+              "memory_fraction": 0.51202392578125,
+              "memory_peak_bytes": 137445376,
+              "samples": 15,
+              "throttling": 0.00392156862745098
+            },
+            "ad": {
+              "cpu_cores": 0.31046317028510034,
+              "memory_fraction": 0.9074503580729166,
+              "memory_peak_bytes": 365387776,
+              "samples": 15,
+              "throttling": 0.9583333333333334
+            },
+            "astronomy-db": {
+              "cpu_cores": 0.07427622575477132,
+              "memory_fraction": 0.12541580200195312,
+              "memory_peak_bytes": 134664192,
+              "samples": 15,
+              "throttling": 0.009841269841269842
+            },
+            "cart": {
+              "cpu_cores": 0.1627904449926182,
+              "memory_fraction": 0.2483673095703125,
+              "memory_peak_bytes": 66670592,
+              "samples": 15,
+              "throttling": 0.013174603174603176
+            },
+            "checkout": {
+              "cpu_cores": 0.1134288593697382,
+              "memory_fraction": 0.1080169677734375,
+              "memory_peak_bytes": 28995584,
+              "samples": 15,
+              "throttling": 0.0
+            },
+            "currency": {
+              "cpu_cores": 0.038882529114715694,
+              "memory_fraction": 0.0380859375,
+              "memory_peak_bytes": 5111808,
+              "samples": 15,
+              "throttling": 0.03333333333333333
+            },
+            "frontend": {
+              "cpu_cores": 0.2379292489132742,
+              "memory_fraction": 0.236053466796875,
+              "memory_peak_bytes": 126730240,
+              "samples": 15,
+              "throttling": 0.2053968253968254
+            },
+            "kafka": {
+              "cpu_cores": 0.04759823170581975,
+              "memory_fraction": 0.5296096801757812,
+              "memory_peak_bytes": 568664064,
+              "samples": 15,
+              "throttling": 0.0
+            },
+            "payment": {
+              "cpu_cores": 0.1514218813570207,
+              "memory_fraction": 0.67913818359375,
+              "memory_peak_bytes": 136728576,
+              "samples": 15,
+              "throttling": 0.46631257631257633
+            },
+            "product-catalog": {
+              "cpu_cores": 0.06922507495840126,
+              "memory_fraction": 0.0822906494140625,
+              "memory_peak_bytes": 22089728,
+              "samples": 15,
+              "throttling": 0.016666666666666666
+            },
+            "shipping": {
+              "cpu_cores": 0.035110710482390006,
+              "memory_fraction": 0.0535888671875,
+              "memory_peak_bytes": 7192576,
+              "samples": 15,
+              "throttling": 0.04035087719298246
+            }
+          },
+          "safe": true,
+          "valid": true,
+          "window_end_ms": 1791921733022,
+          "window_start_ms": 1791921703022
+        },
+        {
+          "accounting": {
+            "confirmed": 1200,
+            "headroom": 0.9986061953125001,
+            "late": 0,
+            "missing": 0,
+            "p99_observed_lag_ms": 6.9690234375,
+            "safe": true,
+            "timely": 1200,
+            "timely_fraction": 1.0
+          },
+          "action": {
+            "restore": true
+          },
+          "advertising": {
+            "attempts": 30653,
+            "exit_code": 0,
+            "finished": 30653,
+            "goodput": 1021.5,
+            "headroom": 0.56,
+            "p99_ms": 88,
+            "safe": true,
+            "timely": 30653,
+            "timely_fraction": 1.0,
+            "unfinished": 0,
+            "window_end_ms": 1791921776425,
+            "window_start_ms": 1791921746425
+          },
+          "allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "checkout": {
+            "checkout_requests_completed": 1200,
+            "checkout_requests_started": 1200,
+            "dropped_iterations": 0,
+            "error_count": 0,
+            "error_rate": 0.0,
+            "exit_code": 0,
+            "failed_iterations": 0,
+            "finished_iterations": 1200,
+            "k6_exit_code": 0,
+            "k6_reported_dropped_iterations": 0,
+            "latency_population": "All completed checkout HTTP requests, including failed responses and timeouts; includes completions during the 30-second graceful stop.",
+            "operation_max_ms": 437.0,
+            "operation_p95_ms": 141.0,
+            "p95_ms": 115.2418962,
+            "safe": true,
+            "scheduled_iterations": 1200,
+            "started_fraction": 1.0,
+            "started_iterations": 1200,
+            "successful_iterations": 1200,
+            "unfinished_iterations": 0,
+            "vus_observed_max": 13.0
+          },
+          "epoch": 4,
+          "headroom": {
+            "accounting": 0.9986061953125001,
+            "advertising": 0.56,
+            "checkout": 0.7695162076
+          },
+          "quota_checks": {
+            "cpu_total": 3.4,
+            "memory_total": 4630511616,
+            "reasons": [],
+            "rows": {
+              "accounting": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c9baa4b6b8c5d1387fe0057d7fb6e4a4d262dcd55cef9ea86838236a07131d5",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7611,
+                "restart_count": 0,
+                "running": true
+              },
+              "ad": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "402653184",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "34270189c37909332ce78ba911e31c8ea76d2081cf959248ecbff4298afe0cb9",
+                "cpu": 0.25,
+                "memory": 402653184,
+                "memory_swap": 402653184,
+                "oom_snapshot": false,
+                "pid": 4606,
+                "restart_count": 0,
+                "running": true
+              },
+              "astronomy-db": {
+                "cgroup": {
+                  "cpu.max": "50000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "416b949b7b6b174697a6263f90ab55910c19dc3cb3a9db6ebfc8b8a23b9c04de",
+                "cpu": 0.5,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3988,
+                "restart_count": 0,
+                "running": true
+              },
+              "cart": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "4be7a2494a5c78cd7edc10feb6778f4aa9254e658cb5ee8beaef8b2bca404d97",
+                "cpu": 0.25,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5913,
+                "restart_count": 0,
+                "running": true
+              },
+              "checkout": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "6c27605e443be824882d5da41e57967b06c01ac1a4784eb6cf992ae985e1273a",
+                "cpu": 0.45,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 7468,
+                "restart_count": 0,
+                "running": true
+              },
+              "currency": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "a7c5cc69aeeffe835b1b44f5e4d4cea0a14e17d3d8d1a03c6d816bca10e5abdd",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 5119,
+                "restart_count": 0,
+                "running": true
+              },
+              "frontend": {
+                "cgroup": {
+                  "cpu.max": "45000 100000",
+                  "memory.max": "536870912",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5c622f9f5223c94712777604b62eb515e8e5dbc77ebdb7fe612ebbd47b66a224",
+                "cpu": 0.45,
+                "memory": 536870912,
+                "memory_swap": 536870912,
+                "oom_snapshot": false,
+                "pid": 7801,
+                "restart_count": 0,
+                "running": true
+              },
+              "kafka": {
+                "cgroup": {
+                  "cpu.max": "40000 100000",
+                  "memory.max": "1073741824",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "5214e4fb57461abda6ed1e955beca8f44709b23c1086058c4e26f59632b55c05",
+                "cpu": 0.4,
+                "memory": 1073741824,
+                "memory_swap": 1073741824,
+                "oom_snapshot": false,
+                "pid": 3984,
+                "restart_count": 0,
+                "running": true
+              },
+              "payment": {
+                "cgroup": {
+                  "cpu.max": "25000 100000",
+                  "memory.max": "201326592",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "614c478e1fef50e096f84a6748615755fb7004af826282a21bf6784ebb71b8ca",
+                "cpu": 0.25,
+                "memory": 201326592,
+                "memory_swap": 201326592,
+                "oom_snapshot": false,
+                "pid": 4788,
+                "restart_count": 0,
+                "running": true
+              },
+              "product-catalog": {
+                "cgroup": {
+                  "cpu.max": "30000 100000",
+                  "memory.max": "268435456",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "92096cd020654585b7ba7446da4f92c354fc70d48f4a85ca9dbe19a6c8c5332a",
+                "cpu": 0.3,
+                "memory": 268435456,
+                "memory_swap": 268435456,
+                "oom_snapshot": false,
+                "pid": 5926,
+                "restart_count": 0,
+                "running": true
+              },
+              "shipping": {
+                "cgroup": {
+                  "cpu.max": "15000 100000",
+                  "memory.max": "134217728",
+                  "memory.swap.max": "0"
+                },
+                "container_id": "b0b2c7f710ead7030b1209333f49e9c4efc127edff96806a9b5cf6d34b9e91d6",
+                "cpu": 0.15,
+                "memory": 134217728,
+                "memory_swap": 134217728,
+                "oom_snapshot": false,
+                "pid": 4920,
+                "restart_count": 0,
+                "running": true
+              }
+            },
+            "valid": true
+          },
+          "reasons": [],
+          "representation": {
+            "ilr": [
+              0.4156279366433132,
+              -0.23996290110374582,
+              0.33935878920731083,
+              0.7197625155536002,
+              0.587683633029454,
+              -0.14504626897391637,
+              0.044932446280994284,
+              0.03962669288575997,
+              -0.4104414014821287,
+              -0.5840172447032779,
+              0.4901290717342736,
+              0.2829761515034443,
+              0.44923433859875495,
+              0.710634440081159,
+              0.5802305906157553,
+              -0.15134523948052572,
+              -0.5103467013399767,
+              -0.06780731475215108,
+              -1.3758030126390617,
+              -1.2444606486448244
+            ],
+            "local": [
+              0.5877866649021191,
+              0.5877866649021191,
+              -1.3862943611198906
+            ],
+            "shares": {
+              "cpu": [
+                0.1323529411764706,
+                0.07352941176470588,
+                0.1323529411764706,
+                0.07352941176470588,
+                0.04411764705882353,
+                0.04411764705882353,
+                0.08823529411764706,
+                0.07352941176470588,
+                0.07352941176470588,
+                0.11764705882352942,
+                0.14705882352941177
+              ],
+              "memory": [
+                0.11594202898550725,
+                0.057971014492753624,
+                0.057971014492753624,
+                0.043478260869565216,
+                0.028985507246376812,
+                0.028985507246376812,
+                0.057971014492753624,
+                0.08695652173913043,
+                0.057971014492753624,
+                0.2318840579710145,
+                0.2318840579710145
+              ]
+            }
+          },
+          "resources": {
+            "accounting": {
+              "cpu_cores": 0.06559159532288383,
+              "memory_fraction": 0.5099639892578125,
+              "memory_peak_bytes": 136892416,
+              "samples": 15,
+              "throttling": 0.0
+            },
+            "ad": {
+              "cpu_cores": 0.23887325905970114,
+              "memory_fraction": 0.9085896809895834,
+              "memory_peak_bytes": 365846528,
+              "samples": 15,
+              "throttling": 1.0
+            },
+            "astronomy-db": {
+              "cpu_cores": 0.06403622525158202,
+              "memory_fraction": 0.12731170654296875,
+              "memory_peak_bytes": 136699904,
+              "samples": 15,
+              "throttling": 0.01650793650793651
+            },
+            "cart": {
+              "cpu_cores": 0.17572688867727357,
+              "memory_fraction": 0.2418365478515625,
+              "memory_peak_bytes": 64917504,
+              "samples": 15,
+              "throttling": 0.013333333333333334
+            },
+            "checkout": {
+              "cpu_cores": 0.11652591580510065,
+              "memory_fraction": 0.103515625,
+              "memory_peak_bytes": 27787264,
+              "samples": 15,
+              "throttling": 0.0033333333333333335
+            },
+            "currency": {
+              "cpu_cores": 0.04077645678051127,
+              "memory_fraction": 0.03729248046875,
+              "memory_peak_bytes": 5005312,
+              "samples": 15,
+              "throttling": 0.044444444444444446
+            },
+            "frontend": {
+              "cpu_cores": 0.2374594434506174,
+              "memory_fraction": 0.212554931640625,
+              "memory_peak_bytes": 114114560,
+              "samples": 15,
+              "throttling": 0.1219047619047619
+            },
+            "kafka": {
+              "cpu_cores": 0.051038874814403265,
+              "memory_fraction": 0.5308113098144531,
+              "memory_peak_bytes": 569954304,
+              "samples": 15,
+              "throttling": 0.006666666666666667
+            },
+            "payment": {
+              "cpu_cores": 0.1434801567645634,
+              "memory_fraction": 0.6494954427083334,
+              "memory_peak_bytes": 130760704,
+              "samples": 15,
+              "throttling": 0.40285714285714286
+            },
+            "product-catalog": {
+              "cpu_cores": 0.06810096192394739,
+              "memory_fraction": 0.081695556640625,
+              "memory_peak_bytes": 21929984,
+              "samples": 15,
+              "throttling": 0.01984126984126984
+            },
+            "shipping": {
+              "cpu_cores": 0.03583777340198524,
+              "memory_fraction": 0.053436279296875,
+              "memory_peak_bytes": 7172096,
+              "samples": 15,
+              "throttling": 0.04212121212121212
+            }
+          },
+          "safe": true,
+          "valid": true,
+          "window_end_ms": 1791921776425,
+          "window_start_ms": 1791921746425
+        }
+      ],
+      "policy": "pilot",
+      "stop_reason": "planned_cycles_completed",
+      "transitions": [
+        {
+          "action": {
+            "amount": 67108864,
+            "donor": "frontend",
+            "receiver": "ad",
+            "resource": "memory"
+          },
+          "before": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "epoch": 1,
+          "measured_safe": true,
+          "next_allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 469762048,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 469762048,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "rolled_back": false,
+          "trial": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 469762048,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 469762048,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          }
+        },
+        {
+          "action": {
+            "restore": true
+          },
+          "before": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 469762048,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 469762048,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "epoch": 2,
+          "measured_safe": true,
+          "next_allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "rolled_back": false,
+          "trial": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          }
+        },
+        {
+          "action": {
+            "amount": 0.08,
+            "donor": "frontend",
+            "receiver": "ad",
+            "resource": "cpu"
+          },
+          "before": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "epoch": 3,
+          "measured_safe": true,
+          "next_allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.33,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.37,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "rolled_back": false,
+          "trial": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.33,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.37,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          }
+        },
+        {
+          "action": {
+            "restore": true
+          },
+          "before": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.33,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.37,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "epoch": 4,
+          "measured_safe": true,
+          "next_allocation": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          },
+          "rolled_back": false,
+          "trial": {
+            "cpu": {
+              "accounting": 0.25,
+              "ad": 0.25,
+              "astronomy-db": 0.5,
+              "cart": 0.25,
+              "checkout": 0.45,
+              "currency": 0.15,
+              "frontend": 0.45,
+              "kafka": 0.4,
+              "payment": 0.25,
+              "product-catalog": 0.3,
+              "shipping": 0.15
+            },
+            "memory": {
+              "accounting": 268435456,
+              "ad": 402653184,
+              "astronomy-db": 1073741824,
+              "cart": 268435456,
+              "checkout": 268435456,
+              "currency": 134217728,
+              "frontend": 536870912,
+              "kafka": 1073741824,
+              "payment": 201326592,
+              "product-catalog": 268435456,
+              "shipping": 134217728
+            }
+          }
+        }
+      ]
+    }
+  },
+  "mode": "pilot",
+  "order": [
+    "pilot"
+  ],
+  "profile": {
+    "ad_vus": 8,
+    "checkout_rate": 40
+  },
+  "run_id": "38458668550",
+  "runner_image": "20261004.327.1",
+  "runtime_version": "guarded-adaptation-runtime-0.1.0"
+}

@@ -39,6 +39,7 @@ export const options = {
 const started = new Counter('protocol_iterations_started');
 const finished = new Counter('protocol_iterations_finished');
 const successful = new Counter('successful_iterations');
+const confirmed = new Counter('protocol_orders_confirmed');
 const checkoutStarted = new Counter('checkout_requests_started');
 const operationDuration = new Trend('protocol_iteration_duration', true);
 const ORDER = {
@@ -78,6 +79,7 @@ export default function () {
   // The executor can emit one terminal, no-op iteration. It is not a protocol attempt.
   if (iteration >= RATE * SECONDS) return;
   started.add(1);
+  confirmed.add(0);
   const begin = Date.now();
   try {
     const user = TRIAL + '-' + POINT + '-' + PHASE + '-' + iteration;
@@ -92,10 +94,10 @@ export default function () {
       TARGET + '/api/checkout', JSON.stringify({ ...ORDER, userId: user }),
       params('checkout', trace, user),
     );
-    if (cart.status >= 200 && cart.status < 300 &&
-        checkout.status >= 200 && checkout.status < 300 && hasOrder(checkout)) {
-      successful.add(1);
+    if (checkout.status >= 200 && checkout.status < 300 && hasOrder(checkout)) {
+      confirmed.add(1);
       console.log('ORDER_ACK ' + JSON.stringify({order_id: checkout.json().orderId, confirmed_ms: Date.now()}));
+      if (cart.status >= 200 && cart.status < 300) successful.add(1);
     }
   } finally {
     finished.add(1);

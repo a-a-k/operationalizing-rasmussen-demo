@@ -1,0 +1,181 @@
+{
+  "version": "guarded-adaptation-0.2.0",
+  "ready": true,
+  "parts": [
+    "frontend",
+    "cart",
+    "checkout",
+    "payment",
+    "currency",
+    "shipping",
+    "product-catalog",
+    "ad",
+    "accounting",
+    "kafka",
+    "astronomy-db"
+  ],
+  "reference_cpu": [
+    0.45,
+    0.25,
+    0.45,
+    0.25,
+    0.15,
+    0.15,
+    0.3,
+    0.25,
+    0.25,
+    0.4,
+    0.5
+  ],
+  "reference_memory_mib": [
+    512,
+    256,
+    256,
+    192,
+    128,
+    128,
+    256,
+    512,
+    256,
+    1024,
+    1024
+  ],
+  "initial_states": [
+    {
+      "id": "balanced",
+      "cpu_changes": {},
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "interactive",
+      "cpu_changes": {
+        "frontend": 0.1,
+        "checkout": 0.1,
+        "accounting": -0.1,
+        "kafka": -0.1
+      },
+      "memory_changes_mib": {
+        "frontend": 128,
+        "accounting": -64,
+        "kafka": -64
+      }
+    },
+    {
+      "id": "ledger",
+      "cpu_changes": {
+        "frontend": -0.1,
+        "checkout": -0.1,
+        "accounting": 0.1,
+        "kafka": 0.1
+      },
+      "memory_changes_mib": {
+        "frontend": -64,
+        "checkout": -64,
+        "accounting": 128
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "moderate",
+      "checkout_rate": 24,
+      "ad_vus": 8
+    },
+    {
+      "id": "busy",
+      "checkout_rate": 40,
+      "ad_vus": 8
+    }
+  ],
+  "repetitions": 4,
+  "cycles": 20,
+  "warmup_seconds": 120,
+  "baseline_seconds": 60,
+  "measurement_seconds": 30,
+  "stabilization_seconds": 5,
+  "randomization_salt": "guarded-adaptation-20261013-0.1.0",
+  "controller": {
+    "receiver": "ad",
+    "active_resources": [
+      "cpu"
+    ],
+    "cpu_step": 0.04,
+    "memory_step_mib": 32,
+    "minimum_cpu": 0.08,
+    "minimum_memory_mib": 64,
+    "donor_headroom": 0.2,
+    "rollback_headroom": 0.05,
+    "memory_reserve_factor": 1.25,
+    "dependencies": {
+      "frontend": [
+        "checkout"
+      ],
+      "cart": [
+        "checkout"
+      ],
+      "checkout": [
+        "checkout"
+      ],
+      "payment": [
+        "checkout"
+      ],
+      "currency": [
+        "checkout"
+      ],
+      "shipping": [
+        "checkout"
+      ],
+      "product-catalog": [
+        "checkout"
+      ],
+      "accounting": [
+        "accounting"
+      ],
+      "kafka": [
+        "checkout",
+        "accounting"
+      ],
+      "astronomy-db": [
+        "checkout",
+        "accounting"
+      ]
+    }
+  },
+  "local_ratios": [
+    [
+      "cpu",
+      "checkout",
+      "payment"
+    ],
+    [
+      "cpu",
+      "frontend",
+      "ad"
+    ],
+    [
+      "memory",
+      "accounting",
+      "kafka"
+    ]
+  ],
+  "analysis": {
+    "slice_length_cycles": 1,
+    "context": "Same workload profile and window length; exclude the entire query runner pair.",
+    "methods": [
+      "selected_log_ratios",
+      "euclidean_share_change",
+      "full_ilr_change"
+    ],
+    "resource_weights": {
+      "cpu": 1,
+      "memory": 1
+    },
+    "scientific_success_threshold": null,
+    "scope": "Describe observed trade-offs, projection loss and leave-one-pair-out analog retrieval. No promised violation, metric superiority or causal resource interaction.",
+    "tie_policy": "All equidistant nearest sections (absolute tolerance 1e-10), averaged within neighboring runner pairs and then equally across pairs.",
+    "uncertainty": "2000 runner-pair resamples; seed 20261013; descriptive conditional on the fixed neighbor pool.",
+    "local_scaling": "Each selected log ratio is divided by sqrt(2); selected contrasts are mutually orthonormal."
+  },
+  "example_pair": "balanced-busy-01",
+  "engineering_decision": "CPU receiver benefit observed in both revised engineering runners. Extra RAM did not show a reversible benefit; memory allocations vary only between initial contexts, not within histories. This series does not test jointly moving CPU and RAM or causal resource interaction."
+}

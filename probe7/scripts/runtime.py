@@ -20,8 +20,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from measurements import accounting, advertising, parse_ack_lines
 from model import choose, initial_state, matrix, proposal, representation
 
-RUNTIME = "probe7/runtime-v0.1.1.json"
-DESIGN = "probe7/design-v0.1.1.json"
+RUNTIME = "probe7/runtime-v0.2.0.json"
+DESIGN = "probe7/design-v0.2.0.json"
 PILOT = "probe7/pilot-design-v0.1.1.json"
 OVERLAY = "probe7/compose-v0.1.1.yaml"
 
@@ -175,6 +175,7 @@ def generator(upstream: Path, runtime: dict, profile: dict, seconds: int, folder
                     vus=env["VUS"], timeout=env["HTTP_TIMEOUT_SECONDS"],
                     p95_limit=runtime["checkout"]["p95_ms"], error_limit=runtime["checkout"]["error_fraction"])
         measured["acks"] = parse_ack_lines(completed.stdout + "\n" + completed.stderr)
+        measured["confirmed_orders"] = int(load(folder / "summary.json")["metrics"]["protocol_orders_confirmed"]["values"]["count"])
     else:
         measured = advertising(load(folder / "summary.json"), seconds, runtime["advertising"])
     measured["exit_code"] = completed.returncode
@@ -190,8 +191,8 @@ def phase(upstream: Path, runtime: dict, profile: dict, state: dict, seconds: in
         a = pool.submit(generator, upstream, runtime, profile, seconds, folder / "advertising", "advertising", identity + "-a", start_ms)
         checkout, ads = c.result(), a.result()
     acks = checkout.pop("acks")
-    if len(acks) != checkout["successful_iterations"]:
-        raise ValueError("Confirmed-order log differs from the successful-operation counter")
+    if len(acks) != checkout["confirmed_orders"]:
+        raise ValueError("Confirmed-order log differs from the confirmed-order counter")
     latest_deadline = max((a["confirmed_ms"] + runtime["accounting"]["deadline_ms"] for a in acks), default=0)
     if latest_deadline > time.time() * 1000:
         time.sleep((latest_deadline - time.time() * 1000) / 1000 + .1)
@@ -216,8 +217,8 @@ def phase(upstream: Path, runtime: dict, profile: dict, state: dict, seconds: in
                   max(checkout_start_ms, ads["window_start_ms"]))/(seconds*1000) if checkout_start_ms is not None else 0
     if overlap < .9:
         reasons.append("concurrent_window_overlap_below_90_percent")
-    croom = min(1 - (checkout["p95_ms"] if checkout["p95_ms"] is not None else float("inf")) / runtime["checkout"]["p95_ms"],
-                1 - checkout["error_rate"] / runtime["checkout"]["error_fraction"])
+    croom = min(1 - checkout["p95_ms"] / runtime["checkout"]["p95_ms"],
+                1 - checkout["error_rate"] / runtime["checkout"]["error_fraction"]) if checkout["p95_ms"] is not None else None
     result = {"valid": not reasons, "reasons": reasons,
               "safe": checkout["safe"] and ads["safe"] and ledger["safe"] is True,
               "checkout": checkout, "advertising": ads, "accounting": ledger,
@@ -349,6 +350,15 @@ def execute(upstream: Path, output: Path, block_id: str | None, pilot_id: int | 
     runtime, main, pilot = load(ROOT / RUNTIME), load(ROOT / DESIGN), load(ROOT / PILOT)
     parent = load(ROOT / runtime["parent_runtime"])
     output.mkdir(parents=True, exist_ok=False)
+    actual_upstream = command(["git", "-C", str(upstream), "rev-parse", "HEAD"]).stdout.strip()
+    if actual_upstream != runtime["upstream_commit"]:
+        raise ValueError("Upstream source differs from the pinned runtime")
+    write_json(output / "host-context.json", {
+        "upstream_commit": actual_upstream,
+        "cpu": json.loads(command(["lscpu", "--json"]).stdout),
+        "docker": json.loads(command(["docker", "version", "--format", "{{json .}}"] ).stdout),
+        "kernel": command(["uname", "-r"]).stdout.strip(),
+        "runner_image": os.getenv("ImageVersion")})
     for image in sorted({*parent["images"].values(), *runtime["additional_images"].values(), parent["workload"]["k6_image"]}):
         command(["docker", "pull", image])
     rendered = json.loads(command([*prefix(upstream, "guarded-render"), "config", "--no-path-resolution", "--format", "json"]).stdout)

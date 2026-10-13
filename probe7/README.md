@@ -19,14 +19,19 @@ Late and missing records remain violations. No geometry assigns an SLO label.
 
 ## Engineering stage and main series
 
-The active [technical pilot](pilot-design-v0.1.1.json) uses two fresh runners with
-counterbalanced CPU/RAM trial order. It establishes measurement feasibility
-and actual recipient benefit. The [main definition](design-v0.1.1.json) remains
-not-ready until that check is assessed. It proposes three initial allocations,
-two loads and four repetitions: 24 paired fresh-stack histories, with twenty
-bounded cycles each. CPU and RAM eligibility may be revised before execution
-if advertising does not benefit from a resource; dimensionality is never
-manufactured by pointless transfers.
+The [technical pilot](pilot-design-v0.1.1.json) used two fresh runners with
+counterbalanced CPU/RAM trial order. It established measurement feasibility
+and CPU recipient benefit. See the separate [engineering assessment](results/engineering/README.md).
+The finalized [main definition](design-v0.2.0.json) specifies three initial
+allocations, two loads and four repetitions: 24 paired fresh-stack histories,
+with twenty bounded cycles each. Policy order is randomized and balanced 2:2
+within every initial-state/load cell.
+
+The pilot did not establish a reversible benefit from extra advertising RAM.
+Only CPU is eligible for transfer in this series. RAM is measured and varies
+between initial contexts, but stays fixed within histories. This is not evidence
+of jointly moving CPU and RAM or a causal resource interaction. Twenty coordinates
+describe the state space, not twenty experimentally exercised dimensions.
 
 The PARTIES-inspired controller selects a donor using observed requirement
 headroom and resource reserve, evaluates the changed state and rolls back
@@ -37,7 +42,20 @@ Failed attempts, reversals, safe histories and missing data remain visible.
 
 The comparison uses fixed selected log-ratios, full share changes and full ILR
 changes on the same histories. Analog searches exclude the entire runner pair
-and match workload profile. No superiority or boundary crossing is promised.
+and match workload profile and window length. Equidistant nearest sections are
+averaged within each neighboring pair and then equally across pairs. No
+superiority or boundary crossing is promised. Full shares and full ILR preserve
+the same allocation information; their distance rules are the comparison.
+The CPU/RAM product uses equal resource weights. RAM displacement is zero in
+this series, so this analog task does not test memory-direction retrieval.
+
+For each requirement, normalized headroom is a controller signal, not a new
+definition of SLO membership: checkout uses the smaller latency/error reserve;
+advertising and accounting use the smaller timely-fraction reserve and observed
+p99-delay reserve. Accounting's delay quantile is conditional on observed
+commits; missing orders still violate its timely-fraction requirement. All
+per-process values accompany any aggregate retrieval error. Pair-bootstrap
+intervals are descriptive and conditional on the fixed neighbor pool.
 
 ## Execution
 
@@ -64,4 +82,8 @@ diagnostic frames without overriding primary SLO labels, records Docker events,
 raises advertising's startup reserve to 512 MiB, and warms up for 120 seconds.
 The images and three external requirements are unchanged. A fixed 10-ms retry
 backoff bounds failed advertising reconnection attempts. No main observations
-have yet been collected; the earlier draft is not an alternative active design.
+were used in the engineering decision; earlier main drafts are not alternative
+active designs. The finalized runtime also records host context and validates
+the upstream source revision. Confirmed orders are counted separately from
+successful cart-plus-checkout operations so a returned order ID is never lost
+from the accounting denominator after a failed cart request.

@@ -10,9 +10,10 @@ import sys
 from pathlib import Path
 
 from model import matrix, representation
+from plot import figure
 
 ROOT = Path(__file__).resolve().parents[2]
-DESIGN = "probe7/design-v0.1.1.json"
+DESIGN = "probe7/design-v0.2.0.json"
 METHODS = ("selected_log_ratios", "euclidean_share_change", "full_ilr_change")
 PROCESSES = ("checkout", "advertising", "accounting")
 TOLERANCE = 1e-10
@@ -85,15 +86,26 @@ def analogs(samples: list[dict]) -> list[dict]:
         if not candidates:
             continue
         for method in METHODS:
-            selected=min(candidates,key=lambda c:(distance(query["features"][method],c["features"][method]),
-                                                c["block_id"],c["policy"],c["epoch"]))
-            errors=[abs(a-b) for a,b in zip(query["outcome_change"],selected["outcome_change"])]
+            distances=[distance(query["features"][method],c["features"][method]) for c in candidates]
+            smallest=min(distances)
+            tied=[c for c,d in zip(candidates,distances) if d<=smallest+TOLERANCE]
+            by_pair={}
+            for c in tied:
+                by_pair.setdefault(c["block_id"],[]).append(c["outcome_change"])
+            pair_predictions=[[statistics.mean(v[i] for v in vectors) for i in range(len(PROCESSES))]
+                              for vectors in by_pair.values()]
+            prediction=[statistics.mean(v[i] for v in pair_predictions) for i in range(len(PROCESSES))]
+            selected=min(tied,key=lambda c:(c["block_id"],c["policy"],c["epoch"]))
+            errors=[abs(a-b) for a,b in zip(query["outcome_change"],prediction)]
             row={"query_block":query["block_id"],"query_policy":query["policy"],"query_epoch":query["epoch"],
                  "profile":query["profile"],"method":method,"neighbor_block":selected["block_id"],
                  "neighbor_policy":selected["policy"],"neighbor_epoch":selected["epoch"],
-                 "feature_distance":distance(query["features"][method],selected["features"][method]),
+                 "feature_distance":smallest,"equidistant_sections":len(tied),
+                 "equidistant_pairs":len(by_pair),
+                 "neighbor_sections":json.dumps([(c["block_id"],c["policy"],c["epoch"]) for c in tied]),
                  "mean_absolute_headroom_error":statistics.mean(errors)}
             row.update({p+"_absolute_error":v for p,v in zip(PROCESSES,errors)})
+            row.update({p+"_predicted_change":v for p,v in zip(PROCESSES,prediction)})
             records.append(row)
     return records
 
@@ -150,6 +162,14 @@ def summarize(blocks, design):
         values=[m[method] for m in means.values() if method in m]
         retrieval[method]={"query_pairs":len(values),"macro_pair_mean_absolute_error":statistics.mean(values) if values else None,
                            "bootstrap_pair_mean_95":bootstrap_mean(values)}
+        retrieval[method]["per_process_macro_pair_error"]={}
+        for process in PROCESSES:
+            by_pair={}
+            for row in neighbors:
+                if row["method"]==method:
+                    by_pair.setdefault(row["query_block"],[]).append(row[process+"_absolute_error"])
+            process_means=[statistics.mean(v) for v in by_pair.values()]
+            retrieval[method]["per_process_macro_pair_error"][process]=statistics.mean(process_means) if process_means else None
     advantages=[m["euclidean_share_change"]-m["full_ilr_change"] for m in means.values()
                 if "euclidean_share_change" in m and "full_ilr_change" in m]
     transfers=[t for b in blocks.values() for h in b["histories"].values() for t in h["transitions"]
@@ -158,7 +178,7 @@ def summarize(blocks, design):
     summary={
         "status":"complete" if set(blocks)==planned else "incomplete",
         "planned_pairs":len(planned),"received_pairs":len(blocks),"missing_pairs":sorted(planned-set(blocks)),
-        "initially_valid_pairs":sum(all(h["baseline_valid"] for h in b["histories"].values()) for b in blocks.values()),
+        "initially_valid_pairs":sum(all(b["histories"].get(p,{}).get("baseline_valid",False) for p in ("adaptive","control")) for b in blocks.values()),
         "complete_cycle_pairs":len(endings),
         "histories_with_unsafe_windows":{p:sum(any(w["safe"] is False for w in b["histories"].get(p,{}).get("observations",[]))
                                                    for b in blocks.values()) for p in ("adaptive","control")},
@@ -197,6 +217,7 @@ def save(output,blocks,design):
     windows=[]
     for bid,b in sorted(blocks.items()):
         for policy,h in b["histories"].items():
+            baseline=next((w for w in h["observations"] if w["epoch"]==0),None)
             for w in h["observations"]:
                 r={"block_id":bid,"policy":policy,"profile":b["profile"],"initial_state":b["initial_state"],
                    "epoch":w["epoch"],"valid":w["valid"],"safe":w["safe"],
@@ -208,14 +229,21 @@ def save(output,blocks,design):
                 r.update({p+"_headroom":w["headroom"][p] for p in PROCESSES})
                 r.update({resource+"_"+part:w["allocation"][resource][part] for resource in ("cpu","memory") for part in design["parts"]})
                 r.update({"ilr_"+str(i+1):v for i,v in enumerate(w["representation"]["ilr"])})
+                if baseline:
+                    accumulated=descriptors(baseline["allocation"],w["allocation"],design)
+                    r.update({method+"_from_baseline_norm":distance(values,[0]*len(values))
+                              for method,values in accumulated.items()})
                 windows.append(r)
     csv_save(output/"windows.csv",windows)
     csv_save(output/"paired-epochs.csv",pairs)
     csv_save(output/"neighbors.csv",neighbors)
     csv_save(output/"pair-retrieval-errors.csv",[{"block_id":bid,**m} for bid,m in sorted(means.items())])
     csv_save(output/"sections.csv",[{k:json.dumps(v) if isinstance(v,(dict,list)) else v for k,v in s.items()} for s in samples])
+    example=design.get("example_pair","balanced-busy-01")
+    (output/"example.svg").write_text(figure(blocks.get(example),example),encoding="utf-8")
     lines=["# Guarded adaptation: recorded results","",
            "Main observations only. Technical pilot data are never pooled.","",
+           "![Prespecified paired history](example.svg)","",
            f'Received {summary["received_pairs"]}/{summary["planned_pairs"]} pairs; complete fixed-endpoint pairs: {summary["complete_cycle_pairs"]}.',
            f'Missing pairs: {summary["missing_pairs"]}.',
            f'Proposed transfers: {summary["proposed_transfers"]}; rollbacks: {summary["rolled_back_transfers"]}.',
@@ -224,12 +252,19 @@ def save(output,blocks,design):
            "## Representation comparison","",
            "Each query excludes its complete runner pair; workload profile and window length match.",
            "Targets are nonzero consecutive observed reallocations. All methods use identical targets and candidates.",
+           "Equidistant nearest sections are averaged within each neighboring pair, then equally across pairs.",
            "Error is the mean absolute difference between observed changes in the three normalized controller headrooms.",
            "These headrooms are descriptive policy signals, not a learned safe-region metric.","",
            "| Representation | Query pairs | Macro pair mean absolute error | Pair-bootstrap 95% interval |",
            "| --- | ---: | ---: | --- |"]
     for method,r in summary["retrieval"].items():
         lines.append(f'| {method} | {r["query_pairs"]} | {r["macro_pair_mean_absolute_error"]} | {r["bootstrap_pair_mean_95"]} |')
+    lines.extend(["", "Individual processes are not interchangeable:",
+                  "| Representation | Checkout error | Advertising error | Accounting error |",
+                  "| --- | ---: | ---: | ---: |"])
+    for method,r in summary["retrieval"].items():
+        v=r["per_process_macro_pair_error"]
+        lines.append(f'| {method} | {v["checkout"]} | {v["advertising"]} | {v["accounting"]} |')
     lines.extend(["",f'Raw-minus-ILR mean error: {summary["raw_minus_ilr_pair_error"]}.',
                   "Positive means lower ILR error; negative means lower raw-share error. Neither is required.",
                   "",f'Observed ILR displacement linear span: {summary["observed_ilr_displacement_linear_span"]}/20.',
@@ -242,6 +277,7 @@ def save(output,blocks,design):
                   "Projection loss and downstream analog retrieval are separate questions.",
                   "Outcome similarity remains conditional on these loads, budgets, histories and controller.",
                   "Resampling uses runner pairs, never dependent windows as independent replications.",
+                  "Intervals describe pair-resampling of the fixed retrieval results, conditional on this neighbor pool; they are not calibrated generalization guarantees.",
                   "", "All windows: windows.csv. Every matched epoch: paired-epochs.csv.",
                   "All retrieved analogs and errors: neighbors.csv and pair-retrieval-errors.csv.",
                   "Complete readable block records and validity: block-level.json.", ""])

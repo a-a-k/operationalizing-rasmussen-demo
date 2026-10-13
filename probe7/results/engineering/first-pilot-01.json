@@ -1,0 +1,81 @@
+{
+  "block_id": "pilot-01",
+  "design": {
+    "ad_vus": 8,
+    "baseline_seconds": 60,
+    "checkout_rates": [
+      24,
+      40
+    ],
+    "cpu": [
+      0.45,
+      0.25,
+      0.45,
+      0.25,
+      0.15,
+      0.15,
+      0.3,
+      0.25,
+      0.25,
+      0.4,
+      0.5
+    ],
+    "cpu_trial": 0.08,
+    "measurement_seconds": 30,
+    "memory_mib": [
+      512,
+      256,
+      256,
+      192,
+      128,
+      128,
+      256,
+      384,
+      256,
+      1024,
+      1024
+    ],
+    "memory_trial_mib": 64,
+    "parts": [
+      "frontend",
+      "cart",
+      "checkout",
+      "payment",
+      "currency",
+      "shipping",
+      "product-catalog",
+      "ad",
+      "accounting",
+      "kafka",
+      "astronomy-db"
+    ],
+    "purpose": "Technical feasibility only; never pooled with the main series.",
+    "receiver": "ad",
+    "stabilization_seconds": 5,
+    "trial_donor": "frontend",
+    "version": "guarded-adaptation-pilot-0.1.0",
+    "warmup_seconds": 60
+  },
+  "execution_commit": "b75dba696b49c2c83cfaedd9a926e00f1bfa3c07",
+  "histories": {
+    "pilot": {
+      "baseline_valid": false,
+      "error": "KeyError('memory_current_bytes')",
+      "observations": [],
+      "policy": "pilot",
+      "stop_reason": "runtime_or_measurement_error",
+      "transitions": []
+    }
+  },
+  "mode": "pilot",
+  "order": [
+    "pilot"
+  ],
+  "profile": {
+    "ad_vus": 8,
+    "checkout_rate": 24
+  },
+  "run_id": "38458668550",
+  "runner_image": "20261004.327.1",
+  "runtime_version": "guarded-adaptation-runtime-0.1.0"
+}

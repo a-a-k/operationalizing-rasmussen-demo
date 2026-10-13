@@ -28,10 +28,12 @@ def matrix(design: dict) -> list[dict]:
                 bid = f'{state["id"]}-{profile["id"]}-{repetition:02d}'
                 rows.append({"block_id": bid, "initial_state": state["id"],
                              "profile": profile["id"], "repetition": repetition})
-    ranked = sorted(r["block_id"] for r in rows)
-    ranked.sort(key=lambda b: hashlib.sha256((design["randomization_salt"] + ":" + b).encode()).digest())
-    for row in rows:
-        row["order"] = ["adaptive", "control"] if ranked.index(row["block_id"]) % 2 == 0 else ["control", "adaptive"]
+    for state in design["initial_states"]:
+      for profile in design["profiles"]:
+        cell = [r for r in rows if r["initial_state"] == state["id"] and r["profile"] == profile["id"]]
+        ranked = sorted(cell, key=lambda r: hashlib.sha256((design["randomization_salt"] + ":" + r["block_id"]).encode()).digest())
+        for i, row in enumerate(ranked):
+            row["order"] = ["adaptive", "control"] if i % 2 == 0 else ["control", "adaptive"]
     return rows
 
 

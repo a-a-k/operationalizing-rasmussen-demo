@@ -14,13 +14,17 @@ from model import choose, helmert, initial_state, matrix, proposal, representati
 
 class ModelTests(unittest.TestCase):
     def setUp(self):
-        self.d = json.loads((ROOT / "probe7/design-v0.1.1.json").read_text())
+        self.d = json.loads((ROOT / "probe7/design-v0.2.0.json").read_text())
         self.s = initial_state(self.d, "balanced")
 
     def test_twenty_four_pairs_and_twenty_coordinates(self):
         rows = matrix(self.d)
         self.assertEqual(len(rows), 24)
         self.assertEqual(sum(r["order"][0] == "adaptive" for r in rows), 12)
+        for state in self.d["initial_states"]:
+            for profile in self.d["profiles"]:
+                self.assertEqual(sum(r["order"][0]=="adaptive" for r in rows
+                                     if r["initial_state"]==state["id"] and r["profile"]==profile["id"]),2)
         for named in self.d["initial_states"]:
             state = initial_state(self.d, named["id"])
             self.assertAlmostEqual(sum(state["cpu"].values()), 3.4)
