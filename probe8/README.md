@@ -4,6 +4,10 @@ Separate rule development and independent runtime confirmation. Nothing is
 pooled with previous campaigns. The existing resource-allocation controller,
 budgets, images and three external requirements remain unchanged.
 
+[Plain-language definitions and interpretation](interpretation-v0.1.0.md)
+explain the forecast target, false signals, unknown futures, observer separation
+and the different roles of the four comparisons.
+
 ## Target and available information
 
 At a currently valid, safe evaluation window, warn about any requirement
@@ -19,8 +23,8 @@ its initial state. No future confirmation outcome enters prediction.
 
 | Method | Allocation representation and history geometry |
 | --- | --- |
-| ilr_history | Full CPU/RAM ILR prefix, Aitchison geometry within each resource |
-| share_history | All CPU/RAM shares at the same prefix endpoints, Euclidean geometry |
+| ilr_history | Euclidean distance in the full CPU/RAM ILR prefix, equivalent to Aitchison geometry within each resource |
+| share_history | Euclidean geometry on all CPU/RAM shares at the same prefix endpoints |
 | local_history | The three selected orthonormal log-ratio coordinates |
 | service_indicators | Same current headroom/change features, no allocation prefix |
 
@@ -52,7 +56,7 @@ Development used 24 archived pairs, 889 eligible known targets, 12 positive:
 | Method | Frozen threshold | True warning decisions | False warning decisions |
 | --- | ---: | ---: | ---: |
 | Full ILR history | .2 | 5/12 | 43/877 |
-| Full share history | .2 | 5/12 | 36/877 |
+| Euclidean share history | .2 | 5/12 | 36/877 |
 | Selected local history | .4 | 3/12 | 8/877 |
 | Service indicators | .4 | 2/12 | 4/877 |
 
@@ -96,9 +100,27 @@ development, and is not a new selected live detector. Different achieved false
 warning rates require care: more detections with more false signals are not
 automatically superiority.
 
-No confirmation results are present yet. A successful warning rule would
-support its utility in these constructed guarded conditions, not universal
-superiority of CoDA over every predictor on the same invertible state.
+The [independent results and interpretation](results/confirmation-v0.1.0/README.md)
+preserve all twenty pairs and 840 valid windows. Six adaptive histories violated
+requirements; all controls stayed safe. At the frozen thresholds, ILR warned
+5/6 first violations, Euclidean share history 4/6, and both selected-local and service-only
+rules 2/6. Signals preceded the violating windows by about 52 seconds.
+
+The alarm burden is substantial: ILR had 45 false decisions and only 5 true
+signals, precision 10%. Euclidean share history had 38 false decisions, local history 6
+and service indicators 3. One additional ILR detection versus full shares
+came with seven additional false signals; this does not establish practical
+superiority. All false signals occurred in adaptive histories. Secondary
+fixed-score curves also show that a lower local threshold would cover the
+same five events, so primary operating-point differences are not proof of
+necessary full-state prediction. No rule is retuned from these results.
+
+Frozen online forecasting has therefore been implemented and independently
+checked, but useful alert precision, benefits of acting on signals and general
+coordinate superiority remain unestablished. See the
+[every-decision records](results/confirmation-v0.1.0/evaluation/warning-decisions.csv),
+[first-event timestamps](results/confirmation-v0.1.0/evaluation/first-violation-events.csv)
+and [independently rescored primary inputs](results/confirmation-v0.1.0/primary/README.md).
 
 ## Execution
 

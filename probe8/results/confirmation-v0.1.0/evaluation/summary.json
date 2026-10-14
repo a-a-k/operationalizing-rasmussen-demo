@@ -1,0 +1,82 @@
+{
+  "version": "prospective-warning-0.1.0",
+  "execution_commit": "2f8cf9e8bde4413eef7bd9cc3cdc43e28f87ca85",
+  "run_id": "38547221917",
+  "model_sha256_lf": "96f1d14a98d75da275f047f2f0c897619b2ed73ce612fc7cc86d96d1439c72aa",
+  "development_execution": {
+    "commit": "c0eb2adf830afe88081dc7b4b5e1000a79855973",
+    "run_id": "38544485211"
+  },
+  "planned_pairs": 20,
+  "received_pairs": 20,
+  "missing_pairs": [],
+  "prediction_integrity_failures": 0,
+  "horizon_cycles": 2,
+  "methods": {
+    "ilr_history": {
+      "threshold": 0.2,
+      "eligible_known_decisions": 756,
+      "positive_decisions": 10,
+      "negative_decisions": 746,
+      "true_warning_decisions": 5,
+      "false_warning_decisions": 45,
+      "missed_positive_decisions": 5,
+      "decision_precision": 0.1,
+      "false_warning_rate": 0.06032171581769437,
+      "first_violation_histories": 6,
+      "first_violation_histories_warned": 5,
+      "first_violation_histories_missed": 1,
+      "median_conservative_lead_seconds": 51.7321142578125,
+      "minimum_conservative_lead_seconds": 51.5306552734375
+    },
+    "share_history": {
+      "threshold": 0.2,
+      "eligible_known_decisions": 756,
+      "positive_decisions": 10,
+      "negative_decisions": 746,
+      "true_warning_decisions": 4,
+      "false_warning_decisions": 38,
+      "missed_positive_decisions": 6,
+      "decision_precision": 0.09523809523809523,
+      "false_warning_rate": 0.05093833780160858,
+      "first_violation_histories": 6,
+      "first_violation_histories_warned": 4,
+      "first_violation_histories_missed": 2,
+      "median_conservative_lead_seconds": 51.81549829101563,
+      "minimum_conservative_lead_seconds": 51.5306552734375
+    },
+    "local_history": {
+      "threshold": 0.4,
+      "eligible_known_decisions": 756,
+      "positive_decisions": 10,
+      "negative_decisions": 746,
+      "true_warning_decisions": 2,
+      "false_warning_decisions": 6,
+      "missed_positive_decisions": 8,
+      "decision_precision": 0.25,
+      "false_warning_rate": 0.00804289544235925,
+      "first_violation_histories": 6,
+      "first_violation_histories_warned": 2,
+      "first_violation_histories_missed": 4,
+      "median_conservative_lead_seconds": 52.08072668457031,
+      "minimum_conservative_lead_seconds": 52.0724375
+    },
+    "service_indicators": {
+      "threshold": 0.4,
+      "eligible_known_decisions": 756,
+      "positive_decisions": 10,
+      "negative_decisions": 746,
+      "true_warning_decisions": 2,
+      "false_warning_decisions": 3,
+      "missed_positive_decisions": 8,
+      "decision_precision": 0.4,
+      "false_warning_rate": 0.004021447721179625,
+      "first_violation_histories": 6,
+      "first_violation_histories_warned": 2,
+      "first_violation_histories_missed": 4,
+      "median_conservative_lead_seconds": 52.08072668457031,
+      "minimum_conservative_lead_seconds": 52.0724375
+    }
+  },
+  "scope": "Independent validation under these constructed guarded conditions; no production prevalence, universal coordinate superiority or dynamic RAM drift claim."
+}

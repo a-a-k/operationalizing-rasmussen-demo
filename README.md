@@ -14,9 +14,9 @@ a diagnostic and never overrides that label.
 
 ## Start here
 
-- [Formal glossary / Формальный глоссарий](#formal-glossary): определения, переменные, формулы и роли всех представлений; версия 0.1.1.
+- [Formal glossary / Формальный глоссарий](#formal-glossary): определения, переменные, формулы и роли всех представлений; версия 0.1.2.
 - [Passive short-horizon warnings](probe8/README.md): frozen old-data rules and
-  separate independent confirmation; no confirmation performance claimed yet.
+  separate independent confirmation, including every signal and its outcome.
 - [Results and their interpretation](RESULTS.md): comparisons, conclusions and limits.
 - [Guarded full-stack adaptation](probe7/results/main-v0.2.0/README.md): three
   external requirements and measured donor selection.
@@ -38,6 +38,7 @@ campaigns, and synthetic transformations are not runtime observations.
 
 | Evidence | Comparison | Recorded result | Data |
 | --- | --- | --- | --- |
+| Independent passive warnings (Probe 8) | Four frozen old-data rules on twenty new runner pairs | All 840 windows valid. ILR warned 5/6 first violations about 52 s ahead; full shares 4/6, local and service-only rules 2/6. False decisions: 45, 38, 6 and 3; ILR precision 10%. No established practical superiority. | [Interpretation](probe8/results/confirmation-v0.1.0/README.md), [all signals](probe8/results/confirmation-v0.1.0/evaluation/warning-decisions.csv), [event timing](probe8/results/confirmation-v0.1.0/evaluation/first-violation-events.csv) |
 | Guarded full-stack adaptation (Probe 7) | Live donor choices versus unchanged controls; eleven CPU/RAM allocation parts | 24 pairs received, 23 complete baseline-safe pairs. Advertising gains in 23/23 fixed-endpoint contrasts; 7 adaptive histories violated requirements versus 0 matched controls. No ILR advantage over full shares in the analog task. | [Interpretation](probe7/results/main-v0.2.0/README.md), [windows](probe7/results/main-v0.2.0/windows.csv), [metric errors](probe7/results/main-v0.2.0/pair-retrieval-errors.csv) |
 | Accumulated guarded histories (saved Probe 7 data) | Full baseline-referenced displacement versus three selected local traces; equal absolute versus relative changes | Three observed histories had identical selected traces through cycle 6 but different allocations and safe/unsafe outcomes: two overlapping witnesses. Real 0.04-CPU transfers meant donor losses of 11.4%, 16.0% and 26.7%. | [Interpretation](probe7/results/accumulated-v0.1.0/README.md), [whole histories](probe7/results/accumulated-v0.1.0/history-windows.csv), [prefix witnesses](probe7/results/accumulated-v0.1.0/prefix-witnesses.csv), [transfers](probe7/results/accumulated-v0.1.0/actual-transfer-examples.csv) |
 | Sequential CPU migration (Probe 5) | Pressure-motivated transfers versus unchanged controls | 19/20 planned pairs received. All 19 adaptive histories crossed at steps 8--13; controls stayed safe. At retrospective step 6 all pairs were still safe, with positive control-adjusted changes in both goodput and checkout p95. | [Trajectories](probe5/results/trajectory-level.csv), [paired epochs](probe5/results/paired-epochs.csv), [step-6 pairs](probe5/results/history-v0.1.0/step6-pairs.csv) |
@@ -77,8 +78,12 @@ The guarded full-stack follow-up demonstrates adaptive donor selection and
 three external business requirements. Its limited held-pair-out analog task
 does not show an ILR advantage over full shares; only CPU moves within those
 histories because recipient RAM benefit was not established.
-Platform integration, diagnostic usefulness and validated predictive alerting
-remain separate evaluations. Budgets, workload and runtime history condition outcomes.
+A separate fixed observer rule now has independent online confirmation: it
+warned before 5/6 first violations, but nine of ten ILR signals were false
+within its two-cycle horizon. The detection/false-warning trade-off does not
+establish practical superiority. Platform integration, actionable alert
+quality and benefits of interventions remain separate evaluations. Budgets,
+workload and runtime history condition outcomes.
 
 ## Verification without running a workload
 
@@ -114,9 +119,9 @@ license attribution is retained in the source repository.
 
 ## Formal glossary / Формальный глоссарий
 
-Версия 0.1.1. Обозначения сверены с реализованным Probe 7 и его отдельным
-анализом накопленных историй. Это описание существующих вычислений, не новый
-эксперимент и не изменение выполненного дизайна. В других probes число
+Версия 0.1.2. Обозначения сверены с реализованным Probe 7, его отдельным
+анализом накопленных историй и проверкой предупреждений Probe 8 в §15.
+Это описание существующих вычислений, не изменение выполненного дизайна. В других probes число
 компонентов, бюджеты и требования могут отличаться; их данные не объединяются.
 
 ### 1. Индексы и область описания
@@ -249,6 +254,15 @@ $$
 
 Сами доли уже являются композиционными данными. «Анализ долей без ILR» не
 означает, что данные перестали быть композиционными.
+
+**Вектор долей — данные, а не метрика.** В контрольном способе эти данные
+сравниваются обычной евклидовой метрикой; для одного ресурса
+$d_E(x,y)=\sqrt{\sum_i(x_i-y_i)^2}$. Это не Aitchison-метрика. В CoDA-варианте
+те же распределения преобразуются в ILR, где евклидово расстояние соответствует
+Aitchison-расстоянию. Поэтому название сравниваемого способа —
+**«евклидова геометрия долей»**, а не «полные доли». В Probe 8 обе ресурсные
+геометрии дополнительно имеют фиксированные training-масштабы, и оба способа
+получают одинаковые сервисные признаки.
 
 ### 4. Абсолютный перенос и аддитивное изменение: $\Delta q_t$, $\Delta x_t$
 
@@ -820,10 +834,10 @@ online-детектором.
 
 ### 15. Отдельная проверка предупреждений: $w_t$, $Y_t^{(K)}$
 
-Этот подраздел определяет отдельную задачу, **реализованную в Probe 8, но ещё
-не подтверждённую на независимых runtime-данных**. Она не меняет результаты
-прежней кампании. [Зафиксированное правило и development](probe8/README.md)
-отделены от новых подтверждающих прогонов.
+Этот подраздел определяет отдельную задачу, реализованную в Probe 8 и
+проверенную на двадцати новых runner-парах. Она не меняет результаты прежней
+кампании. [Зафиксированное правило и development](probe8/README.md)
+отделены от [независимых результатов](probe8/results/confirmation-v0.1.0/README.md).
 
 Пусть $K$ — выбранный до проверки горизонт в циклах; матрица ILR-базиса $H$
 обозначена отдельно выше. Для текущего safe-окна
@@ -838,7 +852,7 @@ $$
 начальное состояние, историю, текущие уже завершённые измерения и контекст.
 Будущие outcomes и позже поступившие сведения в неё не входят.
 
-Конкретное правило могло бы иметь вид:
+В реализованном правиле:
 
 $$
 w_t=I[g(\mathcal F_t)\ge\theta],\qquad S_t=1,
@@ -864,6 +878,13 @@ $Y_t^{(K)}$ остаётся неизвестным, а не превращае�
 считать по реальным timestamps доступности сигнала и измерения нарушения,
 не только по номерам циклов.
 
+Ложный сигнал имеет $w_t=1$ и $Y_t^{(K)}=0$: все следующие $K$ окон валидны
+и безопасны. Верный сигнал имеет $w_t=1$ и $Y_t^{(K)}=1$. Если штатный
+контроллер отменил сокращение и будущие измерения безопасны, сигнал всё равно
+ложный для прогноза фактического нарушения при этой политике. Риск без такого
+отката не устанавливается. Число ложных решений $FP$ не равно числу независимых
+историй; $FP/N_{Y=0}$ и precision $TP/(TP+FP)$ имеют разные знаменатели.
+
 При оценке нужны обнаруженные и пропущенные нарушения, ложные сигналы,
 lead time и явно определённая единица подсчёта. Совместное рассмотрение
 precision, recall и времени оповещения обсуждается в
@@ -875,13 +896,20 @@ precision, recall и времени оповещения обсуждается 
 нельзя автоматически считать ложным сигналом. Этот тест оценивает риск
 при данной guarded-политике, не контрфактический риск без её откатов.
 
-Для сравнения CoDA-подхода нужны equally informed baselines на всех исходных
-долях и на сервисных показателях, сопоставимые правила настройки и допустимое
-число ложных сигналов. Качество конкретного правила не означает универсального
-превосходства одной обратимой системы координат над другой.
+Для сравнения геометрий CoDA-способ и евклидова геометрия долей должны получать
+одинаковые распределения и контекст. Отдельный сервисный способ проверяет,
+что добавляет история распределения к сервисным показателям. Нужны сопоставимые
+правила настройки и учёт числа ложных сигналов. Качество конкретного правила
+не означает универсального превосходства одной обратимой системы координат
+над другой.
 
-Текущий результат устанавливает representational witnesses и относительную
-геометрию; predictive и alerting benefits остаются предметом отдельной проверки.
+Предыдущие измерения устанавливают representational witnesses и относительную
+геометрию. Отдельный Probe 8 уже показал реальные ранние сигналы: 5/6 первых
+нарушений предупреждены ILR-правилом примерно за 52 s. Но было 45 ложных
+сигналов при 5 верных, precision 10%; практическое превосходство и польза
+действий по предупреждению не установлены. Евклидова геометрия долей предупредила 4/6 при
+38 ложных решениях. [Упрощённые пояснения](probe8/interpretation-v0.1.0.md)
+разделяют эти выводы и роли сравнений.
 
 
 ## License

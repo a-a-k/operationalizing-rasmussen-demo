@@ -6,6 +6,45 @@ histories joining pressure, actions, recipient output and external outcomes.
 Runtime observations, representational witnesses, mathematical checks and
 exploratory detector comparisons have distinct roles.
 
+## Independent online warnings: real lead, substantial false-alarm burden
+
+[The separate confirmation](probe8/results/confirmation-v0.1.0/README.md)
+applied four rules frozen from earlier saved-data development to twenty new
+runner pairs. All forty histories had safe baselines and completed twenty
+cycles; all 840 windows were valid. Six adaptive histories violated checkout
+requirements, two also accounting; controls stayed safe. All live predictions
+replayed, and every external outcome was independently rescored from primary
+inputs. No confirmation data entered fitting or threshold selection.
+
+| Frozen rule | First violations warned | False decisions | True signals / all signals |
+| --- | ---: | ---: | ---: |
+| Full ILR history | 5/6 | 45 | 5/50 (10.0%) |
+| Euclidean share history | 4/6 | 38 | 4/42 (9.52%) |
+| Selected local history | 2/6 | 6 | 2/8 (25.0%) |
+| Service indicators | 2/6 | 3 | 2/5 (40.0%) |
+
+All credited signals preceded the violating window by about 52 seconds, while
+current requirements still held. Thus a fixed compositional-history observer
+can emit a genuinely prospective warning in these constructed conditions.
+The observer never changes donor selection or rollback. This is a different
+task from the older one-step headroom-change analogy exercise below.
+
+Nine of ten ILR signals were false for the chosen two-cycle target. Relative
+to Euclidean share history, one extra event was warned at the cost of seven extra false
+decisions: not established practical superiority. Moreover, the secondary
+pre-enumerated score curves show that a lower local threshold would also catch
+five events with 43 false decisions. The primary 5/6 versus 2/6 therefore does
+not prove the necessity of full-state prediction. No threshold is refitted.
+
+Evidence: [all decisions](probe8/results/confirmation-v0.1.0/evaluation/warning-decisions.csv),
+[first-event lead times](probe8/results/confirmation-v0.1.0/evaluation/first-violation-events.csv),
+[fixed-score curves](probe8/results/confirmation-v0.1.0/evaluation/operating-curves.csv),
+[full history records](probe8/results/confirmation-v0.1.0/evaluation/block-level.json)
+and [primary-input audit](probe8/results/confirmation-v0.1.0/primary/README.md).
+Decision windows are dependent; the six events and twenty runner pairs remain
+the visible independent-execution scale, not hundreds of independent trials.
+Operational usefulness and benefits of acting on a signal remain open.
+
 ## Guarded full-stack adaptation: three externally measured requirements
 
 The separate [guarded follow-up](probe7/results/main-v0.2.0/README.md) received
