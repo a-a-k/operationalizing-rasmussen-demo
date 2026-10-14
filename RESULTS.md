@@ -45,6 +45,33 @@ Decision windows are dependent; the six events and twenty runner pairs remain
 the visible independent-execution scale, not hundreds of independent trials.
 Operational usefulness and benefits of acting on a signal remain open.
 
+## Native practical forecast replay: comparison beyond custom model variants
+
+The [separate replay](probe8/results/prometheus-baseline-v0.1.0/README.md)
+compares the unchanged warning scores with native Prometheus predict_linear,
+a forecasting method documented for advance resource-limit alerts. Its
+adaptation forecasts the four original requirement gauges over 86.962 s.
+No new runtime histories or training inputs are added. The primary five-minute
+lookback and both specified sensitivity lookbacks remain visible.
+
+At 716 shared decisions, Prometheus warned 0/6, 1/6 and 0/6 events for five-,
+two- and ten-minute lookbacks, with 7, 7 and 11 false decisions. Frozen live
+ILR warned 5/6 with 45 false decisions, so its primary operating point
+trades higher event coverage for substantially higher alarm burden.
+
+The already enumerated ILR thresholds additionally yield 2/6 warned events
+with 2 false decisions at 0.6 or 6 false decisions at 0.4. These descriptive
+points have a favorable observed trade-off against the specified practical
+forecasts. Every threshold is retained; no favorable point is promoted to
+a newly confirmed live rule. Native results, unavailable predictions and
+common-mask accounting are replayable from the committed API responses.
+
+The result is a retrospective whole-rule comparison, not a geometry-only
+comparison or a claim about all enterprise detectors. The ILR rule also has
+a labeled allocation-history library. Short irregular trajectories and
+controller actions limit simple linear forecasting. Baseline leads are replay
+estimates; original ILR signals retain their actual online timestamps.
+
 ## Guarded full-stack adaptation: three externally measured requirements
 
 The separate [guarded follow-up](probe7/results/main-v0.2.0/README.md) received

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import copy
+import csv
+import gzip
 import json
 import math
 import sys
@@ -12,6 +14,9 @@ sys.path.insert(0, str(ROOT / "probe8/scripts"))
 from prometheus_replay import (DEFINITION, evaluate, expression, forecast_alert,
                                forecast_horizon, gauge_values, opportunities,
                                openmetrics, read_inputs, sample_time_ms, summarize)
+from warning_model import alerts, canonical_hash
+
+ARCHIVE = ROOT / "probe8/results/prometheus-baseline-v0.1.0"
 
 
 class PracticalBaselineTests(unittest.TestCase):
@@ -157,6 +162,80 @@ class PracticalBaselineTests(unittest.TestCase):
     def test_missing_duplicate_native_query_fails(self):
         with self.assertRaises(ValueError):
             evaluate([], [self.rows[0]], [], self.definition)
+
+
+class NativeReplayArchiveTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.definition, cls.blocks, cls.old = read_inputs()
+        cls.rows, cls.events = opportunities(cls.blocks, cls.definition)
+        cls.saved = json.loads((ARCHIVE / "summary.json").read_text())
+        with gzip.open(ARCHIVE / "native-responses.jsonl.gz", "rt", encoding="utf-8") as stream:
+            cls.native = [json.loads(line) for line in stream]
+        cls.result = evaluate(cls.native, cls.rows, cls.events, cls.definition)
+
+    def test_every_count_and_decision_replays_from_native_responses(self):
+        summaries, decisions, events = self.result
+        self.assertEqual(summaries, self.saved["lookbacks"])
+        for name, generated in (("decisions.csv", decisions), ("first-events.csv", events)):
+            with (ARCHIVE / name).open(newline="", encoding="utf-8") as stream:
+                saved = list(csv.DictReader(stream))
+            self.assertEqual(saved, [{k: "" if v is None else str(v) for k, v in r.items()} for r in generated])
+        self.assertEqual(self.saved["full_original_ilr"], summarize(self.rows, self.events, "ilr_history", 2)[0])
+
+    def test_query_expressions_and_timestamps_match_fixed_inputs(self):
+        cadence = forecast_horizon(self.old, 2)
+        self.assertEqual(cadence, self.saved["cadence"])
+        self.assertEqual(self.saved["definition_sha256_lf"], canonical_hash(ROOT / DEFINITION))
+        self.assertEqual(self.saved["execution_commit"], "e12535e117665cb85808c11d1332cd21f0ce3012")
+        self.assertEqual(self.saved["run_id"], "38563585497")
+        index = {(r["block_id"], r["policy"], r["epoch"]): r for r in self.rows}
+        self.assertEqual(len(self.native), len(index) * 3)
+        for record in self.native:
+            row = index[(record["block_id"], record["policy"], record["epoch"])]
+            self.assertEqual(record["expression"], expression(row, record["lookback_seconds"], cadence["forecast_seconds"]))
+            self.assertEqual(record["sample_time_ms"], row["sample_time_ms"])
+            for value in record["response"]["data"]["result"]:
+                self.assertEqual(value["metric"]["block_id"], row["block_id"])
+                self.assertEqual(value["metric"]["policy"], row["policy"])
+                self.assertAlmostEqual(value["value"][0], row["sample_time_ms"] / 1000, places=5)
+
+    def test_exact_backfill_and_native_causal_fixture_are_preserved(self):
+        self.assertEqual((ARCHIVE / "inputs.openmetrics").read_text(), openmetrics(self.blocks, self.definition))
+        fixtures = json.loads((ARCHIVE / "native-checks.json").read_text())
+        self.assertEqual(fixtures["one_sample_unavailable"]["data"]["result"], [])
+        values = {r["metric"]["variant"]: float(r["value"][1])
+                  for r in fixtures["steady_trend_and_future_invariance"]["data"]["result"]}
+        self.assertEqual(values, {"full": 0.6, "prefix": 0.6})
+
+    def test_coverage_excludes_only_single_sample_baselines_for_every_lookback(self):
+        _, decisions, _ = self.result
+        for lookback in (300, 120, 600):
+            subset = [r for r in decisions if r["lookback_seconds"] == lookback]
+            self.assertEqual(sum(not r["covered"] for r in subset), 40)
+            self.assertTrue(all(r["covered"] == (r["epoch"] != 0) for r in subset))
+            for row in subset:
+                windows = self.blocks[row["block_id"]]["histories"][row["policy"]]["observations"]
+                samples = [w for w in windows if row["sample_time_ms"] - lookback * 1000 < sample_time_ms(w) <= row["sample_time_ms"]]
+                self.assertEqual(row["covered"], len(samples) >= 2)
+
+    def test_all_old_ilr_thresholds_replay_on_exact_common_mask(self):
+        with (ROOT / "probe8/results/development-v0.1.0/development-thresholds.csv").open(newline="") as stream:
+            original = [r for r in csv.DictReader(stream) if r["method"] == "ilr_history"]
+        with (ARCHIVE / "ilr-fixed-operating-points.csv").open(newline="") as stream:
+            points = list(csv.DictReader(stream))
+        self.assertEqual([float(r["threshold"]) if r["threshold"] else None for r in original],
+                         [float(r["threshold"]) if r["threshold"] else None for r in points])
+        common = [r for r in self.result[1] if r["lookback_seconds"] == 300 and r["covered"]]
+        for point in points:
+            threshold = float(point["threshold"]) if point["threshold"] else None
+            rows = [{**r, "ilr_alert": alerts(r["ilr_score"], threshold)} for r in common]
+            summary, _ = summarize(rows, self.events, "ilr_history", 2)
+            for key in ("true_warning_decisions", "false_warning_decisions", "first_violations_warned",
+                        "first_violation_histories", "known_decisions", "negative_decisions"):
+                self.assertEqual(int(point[key]), summary[key])
+            self.assertEqual(float(point["decision_precision"]) if point["decision_precision"] else None,
+                             summary["decision_precision"])
 
 
 if __name__ == "__main__":

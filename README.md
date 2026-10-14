@@ -17,6 +17,9 @@ a diagnostic and never overrides that label.
 - [Formal glossary / Формальный глоссарий](#formal-glossary): определения, переменные, формулы и роли всех представлений; версия 0.1.2.
 - [Passive short-horizon warnings](probe8/README.md): frozen old-data rules and
   separate independent confirmation, including every signal and its outcome.
+- [Native practical forecast comparison](probe8/results/prometheus-baseline-v0.1.0/README.md):
+  genuine Prometheus predict_linear replay, shared coverage and the detection/
+  false-signal trade-off; not another runtime campaign or a geometry-only test.
 - [Results and their interpretation](RESULTS.md): comparisons, conclusions and limits.
 - [Guarded full-stack adaptation](probe7/results/main-v0.2.0/README.md): three
   external requirements and measured donor selection.
@@ -38,6 +41,7 @@ campaigns, and synthetic transformations are not runtime observations.
 
 | Evidence | Comparison | Recorded result | Data |
 | --- | --- | --- | --- |
+| Practical forecast comparison (saved Probe 8 data) | Native Prometheus predict_linear versus unchanged ILR scores | Prometheus settings warned 0/6, 1/6 and 0/6 events with 7, 7 and 11 false signals. Frozen live ILR warned 5/6 with 45 false signals; previously enumerated stricter ILR points warned 2/6 with 2 or 6 false signals. Retrospective whole-rule comparison, not independent confirmation of a new threshold or isolation of geometry. | [Interpretation](probe8/results/prometheus-baseline-v0.1.0/README.md), [native queries](probe8/results/prometheus-baseline-v0.1.0/native-responses.jsonl.gz), [all predictions](probe8/results/prometheus-baseline-v0.1.0/decisions.csv) |
 | Independent passive warnings (Probe 8) | Four frozen old-data rules on twenty new runner pairs | All 840 windows valid. ILR warned 5/6 first violations about 52 s ahead; full shares 4/6, local and service-only rules 2/6. False decisions: 45, 38, 6 and 3; ILR precision 10%. No established practical superiority. | [Interpretation](probe8/results/confirmation-v0.1.0/README.md), [all signals](probe8/results/confirmation-v0.1.0/evaluation/warning-decisions.csv), [event timing](probe8/results/confirmation-v0.1.0/evaluation/first-violation-events.csv) |
 | Guarded full-stack adaptation (Probe 7) | Live donor choices versus unchanged controls; eleven CPU/RAM allocation parts | 24 pairs received, 23 complete baseline-safe pairs. Advertising gains in 23/23 fixed-endpoint contrasts; 7 adaptive histories violated requirements versus 0 matched controls. No ILR advantage over full shares in the analog task. | [Interpretation](probe7/results/main-v0.2.0/README.md), [windows](probe7/results/main-v0.2.0/windows.csv), [metric errors](probe7/results/main-v0.2.0/pair-retrieval-errors.csv) |
 | Accumulated guarded histories (saved Probe 7 data) | Full baseline-referenced displacement versus three selected local traces; equal absolute versus relative changes | Three observed histories had identical selected traces through cycle 6 but different allocations and safe/unsafe outcomes: two overlapping witnesses. Real 0.04-CPU transfers meant donor losses of 11.4%, 16.0% and 26.7%. | [Interpretation](probe7/results/accumulated-v0.1.0/README.md), [whole histories](probe7/results/accumulated-v0.1.0/history-windows.csv), [prefix witnesses](probe7/results/accumulated-v0.1.0/prefix-witnesses.csv), [transfers](probe7/results/accumulated-v0.1.0/actual-transfer-examples.csv) |
@@ -84,6 +88,12 @@ within its two-cycle horizon. The detection/false-warning trade-off does not
 establish practical superiority. Platform integration, actionable alert
 quality and benefits of interventions remain separate evaluations. Budgets,
 workload and runtime history condition outcomes.
+
+A separate [native Prometheus comparison](probe8/results/prometheus-baseline-v0.1.0/README.md)
+reuses those warning observations. Previously enumerated stricter ILR points
+show a favorable observed trade-off against the specified practical forecasts.
+This secondary retrospective result is not independent validation of a new
+threshold or isolation of the contribution of geometry.
 
 ## Verification without running a workload
 

@@ -14,6 +14,13 @@ alerting. It reuses saved confirmation observations, does not count as another
 runtime campaign and does not treat the four original model variants as
 industry-standard detectors.
 
+The [archived practical comparison](results/prometheus-baseline-v0.1.0/README.md)
+now includes every native query, six-event comparison and all previously
+enumerated ILR operating points. At the frozen live setting ILR detects more
+with more false signals; stricter descriptive settings show a favorable
+observed trade-off against this practical method. They are not newly confirmed
+thresholds or proof that the geometry alone causes the difference.
+
 ## Target and available information
 
 At a currently valid, safe evaluation window, warn about any requirement
