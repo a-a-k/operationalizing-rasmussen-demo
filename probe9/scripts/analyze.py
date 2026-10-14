@@ -232,6 +232,7 @@ def summarize(rows, events, method, horizon, threshold=None):
     false_histories = {(r["block_id"], r["policy"]) for r in fp_rows}
     return ({"known_decisions": len(known), "positive_decisions": positives, "negative_decisions": negatives,
              "true_warning_decisions": tp, "false_warning_decisions": len(fp_rows),
+             "missed_positive_decisions": positives - tp,
              "histories_with_false_warning": len(false_histories),
              "decision_precision": tp / (tp + len(fp_rows)) if tp + len(fp_rows) else None,
              "false_warning_rate": len(fp_rows) / negatives if negatives else None,
