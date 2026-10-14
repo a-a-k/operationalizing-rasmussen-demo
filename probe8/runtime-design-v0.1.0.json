@@ -1,0 +1,288 @@
+{
+  "version": "warning-confirmation-0.1.0",
+  "ready": true,
+  "parts": [
+    "frontend",
+    "cart",
+    "checkout",
+    "payment",
+    "currency",
+    "shipping",
+    "product-catalog",
+    "ad",
+    "accounting",
+    "kafka",
+    "astronomy-db"
+  ],
+  "reference_cpu": [
+    0.45,
+    0.25,
+    0.45,
+    0.25,
+    0.15,
+    0.15,
+    0.3,
+    0.25,
+    0.25,
+    0.4,
+    0.5
+  ],
+  "reference_memory_mib": [
+    512,
+    256,
+    256,
+    192,
+    128,
+    128,
+    256,
+    512,
+    256,
+    1024,
+    1024
+  ],
+  "initial_states": [
+    {
+      "id": "balanced",
+      "cpu_changes": {},
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "interactive",
+      "cpu_changes": {
+        "frontend": 0.1,
+        "checkout": 0.1,
+        "accounting": -0.1,
+        "kafka": -0.1
+      },
+      "memory_changes_mib": {
+        "frontend": 128,
+        "accounting": -64,
+        "kafka": -64
+      }
+    },
+    {
+      "id": "ledger",
+      "cpu_changes": {
+        "frontend": -0.1,
+        "checkout": -0.1,
+        "accounting": 0.1,
+        "kafka": 0.1
+      },
+      "memory_changes_mib": {
+        "frontend": -64,
+        "checkout": -64,
+        "accounting": 128
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "id": "moderate",
+      "checkout_rate": 24,
+      "ad_vus": 8
+    },
+    {
+      "id": "busy",
+      "checkout_rate": 40,
+      "ad_vus": 8
+    }
+  ],
+  "repetitions": 4,
+  "cycles": 20,
+  "warmup_seconds": 120,
+  "baseline_seconds": 60,
+  "measurement_seconds": 30,
+  "stabilization_seconds": 5,
+  "randomization_salt": "warning-confirmation-20261014-0.1.0",
+  "controller": {
+    "receiver": "ad",
+    "active_resources": [
+      "cpu"
+    ],
+    "cpu_step": 0.04,
+    "memory_step_mib": 32,
+    "minimum_cpu": 0.08,
+    "minimum_memory_mib": 64,
+    "donor_headroom": 0.2,
+    "rollback_headroom": 0.05,
+    "memory_reserve_factor": 1.25,
+    "dependencies": {
+      "frontend": [
+        "checkout"
+      ],
+      "cart": [
+        "checkout"
+      ],
+      "checkout": [
+        "checkout"
+      ],
+      "payment": [
+        "checkout"
+      ],
+      "currency": [
+        "checkout"
+      ],
+      "shipping": [
+        "checkout"
+      ],
+      "product-catalog": [
+        "checkout"
+      ],
+      "accounting": [
+        "accounting"
+      ],
+      "kafka": [
+        "checkout",
+        "accounting"
+      ],
+      "astronomy-db": [
+        "checkout",
+        "accounting"
+      ]
+    }
+  },
+  "local_ratios": [
+    [
+      "cpu",
+      "checkout",
+      "payment"
+    ],
+    [
+      "cpu",
+      "frontend",
+      "ad"
+    ],
+    [
+      "memory",
+      "accounting",
+      "kafka"
+    ]
+  ],
+  "analysis": {
+    "scope": "Separate prospective observer-only warnings; no coordinate enters the unchanged controller."
+  },
+  "example_pair": "balanced-busy-01",
+  "confirmation_blocks": [
+    {
+      "block_id": "balanced-moderate-01",
+      "initial_state": "balanced",
+      "profile": "moderate",
+      "repetition": 1
+    },
+    {
+      "block_id": "balanced-moderate-02",
+      "initial_state": "balanced",
+      "profile": "moderate",
+      "repetition": 2
+    },
+    {
+      "block_id": "balanced-busy-01",
+      "initial_state": "balanced",
+      "profile": "busy",
+      "repetition": 1
+    },
+    {
+      "block_id": "balanced-busy-02",
+      "initial_state": "balanced",
+      "profile": "busy",
+      "repetition": 2
+    },
+    {
+      "block_id": "balanced-busy-03",
+      "initial_state": "balanced",
+      "profile": "busy",
+      "repetition": 3
+    },
+    {
+      "block_id": "balanced-busy-04",
+      "initial_state": "balanced",
+      "profile": "busy",
+      "repetition": 4
+    },
+    {
+      "block_id": "interactive-moderate-01",
+      "initial_state": "interactive",
+      "profile": "moderate",
+      "repetition": 1
+    },
+    {
+      "block_id": "interactive-moderate-02",
+      "initial_state": "interactive",
+      "profile": "moderate",
+      "repetition": 2
+    },
+    {
+      "block_id": "interactive-moderate-03",
+      "initial_state": "interactive",
+      "profile": "moderate",
+      "repetition": 3
+    },
+    {
+      "block_id": "interactive-busy-01",
+      "initial_state": "interactive",
+      "profile": "busy",
+      "repetition": 1
+    },
+    {
+      "block_id": "interactive-busy-02",
+      "initial_state": "interactive",
+      "profile": "busy",
+      "repetition": 2
+    },
+    {
+      "block_id": "interactive-busy-03",
+      "initial_state": "interactive",
+      "profile": "busy",
+      "repetition": 3
+    },
+    {
+      "block_id": "interactive-busy-04",
+      "initial_state": "interactive",
+      "profile": "busy",
+      "repetition": 4
+    },
+    {
+      "block_id": "ledger-moderate-01",
+      "initial_state": "ledger",
+      "profile": "moderate",
+      "repetition": 1
+    },
+    {
+      "block_id": "ledger-moderate-02",
+      "initial_state": "ledger",
+      "profile": "moderate",
+      "repetition": 2
+    },
+    {
+      "block_id": "ledger-moderate-03",
+      "initial_state": "ledger",
+      "profile": "moderate",
+      "repetition": 3
+    },
+    {
+      "block_id": "ledger-busy-01",
+      "initial_state": "ledger",
+      "profile": "busy",
+      "repetition": 1
+    },
+    {
+      "block_id": "ledger-busy-02",
+      "initial_state": "ledger",
+      "profile": "busy",
+      "repetition": 2
+    },
+    {
+      "block_id": "ledger-busy-03",
+      "initial_state": "ledger",
+      "profile": "busy",
+      "repetition": 3
+    },
+    {
+      "block_id": "ledger-busy-04",
+      "initial_state": "ledger",
+      "profile": "busy",
+      "repetition": 4
+    }
+  ],
+  "campaign_scope": "Twenty new runner pairs. All six initial-state/workload cells retained; allocation policy, resource budgets, measurements and image digests unchanged from the parent. No replacements or pooling."
+}
