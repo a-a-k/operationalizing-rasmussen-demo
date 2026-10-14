@@ -20,6 +20,9 @@ a diagnostic and never overrides that label.
 - [Native practical forecast comparison](probe8/results/prometheus-baseline-v0.1.0/README.md):
   genuine Prometheus predict_linear replay, shared coverage and the detection/
   false-signal trade-off; not another runtime campaign or a geometry-only test.
+- [Fixed 250-job generalization campaign](probe9/README.md): ILR and complete
+  raw-share histories are each compared with native Prometheus across varied
+  initial CPU compositions; no outcome-triggered replacements.
 - [Results and their interpretation](RESULTS.md): comparisons, conclusions and limits.
 - [Guarded full-stack adaptation](probe7/results/main-v0.2.0/README.md): three
   external requirements and measured donor selection.

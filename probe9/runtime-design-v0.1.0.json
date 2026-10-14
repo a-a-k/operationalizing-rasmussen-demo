@@ -1,0 +1,455 @@
+{
+  "version": "drift-generalization-0.1.0",
+  "ready": true,
+  "parts": [
+    "frontend",
+    "cart",
+    "checkout",
+    "payment",
+    "currency",
+    "shipping",
+    "product-catalog",
+    "ad",
+    "accounting",
+    "kafka",
+    "astronomy-db"
+  ],
+  "reference_cpu": [
+    0.45,
+    0.25,
+    0.45,
+    0.25,
+    0.15,
+    0.15,
+    0.3,
+    0.25,
+    0.25,
+    0.4,
+    0.5
+  ],
+  "reference_memory_mib": [
+    512,
+    256,
+    256,
+    192,
+    128,
+    128,
+    256,
+    512,
+    256,
+    1024,
+    1024
+  ],
+  "state_axes": {
+    "service_context": {
+      "levels": [
+        -0.1,
+        -0.05,
+        0,
+        0.05,
+        0.1
+      ],
+      "changes": "frontend += a; checkout += a; accounting -= a; kafka -= a"
+    },
+    "receiver_context": {
+      "levels": [
+        -0.08,
+        -0.04,
+        0,
+        0.04,
+        0.08
+      ],
+      "changes": "ad += b; product-catalog -= b"
+    },
+    "rationale": "Closed CPU contrasts vary donor and receiver starting shares while RAM and total CPU remain fixed. The same 0.04-CPU controller step therefore spans different relative changes."
+  },
+  "initial_states": [
+    {
+      "id": "a-m100-b-m080",
+      "cpu_changes": {
+        "frontend": -0.1,
+        "checkout": -0.1,
+        "accounting": 0.1,
+        "kafka": 0.1,
+        "ad": -0.08,
+        "product-catalog": 0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m100-b-m040",
+      "cpu_changes": {
+        "frontend": -0.1,
+        "checkout": -0.1,
+        "accounting": 0.1,
+        "kafka": 0.1,
+        "ad": -0.04,
+        "product-catalog": 0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m100-b-000",
+      "cpu_changes": {
+        "frontend": -0.1,
+        "checkout": -0.1,
+        "accounting": 0.1,
+        "kafka": 0.1,
+        "ad": 0,
+        "product-catalog": 0
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m100-b-p040",
+      "cpu_changes": {
+        "frontend": -0.1,
+        "checkout": -0.1,
+        "accounting": 0.1,
+        "kafka": 0.1,
+        "ad": 0.04,
+        "product-catalog": -0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m100-b-p080",
+      "cpu_changes": {
+        "frontend": -0.1,
+        "checkout": -0.1,
+        "accounting": 0.1,
+        "kafka": 0.1,
+        "ad": 0.08,
+        "product-catalog": -0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m050-b-m080",
+      "cpu_changes": {
+        "frontend": -0.05,
+        "checkout": -0.05,
+        "accounting": 0.05,
+        "kafka": 0.05,
+        "ad": -0.08,
+        "product-catalog": 0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m050-b-m040",
+      "cpu_changes": {
+        "frontend": -0.05,
+        "checkout": -0.05,
+        "accounting": 0.05,
+        "kafka": 0.05,
+        "ad": -0.04,
+        "product-catalog": 0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m050-b-000",
+      "cpu_changes": {
+        "frontend": -0.05,
+        "checkout": -0.05,
+        "accounting": 0.05,
+        "kafka": 0.05,
+        "ad": 0,
+        "product-catalog": 0
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m050-b-p040",
+      "cpu_changes": {
+        "frontend": -0.05,
+        "checkout": -0.05,
+        "accounting": 0.05,
+        "kafka": 0.05,
+        "ad": 0.04,
+        "product-catalog": -0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-m050-b-p080",
+      "cpu_changes": {
+        "frontend": -0.05,
+        "checkout": -0.05,
+        "accounting": 0.05,
+        "kafka": 0.05,
+        "ad": 0.08,
+        "product-catalog": -0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-000-b-m080",
+      "cpu_changes": {
+        "frontend": 0,
+        "checkout": 0,
+        "accounting": 0,
+        "kafka": 0,
+        "ad": -0.08,
+        "product-catalog": 0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-000-b-m040",
+      "cpu_changes": {
+        "frontend": 0,
+        "checkout": 0,
+        "accounting": 0,
+        "kafka": 0,
+        "ad": -0.04,
+        "product-catalog": 0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-000-b-000",
+      "cpu_changes": {
+        "frontend": 0,
+        "checkout": 0,
+        "accounting": 0,
+        "kafka": 0,
+        "ad": 0,
+        "product-catalog": 0
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-000-b-p040",
+      "cpu_changes": {
+        "frontend": 0,
+        "checkout": 0,
+        "accounting": 0,
+        "kafka": 0,
+        "ad": 0.04,
+        "product-catalog": -0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-000-b-p080",
+      "cpu_changes": {
+        "frontend": 0,
+        "checkout": 0,
+        "accounting": 0,
+        "kafka": 0,
+        "ad": 0.08,
+        "product-catalog": -0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p050-b-m080",
+      "cpu_changes": {
+        "frontend": 0.05,
+        "checkout": 0.05,
+        "accounting": -0.05,
+        "kafka": -0.05,
+        "ad": -0.08,
+        "product-catalog": 0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p050-b-m040",
+      "cpu_changes": {
+        "frontend": 0.05,
+        "checkout": 0.05,
+        "accounting": -0.05,
+        "kafka": -0.05,
+        "ad": -0.04,
+        "product-catalog": 0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p050-b-000",
+      "cpu_changes": {
+        "frontend": 0.05,
+        "checkout": 0.05,
+        "accounting": -0.05,
+        "kafka": -0.05,
+        "ad": 0,
+        "product-catalog": 0
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p050-b-p040",
+      "cpu_changes": {
+        "frontend": 0.05,
+        "checkout": 0.05,
+        "accounting": -0.05,
+        "kafka": -0.05,
+        "ad": 0.04,
+        "product-catalog": -0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p050-b-p080",
+      "cpu_changes": {
+        "frontend": 0.05,
+        "checkout": 0.05,
+        "accounting": -0.05,
+        "kafka": -0.05,
+        "ad": 0.08,
+        "product-catalog": -0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p100-b-m080",
+      "cpu_changes": {
+        "frontend": 0.1,
+        "checkout": 0.1,
+        "accounting": -0.1,
+        "kafka": -0.1,
+        "ad": -0.08,
+        "product-catalog": 0.08
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p100-b-m040",
+      "cpu_changes": {
+        "frontend": 0.1,
+        "checkout": 0.1,
+        "accounting": -0.1,
+        "kafka": -0.1,
+        "ad": -0.04,
+        "product-catalog": 0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p100-b-000",
+      "cpu_changes": {
+        "frontend": 0.1,
+        "checkout": 0.1,
+        "accounting": -0.1,
+        "kafka": -0.1,
+        "ad": 0,
+        "product-catalog": 0
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p100-b-p040",
+      "cpu_changes": {
+        "frontend": 0.1,
+        "checkout": 0.1,
+        "accounting": -0.1,
+        "kafka": -0.1,
+        "ad": 0.04,
+        "product-catalog": -0.04
+      },
+      "memory_changes_mib": {}
+    },
+    {
+      "id": "a-p100-b-p080",
+      "cpu_changes": {
+        "frontend": 0.1,
+        "checkout": 0.1,
+        "accounting": -0.1,
+        "kafka": -0.1,
+        "ad": 0.08,
+        "product-catalog": -0.08
+      },
+      "memory_changes_mib": {}
+    }
+  ],
+  "profiles": [
+    {
+      "id": "moderate",
+      "checkout_rate": 24,
+      "ad_vus": 8
+    },
+    {
+      "id": "busy",
+      "checkout_rate": 40,
+      "ad_vus": 8
+    }
+  ],
+  "repetitions": 5,
+  "cycles": 20,
+  "warmup_seconds": 120,
+  "baseline_seconds": 60,
+  "measurement_seconds": 30,
+  "stabilization_seconds": 5,
+  "randomization_salt": "drift-generalization-20261014-0.1.0",
+  "controller": {
+    "receiver": "ad",
+    "active_resources": [
+      "cpu"
+    ],
+    "cpu_step": 0.04,
+    "memory_step_mib": 32,
+    "minimum_cpu": 0.08,
+    "minimum_memory_mib": 64,
+    "donor_headroom": 0.2,
+    "rollback_headroom": 0.05,
+    "memory_reserve_factor": 1.25,
+    "dependencies": {
+      "frontend": [
+        "checkout"
+      ],
+      "cart": [
+        "checkout"
+      ],
+      "checkout": [
+        "checkout"
+      ],
+      "payment": [
+        "checkout"
+      ],
+      "currency": [
+        "checkout"
+      ],
+      "shipping": [
+        "checkout"
+      ],
+      "product-catalog": [
+        "checkout"
+      ],
+      "accounting": [
+        "accounting"
+      ],
+      "kafka": [
+        "checkout",
+        "accounting"
+      ],
+      "astronomy-db": [
+        "checkout",
+        "accounting"
+      ]
+    }
+  },
+  "local_ratios": [
+    [
+      "cpu",
+      "checkout",
+      "payment"
+    ],
+    [
+      "cpu",
+      "frontend",
+      "ad"
+    ],
+    [
+      "memory",
+      "accounting",
+      "kafka"
+    ]
+  ],
+  "analysis": {
+    "scope": "Prospective comparison of two frozen full allocation-history observers and a fixed native service-trend forecast on the same new histories."
+  },
+  "campaign_scope": "Exactly 25 fixed initial CPU compositions x 2 fixed loads x 5 repetitions = 250 independent runner pairs. Each pair contains adaptive and unchanged-control histories. No replacement, pilot selection, or outcome-triggered expansion."
+}

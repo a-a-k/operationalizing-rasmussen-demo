@@ -8,7 +8,7 @@ Use Python 3.13 from the repository root:
 python -B scripts/verify_archive.py
 ```
 
-This checks canonical-LF SHA-256 hashes, local Markdown links, all ten
+This checks canonical-LF SHA-256 hashes, local Markdown links, all eleven
 unit-test suites and the saved-data CPU-history analysis. It does not start
 Docker, contact GitHub, install packages or overwrite committed outputs.
 Identity checks inspect local Git configuration solely to detect documentation
@@ -50,6 +50,13 @@ why this measurement task differs from the additional one-step analogy task.
 Original designs and external SLO labels are not overwritten.
 
 ## Full runtime reruns: manual GitHub Actions only
+
+The [250-job drift-generalization workflow](.github/workflows/drift-generalization.yml)
+runs the fixed [three-method comparison](probe9/README.md). Its matrix is 25
+initial CPU compositions by two loads by five repetitions. Each job contains
+paired adaptive/control histories; aggregation compares ILR and raw shares
+separately against native Prometheus. Set expected_sha to the exact campaign
+commit. Missing or failed jobs are not replaced.
 
 The [native practical forecast replay](.github/workflows/practical-forecast-replay.yml)
 is also manual, but starts no workload: checksum-pinned Prometheus executes
