@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import csv
 import json
 import math
 import sys
@@ -18,6 +19,8 @@ from analyze import (load_analysis, method_alert, paired_events, prom_expression
                      paired_false_histories, sample_time_ms, summarize)
 from model import initial_state, proposal, representation
 from warning_model import canonical_hash
+
+RESULTS = ROOT / "probe9/results/generalization-v0.1.0"
 
 
 class MatrixTests(unittest.TestCase):
@@ -166,6 +169,82 @@ class AnalysisAccountingTests(unittest.TestCase):
                                    {"ilr_history": 0.2, "prometheus_predict_linear": None}),
             {"histories_compared": 2, "both_had_false_signal": 0, "left_only": 1,
              "right_only": 1, "neither": 0})
+
+
+class ArchivedResultTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.summary = json.loads((RESULTS / "summary.json").read_text())
+
+    def test_complete_fixed_matrix_and_prediction_integrity(self):
+        self.assertEqual(self.summary["planned_pairs"], 250)
+        self.assertEqual(self.summary["received_pairs"], 250)
+        self.assertEqual(self.summary["missing_pairs"], [])
+        self.assertEqual(self.summary["histories"], 500)
+        self.assertEqual(self.summary["baseline_safe_histories"], 483)
+        self.assertEqual(self.summary["complete_histories"], 483)
+        self.assertEqual(self.summary["first_violation_histories"], 104)
+        self.assertEqual(self.summary["prediction_integrity_failures"], 0)
+        self.assertEqual(len(list((RESULTS / "blocks").glob("*.json.gz"))), 250)
+
+    def test_primary_comparisons_are_both_against_prometheus(self):
+        methods = self.summary["lookbacks"]["300"]["methods"]
+        self.assertEqual(methods["ilr_history"]["first_violations_warned"], 44)
+        self.assertEqual(methods["share_history"]["first_violations_warned"], 41)
+        self.assertEqual(methods["prometheus_predict_linear"]["first_violations_warned"], 0)
+        pairs = self.summary["primary_paired_events"]
+        self.assertEqual(pairs["ilr_history__vs__prometheus_predict_linear"]
+                         ["first_violation_events"],
+                         {"events_compared": 104, "both_warned": 0, "left_only": 44,
+                          "right_only": 0, "neither": 60})
+        self.assertEqual(pairs["share_history__vs__prometheus_predict_linear"]
+                         ["first_violation_events"],
+                         {"events_compared": 104, "both_warned": 0, "left_only": 41,
+                          "right_only": 0, "neither": 63})
+
+    def test_history_status_preserves_baseline_failures(self):
+        with (RESULTS / "history-status.csv").open(encoding="utf-8", newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        self.assertEqual(Counter((r["policy"], r["baseline_safe"], r["complete"])
+                                 for r in rows),
+                         Counter({("adaptive", "True", "True"): 244,
+                                  ("control", "True", "True"): 239,
+                                  ("adaptive", "False", "False"): 6,
+                                  ("control", "False", "False"): 11}))
+
+    def test_adaptive_control_violation_contrast(self):
+        with (RESULTS / "history-status.csv").open(encoding="utf-8", newline="") as stream:
+            histories = list(csv.DictReader(stream))
+        with (RESULTS / "first-events.csv").open(encoding="utf-8", newline="") as stream:
+            events = {(r["block_id"], r["policy"]) for r in csv.DictReader(stream)}
+        by_block = {}
+        for row in histories:
+            by_block.setdefault(row["block_id"], {})[row["policy"]] = row
+        contrast = Counter()
+        for block_id, pair in by_block.items():
+            if not all(pair[p]["baseline_safe"] == "True" and pair[p]["complete"] == "True"
+                       for p in ("adaptive", "control")):
+                contrast["not_jointly_eligible"] += 1
+                continue
+            adaptive = (block_id, "adaptive") in events
+            control = (block_id, "control") in events
+            contrast["both" if adaptive and control else
+                     "adaptive_only" if adaptive else
+                     "control_only" if control else "neither"] += 1
+        self.assertEqual(contrast, Counter({"neither": 141, "adaptive_only": 89,
+                                            "not_jointly_eligible": 13,
+                                            "control_only": 4, "both": 3}))
+
+    def test_resource_history_signals_occur_only_under_adaptation(self):
+        with (RESULTS / "decisions.csv").open(encoding="utf-8", newline="") as stream:
+            rows = [r for r in csv.DictReader(stream)
+                    if r["lookback_seconds"] == "300" and r["prometheus_covered"] == "True"]
+        self.assertEqual({r["policy"] for r in rows if r["ilr_frozen_alert"] == "True"},
+                         {"adaptive"})
+        self.assertEqual({r["policy"] for r in rows if r["share_frozen_alert"] == "True"},
+                         {"adaptive"})
+        self.assertEqual(sum(r["prometheus_alert"] == "True" and r["policy"] == "control"
+                             for r in rows), 4)
 
 
 if __name__ == "__main__":

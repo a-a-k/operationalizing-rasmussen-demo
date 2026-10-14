@@ -44,6 +44,7 @@ campaigns, and synthetic transformations are not runtime observations.
 
 | Evidence | Comparison | Recorded result | Data |
 | --- | --- | --- | --- |
+| Prospective 250-pair generalization (Probe 9) | Frozen full ILR history and frozen complete-share history, each against native Prometheus `predict_linear` on the same new histories | 250/250 pairs received; 483/500 histories baseline-safe and complete; 104 first violations. Primary settings warned 44/104 (ILR), 41/104 (shares), and 0/104 (5-minute Prometheus), with 346, 277, and 105 false decisions. At fixed stricter/comparable settings: 11/104, 11/104, and 10/104, respectively. Among 237 jointly eligible pairs, violations occurred only under adaptation in 89, only under control in 4, under both in 3, and under neither in 141. ILR did not outperform complete shares. | [Interpretation](probe9/results/generalization-v0.1.0/RESULTS.md), [all decisions](probe9/results/generalization-v0.1.0/decisions.csv), [first events](probe9/results/generalization-v0.1.0/first-events.csv), [compact pairs](probe9/results/generalization-v0.1.0/blocks/) |
 | Practical forecast comparison (saved Probe 8 data) | Native Prometheus predict_linear versus unchanged ILR scores | Prometheus settings warned 0/6, 1/6 and 0/6 events with 7, 7 and 11 false signals. Frozen live ILR warned 5/6 with 45 false signals; previously enumerated stricter ILR points warned 2/6 with 2 or 6 false signals. Retrospective whole-rule comparison, not independent confirmation of a new threshold or isolation of geometry. | [Interpretation](probe8/results/prometheus-baseline-v0.1.0/README.md), [native queries](probe8/results/prometheus-baseline-v0.1.0/native-responses.jsonl.gz), [all predictions](probe8/results/prometheus-baseline-v0.1.0/decisions.csv) |
 | Independent passive warnings (Probe 8) | Four frozen old-data rules on twenty new runner pairs | All 840 windows valid. ILR warned 5/6 first violations about 52 s ahead; full shares 4/6, local and service-only rules 2/6. False decisions: 45, 38, 6 and 3; ILR precision 10%. No established practical superiority. | [Interpretation](probe8/results/confirmation-v0.1.0/README.md), [all signals](probe8/results/confirmation-v0.1.0/evaluation/warning-decisions.csv), [event timing](probe8/results/confirmation-v0.1.0/evaluation/first-violation-events.csv) |
 | Guarded full-stack adaptation (Probe 7) | Live donor choices versus unchanged controls; eleven CPU/RAM allocation parts | 24 pairs received, 23 complete baseline-safe pairs. Advertising gains in 23/23 fixed-endpoint contrasts; 7 adaptive histories violated requirements versus 0 matched controls. No ILR advantage over full shares in the analog task. | [Interpretation](probe7/results/main-v0.2.0/README.md), [windows](probe7/results/main-v0.2.0/windows.csv), [metric errors](probe7/results/main-v0.2.0/pair-retrieval-errors.csv) |
@@ -97,6 +98,17 @@ reuses those warning observations. Previously enumerated stricter ILR points
 show a favorable observed trade-off against the specified practical forecasts.
 This secondary retrospective result is not independent validation of a new
 threshold or isolation of the contribution of geometry.
+
+The subsequent [250-pair prospective campaign](probe9/results/generalization-v0.1.0/RESULTS.md)
+compares both complete resource-history representations directly with native
+Prometheus on new varied starting compositions. Both resource observers warned
+before substantially more first violations at their primary setting, with a
+higher false-signal burden. At fixed stricter settings their trade-off remained
+slightly favorable but close to the two-minute Prometheus sensitivity result.
+All resource-history signals occurred under adaptation and none under unchanged
+controls. Complete shares performed at least as well as ILR in this warning
+task, so the result supports monitoring joint accumulated redistribution but
+does not attribute predictive advantage specifically to CoDA geometry.
 
 ## Verification without running a workload
 

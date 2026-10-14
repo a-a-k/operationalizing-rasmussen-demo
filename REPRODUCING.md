@@ -57,6 +57,9 @@ initial CPU compositions by two loads by five repetitions. Each job contains
 paired adaptive/control histories; aggregation compares ILR and raw shares
 separately against native Prometheus. Set expected_sha to the exact campaign
 commit. Missing or failed jobs are not replaced.
+The completed 250-pair execution, compact source records, native responses and
+plain-language interpretation are archived in
+[probe9/results/generalization-v0.1.0](probe9/results/generalization-v0.1.0/RESULTS.md).
 
 The [native practical forecast replay](.github/workflows/practical-forecast-replay.yml)
 is also manual, but starts no workload: checksum-pinned Prometheus executes

@@ -56,6 +56,27 @@ differ under varied starts. A whole-rule difference from Prometheus cannot be
 attributed solely to geometry because the resource observers also use a frozen
 labeled history library.
 
+## Completed result
+
+All 250 fixed jobs and the aggregate completed without a technical failure or
+replacement. Of 500 histories, 483 began safe and completed; 104 had a first
+post-baseline violation. At the primary settings, ILR warned before 44/104,
+complete raw shares before 41/104, and the five-minute Prometheus forecast
+before 0/104. The resource observers also produced more false signals. At the
+pre-specified stricter resource threshold and two-minute Prometheus sensitivity
+setting, the observed trade-off was much closer: 11/104 for each resource
+observer versus 10/104 for Prometheus, with comparable false-signal burden.
+
+The adaptive/control contrast supports the drift interpretation: among 237
+jointly eligible pairs, 89 violated a requirement only under adaptation, 4 only
+under control, 3 under both, and 141 under neither. Neither allocation-history
+observer signaled in unchanged controls.
+
+The campaign supports complete allocation history over the chosen local
+service-trend forecast, but it does not show that ILR predicts better than
+complete raw shares. See the [full result and plain-language
+interpretation](results/generalization-v0.1.0/RESULTS.md).
+
 [Runtime definition](runtime-design-v0.1.0.json) and
 [analysis definition](analysis-v0.1.0.json) are immutable inputs to the manual
 workflow. Local tests start no services.
