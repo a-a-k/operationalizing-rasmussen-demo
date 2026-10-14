@@ -43,6 +43,7 @@ for or an automatic addition to the committed counts.
 
 | Series | Workflow | Fixed scope |
 | --- | --- | --- |
+| Guarded full-stack adaptation | [guarded-adaptation.yml](.github/workflows/guarded-adaptation.yml) | mode=campaign; finalized main v0.2.0, 24 runner pairs. Technical mode=pilot is separate, not needed to read saved results. |
 | Sequential CPU migration | [migration.yml](.github/workflows/migration.yml) | execute=true; simultaneous-workload gate, then 20 paired histories. No replacements. |
 | Joint CPU/RAM follow-up | [joint-resources-v0.2.yml](.github/workflows/joint-resources-v0.2.yml) | Active v0.2.0; 20 four-history blocks. |
 | Fixed endpoints | [followup.yml](.github/workflows/followup.yml) | execute=true; smoke, then 16 A/B pairs and 12 six-condition blocks, 104 points. |
@@ -81,6 +82,22 @@ Keep the committed compact evidence available through review and subsequent
 archival use. Actions retention is not the repository's archival lifetime.
 Preserve a durable snapshot of the exact reviewed commit and its checksum manifest.
 
-The manifest excludes only itself and LICENSE. A review mirror may redact the
+The guarded follow-up can be replayed from committed block records:
+
+```bash
+python -B probe7/scripts/analyze.py --block-records probe7/results/main-v0.2.0/block-level.json --output-dir artifacts/guarded-replay
+```
+
+Its external labels can be independently rescored from preserved primary values:
+
+```bash
+python -B probe7/scripts/audit_primary.py --inputs probe7/results/main-v0.2.0/primary --output-dir artifacts/guarded-primary-replay
+```
+
+See [primary-input boundaries](probe7/results/main-v0.2.0/primary/README.md):
+these committed packs preserve scoring inputs, not every original telemetry log.
+
+The manifest uses canonical LF for text and exact bytes for compressed primary
+inputs. It excludes only itself and LICENSE. A review mirror may redact the
 copyright holder without changing the measurement evidence. This exception
 does not permit changes to code, data, designs or interpretation documents.

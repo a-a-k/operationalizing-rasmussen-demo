@@ -15,6 +15,8 @@ a diagnostic and never overrides that label.
 ## Start here
 
 - [Results and their interpretation](RESULTS.md): comparisons, conclusions and limits.
+- [Guarded full-stack adaptation](probe7/results/main-v0.2.0/README.md): three
+  external requirements, measured donor selection and a held-pair-out metric comparison.
 - [Reproduction guide](REPRODUCING.md): offline checks and manual runtime workflows.
 - [Sequential CPU evidence](probe5/results/README.md), including the separate
   [retrospective pre-crossing analysis](probe5/results/history-v0.1.0/README.md).
@@ -28,6 +30,7 @@ synthetic transformations are not additional runtime observations.
 
 | Evidence | Comparison | Recorded result | Data |
 | --- | --- | --- | --- |
+| Guarded full-stack adaptation (Probe 7) | Live donor choices versus unchanged controls; eleven CPU/RAM allocation parts | 24 pairs received, 23 complete baseline-safe pairs. Advertising gains in 23/23 fixed-endpoint contrasts; 7 adaptive histories violated requirements versus 0 matched controls. No ILR advantage over full shares in the analog task. | [Interpretation](probe7/results/main-v0.2.0/README.md), [windows](probe7/results/main-v0.2.0/windows.csv), [metric errors](probe7/results/main-v0.2.0/pair-retrieval-errors.csv) |
 | Sequential CPU migration (Probe 5) | Pressure-motivated transfers versus unchanged controls | 19/20 planned pairs received. All 19 adaptive histories crossed at steps 8--13; controls stayed safe. At retrospective step 6 all pairs were still safe, with positive control-adjusted changes in both goodput and checkout p95. | [Trajectories](probe5/results/trajectory-level.csv), [paired epochs](probe5/results/paired-epochs.csv), [step-6 pairs](probe5/results/history-v0.1.0/step6-pairs.csv) |
 | Joint CPU/RAM follow-up (Probe 6) | Control, CPU-only, RAM-only and joint histories | 20 valid blocks; five matched joint-only unsafe witnesses. Crossings: joint 20/20, CPU-only 14/20, RAM-only 17/20, control 0/20. | [Trajectories](probe6/results/joint-v0.2.0/trajectory-level.csv), [matched steps](probe6/results/joint-v0.2.0/four-way-epochs.csv) |
 | Geometry verification | Full ILR and equal multiplicative updates across starting states | Six unlabeled synthetic checks; 1,145 saved windows retained in separate series. Equal relative updates have equal ILR displacement; Euclidean share distance describes additive change. | [Checks](geometry/results/v0.1.0/metric-properties.csv), [coordinates](geometry/results/v0.1.0/trajectory-coordinates.csv), [figure](geometry/results/v0.1.0/geometry.svg) |
@@ -52,8 +55,12 @@ compositional geometry gives relative changes a consistent scale.
 
 These results establish a measurement basis, not a universally better detector,
 production failure probability, human-behavior model or calibrated safe region.
-Platform integration, diagnostic usefulness and held-out prediction remain
-separate evaluations. Budgets, workload and runtime history still condition outcomes.
+The guarded full-stack follow-up demonstrates adaptive donor selection and
+three external business requirements. Its limited held-pair-out analog task
+does not show an ILR advantage over full shares; only CPU moves within those
+histories because recipient RAM benefit was not established.
+Platform integration, diagnostic usefulness and validated predictive alerting
+remain separate evaluations. Budgets, workload and runtime history condition outcomes.
 
 ## Verification without running a workload
 
@@ -80,7 +87,8 @@ Committed observations, aggregates and rules are the reviewable archive;
 reading them does not depend on short-lived Actions artifacts. Native streams
 and diagnostics are distinct execution artifacts, not reconstructed by compact
 tables. [SHA256SUMS](SHA256SUMS) covers code, data and documentation using
-canonical LF text bytes. LICENSE is excluded so redacting its copyright holder
+canonical LF text bytes, and compressed primary inputs as exact binary bytes.
+LICENSE is excluded so redacting its copyright holder
 in a review mirror does not invalidate code/data verification; the original
 license attribution is retained in the source repository.
 

@@ -28,7 +28,8 @@ def archive_paths(root: Path) -> list[Path]:
 
 
 def sha256_lf(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    data=path.read_bytes()
+    return hashlib.sha256(data if path.suffix==".gz" else data.replace(b"\r\n", b"\n")).hexdigest()
 
 
 def verify_checksums(root: Path) -> int:

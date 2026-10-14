@@ -1,0 +1,179 @@
+{
+  "status": "verified",
+  "blocks": 24,
+  "per_block": [
+    {
+      "block_id": "balanced-busy-01",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52798,
+      "ad_attempts": 1601171
+    },
+    {
+      "block_id": "balanced-busy-02",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52800,
+      "ad_attempts": 3277739
+    },
+    {
+      "block_id": "balanced-busy-03",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52547,
+      "ad_attempts": 2397257
+    },
+    {
+      "block_id": "balanced-busy-04",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52797,
+      "ad_attempts": 1573041
+    },
+    {
+      "block_id": "balanced-moderate-01",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31680,
+      "ad_attempts": 1773096
+    },
+    {
+      "block_id": "balanced-moderate-02",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31678,
+      "ad_attempts": 1724892
+    },
+    {
+      "block_id": "balanced-moderate-03",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31680,
+      "ad_attempts": 2983215
+    },
+    {
+      "block_id": "balanced-moderate-04",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31679,
+      "ad_attempts": 1752194
+    },
+    {
+      "block_id": "interactive-busy-01",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52799,
+      "ad_attempts": 1554833
+    },
+    {
+      "block_id": "interactive-busy-02",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52799,
+      "ad_attempts": 2166842
+    },
+    {
+      "block_id": "interactive-busy-03",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52799,
+      "ad_attempts": 1301194
+    },
+    {
+      "block_id": "interactive-busy-04",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52799,
+      "ad_attempts": 1372539
+    },
+    {
+      "block_id": "interactive-moderate-01",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31680,
+      "ad_attempts": 1843018
+    },
+    {
+      "block_id": "interactive-moderate-02",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31680,
+      "ad_attempts": 2254455
+    },
+    {
+      "block_id": "interactive-moderate-03",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31680,
+      "ad_attempts": 1840937
+    },
+    {
+      "block_id": "interactive-moderate-04",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31680,
+      "ad_attempts": 2654278
+    },
+    {
+      "block_id": "ledger-busy-01",
+      "windows": 22,
+      "checkout_requests": 28800,
+      "confirmed_orders": 28800,
+      "ad_attempts": 1332844
+    },
+    {
+      "block_id": "ledger-busy-02",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52798,
+      "ad_attempts": 2907219
+    },
+    {
+      "block_id": "ledger-busy-03",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52796,
+      "ad_attempts": 3818099
+    },
+    {
+      "block_id": "ledger-busy-04",
+      "windows": 42,
+      "checkout_requests": 52800,
+      "confirmed_orders": 52797,
+      "ad_attempts": 1669933
+    },
+    {
+      "block_id": "ledger-moderate-01",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31678,
+      "ad_attempts": 1772948
+    },
+    {
+      "block_id": "ledger-moderate-02",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31680,
+      "ad_attempts": 1753440
+    },
+    {
+      "block_id": "ledger-moderate-03",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31676,
+      "ad_attempts": 3712913
+    },
+    {
+      "block_id": "ledger-moderate-04",
+      "windows": 42,
+      "checkout_requests": 31680,
+      "confirmed_orders": 31680,
+      "ad_attempts": 3698818
+    }
+  ],
+  "windows": 988,
+  "checkout_requests": 989760,
+  "confirmed_orders": 989480,
+  "ad_attempts": 52736915,
+  "scope": "Main evaluation windows only; warmup excluded. Native counters/durations, client acknowledgments and corresponding database commit timestamps, not inferred SLO labels."
+}

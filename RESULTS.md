@@ -6,6 +6,47 @@ histories joining pressure, actions, recipient output and external outcomes.
 Runtime observations, representational witnesses, mathematical checks and
 exploratory detector comparisons have distinct roles.
 
+## Guarded full-stack adaptation: three externally measured requirements
+
+The separate [guarded follow-up](probe7/results/main-v0.2.0/README.md) received
+24 runner pairs and 988 technically valid evaluation windows. A controller
+selected CPU donors from observed requirement headroom and resource pressure,
+then measured and rolled back unsafe/near-boundary changes. It used no CoDA
+coordinate and prescribed no crossing. RAM differed across initial contexts
+but stayed fixed within each history because commissioning did not establish
+useful recipient RAM benefit.
+
+Twenty-three pairs had safe baselines and complete twenty-cycle histories.
+The remaining control stopped after baseline checkout p95=559.2 ms; its outcome
+and completed adaptive counterpart remain in the archive. At the fixed final
+cycle, advertising baseline-adjusted gain over control was positive in 23/23
+pairs, median +2105.4 responses/s. Checkout p95 and accounting observed p99 lag
+each increased in 21/23 contrasts (medians +45.8 ms and +55.4 ms).
+
+Seven adaptive histories violated checkout requirements, four also accounting
+timeliness; their 23 matched controls stayed safe. Advertising stayed within
+its timeliness policy in all 988 evaluation windows. Eight transfers were
+rolled back, and two final adaptive windows remained unsafe. These are
+constructed, guarded adaptation histories, not a production failure rate.
+
+Five overlapping post-hoc comparisons had identical selected local ratios,
+different complete allocations and safe/unsafe outcomes under the same initial
+context and workload. Full shares and full ILR both preserve those allocation
+distinctions. They do not establish the causal source of the outcome difference.
+
+Held-pair-out analog retrieval did not favor ILR over complete raw shares:
+macro pair mean absolute headroom-change errors were 0.4312 for three selected
+ratios, 0.3860 for full shares and 0.4120 for full ILR. Per-process errors and
+conditional descriptive uncertainty are reported, not detector superiority.
+
+Evidence: [complete interpretation](probe7/results/main-v0.2.0/README.md),
+[all windows](probe7/results/main-v0.2.0/windows.csv),
+[paired epochs](probe7/results/main-v0.2.0/paired-epochs.csv),
+[all analogs](probe7/results/main-v0.2.0/neighbors.csv),
+[projection comparisons](probe7/results/main-v0.2.0/projection-witnesses.csv),
+[aggregate](probe7/results/main-v0.2.0/summary.json) and
+[prespecified history](probe7/results/main-v0.2.0/example.svg).
+
 ## Sequential CPU migration: competing outcomes before and at crossing
 
 [Probe 5](probe5/) planned 20 fresh runners, each with two fresh-stack histories

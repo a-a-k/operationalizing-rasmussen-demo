@@ -57,6 +57,13 @@ commits; missing orders still violate its timely-fraction requirement. All
 per-process values accompany any aggregate retrieval error. Pair-bootstrap
 intervals are descriptive and conditional on the fixed neighbor pool.
 
+Saved-data analysis 0.1.1 matches both endpoint-window durations. The first
+transition compares a 60-second baseline with a 30-second trial; it must not use
+later 30-to-30-second transitions as analogs. This eligibility correction was
+implemented before inspecting the main outcomes. It changes no runtime input,
+outcome label or controller decision. The execution-time aggregate used the
+earlier analysis; the archive identifies the corrected saved-data replay separately.
+
 ## Execution
 
 Use [guarded-adaptation.yml](../.github/workflows/guarded-adaptation.yml) with
@@ -66,6 +73,11 @@ Local checks start no services:
 ```bash
 python -B -m unittest discover -s probe7/tests -v
 ```
+
+The completed [main series](results/main-v0.2.0/README.md) retains all received
+observations, neutral metric-comparison results, and
+[primary inputs](results/main-v0.2.0/primary/README.md) for offline rescoring.
+Do not rerun a runtime campaign merely to inspect or verify those results.
 
 Native checkout streams and order confirmation/commit observations are retained.
 Advertising retains native counters and quantiles rather than every RPC trace.

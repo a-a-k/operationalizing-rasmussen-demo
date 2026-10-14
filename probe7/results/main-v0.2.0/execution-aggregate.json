@@ -1,0 +1,83 @@
+{
+  "status": "complete",
+  "planned_pairs": 24,
+  "received_pairs": 24,
+  "missing_pairs": [],
+  "initially_valid_pairs": 23,
+  "complete_cycle_pairs": 23,
+  "histories_with_unsafe_windows": {
+    "adaptive": 7,
+    "control": 1
+  },
+  "proposed_transfers": 470,
+  "rolled_back_transfers": 8,
+  "resource_transfer_counts": {
+    "cpu": 470,
+    "memory": 0
+  },
+  "observed_donors": [
+    "accounting",
+    "astronomy-db",
+    "checkout",
+    "currency",
+    "kafka",
+    "product-catalog",
+    "shipping"
+  ],
+  "retrieval_sections": 476,
+  "omitted_sections": [],
+  "observed_ilr_displacement_linear_span": 8,
+  "median_hidden_energy_fraction": 0.8870180108589756,
+  "retrieval": {
+    "selected_log_ratios": {
+      "query_pairs": 24,
+      "macro_pair_mean_absolute_error": 0.43116791122973225,
+      "bootstrap_pair_mean_95": [
+        0.20132778754602673,
+        0.6833615023964441
+      ],
+      "per_process_macro_pair_error": {
+        "checkout": 0.23169524213006626,
+        "advertising": 0.01312834521594401,
+        "accounting": 1.0486801463431865
+      }
+    },
+    "euclidean_share_change": {
+      "query_pairs": 24,
+      "macro_pair_mean_absolute_error": 0.38626304916455073,
+      "bootstrap_pair_mean_95": [
+        0.17966353597390392,
+        0.6403765676858033
+      ],
+      "per_process_macro_pair_error": {
+        "checkout": 0.18997337601683786,
+        "advertising": 0.017369209460980712,
+        "accounting": 0.9514465620158337
+      }
+    },
+    "full_ilr_change": {
+      "query_pairs": 24,
+      "macro_pair_mean_absolute_error": 0.4119741432904466,
+      "bootstrap_pair_mean_95": [
+        0.14885636666322039,
+        0.7363990190898225
+      ],
+      "per_process_macro_pair_error": {
+        "checkout": 0.21624522219397563,
+        "advertising": 0.016923799342105417,
+        "accounting": 1.002753408335259
+      }
+    }
+  },
+  "raw_minus_ilr_pair_error": {
+    "mean": -0.025711094125895898,
+    "bootstrap_pair_mean_95": [
+      -0.23216612778527315,
+      0.11054031572625594
+    ],
+    "positive_pairs": 10,
+    "negative_pairs": 14
+  },
+  "final_step_goodput_change_difference_median": 2105.3500000000004,
+  "scope": "Descriptive guarded adaptation and leave-one-pair-out analog retrieval; neither boundary crossing nor CoDA advantage defines success."
+}

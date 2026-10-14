@@ -50,6 +50,13 @@ class AnalysisTests(unittest.TestCase):
         self.assertTrue(all(r["checkout_predicted_change"]==2 for r in rows))
         self.assertTrue(all(r["equidistant_pairs"]==2 for r in rows))
 
+    def test_both_window_lengths_must_match(self):
+        samples=[{"block_id":b,"profile":"busy","policy":"adaptive","epoch":1,
+                  "features":{m:[0] for m in METHODS},"outcome_change":[0]*3,"window_lengths_ms":lengths}
+                 for b,lengths in [("a",[60000,30000]),("b",[30000,30000]),("c",[60000,30000])]]
+        self.assertTrue(all(r["neighbor_block"]=="c" for r in analogs(samples) if r["query_block"]=="a"))
+        self.assertFalse(any(r["query_block"]=="b" for r in analogs(samples)))
+
     def test_missing_blocks_are_not_invented_and_pilot_is_rejected(self):
         d=json.loads((ROOT/"probe7/design-v0.2.0.json").read_text())
         with tempfile.TemporaryDirectory() as name:
@@ -68,9 +75,9 @@ class AnalysisTests(unittest.TestCase):
         def window(epoch,allocation):
             return {"epoch":epoch,"valid":True,"safe":True,"allocation":allocation,
                     "headroom":{p:.8 for p in ("checkout","advertising","accounting")},
-                    "checkout":{"p95_ms":100,"error_rate":0},
-                    "advertising":{"goodput":500,"timely_fraction":1},
-                    "accounting":{"timely_fraction":1,"missing":0},
+                    "checkout":{"p95_ms":100,"error_rate":0,"safe":True},
+                    "advertising":{"goodput":500,"timely_fraction":1,"safe":True},
+                    "accounting":{"timely_fraction":1,"missing":0,"safe":True},
                     "representation":representation(allocation,d),"window_start_ms":0,"window_end_ms":30000}
         block={"mode":"main","profile":"moderate","initial_state":"balanced","design":d,
                "histories":{p:{"baseline_valid":True,"observations":[window(0,state),window(1,changed if p=="adaptive" else state)],

@@ -27,6 +27,14 @@ class ArchiveTests(unittest.TestCase):
             p.write_bytes(b"a,b\r\n1,2\r\n")
             self.assertEqual(before, checks.sha256_lf(p))
 
+    def test_compressed_primary_inputs_are_hashed_as_binary(self):
+        with tempfile.TemporaryDirectory() as name:
+            p=Path(name)/"inputs.json.gz"
+            p.write_bytes(b"a\r\nb")
+            before=checks.sha256_lf(p)
+            p.write_bytes(b"a\nb")
+            self.assertNotEqual(before,checks.sha256_lf(p))
+
     def test_no_git_archive_enumeration(self):
         with tempfile.TemporaryDirectory() as name:
             p = Path(name)
