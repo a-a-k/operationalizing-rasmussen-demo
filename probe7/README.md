@@ -49,6 +49,14 @@ the same allocation information; their distance rules are the comparison.
 The CPU/RAM product uses equal resource weights. RAM displacement is zero in
 this series, so this analog task does not test memory-direction retrieval.
 
+This one-step analogy is an additional consequence-prediction exercise, not
+the central accumulated-drift measurement. The separate
+[versioned saved-data analysis](results/accumulated-v0.1.0/README.md) retains
+complete baseline-referenced histories, physical requirement margins, reversals,
+entire-prefix projection witnesses and actual equal absolute transfers at
+different starts. It changes no source outcome or controller decision and
+reports the unfavorable analogy comparison separately.
+
 For each requirement, normalized headroom is a controller signal, not a new
 definition of SLO membership: checkout uses the smaller latency/error reserve;
 advertising and accounting use the smaller timely-fraction reserve and observed
@@ -78,6 +86,8 @@ The completed [main series](results/main-v0.2.0/README.md) retains all received
 observations, neutral metric-comparison results, and
 [primary inputs](results/main-v0.2.0/primary/README.md) for offline rescoring.
 Do not rerun a runtime campaign merely to inspect or verify those results.
+The [accumulated-history workflow](../.github/workflows/guarded-history-analysis.yml)
+uses committed observations only and starts no services.
 
 Native checkout streams and order confirmation/commit observations are retained.
 Advertising retains native counters and quantiles rather than every RPC trace.

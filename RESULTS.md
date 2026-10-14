@@ -34,10 +34,31 @@ different complete allocations and safe/unsafe outcomes under the same initial
 context and workload. Full shares and full ILR both preserve those allocation
 distinctions. They do not establish the causal source of the outcome difference.
 
+The separate [accumulated-history analysis](probe7/results/accumulated-v0.1.0/README.md)
+strengthens the descriptive witness: three interactive/busy histories had
+identical selected traces at every epoch from baseline through cycle 6, not
+merely identical endpoints. Checkout p95 at that cycle was 609.3 ms versus
+120.5 and 294.0 ms, with different database/Kafka CPU allocations. These are two
+overlapping comparisons sharing one unsafe run, not independent causal effects.
+Full raw shares and full ILR both retain the differing paths. Median per-history
+median cumulative displacement energy outside the selected projection was
+78.1%; that is not a missed-alert rate.
+
+Actual first accounting-to-ad transfers also illustrate the geometry: each
+moved 0.04 CPU, producing identical additive share changes but donor losses of
+11.4%, 16.0% and 26.7% across initial states. Full relative movement distinguishes
+those proportional changes. All three endpoints were safe; a larger distance is
+not assigned a larger risk. Separate unexecuted multiplier checks verify known
+relative invariance and never receive business-outcome labels.
+
 Held-pair-out analog retrieval did not favor ILR over complete raw shares:
 macro pair mean absolute headroom-change errors were 0.4312 for three selected
 ratios, 0.3860 for full shares and 0.4120 for full ILR. Per-process errors and
 conditional descriptive uncertainty are reported, not detector superiority.
+The new saved-data diagnostic of predicting no headroom change had lower
+aggregate error, 0.2691, than all three analogy methods. Their different tie
+counts also couple metric choice with neighbor averaging. This is an additional
+consequence-prediction exercise, not a test of cumulative-history completeness.
 
 Evidence: [complete interpretation](probe7/results/main-v0.2.0/README.md),
 [all windows](probe7/results/main-v0.2.0/windows.csv),
@@ -46,6 +67,11 @@ Evidence: [complete interpretation](probe7/results/main-v0.2.0/README.md),
 [projection comparisons](probe7/results/main-v0.2.0/projection-witnesses.csv),
 [aggregate](probe7/results/main-v0.2.0/summary.json) and
 [prespecified history](probe7/results/main-v0.2.0/example.svg).
+The new analysis preserves [all accumulated windows](probe7/results/accumulated-v0.1.0/history-windows.csv),
+[complete prefix witnesses](probe7/results/accumulated-v0.1.0/prefix-witness-history.csv),
+[actual transfer examples](probe7/results/accumulated-v0.1.0/actual-transfer-examples.csv),
+[separate diagnostics](probe7/results/accumulated-v0.1.0/secondary-diagnostics.csv), and
+[the full interpretation](probe7/results/accumulated-v0.1.0/README.md).
 
 ## Sequential CPU migration: competing outcomes before and at crossing
 

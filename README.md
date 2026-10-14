@@ -16,7 +16,11 @@ a diagnostic and never overrides that label.
 
 - [Results and their interpretation](RESULTS.md): comparisons, conclusions and limits.
 - [Guarded full-stack adaptation](probe7/results/main-v0.2.0/README.md): three
-  external requirements, measured donor selection and a held-pair-out metric comparison.
+  external requirements and measured donor selection.
+- [Accumulated relative-drift analysis](probe7/results/accumulated-v0.1.0/README.md):
+  complete histories, differences hidden by entire selected local traces, actual
+  equal absolute transfers and their different relative meaning. The additional
+  analogy comparison is reported separately, without predictive superiority.
 - [Reproduction guide](REPRODUCING.md): offline checks and manual runtime workflows.
 - [Sequential CPU evidence](probe5/results/README.md), including the separate
   [retrospective pre-crossing analysis](probe5/results/history-v0.1.0/README.md).
@@ -25,12 +29,14 @@ a diagnostic and never overrides that label.
 
 ## Evidence map
 
-Each row is a separate series. Counts are never pooled across campaigns, and
-synthetic transformations are not additional runtime observations.
+Each runtime row is a separate series. Saved-data rows explicitly reuse their
+named source rather than adding replications. Counts are never pooled across
+campaigns, and synthetic transformations are not runtime observations.
 
 | Evidence | Comparison | Recorded result | Data |
 | --- | --- | --- | --- |
 | Guarded full-stack adaptation (Probe 7) | Live donor choices versus unchanged controls; eleven CPU/RAM allocation parts | 24 pairs received, 23 complete baseline-safe pairs. Advertising gains in 23/23 fixed-endpoint contrasts; 7 adaptive histories violated requirements versus 0 matched controls. No ILR advantage over full shares in the analog task. | [Interpretation](probe7/results/main-v0.2.0/README.md), [windows](probe7/results/main-v0.2.0/windows.csv), [metric errors](probe7/results/main-v0.2.0/pair-retrieval-errors.csv) |
+| Accumulated guarded histories (saved Probe 7 data) | Full baseline-referenced displacement versus three selected local traces; equal absolute versus relative changes | Three observed histories had identical selected traces through cycle 6 but different allocations and safe/unsafe outcomes: two overlapping witnesses. Real 0.04-CPU transfers meant donor losses of 11.4%, 16.0% and 26.7%. | [Interpretation](probe7/results/accumulated-v0.1.0/README.md), [whole histories](probe7/results/accumulated-v0.1.0/history-windows.csv), [prefix witnesses](probe7/results/accumulated-v0.1.0/prefix-witnesses.csv), [transfers](probe7/results/accumulated-v0.1.0/actual-transfer-examples.csv) |
 | Sequential CPU migration (Probe 5) | Pressure-motivated transfers versus unchanged controls | 19/20 planned pairs received. All 19 adaptive histories crossed at steps 8--13; controls stayed safe. At retrospective step 6 all pairs were still safe, with positive control-adjusted changes in both goodput and checkout p95. | [Trajectories](probe5/results/trajectory-level.csv), [paired epochs](probe5/results/paired-epochs.csv), [step-6 pairs](probe5/results/history-v0.1.0/step6-pairs.csv) |
 | Joint CPU/RAM follow-up (Probe 6) | Control, CPU-only, RAM-only and joint histories | 20 valid blocks; five matched joint-only unsafe witnesses. Crossings: joint 20/20, CPU-only 14/20, RAM-only 17/20, control 0/20. | [Trajectories](probe6/results/joint-v0.2.0/trajectory-level.csv), [matched steps](probe6/results/joint-v0.2.0/four-way-epochs.csv) |
 | Geometry verification | Full ILR and equal multiplicative updates across starting states | Six unlabeled synthetic checks; 1,145 saved windows retained in separate series. Equal relative updates have equal ILR displacement; Euclidean share distance describes additive change. | [Checks](geometry/results/v0.1.0/metric-properties.csv), [coordinates](geometry/results/v0.1.0/trajectory-coordinates.csv), [figure](geometry/results/v0.1.0/geometry.svg) |
@@ -53,6 +59,13 @@ Fixed endpoints demonstrate information lost by radial magnitude and a single
 group projection. Full ILR coordinates preserve the selected allocation; known
 compositional geometry gives relative changes a consistent scale.
 
+The accumulated saved-data analysis also shows differences hidden by an entire
+sequence of selected local relations. Full raw shares retain the same allocation
+information as ILR; the relative representation differs in its geometry, not
+access to additional observations. Equal absolute transfers need not mean equal
+proportional changes. Full initial state, budgets and subsequent vectors remain
+available, and reversals do not erase previously measured failures.
+
 These results establish a measurement basis, not a universally better detector,
 production failure probability, human-behavior model or calibrated safe region.
 The guarded full-stack follow-up demonstrates adaptive donor selection and
@@ -72,7 +85,7 @@ python -B scripts/verify_archive.py
 ```
 
 This checks checksums, local documentation links, anonymity, all unit-test suites
-and saved-data analysis, including the step-6 contrasts. Full experiments run
+and saved-data analyses, including accumulated guarded histories and the step-6 contrasts. Full experiments run
 only in the manual workflows in [REPRODUCING.md](REPRODUCING.md).
 Pushing changes runs static verification only, not a workload campaign.
 

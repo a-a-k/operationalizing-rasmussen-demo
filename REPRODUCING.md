@@ -35,6 +35,20 @@ The zero identifiers explicitly mark a local replay without Actions provenance,
 not a newly executed hosted run. Original execution identifiers remain in the
 committed geometry summary.
 
+For accumulated guarded histories, use the committed source data only:
+
+```bash
+python -B probe7/scripts/analyze_accumulated.py --output-dir artifacts/accumulated-history-replay
+```
+
+The [analysis definition](probe7/accumulated-analysis-v0.1.0.json) pins original
+record hashes and marks retrospective selections. Outputs include all 988
+windows, complete displacement vectors, requirement margins, command reversals,
+entire selected-prefix witnesses and separately unlabeled geometry checks.
+The [archived interpretation](probe7/results/accumulated-v0.1.0/README.md) explains
+why this measurement task differs from the additional one-step analogy task.
+Original designs and external SLO labels are not overwritten.
+
 ## Full runtime reruns: manual GitHub Actions only
 
 Set expected_sha to the exact checked-out commit. Engineering gates are outside
@@ -49,6 +63,7 @@ for or an automatic addition to the committed counts.
 | Fixed endpoints | [followup.yml](.github/workflows/followup.yml) | execute=true; smoke, then 16 A/B pairs and 12 six-condition blocks, 104 points. |
 | Threshold scenarios | [scenarios.yml](.github/workflows/scenarios.yml) | execute=true; maximum-load gate, then 120 points in 20 jobs. |
 | Geometry replay | [geometry.yml](.github/workflows/geometry.yml) | Saved-data analysis only. |
+| Accumulated guarded-history replay | [guarded-history-analysis.yml](.github/workflows/guarded-history-analysis.yml) | Saved-data analysis only; no services or additional observations. |
 | Static checks / optional smoke | [verify.yml](.github/workflows/verify.yml) | Push/PR runs static checks; manual runtime_smoke=true additionally starts a stack. |
 
 Historical workflows are preserved separately:

@@ -1,0 +1,4 @@
+block_id,epoch,evidence_class,accounting_cpu_before,accounting_cpu_after,accounting_relative_change_percent,ad_cpu_before,ad_cpu_after,raw_share_displacement_norm,relative_displacement_norm,observed_safe
+ledger-moderate-01,1,observed_runtime_transfer,0.35,0.31,-11.428571428571422,0.25,0.29,0.01663780661615406,0.19154736261126593,True
+balanced-moderate-01,1,observed_runtime_transfer,0.25,0.21,-16.000000000000004,0.25,0.29,0.01663780661615406,0.22883719431200317,True
+interactive-moderate-01,1,observed_runtime_transfer,0.15,0.11,-26.66666666666666,0.25,0.29,0.01663780661615406,0.34036239601039514,True

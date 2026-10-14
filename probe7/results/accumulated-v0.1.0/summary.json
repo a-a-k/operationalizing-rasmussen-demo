@@ -1,0 +1,148 @@
+{
+  "version": "accumulated-allocation-history-0.1.0",
+  "evidence_class": "retrospective saved-data analysis; no new runtime observations",
+  "source_sha256_lf": {
+    "probe7/results/main-v0.2.0/block-level.json": "36c3021901d6bd505f2aebd30f49473ee0c7202875358ca580b7148b22aa4719",
+    "probe7/design-v0.2.0.json": "5fb4e3322386e3b6eaa8001e8244b33e9b9858ad99d5fb9b58409fe453f738de",
+    "probe7/results/main-v0.2.0/sections.csv": "6145d4305ec7e0053d4095afe6d7c910ccbfa41f11c8e0e157c8af2c22522610",
+    "probe7/results/main-v0.2.0/neighbors.csv": "c78822f54a7664479ea560605d11897e243becae42db1f8384cf91737ad190f8",
+    "probe7/results/main-v0.2.0/summary.json": "67bfb0c8a13d9105fd88a8bc124b65fc2e0d9bd4e6793e7330f4f6c9878210c9"
+  },
+  "planned_pairs": 24,
+  "received_pairs": 24,
+  "missing_pairs": [],
+  "histories": 48,
+  "windows": 988,
+  "complete_paired_endpoints": 23,
+  "geometry_verification": {
+    "inverse_shares_max": 1.6653345369377348e-16,
+    "relative_identity_max": 1.359173279113534e-15,
+    "telescoping_max": 7.021666937153402e-16
+  },
+  "median_history_median_cumulative_hidden_fraction": 0.7810880219403395,
+  "endpoint_witness_comparisons": 5,
+  "entire_prefix_witness_comparisons": 2,
+  "prefix_witness_unsafe_histories": [
+    "interactive-busy-01"
+  ],
+  "ram_moving_histories": 0,
+  "unknown_post_rollback_endpoint_slo": 2,
+  "fixed_endpoint_contrasts": {
+    "advertising_goodput": {
+      "pairs": 23,
+      "median": 2105.35,
+      "minimum": 11.833333333333371,
+      "maximum": 4853.466666666666,
+      "positive_pairs": 23,
+      "negative_pairs": 0,
+      "pair_bootstrap_median_95": [
+        1607.0666666666666,
+        2675.1666666666665
+      ]
+    },
+    "checkout_latency_margin_ms": {
+      "pairs": 23,
+      "median": -45.83668584999998,
+      "minimum": -4884.3096384499995,
+      "maximum": 43.64639455000014,
+      "positive_pairs": 2,
+      "negative_pairs": 21,
+      "pair_bootstrap_median_95": [
+        -66.9098229,
+        -14.451987400000178
+      ]
+    },
+    "checkout_error_margin_pp": {
+      "pairs": 23,
+      "median": 0.0,
+      "minimum": -20.833333333333332,
+      "maximum": 0.13888888888888884,
+      "positive_pairs": 3,
+      "negative_pairs": 1,
+      "pair_bootstrap_median_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "advertising_timely_margin_pp": {
+      "pairs": 23,
+      "median": 0.0,
+      "minimum": -0.06241311810264438,
+      "maximum": 0.03812622321632819,
+      "positive_pairs": 11,
+      "negative_pairs": 8,
+      "pair_bootstrap_median_95": [
+        -0.0007771236305242901,
+        0.006241807627493934
+      ]
+    },
+    "accounting_timely_margin_pp": {
+      "pairs": 23,
+      "median": 0.0,
+      "minimum": -78.21052631578948,
+      "maximum": 0.0,
+      "positive_pairs": 0,
+      "negative_pairs": 2,
+      "pair_bootstrap_median_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "accounting_observed_p99_margin_ms": {
+      "pairs": 23,
+      "median": -55.411528320312755,
+      "minimum": -18681.937746582033,
+      "maximum": 12.64691406249949,
+      "positive_pairs": 2,
+      "negative_pairs": 21,
+      "pair_bootstrap_median_95": [
+        -124.98261718749927,
+        -51.221401367186445
+      ]
+    }
+  },
+  "secondary_diagnostics": [
+    {
+      "method": "posthoc_no_headroom_change",
+      "macro_pair_mean_absolute_error": 0.26912340630947634,
+      "checkout_error": 0.14952374058297507,
+      "advertising_error": 0.0274797149122808,
+      "accounting_error": 0.6303667634331732,
+      "median_nearest_pairs": null,
+      "origin": "New diagnostic, not an executed detector"
+    },
+    {
+      "method": "selected_log_ratios",
+      "macro_pair_mean_absolute_error": 0.431153176509624,
+      "checkout_error": 0.23169078319588116,
+      "advertising_error": 0.013148285739601638,
+      "accounting_error": 1.048620460593389,
+      "median_nearest_pairs": 10.0,
+      "origin": "Unchanged executed-series saved-data comparison"
+    },
+    {
+      "method": "euclidean_share_change",
+      "macro_pair_mean_absolute_error": 0.38600598758050947,
+      "checkout_error": 0.1895612565919593,
+      "advertising_error": 0.016819833049763713,
+      "accounting_error": 0.9516368730998054,
+      "median_nearest_pairs": 11.0,
+      "origin": "Unchanged executed-series saved-data comparison"
+    },
+    {
+      "method": "full_ilr_change",
+      "macro_pair_mean_absolute_error": 0.4119745245962941,
+      "checkout_error": 0.21624229880821172,
+      "advertising_error": 0.016930239400584943,
+      "accounting_error": 1.0027510355800857,
+      "median_nearest_pairs": 2.0,
+      "origin": "Unchanged executed-series saved-data comparison"
+    }
+  ],
+  "scope": "Full raw shares and ILR preserve the same state information. Known relative geometry is distinguished from empirical consequence prediction. CPU alone moves; RAM is an initial context. No universal detector superiority, causal allocation-only risk law or dynamic CPU/RAM claim.",
+  "analysis_execution": {
+    "commit": "b17978672f5e528d11ad466e4b5d577cdfabe51a",
+    "run_id": "38528873748",
+    "runtime_started": false
+  }
+}

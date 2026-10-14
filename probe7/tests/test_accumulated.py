@@ -176,6 +176,49 @@ class AccumulatedTests(unittest.TestCase):
         ET.fromstring(svg)
         self.assertIn("No equal-prefix", svg)
 
+    def test_archived_packet_replays_from_pinned_observations(self):
+        archive = ROOT / "probe7/results/accumulated-v0.1.0"
+        recorded = json.loads((archive / "summary.json").read_text(encoding="utf-8"))
+        execution = recorded["analysis_execution"]
+        self.assertEqual(len(execution["commit"]), 40)
+        self.assertNotEqual(execution["run_id"], "0")
+        self.assertFalse(execution["runtime_started"])
+
+        def compare(a, b):
+            if isinstance(a, dict):
+                self.assertEqual(set(a), set(b))
+                for key in a:
+                    compare(a[key], b[key])
+            elif isinstance(a, list):
+                self.assertEqual(len(a), len(b))
+                for x, y in zip(a, b):
+                    compare(x, y)
+            elif isinstance(a, (int, float)) and not isinstance(a, bool):
+                self.assertTrue(math.isclose(a, b, rel_tol=1e-11, abs_tol=1e-11), (a, b))
+            else:
+                self.assertEqual(a, b)
+
+        with tempfile.TemporaryDirectory() as name:
+            out = Path(name) / "replay"
+            recreated = save(out, commit=execution["commit"], run_id=execution["run_id"])
+            compare(recorded, recreated)
+            self.assertEqual({p.name for p in out.iterdir()}, {p.name for p in archive.iterdir() if p.name != "README.md"})
+            for csv_path in out.glob("*.csv"):
+                expected = archive / csv_path.name
+                with csv_path.open(newline="", encoding="utf-8") as a, expected.open(newline="", encoding="utf-8") as b:
+                    actual_rows, expected_rows = list(csv.DictReader(a)), list(csv.DictReader(b))
+                self.assertEqual(len(actual_rows), len(expected_rows))
+                for actual, expected in zip(actual_rows, expected_rows):
+                    self.assertEqual(set(actual), set(expected))
+                    for key in actual:
+                        if actual[key] != expected[key]:
+                            try:
+                                compare(float(actual[key]), float(expected[key]))
+                            except ValueError:
+                                self.fail(f"Changed archived field: {csv_path.name}/{key}")
+            for svg in ("history.svg", "prefix-witness.svg"):
+                self.assertEqual((out / svg).read_text(encoding="utf-8"), (archive / svg).read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

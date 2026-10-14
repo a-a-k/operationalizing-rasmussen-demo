@@ -1,0 +1,5 @@
+method,macro_pair_mean_absolute_error,checkout_error,advertising_error,accounting_error,median_nearest_pairs,origin
+posthoc_no_headroom_change,0.26912340630947634,0.14952374058297507,0.0274797149122808,0.6303667634331732,,"New diagnostic, not an executed detector"
+selected_log_ratios,0.431153176509624,0.23169078319588116,0.013148285739601638,1.048620460593389,10.0,Unchanged executed-series saved-data comparison
+euclidean_share_change,0.38600598758050947,0.1895612565919593,0.016819833049763713,0.9516368730998054,11.0,Unchanged executed-series saved-data comparison
+full_ilr_change,0.4119745245962941,0.21624229880821172,0.016930239400584943,1.0027510355800857,2.0,Unchanged executed-series saved-data comparison
