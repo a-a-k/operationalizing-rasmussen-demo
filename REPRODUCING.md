@@ -58,12 +58,14 @@ for or an automatic addition to the committed counts.
 | Series | Workflow | Fixed scope |
 | --- | --- | --- |
 | Guarded full-stack adaptation | [guarded-adaptation.yml](.github/workflows/guarded-adaptation.yml) | mode=campaign; finalized main v0.2.0, 24 runner pairs. Technical mode=pilot is separate, not needed to read saved results. |
+| Passive warning confirmation | [warning-confirmation.yml](.github/workflows/warning-confirmation.yml) | Separate 20 new runner pairs; frozen source model and thresholds, no effect on allocation policy. |
 | Sequential CPU migration | [migration.yml](.github/workflows/migration.yml) | execute=true; simultaneous-workload gate, then 20 paired histories. No replacements. |
 | Joint CPU/RAM follow-up | [joint-resources-v0.2.yml](.github/workflows/joint-resources-v0.2.yml) | Active v0.2.0; 20 four-history blocks. |
 | Fixed endpoints | [followup.yml](.github/workflows/followup.yml) | execute=true; smoke, then 16 A/B pairs and 12 six-condition blocks, 104 points. |
 | Threshold scenarios | [scenarios.yml](.github/workflows/scenarios.yml) | execute=true; maximum-load gate, then 120 points in 20 jobs. |
 | Geometry replay | [geometry.yml](.github/workflows/geometry.yml) | Saved-data analysis only. |
 | Accumulated guarded-history replay | [guarded-history-analysis.yml](.github/workflows/guarded-history-analysis.yml) | Saved-data analysis only; no services or additional observations. |
+| Warning-rule development | [warning-development.yml](.github/workflows/warning-development.yml) | Archived source data only; already frozen for the independent confirmation. |
 | Static checks / optional smoke | [verify.yml](.github/workflows/verify.yml) | Push/PR runs static checks; manual runtime_smoke=true additionally starts a stack. |
 
 Historical workflows are preserved separately:
