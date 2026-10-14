@@ -20,6 +20,12 @@ from warning_model import FROZEN, WarningModel, alerts, canonical_hash, csv_save
 from live_runner import CAMPAIGN, campaign_matrix, load_design
 
 ANALYSIS = "probe9/analysis-v0.1.0.json"
+SCORE_FIELDS = {
+    "ilr_history": "ilr_score",
+    "share_history": "share_score",
+    "local_history": "local_score",
+    "service_indicators": "service_score",
+}
 
 
 def load_analysis(root=ROOT):
@@ -202,8 +208,9 @@ def attach_prom(rows, native, analysis):
 def method_alert(row, method, threshold=None):
     if method == "prometheus_predict_linear":
         return row["prometheus_alert"] is True
-    score = row["ilr_score"] if method == "ilr_history" else row["share_score"]
-    return alerts(score, threshold)
+    if method not in SCORE_FIELDS:
+        raise ValueError("Unknown warning method: " + method)
+    return alerts(row[SCORE_FIELDS[method]], threshold)
 
 
 def method_time(row, method):
