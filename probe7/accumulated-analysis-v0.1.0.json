@@ -1,0 +1,28 @@
+{
+  "version": "accumulated-allocation-history-0.1.0",
+  "evidence_class": "retrospective saved-data analysis; no new runtime observations",
+  "source_records": "probe7/results/main-v0.2.0/block-level.json",
+  "source_design": "probe7/design-v0.2.0.json",
+  "source_sha256_lf": {
+    "probe7/results/main-v0.2.0/block-level.json": "36c3021901d6bd505f2aebd30f49473ee0c7202875358ca580b7148b22aa4719",
+    "probe7/design-v0.2.0.json": "5fb4e3322386e3b6eaa8001e8244b33e9b9858ad99d5fb9b58409fe453f738de",
+    "probe7/results/main-v0.2.0/sections.csv": "6145d4305ec7e0053d4095afe6d7c910ccbfa41f11c8e0e157c8af2c22522610",
+    "probe7/results/main-v0.2.0/neighbors.csv": "c78822f54a7664479ea560605d11897e243becae42db1f8384cf91737ad190f8",
+    "probe7/results/main-v0.2.0/summary.json": "67bfb0c8a13d9105fd88a8bc124b65fc2e0d9bd4e6793e7330f4f6c9878210c9"
+  },
+  "reference": "Each history's own measured epoch-0 allocation",
+  "fixed_endpoint": 20,
+  "example_pair": "balanced-busy-01",
+  "example_origin": "Reuse the example fixed before the main execution; no favorable replacement",
+  "actual_transfer_examples": ["ledger-moderate-01", "balanced-moderate-01", "interactive-moderate-01"],
+  "transfer_example_origin": "Retrospective illustration: first repetition and first transfer at moderate load in each initial context",
+  "relative_check_reference": "balanced-moderate-01",
+  "relative_check_class": "Apply the first observed relative multiplier to each example's initial composition. Transformed states are unexecuted and receive no SLO labels.",
+  "witness_context": "Same initial allocation and workload; different runner pairs; all selected cumulative local coordinates equal at every observed epoch of a prefix",
+  "numerical_tolerance": 1e-10,
+  "bootstrap_seed": 20261014,
+  "bootstrap_repetitions": 2000,
+  "uncertainty_unit": "Complete baseline-safe runner pairs, at fixed epoch 20; descriptive percentile intervals for median contrasts",
+  "success_threshold": null,
+  "scope": "Full raw shares and ILR preserve the same state information. Known relative geometry is distinguished from empirical consequence prediction. CPU alone moves; RAM is an initial context. No universal detector superiority, causal allocation-only risk law or dynamic CPU/RAM claim."
+}
