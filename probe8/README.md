@@ -8,6 +8,12 @@ budgets, images and three external requirements remain unchanged.
 explain the forecast target, false signals, unknown futures, observer separation
 and the different roles of the four comparisons.
 
+A separate [native practical-method replay](practical-baseline-v0.1.0.md)
+compares the unchanged ILR warning with documented Prometheus forecast-threshold
+alerting. It reuses saved confirmation observations, does not count as another
+runtime campaign and does not treat the four original model variants as
+industry-standard detectors.
+
 ## Target and available information
 
 At a currently valid, safe evaluation window, warn about any requirement

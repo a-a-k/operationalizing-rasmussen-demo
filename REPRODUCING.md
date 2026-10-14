@@ -51,6 +51,12 @@ Original designs and external SLO labels are not overwritten.
 
 ## Full runtime reruns: manual GitHub Actions only
 
+The [native practical forecast replay](.github/workflows/practical-forecast-replay.yml)
+is also manual, but starts no workload: checksum-pinned Prometheus executes
+queries over saved observations. Set expected_sha to its exact commit. Its
+[definition](probe8/practical-baseline-v0.1.0.md) describes the practical-method
+provenance, short-history adaptations and retrospective comparison boundary.
+
 Set expected_sha to the exact checked-out commit. Engineering gates are outside
 the reported replication set. Every rerun is a new series, not a replacement
 for or an automatic addition to the committed counts.
