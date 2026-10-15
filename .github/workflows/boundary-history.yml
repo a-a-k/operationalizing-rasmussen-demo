@@ -1,0 +1,112 @@
+name: boundary-history-comparison
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact history comparison implementation commit
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: boundary-history-comparison
+  cancel-in-progress: false
+
+env:
+  EXPECTED_SHA: ${{ inputs.expected_sha }}
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Verify design, paired scoring and pinned workload
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          sha256sum --check SHA256SUMS
+          python -B -m unittest discover -s boundary/tests -v
+          python -B -m unittest discover -s boundary/history/tests -v
+          python -B boundary/history/scripts/history_run.py config > /tmp/history-load-design.json
+          IMAGE=$(python -c 'import json; print(json.load(open("probe1/runtime.json"))["workload"]["k6_image"])')
+          docker run --rm -v "$PWD/boundary/k6/load.js:/scripts/load.js:ro" -v /tmp/history-load-design.json:/scripts/design.json:ro -v "$PWD/upstream/otel-demo/pb:/proto:ro" "$IMAGE" inspect /scripts/load.js
+      - id: matrix
+        run: echo "matrix=$(python -B boundary/history/scripts/history_run.py matrix)" >> "$GITHUB_OUTPUT"
+
+  execute:
+    needs: verify
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix: ${{ fromJSON(needs.verify.outputs.matrix) }}
+    name: ${{ matrix.block_id }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Three fresh-stack paths with a shared endpoint and aligned times
+        env:
+          BLOCK_ID: ${{ matrix.block_id }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          python -B boundary/history/scripts/history_run.py run --block-id "$BLOCK_ID" --upstream-dir upstream/otel-demo --output-dir "artifacts/$BLOCK_ID"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: boundary-history-${{ matrix.block_id }}-attempt-${{ github.run_attempt }}
+          path: artifacts/
+          if-no-files-found: warn
+          retention-days: 90
+          compression-level: 1
+
+  aggregate:
+    if: always() && needs.verify.result == 'success'
+    needs: [verify, execute]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          pattern: boundary-history-endpoint-*-attempt-*
+          path: history-inputs
+      - name: Rescore retained events and form within-runner contrasts
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          python -B boundary/history/scripts/history_analyze.py --inputs history-inputs --output-dir history-results
+          cat history-results/RESULTS.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: boundary-history-results-attempt-${{ github.run_attempt }}
+          path: history-results/
+          if-no-files-found: warn
+          retention-days: 90

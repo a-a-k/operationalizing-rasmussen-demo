@@ -7,6 +7,10 @@ performance model, test adaptation, or compare coordinate systems.
 The first completed campaign and its retained primary evidence are available
 in [the results interpretation](results/static-v0.1.0/README.md).
 
+The separate [paired history follow-up](history/README.md) tests whether identical
+endpoints behave differently after a quota decrease, recovery, or unchanged control.
+It does not change the completed static campaign.
+
 ## Fixed experiment
 
 The [design](design-v0.1.0.json) specifies six checkout CPU ceilings

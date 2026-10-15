@@ -7,6 +7,9 @@ part of the completed adaptive-history comparisons below.
 trials, all-safe outcomes at 0.16 CPU and above, all-unsafe at 0.08 CPU, and
 mixed runner outcomes at 0.12 CPU. No performance model or dynamic boundary
 calculation is validated by this calibration alone.
+The [paired history follow-up](boundary/history/README.md) compares quota
+decrease, recovery and unchanged-control paths within the same runner,
+with identical endpoints and observation times.
 
 Executable runtime probes and saved-data analyses for observing resource
 adaptation under closed administrative budgets. The measurement layer retains
