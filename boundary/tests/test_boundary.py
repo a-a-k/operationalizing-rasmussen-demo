@@ -86,6 +86,13 @@ class BoundaryTests(unittest.TestCase):
         self.assertEqual(parse_events('noise\nCAL {"kind":"start"}\n'), [{'kind': 'start'}])
         self.assertEqual(quantile([100, 200, 300], .95), 290)
 
+    def test_public_event_diagnostic_retains_failure_not_internal_paths(self):
+        from archive import compact_event
+        raw = {'Action': 'die', 'timeNano': 12000000,
+               'Actor': {'Attributes': {'name': 'ad', 'exitCode': '137', 'internal_path': 'private'}}}
+        self.assertEqual(compact_event(raw), {'Action': 'die', 'timeNano': 12000000,
+                                             'service': 'ad', 'exit_code': '137'})
+
 
 if __name__ == '__main__':
     unittest.main()

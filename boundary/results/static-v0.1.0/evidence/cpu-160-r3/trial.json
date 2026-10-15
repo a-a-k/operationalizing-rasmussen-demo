@@ -1,0 +1,1378 @@
+{
+  "trial_id": "cpu-160-r3",
+  "quota": 0.16,
+  "repetition": 3,
+  "version": "static-boundary-0.1.0",
+  "config": {
+    "version": "static-boundary-0.1.0",
+    "purpose": "Exploratory static quota calibration, not a validated performance model or an adaptive boundary observer.",
+    "runtime": "probe7/runtime-v0.2.0.json",
+    "reference_design": "probe9/runtime-design-v0.1.0.json",
+    "checkout_cpu_grid": [
+      0.45,
+      0.3,
+      0.22,
+      0.16,
+      0.12,
+      0.08
+    ],
+    "repetitions": 3,
+    "receiver": "ad",
+    "cpu_budget": 3.4,
+    "cpu_period_us": 100000,
+    "checkout_rate": 40,
+    "advertising_rate": 100,
+    "checkout_vus": 512,
+    "advertising_vus": 512,
+    "http_timeout_seconds": 5,
+    "rpc_timeout_seconds": 2,
+    "warmup_seconds": 180,
+    "window_seconds": 60,
+    "measurement_windows": 3,
+    "graceful_stop_seconds": 30,
+    "checkout_p95_limit_ms": 500,
+    "checkout_error_limit": 0.01,
+    "advertising_deadline_ms": 200,
+    "minimum_start_fraction": 0.99,
+    "maximum_start_fraction": 1.01,
+    "execution": "One fresh hosted runner and stack per quota/repetition. Apply fixed limits before continuous load; no intervening pauses, quota updates, rollbacks, or safe-baseline exclusion. Three measurement windows are repeated observations, not independent replications.",
+    "load_rationale": "40 checkout operations/s retains the busy checkout profile. 100 ad requests/s is deliberately below all ten archived reference busy baseline goodputs (minimum about 406/s). Unlike the previous closed-loop ad generator, the offered ad rate cannot rise when its quota increases. This is a new controlled-load setting, not a reproduction of the previous load.",
+    "capacity_rationale": "Checkout: 40/s times two 5-second timeouts = 400 concurrent operations. Ads: 100/s times a 2-second connect plus a 2-second RPC = 400. Each executor preallocates exactly 512 VUs and never allocates dynamically.",
+    "measurement": "Per-operation start and finish records, checkout HTTP durations, actual starts/completions/drops, client outstanding operations, CPU use/throttling, host/generator pressure, memory, restarts and OOM. Client outstanding operations are not internal server queue lengths; timeouts can leave server work outstanding.",
+    "labels": "Checkout SLO uses p95 of completed checkout requests in each operation-start cohort and unsuccessful (finished-failed, unfinished, or dropped) attempts. Post-quota restart/OOM is diagnostic, never an exclusion. Missing primary records or generator failure is infrastructure-invalid; load-delivery mismatch is reported separately with outcomes retained.",
+    "analysis": "Report every runner and all three post-warmup windows, actual rate, p95/error outcomes and outstanding counts. Report observed quota bands and mixed outcomes, without majority tests, fitted boundary guarantees or choosing a best-looking window. Static reproducibility does not establish validity during adaptation. No model is fitted in this campaign.",
+    "retry": "Infrastructure-failed jobs may be rerun with the same design and quota. Record run attempt. Do not retry unsafe but technically completed trials to obtain a safe result."
+  },
+  "allocation": {
+    "cpu": {
+      "frontend": 0.45,
+      "cart": 0.25,
+      "checkout": 0.16,
+      "payment": 0.25,
+      "currency": 0.15,
+      "shipping": 0.15,
+      "product-catalog": 0.3,
+      "ad": 0.54,
+      "accounting": 0.25,
+      "kafka": 0.4,
+      "astronomy-db": 0.5
+    },
+    "memory": {
+      "frontend": 536870912,
+      "cart": 268435456,
+      "checkout": 268435456,
+      "payment": 201326592,
+      "currency": 134217728,
+      "shipping": 134217728,
+      "product-catalog": 268435456,
+      "ad": 536870912,
+      "accounting": 268435456,
+      "kafka": 1073741824,
+      "astronomy-db": 1073741824
+    }
+  },
+  "execution_commit": "649be0c67b8b01ccb9f6142a00376e4b4631f32d",
+  "run_id": "38739857229",
+  "run_attempt": "1",
+  "infrastructure_valid": true,
+  "windows": [
+    {
+      "stream": "checkout",
+      "offset_seconds": 0,
+      "measured": false,
+      "window_start_ms": 1792069684470,
+      "window_end_ms": 1792069744470,
+      "expected_starts": 2400,
+      "started": 2400,
+      "finished": 2400,
+      "successful": 2111,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 2400,
+      "start_rate": 40.0,
+      "completion_rate": 39.93333333333333,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 1272.4819975,
+      "p95_ms": 5000.8019246,
+      "p99_ms": 5004.1455953800005,
+      "error_fraction": 0.12041666666666667,
+      "latency_unsafe": true,
+      "slo_safe": false,
+      "timely_fraction": null,
+      "client_outstanding_start": 0,
+      "client_outstanding_end": 4,
+      "client_outstanding_max": 207,
+      "client_outstanding_mean": 82.42622950819673,
+      "resources": {
+        "frontend": {
+          "samples": 30,
+          "cpu_cores": 0.3125981806889818,
+          "throttling": 0.23234126984126982,
+          "memory_peak_bytes": 129814528,
+          "memory_fraction": 0.24179840087890625
+        },
+        "cart": {
+          "samples": 30,
+          "cpu_cores": 0.24012442866260336,
+          "throttling": 0.9196536796536796,
+          "memory_peak_bytes": 77955072,
+          "memory_fraction": 0.2904052734375
+        },
+        "checkout": {
+          "samples": 30,
+          "cpu_cores": 0.1276008843674673,
+          "throttling": 0.42817460317460315,
+          "memory_peak_bytes": 34299904,
+          "memory_fraction": 0.127777099609375
+        },
+        "payment": {
+          "samples": 30,
+          "cpu_cores": 0.1894118650537693,
+          "throttling": 0.5727248677248676,
+          "memory_peak_bytes": 134877184,
+          "memory_fraction": 0.6699422200520834
+        },
+        "currency": {
+          "samples": 30,
+          "cpu_cores": 0.047317499779752865,
+          "throttling": 0.06008386350491614,
+          "memory_peak_bytes": 11227136,
+          "memory_fraction": 0.083648681640625
+        },
+        "shipping": {
+          "samples": 30,
+          "cpu_cores": 0.04518290064825312,
+          "throttling": 0.049469507101086045,
+          "memory_peak_bytes": 14417920,
+          "memory_fraction": 0.107421875
+        },
+        "product-catalog": {
+          "samples": 30,
+          "cpu_cores": 0.15491917347343412,
+          "throttling": 0.08293650793650793,
+          "memory_peak_bytes": 37122048,
+          "memory_fraction": 0.1382904052734375
+        },
+        "ad": {
+          "samples": 30,
+          "cpu_cores": 0.43246712264351755,
+          "throttling": 0.6226190476190475,
+          "memory_peak_bytes": 455335936,
+          "memory_fraction": 0.8481292724609375
+        },
+        "accounting": {
+          "samples": 30,
+          "cpu_cores": 0.21261903012822575,
+          "throttling": 0.746984126984127,
+          "memory_peak_bytes": 130809856,
+          "memory_fraction": 0.4873046875
+        },
+        "kafka": {
+          "samples": 30,
+          "cpu_cores": 0.15636635738717616,
+          "throttling": 0.10206349206349205,
+          "memory_peak_bytes": 540979200,
+          "memory_fraction": 0.5038261413574219
+        },
+        "astronomy-db": {
+          "samples": 30,
+          "cpu_cores": 0.3455160288914999,
+          "throttling": 0.43190943043884217,
+          "memory_peak_bytes": 241934336,
+          "memory_fraction": 0.22531890869140625
+        }
+      }
+    },
+    {
+      "stream": "checkout",
+      "offset_seconds": 60,
+      "measured": false,
+      "window_start_ms": 1792069744470,
+      "window_end_ms": 1792069804470,
+      "expected_starts": 2400,
+      "started": 2400,
+      "finished": 2400,
+      "successful": 2400,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 2400,
+      "start_rate": 40.0,
+      "completion_rate": 40.016666666666666,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 92.11099899999999,
+      "p95_ms": 317.20650164999984,
+      "p99_ms": 446.91481630999994,
+      "error_fraction": 0.0,
+      "latency_unsafe": false,
+      "slo_safe": true,
+      "timely_fraction": null,
+      "client_outstanding_start": 4,
+      "client_outstanding_end": 3,
+      "client_outstanding_max": 19,
+      "client_outstanding_mean": 4.885245901639344,
+      "resources": {
+        "frontend": {
+          "samples": 29,
+          "cpu_cores": 0.2753489355221598,
+          "throttling": 0.15451559934318554,
+          "memory_peak_bytes": 128761856,
+          "memory_fraction": 0.239837646484375
+        },
+        "cart": {
+          "samples": 29,
+          "cpu_cores": 0.2289733923890945,
+          "throttling": 0.5545977011494252,
+          "memory_peak_bytes": 88702976,
+          "memory_fraction": 0.3304443359375
+        },
+        "checkout": {
+          "samples": 29,
+          "cpu_cores": 0.1449795684566401,
+          "throttling": 0.5179802955665025,
+          "memory_peak_bytes": 37470208,
+          "memory_fraction": 0.13958740234375
+        },
+        "payment": {
+          "samples": 29,
+          "cpu_cores": 0.1740832547853399,
+          "throttling": 0.5142558590834453,
+          "memory_peak_bytes": 140947456,
+          "memory_fraction": 0.7000935872395834
+        },
+        "currency": {
+          "samples": 29,
+          "cpu_cores": 0.04873113213435152,
+          "throttling": 0.04811165845648604,
+          "memory_peak_bytes": 5074944,
+          "memory_fraction": 0.037811279296875
+        },
+        "shipping": {
+          "samples": 29,
+          "cpu_cores": 0.046976298308865766,
+          "throttling": 0.0493431855500821,
+          "memory_peak_bytes": 12369920,
+          "memory_fraction": 0.0921630859375
+        },
+        "product-catalog": {
+          "samples": 29,
+          "cpu_cores": 0.10210504118856248,
+          "throttling": 0.023809523809523808,
+          "memory_peak_bytes": 29286400,
+          "memory_fraction": 0.109100341796875
+        },
+        "ad": {
+          "samples": 29,
+          "cpu_cores": 0.1113762926385931,
+          "throttling": 0.05460516494999254,
+          "memory_peak_bytes": 456245248,
+          "memory_fraction": 0.849822998046875
+        },
+        "accounting": {
+          "samples": 29,
+          "cpu_cores": 0.09984745453032283,
+          "throttling": 0.03218390804597701,
+          "memory_peak_bytes": 131096576,
+          "memory_fraction": 0.488372802734375
+        },
+        "kafka": {
+          "samples": 29,
+          "cpu_cores": 0.12357254900727825,
+          "throttling": 0.11929392446633827,
+          "memory_peak_bytes": 564318208,
+          "memory_fraction": 0.5255622863769531
+        },
+        "astronomy-db": {
+          "samples": 29,
+          "cpu_cores": 0.11682402303299677,
+          "throttling": 0.02898193760262726,
+          "memory_peak_bytes": 130834432,
+          "memory_fraction": 0.12184906005859375
+        }
+      }
+    },
+    {
+      "stream": "checkout",
+      "offset_seconds": 120,
+      "measured": false,
+      "window_start_ms": 1792069804470,
+      "window_end_ms": 1792069864470,
+      "expected_starts": 2400,
+      "started": 2400,
+      "finished": 2400,
+      "successful": 2400,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 2400,
+      "start_rate": 40.0,
+      "completion_rate": 39.78333333333333,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 84.4565395,
+      "p95_ms": 323.40634144999984,
+      "p99_ms": 453.6016089099999,
+      "error_fraction": 0.0,
+      "latency_unsafe": false,
+      "slo_safe": true,
+      "timely_fraction": null,
+      "client_outstanding_start": 3,
+      "client_outstanding_end": 16,
+      "client_outstanding_max": 16,
+      "client_outstanding_mean": 4.688524590163935,
+      "resources": {
+        "frontend": {
+          "samples": 30,
+          "cpu_cores": 0.2661206998398466,
+          "throttling": 0.1484920634920635,
+          "memory_peak_bytes": 133718016,
+          "memory_fraction": 0.2490692138671875
+        },
+        "cart": {
+          "samples": 30,
+          "cpu_cores": 0.22779878073907164,
+          "throttling": 0.5566666666666666,
+          "memory_peak_bytes": 96116736,
+          "memory_fraction": 0.358062744140625
+        },
+        "checkout": {
+          "samples": 30,
+          "cpu_cores": 0.1444738885262803,
+          "throttling": 0.5107936507936508,
+          "memory_peak_bytes": 40767488,
+          "memory_fraction": 0.1518707275390625
+        },
+        "payment": {
+          "samples": 30,
+          "cpu_cores": 0.1588202153221157,
+          "throttling": 0.45976190476190476,
+          "memory_peak_bytes": 142766080,
+          "memory_fraction": 0.7091267903645834
+        },
+        "currency": {
+          "samples": 30,
+          "cpu_cores": 0.048922909611837456,
+          "throttling": 0.04793650793650794,
+          "memory_peak_bytes": 9117696,
+          "memory_fraction": 0.06793212890625
+        },
+        "shipping": {
+          "samples": 30,
+          "cpu_cores": 0.045626788322480856,
+          "throttling": 0.04317460317460318,
+          "memory_peak_bytes": 8339456,
+          "memory_fraction": 0.0621337890625
+        },
+        "product-catalog": {
+          "samples": 30,
+          "cpu_cores": 0.101605982376851,
+          "throttling": 0.023095238095238096,
+          "memory_peak_bytes": 34865152,
+          "memory_fraction": 0.1298828125
+        },
+        "ad": {
+          "samples": 30,
+          "cpu_cores": 0.0651644693263822,
+          "throttling": 0.0,
+          "memory_peak_bytes": 398725120,
+          "memory_fraction": 0.7426834106445312
+        },
+        "accounting": {
+          "samples": 30,
+          "cpu_cores": 0.10151625965545844,
+          "throttling": 0.062063492063492064,
+          "memory_peak_bytes": 135524352,
+          "memory_fraction": 0.5048675537109375
+        },
+        "kafka": {
+          "samples": 30,
+          "cpu_cores": 0.09850846886666051,
+          "throttling": 0.08658730158730159,
+          "memory_peak_bytes": 565993472,
+          "memory_fraction": 0.5271224975585938
+        },
+        "astronomy-db": {
+          "samples": 30,
+          "cpu_cores": 0.11475672419284036,
+          "throttling": 0.02650793650793651,
+          "memory_peak_bytes": 135249920,
+          "memory_fraction": 0.1259613037109375
+        }
+      }
+    },
+    {
+      "stream": "checkout",
+      "offset_seconds": 180,
+      "measured": true,
+      "window_start_ms": 1792069864470,
+      "window_end_ms": 1792069924470,
+      "expected_starts": 2400,
+      "started": 2400,
+      "finished": 2400,
+      "successful": 2400,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 2400,
+      "start_rate": 40.0,
+      "completion_rate": 40.016666666666666,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 89.31018399999999,
+      "p95_ms": 330.76805715,
+      "p99_ms": 422.1588723099992,
+      "error_fraction": 0.0,
+      "latency_unsafe": false,
+      "slo_safe": true,
+      "timely_fraction": null,
+      "client_outstanding_start": 16,
+      "client_outstanding_end": 15,
+      "client_outstanding_max": 17,
+      "client_outstanding_mean": 4.786885245901639,
+      "resources": {
+        "frontend": {
+          "samples": 30,
+          "cpu_cores": 0.2529156103457709,
+          "throttling": 0.13150793650793652,
+          "memory_peak_bytes": 131297280,
+          "memory_fraction": 0.24456024169921875
+        },
+        "cart": {
+          "samples": 30,
+          "cpu_cores": 0.22429554036543248,
+          "throttling": 0.5204761904761904,
+          "memory_peak_bytes": 91541504,
+          "memory_fraction": 0.3410186767578125
+        },
+        "checkout": {
+          "samples": 30,
+          "cpu_cores": 0.14438184870294019,
+          "throttling": 0.5125355054302423,
+          "memory_peak_bytes": 39632896,
+          "memory_fraction": 0.14764404296875
+        },
+        "payment": {
+          "samples": 30,
+          "cpu_cores": 0.16305420542173366,
+          "throttling": 0.4830952380952381,
+          "memory_peak_bytes": 138014720,
+          "memory_fraction": 0.6855265299479166
+        },
+        "currency": {
+          "samples": 30,
+          "cpu_cores": 0.048738044342679705,
+          "throttling": 0.044365079365079364,
+          "memory_peak_bytes": 5234688,
+          "memory_fraction": 0.03900146484375
+        },
+        "shipping": {
+          "samples": 30,
+          "cpu_cores": 0.046063572540833826,
+          "throttling": 0.04843776106934002,
+          "memory_peak_bytes": 15065088,
+          "memory_fraction": 0.11224365234375
+        },
+        "product-catalog": {
+          "samples": 30,
+          "cpu_cores": 0.10099641970478167,
+          "throttling": 0.02634920634920635,
+          "memory_peak_bytes": 35356672,
+          "memory_fraction": 0.1317138671875
+        },
+        "ad": {
+          "samples": 30,
+          "cpu_cores": 0.06391599586566331,
+          "throttling": 0.0033333333333333335,
+          "memory_peak_bytes": 398688256,
+          "memory_fraction": 0.74261474609375
+        },
+        "accounting": {
+          "samples": 30,
+          "cpu_cores": 0.0925139160736074,
+          "throttling": 0.014928989139515455,
+          "memory_peak_bytes": 136699904,
+          "memory_fraction": 0.509246826171875
+        },
+        "kafka": {
+          "samples": 30,
+          "cpu_cores": 0.06395476159290372,
+          "throttling": 0.02642857142857143,
+          "memory_peak_bytes": 567504896,
+          "memory_fraction": 0.5285301208496094
+        },
+        "astronomy-db": {
+          "samples": 30,
+          "cpu_cores": 0.11331974751514826,
+          "throttling": 0.023015873015873014,
+          "memory_peak_bytes": 138981376,
+          "memory_fraction": 0.12943649291992188
+        }
+      }
+    },
+    {
+      "stream": "checkout",
+      "offset_seconds": 240,
+      "measured": true,
+      "window_start_ms": 1792069924470,
+      "window_end_ms": 1792069984470,
+      "expected_starts": 2400,
+      "started": 2400,
+      "finished": 2400,
+      "successful": 2400,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 2400,
+      "start_rate": 40.0,
+      "completion_rate": 40.18333333333333,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 79.05928750000001,
+      "p95_ms": 291.2757886499999,
+      "p99_ms": 409.31105939999946,
+      "error_fraction": 0.0,
+      "latency_unsafe": false,
+      "slo_safe": true,
+      "timely_fraction": null,
+      "client_outstanding_start": 15,
+      "client_outstanding_end": 4,
+      "client_outstanding_max": 18,
+      "client_outstanding_mean": 4.60655737704918,
+      "resources": {
+        "frontend": {
+          "samples": 29,
+          "cpu_cores": 0.25317350807349326,
+          "throttling": 0.1330049261083744,
+          "memory_peak_bytes": 131956736,
+          "memory_fraction": 0.24578857421875
+        },
+        "cart": {
+          "samples": 29,
+          "cpu_cores": 0.23008277187994264,
+          "throttling": 0.628735632183908,
+          "memory_peak_bytes": 66580480,
+          "memory_fraction": 0.2480316162109375
+        },
+        "checkout": {
+          "samples": 29,
+          "cpu_cores": 0.1446718654496948,
+          "throttling": 0.48793103448275865,
+          "memory_peak_bytes": 40103936,
+          "memory_fraction": 0.1493988037109375
+        },
+        "payment": {
+          "samples": 29,
+          "cpu_cores": 0.15362157437977952,
+          "throttling": 0.4284893267651888,
+          "memory_peak_bytes": 142843904,
+          "memory_fraction": 0.7095133463541666
+        },
+        "currency": {
+          "samples": 29,
+          "cpu_cores": 0.048575220671088784,
+          "throttling": 0.044252873563218394,
+          "memory_peak_bytes": 9777152,
+          "memory_fraction": 0.072845458984375
+        },
+        "shipping": {
+          "samples": 29,
+          "cpu_cores": 0.045664272507932015,
+          "throttling": 0.03916256157635468,
+          "memory_peak_bytes": 9367552,
+          "memory_fraction": 0.069793701171875
+        },
+        "product-catalog": {
+          "samples": 29,
+          "cpu_cores": 0.09894471649412898,
+          "throttling": 0.018883415435139574,
+          "memory_peak_bytes": 29167616,
+          "memory_fraction": 0.1086578369140625
+        },
+        "ad": {
+          "samples": 29,
+          "cpu_cores": 0.06635407157052632,
+          "throttling": 0.00845648604269294,
+          "memory_peak_bytes": 398790656,
+          "memory_fraction": 0.7428054809570312
+        },
+        "accounting": {
+          "samples": 29,
+          "cpu_cores": 0.09248460497003848,
+          "throttling": 0.006896551724137932,
+          "memory_peak_bytes": 138383360,
+          "memory_fraction": 0.5155181884765625
+        },
+        "kafka": {
+          "samples": 29,
+          "cpu_cores": 0.05680406872982137,
+          "throttling": 0.006814449917898194,
+          "memory_peak_bytes": 569577472,
+          "memory_fraction": 0.5304603576660156
+        },
+        "astronomy-db": {
+          "samples": 29,
+          "cpu_cores": 0.10751009036479048,
+          "throttling": 0.025533661740558294,
+          "memory_peak_bytes": 141762560,
+          "memory_fraction": 0.13202667236328125
+        }
+      }
+    },
+    {
+      "stream": "checkout",
+      "offset_seconds": 300,
+      "measured": true,
+      "window_start_ms": 1792069984470,
+      "window_end_ms": 1792070044470,
+      "expected_starts": 2400,
+      "started": 2400,
+      "finished": 2400,
+      "successful": 2400,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 2400,
+      "start_rate": 40.0,
+      "completion_rate": 40.05,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 73.4785025,
+      "p95_ms": 282.03512619999964,
+      "p99_ms": 400.7364946599984,
+      "error_fraction": 0.0,
+      "latency_unsafe": false,
+      "slo_safe": true,
+      "timely_fraction": null,
+      "client_outstanding_start": 4,
+      "client_outstanding_end": 1,
+      "client_outstanding_max": 17,
+      "client_outstanding_mean": 4.262295081967213,
+      "resources": {
+        "frontend": {
+          "samples": 30,
+          "cpu_cores": 0.24653583895421027,
+          "throttling": 0.1284920634920635,
+          "memory_peak_bytes": 143519744,
+          "memory_fraction": 0.26732635498046875
+        },
+        "cart": {
+          "samples": 30,
+          "cpu_cores": 0.22614153603262238,
+          "throttling": 0.5894444444444444,
+          "memory_peak_bytes": 66342912,
+          "memory_fraction": 0.2471466064453125
+        },
+        "checkout": {
+          "samples": 30,
+          "cpu_cores": 0.14297886502321097,
+          "throttling": 0.461984126984127,
+          "memory_peak_bytes": 40325120,
+          "memory_fraction": 0.1502227783203125
+        },
+        "payment": {
+          "samples": 30,
+          "cpu_cores": 0.15981694127313814,
+          "throttling": 0.4716666666666667,
+          "memory_peak_bytes": 137445376,
+          "memory_fraction": 0.6826985677083334
+        },
+        "currency": {
+          "samples": 30,
+          "cpu_cores": 0.04793790032664513,
+          "throttling": 0.04301587301587302,
+          "memory_peak_bytes": 9785344,
+          "memory_fraction": 0.072906494140625
+        },
+        "shipping": {
+          "samples": 30,
+          "cpu_cores": 0.04540607801347682,
+          "throttling": 0.03976190476190476,
+          "memory_peak_bytes": 14602240,
+          "memory_fraction": 0.108795166015625
+        },
+        "product-catalog": {
+          "samples": 30,
+          "cpu_cores": 0.09772580139239,
+          "throttling": 0.019761904761904762,
+          "memory_peak_bytes": 37310464,
+          "memory_fraction": 0.1389923095703125
+        },
+        "ad": {
+          "samples": 30,
+          "cpu_cores": 0.06363003540605675,
+          "throttling": 0.004920634920634921,
+          "memory_peak_bytes": 399171584,
+          "memory_fraction": 0.7435150146484375
+        },
+        "accounting": {
+          "samples": 30,
+          "cpu_cores": 0.09242322812712872,
+          "throttling": 0.01318295739348371,
+          "memory_peak_bytes": 138387456,
+          "memory_fraction": 0.515533447265625
+        },
+        "kafka": {
+          "samples": 30,
+          "cpu_cores": 0.05322849798666602,
+          "throttling": 0.0033333333333333335,
+          "memory_peak_bytes": 573370368,
+          "memory_fraction": 0.5339927673339844
+        },
+        "astronomy-db": {
+          "samples": 30,
+          "cpu_cores": 0.10481117648307131,
+          "throttling": 0.018333333333333333,
+          "memory_peak_bytes": 145047552,
+          "memory_fraction": 0.1350860595703125
+        }
+      }
+    },
+    {
+      "stream": "advertising",
+      "offset_seconds": 0,
+      "measured": false,
+      "window_start_ms": 1792069684469,
+      "window_end_ms": 1792069744469,
+      "expected_starts": 6000,
+      "started": 6000,
+      "finished": 6000,
+      "successful": 3480,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 6000,
+      "start_rate": 100.0,
+      "completion_rate": 100.0,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 52.0,
+      "p95_ms": 2450.1500000000005,
+      "p99_ms": 3527.01,
+      "error_fraction": 0.42,
+      "latency_unsafe": null,
+      "slo_safe": null,
+      "timely_fraction": 0.5336666666666666,
+      "client_outstanding_start": 0,
+      "client_outstanding_end": 0,
+      "client_outstanding_max": 315,
+      "client_outstanding_mean": 95.63934426229508,
+      "resources": {
+        "frontend": {
+          "samples": 30,
+          "cpu_cores": 0.3125981806889818,
+          "throttling": 0.23234126984126982,
+          "memory_peak_bytes": 129814528,
+          "memory_fraction": 0.24179840087890625
+        },
+        "cart": {
+          "samples": 30,
+          "cpu_cores": 0.24012442866260336,
+          "throttling": 0.9196536796536796,
+          "memory_peak_bytes": 77955072,
+          "memory_fraction": 0.2904052734375
+        },
+        "checkout": {
+          "samples": 30,
+          "cpu_cores": 0.1276008843674673,
+          "throttling": 0.42817460317460315,
+          "memory_peak_bytes": 34299904,
+          "memory_fraction": 0.127777099609375
+        },
+        "payment": {
+          "samples": 30,
+          "cpu_cores": 0.1894118650537693,
+          "throttling": 0.5727248677248676,
+          "memory_peak_bytes": 134877184,
+          "memory_fraction": 0.6699422200520834
+        },
+        "currency": {
+          "samples": 30,
+          "cpu_cores": 0.047317499779752865,
+          "throttling": 0.06008386350491614,
+          "memory_peak_bytes": 11227136,
+          "memory_fraction": 0.083648681640625
+        },
+        "shipping": {
+          "samples": 30,
+          "cpu_cores": 0.04518290064825312,
+          "throttling": 0.049469507101086045,
+          "memory_peak_bytes": 14417920,
+          "memory_fraction": 0.107421875
+        },
+        "product-catalog": {
+          "samples": 30,
+          "cpu_cores": 0.15491917347343412,
+          "throttling": 0.08293650793650793,
+          "memory_peak_bytes": 37122048,
+          "memory_fraction": 0.1382904052734375
+        },
+        "ad": {
+          "samples": 30,
+          "cpu_cores": 0.43246712264351755,
+          "throttling": 0.6226190476190475,
+          "memory_peak_bytes": 455335936,
+          "memory_fraction": 0.8481292724609375
+        },
+        "accounting": {
+          "samples": 30,
+          "cpu_cores": 0.21261903012822575,
+          "throttling": 0.746984126984127,
+          "memory_peak_bytes": 130809856,
+          "memory_fraction": 0.4873046875
+        },
+        "kafka": {
+          "samples": 30,
+          "cpu_cores": 0.15636635738717616,
+          "throttling": 0.10206349206349205,
+          "memory_peak_bytes": 540979200,
+          "memory_fraction": 0.5038261413574219
+        },
+        "astronomy-db": {
+          "samples": 30,
+          "cpu_cores": 0.3455160288914999,
+          "throttling": 0.43190943043884217,
+          "memory_peak_bytes": 241934336,
+          "memory_fraction": 0.22531890869140625
+        }
+      }
+    },
+    {
+      "stream": "advertising",
+      "offset_seconds": 60,
+      "measured": false,
+      "window_start_ms": 1792069744469,
+      "window_end_ms": 1792069804469,
+      "expected_starts": 6000,
+      "started": 6000,
+      "finished": 6000,
+      "successful": 6000,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 6000,
+      "start_rate": 100.0,
+      "completion_rate": 100.0,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 1.0,
+      "p95_ms": 5.0,
+      "p99_ms": 17.0,
+      "error_fraction": 0.0,
+      "latency_unsafe": null,
+      "slo_safe": null,
+      "timely_fraction": 1.0,
+      "client_outstanding_start": 0,
+      "client_outstanding_end": 0,
+      "client_outstanding_max": 1,
+      "client_outstanding_mean": 0.21311475409836064,
+      "resources": {
+        "frontend": {
+          "samples": 29,
+          "cpu_cores": 0.2753489355221598,
+          "throttling": 0.15451559934318554,
+          "memory_peak_bytes": 128761856,
+          "memory_fraction": 0.239837646484375
+        },
+        "cart": {
+          "samples": 29,
+          "cpu_cores": 0.2289733923890945,
+          "throttling": 0.5545977011494252,
+          "memory_peak_bytes": 88702976,
+          "memory_fraction": 0.3304443359375
+        },
+        "checkout": {
+          "samples": 29,
+          "cpu_cores": 0.1449795684566401,
+          "throttling": 0.5179802955665025,
+          "memory_peak_bytes": 37470208,
+          "memory_fraction": 0.13958740234375
+        },
+        "payment": {
+          "samples": 29,
+          "cpu_cores": 0.1740832547853399,
+          "throttling": 0.5142558590834453,
+          "memory_peak_bytes": 140947456,
+          "memory_fraction": 0.7000935872395834
+        },
+        "currency": {
+          "samples": 29,
+          "cpu_cores": 0.04873113213435152,
+          "throttling": 0.04811165845648604,
+          "memory_peak_bytes": 5074944,
+          "memory_fraction": 0.037811279296875
+        },
+        "shipping": {
+          "samples": 29,
+          "cpu_cores": 0.046976298308865766,
+          "throttling": 0.0493431855500821,
+          "memory_peak_bytes": 12369920,
+          "memory_fraction": 0.0921630859375
+        },
+        "product-catalog": {
+          "samples": 29,
+          "cpu_cores": 0.10210504118856248,
+          "throttling": 0.023809523809523808,
+          "memory_peak_bytes": 29286400,
+          "memory_fraction": 0.109100341796875
+        },
+        "ad": {
+          "samples": 29,
+          "cpu_cores": 0.1113762926385931,
+          "throttling": 0.05460516494999254,
+          "memory_peak_bytes": 456245248,
+          "memory_fraction": 0.849822998046875
+        },
+        "accounting": {
+          "samples": 29,
+          "cpu_cores": 0.09984745453032283,
+          "throttling": 0.03218390804597701,
+          "memory_peak_bytes": 131096576,
+          "memory_fraction": 0.488372802734375
+        },
+        "kafka": {
+          "samples": 29,
+          "cpu_cores": 0.12357254900727825,
+          "throttling": 0.11929392446633827,
+          "memory_peak_bytes": 564318208,
+          "memory_fraction": 0.5255622863769531
+        },
+        "astronomy-db": {
+          "samples": 29,
+          "cpu_cores": 0.11682402303299677,
+          "throttling": 0.02898193760262726,
+          "memory_peak_bytes": 130834432,
+          "memory_fraction": 0.12184906005859375
+        }
+      }
+    },
+    {
+      "stream": "advertising",
+      "offset_seconds": 120,
+      "measured": false,
+      "window_start_ms": 1792069804469,
+      "window_end_ms": 1792069864469,
+      "expected_starts": 6000,
+      "started": 6000,
+      "finished": 6000,
+      "successful": 6000,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 6000,
+      "start_rate": 100.0,
+      "completion_rate": 100.0,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 1.0,
+      "p95_ms": 4.0,
+      "p99_ms": 7.0,
+      "error_fraction": 0.0,
+      "latency_unsafe": null,
+      "slo_safe": null,
+      "timely_fraction": 1.0,
+      "client_outstanding_start": 0,
+      "client_outstanding_end": 1,
+      "client_outstanding_max": 1,
+      "client_outstanding_mean": 0.3114754098360656,
+      "resources": {
+        "frontend": {
+          "samples": 30,
+          "cpu_cores": 0.2661206998398466,
+          "throttling": 0.1484920634920635,
+          "memory_peak_bytes": 133718016,
+          "memory_fraction": 0.2490692138671875
+        },
+        "cart": {
+          "samples": 30,
+          "cpu_cores": 0.22779878073907164,
+          "throttling": 0.5566666666666666,
+          "memory_peak_bytes": 96116736,
+          "memory_fraction": 0.358062744140625
+        },
+        "checkout": {
+          "samples": 30,
+          "cpu_cores": 0.1444738885262803,
+          "throttling": 0.5107936507936508,
+          "memory_peak_bytes": 40767488,
+          "memory_fraction": 0.1518707275390625
+        },
+        "payment": {
+          "samples": 30,
+          "cpu_cores": 0.1588202153221157,
+          "throttling": 0.45976190476190476,
+          "memory_peak_bytes": 142766080,
+          "memory_fraction": 0.7091267903645834
+        },
+        "currency": {
+          "samples": 30,
+          "cpu_cores": 0.048922909611837456,
+          "throttling": 0.04793650793650794,
+          "memory_peak_bytes": 9117696,
+          "memory_fraction": 0.06793212890625
+        },
+        "shipping": {
+          "samples": 30,
+          "cpu_cores": 0.045626788322480856,
+          "throttling": 0.04317460317460318,
+          "memory_peak_bytes": 8339456,
+          "memory_fraction": 0.0621337890625
+        },
+        "product-catalog": {
+          "samples": 30,
+          "cpu_cores": 0.101605982376851,
+          "throttling": 0.023095238095238096,
+          "memory_peak_bytes": 34865152,
+          "memory_fraction": 0.1298828125
+        },
+        "ad": {
+          "samples": 30,
+          "cpu_cores": 0.0651644693263822,
+          "throttling": 0.0,
+          "memory_peak_bytes": 398725120,
+          "memory_fraction": 0.7426834106445312
+        },
+        "accounting": {
+          "samples": 30,
+          "cpu_cores": 0.10151625965545844,
+          "throttling": 0.062063492063492064,
+          "memory_peak_bytes": 135524352,
+          "memory_fraction": 0.5048675537109375
+        },
+        "kafka": {
+          "samples": 30,
+          "cpu_cores": 0.09850846886666051,
+          "throttling": 0.08658730158730159,
+          "memory_peak_bytes": 565993472,
+          "memory_fraction": 0.5271224975585938
+        },
+        "astronomy-db": {
+          "samples": 30,
+          "cpu_cores": 0.11475672419284036,
+          "throttling": 0.02650793650793651,
+          "memory_peak_bytes": 135249920,
+          "memory_fraction": 0.1259613037109375
+        }
+      }
+    },
+    {
+      "stream": "advertising",
+      "offset_seconds": 180,
+      "measured": true,
+      "window_start_ms": 1792069864469,
+      "window_end_ms": 1792069924469,
+      "expected_starts": 6000,
+      "started": 6000,
+      "finished": 6000,
+      "successful": 6000,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 6000,
+      "start_rate": 100.0,
+      "completion_rate": 100.0,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 1.0,
+      "p95_ms": 3.0,
+      "p99_ms": 6.0,
+      "error_fraction": 0.0,
+      "latency_unsafe": null,
+      "slo_safe": null,
+      "timely_fraction": 1.0,
+      "client_outstanding_start": 1,
+      "client_outstanding_end": 1,
+      "client_outstanding_max": 2,
+      "client_outstanding_mean": 0.22950819672131148,
+      "resources": {
+        "frontend": {
+          "samples": 30,
+          "cpu_cores": 0.2529156103457709,
+          "throttling": 0.13150793650793652,
+          "memory_peak_bytes": 131297280,
+          "memory_fraction": 0.24456024169921875
+        },
+        "cart": {
+          "samples": 30,
+          "cpu_cores": 0.22429554036543248,
+          "throttling": 0.5204761904761904,
+          "memory_peak_bytes": 91541504,
+          "memory_fraction": 0.3410186767578125
+        },
+        "checkout": {
+          "samples": 30,
+          "cpu_cores": 0.14438184870294019,
+          "throttling": 0.5125355054302423,
+          "memory_peak_bytes": 39632896,
+          "memory_fraction": 0.14764404296875
+        },
+        "payment": {
+          "samples": 30,
+          "cpu_cores": 0.16305420542173366,
+          "throttling": 0.4830952380952381,
+          "memory_peak_bytes": 138014720,
+          "memory_fraction": 0.6855265299479166
+        },
+        "currency": {
+          "samples": 30,
+          "cpu_cores": 0.048738044342679705,
+          "throttling": 0.044365079365079364,
+          "memory_peak_bytes": 5234688,
+          "memory_fraction": 0.03900146484375
+        },
+        "shipping": {
+          "samples": 30,
+          "cpu_cores": 0.046063572540833826,
+          "throttling": 0.04843776106934002,
+          "memory_peak_bytes": 15065088,
+          "memory_fraction": 0.11224365234375
+        },
+        "product-catalog": {
+          "samples": 30,
+          "cpu_cores": 0.10099641970478167,
+          "throttling": 0.02634920634920635,
+          "memory_peak_bytes": 35356672,
+          "memory_fraction": 0.1317138671875
+        },
+        "ad": {
+          "samples": 30,
+          "cpu_cores": 0.06391599586566331,
+          "throttling": 0.0033333333333333335,
+          "memory_peak_bytes": 398688256,
+          "memory_fraction": 0.74261474609375
+        },
+        "accounting": {
+          "samples": 30,
+          "cpu_cores": 0.0925139160736074,
+          "throttling": 0.014928989139515455,
+          "memory_peak_bytes": 136699904,
+          "memory_fraction": 0.509246826171875
+        },
+        "kafka": {
+          "samples": 30,
+          "cpu_cores": 0.06395476159290372,
+          "throttling": 0.02642857142857143,
+          "memory_peak_bytes": 567504896,
+          "memory_fraction": 0.5285301208496094
+        },
+        "astronomy-db": {
+          "samples": 30,
+          "cpu_cores": 0.11331974751514826,
+          "throttling": 0.023015873015873014,
+          "memory_peak_bytes": 138981376,
+          "memory_fraction": 0.12943649291992188
+        }
+      }
+    },
+    {
+      "stream": "advertising",
+      "offset_seconds": 240,
+      "measured": true,
+      "window_start_ms": 1792069924469,
+      "window_end_ms": 1792069984469,
+      "expected_starts": 6000,
+      "started": 6000,
+      "finished": 6000,
+      "successful": 6000,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 6000,
+      "start_rate": 100.0,
+      "completion_rate": 100.0,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 1.0,
+      "p95_ms": 4.0,
+      "p99_ms": 7.0,
+      "error_fraction": 0.0,
+      "latency_unsafe": null,
+      "slo_safe": null,
+      "timely_fraction": 1.0,
+      "client_outstanding_start": 1,
+      "client_outstanding_end": 0,
+      "client_outstanding_max": 1,
+      "client_outstanding_mean": 0.39344262295081966,
+      "resources": {
+        "frontend": {
+          "samples": 29,
+          "cpu_cores": 0.25317350807349326,
+          "throttling": 0.1330049261083744,
+          "memory_peak_bytes": 131956736,
+          "memory_fraction": 0.24578857421875
+        },
+        "cart": {
+          "samples": 29,
+          "cpu_cores": 0.23008277187994264,
+          "throttling": 0.628735632183908,
+          "memory_peak_bytes": 66580480,
+          "memory_fraction": 0.2480316162109375
+        },
+        "checkout": {
+          "samples": 29,
+          "cpu_cores": 0.1446718654496948,
+          "throttling": 0.48793103448275865,
+          "memory_peak_bytes": 40103936,
+          "memory_fraction": 0.1493988037109375
+        },
+        "payment": {
+          "samples": 29,
+          "cpu_cores": 0.15362157437977952,
+          "throttling": 0.4284893267651888,
+          "memory_peak_bytes": 142843904,
+          "memory_fraction": 0.7095133463541666
+        },
+        "currency": {
+          "samples": 29,
+          "cpu_cores": 0.048575220671088784,
+          "throttling": 0.044252873563218394,
+          "memory_peak_bytes": 9777152,
+          "memory_fraction": 0.072845458984375
+        },
+        "shipping": {
+          "samples": 29,
+          "cpu_cores": 0.045664272507932015,
+          "throttling": 0.03916256157635468,
+          "memory_peak_bytes": 9367552,
+          "memory_fraction": 0.069793701171875
+        },
+        "product-catalog": {
+          "samples": 29,
+          "cpu_cores": 0.09894471649412898,
+          "throttling": 0.018883415435139574,
+          "memory_peak_bytes": 29167616,
+          "memory_fraction": 0.1086578369140625
+        },
+        "ad": {
+          "samples": 29,
+          "cpu_cores": 0.06635407157052632,
+          "throttling": 0.00845648604269294,
+          "memory_peak_bytes": 398790656,
+          "memory_fraction": 0.7428054809570312
+        },
+        "accounting": {
+          "samples": 29,
+          "cpu_cores": 0.09248460497003848,
+          "throttling": 0.006896551724137932,
+          "memory_peak_bytes": 138383360,
+          "memory_fraction": 0.5155181884765625
+        },
+        "kafka": {
+          "samples": 29,
+          "cpu_cores": 0.05680406872982137,
+          "throttling": 0.006814449917898194,
+          "memory_peak_bytes": 569577472,
+          "memory_fraction": 0.5304603576660156
+        },
+        "astronomy-db": {
+          "samples": 29,
+          "cpu_cores": 0.10751009036479048,
+          "throttling": 0.025533661740558294,
+          "memory_peak_bytes": 141762560,
+          "memory_fraction": 0.13202667236328125
+        }
+      }
+    },
+    {
+      "stream": "advertising",
+      "offset_seconds": 300,
+      "measured": true,
+      "window_start_ms": 1792069984469,
+      "window_end_ms": 1792070044469,
+      "expected_starts": 6000,
+      "started": 6000,
+      "finished": 6000,
+      "successful": 6000,
+      "dropped": 0,
+      "unfinished": 0,
+      "latency_observations": 6000,
+      "start_rate": 100.0,
+      "completion_rate": 100.0,
+      "start_fraction": 1.0,
+      "load_valid": true,
+      "p50_ms": 1.0,
+      "p95_ms": 3.0,
+      "p99_ms": 6.0,
+      "error_fraction": 0.0,
+      "latency_unsafe": null,
+      "slo_safe": null,
+      "timely_fraction": 1.0,
+      "client_outstanding_start": 0,
+      "client_outstanding_end": 0,
+      "client_outstanding_max": 1,
+      "client_outstanding_mean": 0.19672131147540983,
+      "resources": {
+        "frontend": {
+          "samples": 30,
+          "cpu_cores": 0.24653583895421027,
+          "throttling": 0.1284920634920635,
+          "memory_peak_bytes": 143519744,
+          "memory_fraction": 0.26732635498046875
+        },
+        "cart": {
+          "samples": 30,
+          "cpu_cores": 0.22614153603262238,
+          "throttling": 0.5894444444444444,
+          "memory_peak_bytes": 66342912,
+          "memory_fraction": 0.2471466064453125
+        },
+        "checkout": {
+          "samples": 30,
+          "cpu_cores": 0.14297886502321097,
+          "throttling": 0.461984126984127,
+          "memory_peak_bytes": 40325120,
+          "memory_fraction": 0.1502227783203125
+        },
+        "payment": {
+          "samples": 30,
+          "cpu_cores": 0.15981694127313814,
+          "throttling": 0.4716666666666667,
+          "memory_peak_bytes": 137445376,
+          "memory_fraction": 0.6826985677083334
+        },
+        "currency": {
+          "samples": 30,
+          "cpu_cores": 0.04793790032664513,
+          "throttling": 0.04301587301587302,
+          "memory_peak_bytes": 9785344,
+          "memory_fraction": 0.072906494140625
+        },
+        "shipping": {
+          "samples": 30,
+          "cpu_cores": 0.04540607801347682,
+          "throttling": 0.03976190476190476,
+          "memory_peak_bytes": 14602240,
+          "memory_fraction": 0.108795166015625
+        },
+        "product-catalog": {
+          "samples": 30,
+          "cpu_cores": 0.09772580139239,
+          "throttling": 0.019761904761904762,
+          "memory_peak_bytes": 37310464,
+          "memory_fraction": 0.1389923095703125
+        },
+        "ad": {
+          "samples": 30,
+          "cpu_cores": 0.06363003540605675,
+          "throttling": 0.004920634920634921,
+          "memory_peak_bytes": 399171584,
+          "memory_fraction": 0.7435150146484375
+        },
+        "accounting": {
+          "samples": 30,
+          "cpu_cores": 0.09242322812712872,
+          "throttling": 0.01318295739348371,
+          "memory_peak_bytes": 138387456,
+          "memory_fraction": 0.515533447265625
+        },
+        "kafka": {
+          "samples": 30,
+          "cpu_cores": 0.05322849798666602,
+          "throttling": 0.0033333333333333335,
+          "memory_peak_bytes": 573370368,
+          "memory_fraction": 0.5339927673339844
+        },
+        "astronomy-db": {
+          "samples": 30,
+          "cpu_cores": 0.10481117648307131,
+          "throttling": 0.018333333333333333,
+          "memory_peak_bytes": 145047552,
+          "memory_fraction": 0.1350860595703125
+        }
+      }
+    }
+  ],
+  "reasons": [],
+  "design_sha256": "86633421db76486aa1bbe9c3af7c08b25ce12ba8fb5910e78b2941c8f3f54f64"
+}

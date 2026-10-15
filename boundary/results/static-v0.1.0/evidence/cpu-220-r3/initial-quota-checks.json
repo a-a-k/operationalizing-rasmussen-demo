@@ -1,0 +1,173 @@
+{
+  "valid": true,
+  "reasons": [],
+  "rows": {
+    "frontend": {
+      "container_id": "9605956ed5d16c734b9d001afe347030799f6e2ad8f2e4404c5576528f124cbe",
+      "pid": 8386,
+      "cpu": 0.45,
+      "memory": 536870912,
+      "memory_swap": 536870912,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "45000 100000",
+        "memory.max": "536870912",
+        "memory.swap.max": "0"
+      }
+    },
+    "cart": {
+      "container_id": "f59364e64c718a3aef5fdfa984d77bc7427360c15196ae6002a17339dabd16a1",
+      "pid": 6060,
+      "cpu": 0.25,
+      "memory": 268435456,
+      "memory_swap": 268435456,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "25000 100000",
+        "memory.max": "268435456",
+        "memory.swap.max": "0"
+      }
+    },
+    "checkout": {
+      "container_id": "5c41b77e063bc06d87d4c04fbed8a035327651b19ba1056b51edc0fafae5b13b",
+      "pid": 8155,
+      "cpu": 0.22,
+      "memory": 268435456,
+      "memory_swap": 268435456,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "22000 100000",
+        "memory.max": "268435456",
+        "memory.swap.max": "0"
+      }
+    },
+    "payment": {
+      "container_id": "78a722eeeef3fa1b4218cc53ca57d0afddd66ecc62547e20fe05776481bd94ff",
+      "pid": 5026,
+      "cpu": 0.25,
+      "memory": 201326592,
+      "memory_swap": 201326592,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "25000 100000",
+        "memory.max": "201326592",
+        "memory.swap.max": "0"
+      }
+    },
+    "currency": {
+      "container_id": "50f2e10e48760b7da156be2f9be79b8d9332e33a9ca206ee979800ebdebb8270",
+      "pid": 5068,
+      "cpu": 0.15,
+      "memory": 134217728,
+      "memory_swap": 134217728,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "15000 100000",
+        "memory.max": "134217728",
+        "memory.swap.max": "0"
+      }
+    },
+    "shipping": {
+      "container_id": "38cd4aac6c4b347db619886a8d3ab4452cf38577b6dc8102018ebbe1fde54fc6",
+      "pid": 5152,
+      "cpu": 0.15,
+      "memory": 134217728,
+      "memory_swap": 134217728,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "15000 100000",
+        "memory.max": "134217728",
+        "memory.swap.max": "0"
+      }
+    },
+    "product-catalog": {
+      "container_id": "35fb6b1bdb66574dda6e6f6a81b8f1c039de90d06460f38e927616420df9c93b",
+      "pid": 6167,
+      "cpu": 0.3,
+      "memory": 268435456,
+      "memory_swap": 268435456,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "30000 100000",
+        "memory.max": "268435456",
+        "memory.swap.max": "0"
+      }
+    },
+    "ad": {
+      "container_id": "3d9fbcfdfc795e73b226c743b238c3d8a31814d49894bba03666e3cc2218230c",
+      "pid": 4900,
+      "cpu": 0.48,
+      "memory": 536870912,
+      "memory_swap": 536870912,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "48000 100000",
+        "memory.max": "536870912",
+        "memory.swap.max": "0"
+      }
+    },
+    "accounting": {
+      "container_id": "4b828223d1322cf1cd62db7f7e39df50d154ec3554f77ca5d063ee9d0c5f5266",
+      "pid": 8029,
+      "cpu": 0.25,
+      "memory": 268435456,
+      "memory_swap": 268435456,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "25000 100000",
+        "memory.max": "268435456",
+        "memory.swap.max": "0"
+      }
+    },
+    "kafka": {
+      "container_id": "35db51362cc48fe2bf7173743042a4e085318c6b898b7dccf168afdf17a49e39",
+      "pid": 4202,
+      "cpu": 0.4,
+      "memory": 1073741824,
+      "memory_swap": 1073741824,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "40000 100000",
+        "memory.max": "1073741824",
+        "memory.swap.max": "0"
+      }
+    },
+    "astronomy-db": {
+      "container_id": "5446a887cc3c8c7bb8a53a522dc9008a6d5c6377cee56ee06119b884850f11a3",
+      "pid": 4221,
+      "cpu": 0.5,
+      "memory": 1073741824,
+      "memory_swap": 1073741824,
+      "restart_count": 0,
+      "running": true,
+      "oom_snapshot": false,
+      "cgroup": {
+        "cpu.max": "50000 100000",
+        "memory.max": "1073741824",
+        "memory.swap.max": "0"
+      }
+    }
+  },
+  "cpu_total": 3.4,
+  "memory_total": 4764729344
+}

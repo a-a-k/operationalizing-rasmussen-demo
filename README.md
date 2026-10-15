@@ -3,6 +3,10 @@
 Separate new experiment: [static CPU boundary calibration](boundary/README.md)
 checks reproducibility at fixed quotas and controlled arrival rates. It is not
 part of the completed adaptive-history comparisons below.
+[Initial results](boundary/results/static-v0.1.0/README.md): 18/18 completed
+trials, all-safe outcomes at 0.16 CPU and above, all-unsafe at 0.08 CPU, and
+mixed runner outcomes at 0.12 CPU. No performance model or dynamic boundary
+calculation is validated by this calibration alone.
 
 Executable runtime probes and saved-data analyses for observing resource
 adaptation under closed administrative budgets. The measurement layer retains

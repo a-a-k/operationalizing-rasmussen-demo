@@ -4,6 +4,9 @@ This separate exploratory experiment asks whether a checkout SLO transition is
 reproducible under fixed quotas and controlled offered load. It does not fit a
 performance model, test adaptation, or compare coordinate systems.
 
+The first completed campaign and its retained primary evidence are available
+in [the results interpretation](results/static-v0.1.0/README.md).
+
 ## Fixed experiment
 
 The [design](design-v0.1.0.json) specifies six checkout CPU ceilings
@@ -58,6 +61,12 @@ Small local checks:
 ```sh
 python -B -m unittest discover -s boundary/tests -v
 python -B boundary/scripts/run.py matrix
+```
+
+Recompute the saved results without starting Docker:
+
+```sh
+python -B boundary/scripts/analyze.py --inputs boundary/results/static-v0.1.0/evidence --output-dir artifacts/static-boundary-recomputed
 ```
 
 Artifacts are retained for 90 days. Archive the compact results and primary
