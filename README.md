@@ -1,5 +1,9 @@
 # Closed-allocation drift measurement
 
+Separate new experiment: [static CPU boundary calibration](boundary/README.md)
+checks reproducibility at fixed quotas and controlled arrival rates. It is not
+part of the completed adaptive-history comparisons below.
+
 Executable runtime probes and saved-data analyses for observing resource
 adaptation under closed administrative budgets. The measurement layer retains
 the complete selected allocation, expresses relative movement in full isometric
