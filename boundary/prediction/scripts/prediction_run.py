@@ -13,7 +13,7 @@ import time
 import traceback
 
 from prediction_spec import (ROOT, DESIGN, runtime_allocation, base_config, calibration_plan,
-                             config, load, load_config, matrix, validation_plan)
+                             config, load, load_config, matrix, preflight_quotas, validation_plan)
 from prediction_model import fit, forecast, point_prediction
 from prediction_primary import score
 from primary import parse_events, read_drops
@@ -29,6 +29,51 @@ def digest(path):
 def provenance():
     return {'execution_commit': os.environ['GITHUB_SHA'], 'run_id': os.environ['GITHUB_RUN_ID'],
             'run_attempt': os.environ.get('GITHUB_RUN_ATTEMPT', '1')}
+
+
+def quota_preflight(output, block_id, image):
+    """Check the entire executable grid before starting any experimental stack."""
+    names = {service: f'prediction-quota-{os.environ["GITHUB_RUN_ID"]}-{block_id}-{service}'
+             for service in ['checkout', 'ad']}
+    created = []
+    report = {'valid': False, 'quantum': config()['recommended_quota_quantum'], 'checks': [], 'reasons': []}
+    try:
+        for service, name in names.items():
+            initial = runtime_allocation(max(config()['validation_grid']))['cpu'][service]
+            command(['docker', 'run', '-d', '--name', name, '--network', 'none',
+                     '--cpus', f'{initial:.2f}', '--memory', '64m', '--memory-swap', '64m',
+                     '--entrypoint', '/bin/sh', image, '-c', 'sleep 600'])
+            created.append(name)
+        for index, quota in enumerate(preflight_quotas()):
+            allocation = runtime_allocation(quota)
+            state = {'cpu': {name: allocation['cpu'][service] for service, name in names.items()},
+                     'memory': {name: 64*2**20 for name in names.values()}}
+            if index == 0:
+                # Initial sessions use combined CPU/memory updates; later steps use CPU only.
+                stack.apply(state, None, output / 'quota-preflight-updates.jsonl')
+            else:
+                for name, value in state['cpu'].items():
+                    command(['docker', 'update', '--cpus', f'{value:.2f}', name])
+            check = quota_check(state, base_config())
+            report['checks'].append({'checkout_quota': quota, 'requested': state, **check})
+            save(output / 'quota-preflight.json', report)
+            if not check['valid']:
+                raise RuntimeError('CPU quota preflight failed: ' + str(check['reasons']))
+        report['valid'] = True
+    except Exception as exc:
+        report['reasons'].append(str(exc))
+        raise
+    finally:
+        for name in created:
+            removed = command(['docker', 'rm', '-f', name], check=False)
+            if removed.returncode:
+                report['valid'] = False
+                report['reasons'].append('preflight_cleanup_failed:' + name)
+        save(output / 'quota-preflight.json', report)
+    if not report['valid']:
+        raise RuntimeError('CPU quota preflight cleanup failed')
+    print(json.dumps({'quota_preflight': 'passed', 'checked_pairs': len(report['checks']),
+                      'quantum': report['quantum']}), flush=True)
 
 
 def run_session(upstream, output, block_id, name, plan):
@@ -189,11 +234,14 @@ def calibrate(upstream, output, block_id):
             raise ValueError('Upstream commit mismatch')
         save(output / 'host-context.json', {'upstream_commit': actual, 'runner_image': os.getenv('ImageVersion'),
              'cpu': json.loads(command(['lscpu', '--json']).stdout), 'kernel': command(['uname', '-r']).stdout.strip(),
-             'docker': json.loads(command(['docker', 'version', '--format', '{{json .}}']).stdout)})
+             'docker': json.loads(command(['docker', 'version', '--format', '{{json .}}']).stdout),
+             'docker_info': json.loads(command(['docker', 'info', '--format', '{{json .}}']).stdout)})
         images = sorted({*parent['images'].values(), *runtime['additional_images'].values(), parent['workload']['k6_image']})
         for image in images:
             command(['docker', 'pull', image])
         save(output / 'image-inspect.json', json.loads(command(['docker', 'image', 'inspect', *images]).stdout))
+        quota_preflight(output, block_id, parent['workload']['k6_image'])
+        result['quota_preflight_valid'] = True
         observations, hashes = [], {}
         for quota in block['calibration_order']:
             name = f'calibration-{round(quota*1000):03d}'

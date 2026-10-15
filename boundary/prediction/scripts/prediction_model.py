@@ -4,7 +4,7 @@ from __future__ import annotations
 import math
 import sys
 
-from prediction_spec import ROOT, allocation, base_config, config
+from prediction_spec import ROOT, allocation, base_config, ceil_runtime_quota, config
 
 sys.path.insert(0, str(ROOT / 'geometry/scripts'))
 from geometry import aitchison, ilr, inverse_ilr
@@ -100,7 +100,7 @@ def forecast(model):
     latency_boundary = c + 1000*math.log(20)*c/(base_config()['checkout_rate']*(limit-model['offset_ms']))
     boundary = max(latency_boundary, model['error_guard_quota'])
     quantum = config()['recommended_quota_quantum']
-    recommendation = round(math.ceil(max(boundary, end)/quantum)*quantum, 8)
+    recommendation = ceil_runtime_quota(max(boundary, end))
     while recommendation <= start and not permitted(model, recommendation):
         recommendation = round(recommendation + quantum, 8)
     if recommendation >= start:
@@ -120,6 +120,8 @@ def forecast(model):
     result.update(status='recommended', latency_boundary_quota=latency_boundary,
                   guarded_boundary_quota=boundary, latency_boundary_via_ilr=root,
                   boundary_below_tested_grid=boundary < end, recommended_quota=recommendation,
+                  runtime_quota_quantum=quantum,
+                  recommendation_rounding_cpu=recommendation-max(boundary, end),
                   predicted_transfer_supremum_cpu=start-boundary, recommended_transfer_cpu=start-recommendation,
                   relative_endpoint_distance=aitchison(vector(start), vector(boundary)),
                   relative_arc_length=arc_length(start, boundary))

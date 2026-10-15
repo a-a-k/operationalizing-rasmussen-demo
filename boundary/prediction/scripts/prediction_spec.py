@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+from decimal import Decimal, ROUND_CEILING
 from pathlib import Path
 import sys
 
@@ -9,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'boundary/scripts'))
 from spec import allocation as static_allocation, load
 
-DESIGN = ROOT / 'boundary/prediction/design-v0.1.0.json'
+DESIGN = ROOT / 'boundary/prediction/design-v0.1.1.json'
 
 
 def allocation(quota):
@@ -24,10 +25,23 @@ def allocation(quota):
 
 
 def runtime_allocation(quota):
-    # Docker's fixed-point CPU option must not receive binary-float tails.
-    if not math.isclose(quota, round(quota, 8), rel_tol=0, abs_tol=1e-12):
-        raise ValueError('Runtime quota exceeds the declared precision')
+    quantum = config()['recommended_quota_quantum']
+    if not math.isfinite(quota) or not math.isclose(quota/quantum, round(quota/quantum), rel_tol=0, abs_tol=1e-10):
+        raise ValueError('Runtime quota is off the executable CPU grid')
+    # Compute the receiver as the remainder, never round both limits upward.
     return static_allocation(round(quota, 8))
+
+
+def ceil_runtime_quota(quota):
+    quantum = Decimal(str(config()['recommended_quota_quantum']))
+    return float((Decimal(str(quota))/quantum).to_integral_value(rounding=ROUND_CEILING)*quantum)
+
+
+def preflight_quotas():
+    quantum = Decimal(str(config()['recommended_quota_quantum']))
+    low = Decimal(str(min(config()['validation_grid'])))
+    high = Decimal(str(max(config()['validation_grid'])))
+    return [float(quantum*i) for i in range(int(high/quantum), int(low/quantum)-1, -1)]
 
 
 def config():

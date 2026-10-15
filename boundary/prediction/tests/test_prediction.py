@@ -5,16 +5,18 @@ import math
 from pathlib import Path
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
 SCRIPTS = Path(__file__).resolve().parents[1] / 'scripts'
 sys.path.insert(0, str(SCRIPTS))
-from prediction_spec import allocation, base_config, calibration_plan, config, matrix, runtime_allocation, validation_plan
+from prediction_spec import (allocation, base_config, calibration_plan, ceil_runtime_quota,
+                             config, matrix, preflight_quotas, runtime_allocation, validation_plan)
 from prediction_model import arc_length, fit, forecast, ilr_quota, permitted, point_prediction, predict, vector
 from prediction_primary import bounded_quantile, intervals, score
 from prediction_analyze import analyze, evaluate, select_blocks
-from prediction_run import digest
+from prediction_run import digest, quota_preflight
 from geometry import aitchison
 
 
@@ -62,7 +64,72 @@ class PredictionTests(unittest.TestCase):
         self.assertTrue(permitted(self.model(), frozen['recommended_quota']))
         self.assertIn(frozen['recommended_quota'], validation_plan(frozen)['quotas'])
         self.assertGreaterEqual(frozen['recommended_quota'], frozen['guarded_boundary_quota'])
-        self.assertLess(frozen['recommended_quota']-frozen['guarded_boundary_quota'], .00101)
+        self.assertLess(frozen['recommended_quota']-frozen['guarded_boundary_quota'], .01001)
+        self.assertAlmostEqual(frozen['recommendation_rounding_cpu'],
+                               frozen['recommended_quota']-frozen['guarded_boundary_quota'])
+
+    def test_decimal_rounding_preserves_grid_points_and_never_rounds_down(self):
+        for quota in preflight_quotas():
+            self.assertEqual(ceil_runtime_quota(quota), quota)
+        for value, expected in [(.1259464586, .13), (.1431062790, .15),
+                                (.1282561905, .13), (.1397357726, .14),
+                                (.0850398724, .09), (.1273907986, .13)]:
+            self.assertEqual(ceil_runtime_quota(value), expected)
+            self.assertGreaterEqual(expected, value)
+            self.assertLess(expected-value, .01)
+
+    def test_strict_error_guard_advances_one_executable_step(self):
+        frozen = forecast({**self.model(), 'error_guard_quota': .16})
+        self.assertEqual(frozen['recommended_quota'], .17)
+        self.assertAlmostEqual(frozen['recommendation_rounding_cpu'], .01)
+
+    def test_runtime_grid_rejects_original_invalid_thousandth_endpoints(self):
+        for value in [.126, .144, .129, .086, .128, math.inf, math.nan]:
+            with self.assertRaisesRegex(ValueError, 'executable CPU grid'):
+                runtime_allocation(value)
+        for quota in preflight_quotas():
+            state = runtime_allocation(quota)
+            self.assertAlmostEqual(state['cpu']['checkout'] + state['cpu']['ad'], .70)
+            self.assertAlmostEqual(math.fsum(state['cpu'].values()), 3.4)
+        self.assertEqual(runtime_allocation(.13)['cpu']['ad'], .57)
+
+    def test_preflight_covers_all_possible_recommendations(self):
+        grid = preflight_quotas()
+        self.assertEqual(len(grid), 23)
+        self.assertEqual((grid[0], grid[-1]), (.30, .08))
+        self.assertTrue(set(config()['calibration_quotas']).issubset(grid))
+        self.assertTrue(set(config()['validation_grid']).issubset(grid))
+        for critical in [.06, .08, .10, .12, .16, .20]:
+            frozen = forecast({**self.model(), 'critical_quota': critical})
+            self.assertTrue(set(validation_plan(frozen)['quotas']).issubset(grid))
+
+    def test_preflight_reads_every_pair_then_removes_only_its_containers(self):
+        with tempfile.TemporaryDirectory() as tmp, \
+                patch.dict('os.environ', {'GITHUB_RUN_ID': 'test'}), \
+                patch('prediction_run.command', return_value=SimpleNamespace(returncode=0)) as cmd, \
+                patch('prediction_run.stack.apply'), \
+                patch('prediction_run.quota_check', return_value={'valid': True, 'reasons': []}) as check:
+            quota_preflight(Path(tmp), 'prediction-r1', 'pinned-image')
+            report = json.loads((Path(tmp)/'quota-preflight.json').read_text())
+            self.assertTrue(report['valid'])
+            self.assertEqual(check.call_count, 23)
+            removed = [r.args[0] for r in cmd.call_args_list if r.args[0][:3] == ['docker', 'rm', '-f']]
+            self.assertEqual(removed, [['docker', 'rm', '-f', 'prediction-quota-test-prediction-r1-checkout'],
+                                       ['docker', 'rm', '-f', 'prediction-quota-test-prediction-r1-ad']])
+
+    def test_preflight_stops_on_first_mismatch_and_retains_diagnostic(self):
+        with tempfile.TemporaryDirectory() as tmp, \
+                patch.dict('os.environ', {'GITHUB_RUN_ID': 'test'}), \
+                patch('prediction_run.command', return_value=SimpleNamespace(returncode=0)) as cmd, \
+                patch('prediction_run.stack.apply'), \
+                patch('prediction_run.quota_check', return_value={'valid': False, 'reasons': ['effective_cpu_mismatch']}) as check:
+            with self.assertRaisesRegex(RuntimeError, 'preflight failed'):
+                quota_preflight(Path(tmp), 'prediction-r1', 'pinned-image')
+            report = json.loads((Path(tmp)/'quota-preflight.json').read_text())
+            self.assertFalse(report['valid'])
+            self.assertEqual(check.call_count, 1)
+            self.assertIn('effective_cpu_mismatch', report['reasons'][0])
+            self.assertEqual(sum(r.args[0][:3] == ['docker', 'rm', '-f'] for r in cmd.call_args_list), 2)
 
     def test_full_composition_inverse_and_curve_length(self):
         self.assertEqual(len(vector(.12)), 11)
@@ -158,6 +225,7 @@ class PredictionTests(unittest.TestCase):
         self.assertTrue(summary['unsafe_allowed'])
         self.assertAlmostEqual(summary['last_safe_transfer_cpu'], .18)
         self.assertAlmostEqual(summary['first_unsafe_transfer_cpu'], .20)
+        self.assertAlmostEqual(summary['sampled_bracket_width_cpu'], .02)
         later = self.session(safe=(True, False, False))
         _, rows = evaluate(frozen, later)
         self.assertFalse(rows[-1]['in_first_crossing_prefix'])

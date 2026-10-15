@@ -3,7 +3,8 @@
 This small exploratory campaign tests a concrete question: **after calibration,
 how much checkout CPU does a fixed model permit transferring to advertising,
 and does a new descending run violate checkout SLO before that allowance is
-exhausted?** Results are not yet available. Six runner blocks are planned.
+exhausted?** Revision 0.1.1 repeats all six runner blocks after an actuator-grid
+correction; its results are not yet available.
 
 It follows the [static calibration](../README.md) and
 [paired transition comparison](../history/README.md), without changing either.
@@ -12,7 +13,7 @@ RAM intervention or new global-system safety criterion is introduced.
 
 ## One independent unit: a runner block
 
-The [fixed design](design-v0.1.0.json) gives each of six runners this sequence:
+The [fixed design](design-v0.1.1.json) gives each of six runners this sequence:
 
 1. Five fixed-quota calibrations: checkout CPU 0.30, 0.22, 0.16, 0.12 and 0.08.
    Each starts a fresh stack and fresh volumes. A hash-fixed order differs by
@@ -73,12 +74,29 @@ There is no model selection or threshold tuning on validation data.
 The latency boundary solves `L(q) = 500 ms`. An explicit additional empirical
 guard forbids quotas at or below the largest calibration quota with an
 unsuccessful fraction of at least 1%. This guard is not a model of failure
-probability. Both conditions must permit a quota. The combined boundary is
-rounded upward to a 0.001-CPU endpoint, strictly above the error guard and within
+probability. Both conditions must permit a quota. The continuous combined boundary
+is retained unrounded. The executable recommendation is rounded upward to a
+0.01-CPU endpoint, strictly above the error guard and within
 the tested range 0.08--0.30. A boundary below the tested range is marked as such,
 not empirically validated by extrapolation. If no positive in-range transfer is
 permitted, the model abstains. No confidence guarantee or safety margin derived
 from uncertainty is claimed by this first check.
+
+For example, a computed minimum of 0.125946 CPU becomes a command of 0.13 CPU
+for checkout and **0.57 CPU** for advertising, preserving their 0.70 sum.
+The advertising quota is the remainder, not a separately upward-rounded value.
+This reduces the recommended transfer by about 0.004054 CPU relative to the
+continuous model limit. This is rounding conservatism relative to the model,
+not a safety guarantee. With a binding strict error guard, an endpoint exactly
+on that guard advances by one full grid step.
+
+The model's parameter grid and analytic root precision are unchanged. Near
+the previously observed transition zone, the sampled crossing bracket is now
+0.01 CPU wide, unless there is no crossing; earlier fixed-grid gaps are wider.
+Agreement inside a bracket does not establish finer accuracy, monotonic runtime
+behavior or safety between measurements. Small overpredictions can remain
+unresolved. Reports retain the continuous prediction, executable recommendation,
+rounding amount and sampled bracket width separately.
 
 ## Validation path and primary outcome
 
@@ -139,6 +157,14 @@ recorded response durations are not interpreted as successful service times.
 Client outstanding counts do not measure internal server queue lengths.
 
 Missing primary data, generator failure or failed setup is infrastructure-invalid.
+Before calibration on every runner, two disposable idle containers test all
+23 executable checkout/advertising quota pairs from 0.30/0.40 to 0.08/0.62.
+The check uses the pinned load-generator image, both combined CPU/memory and
+CPU-only updates, and reads back actual cgroup limits and the quota period.
+It archives `quota-preflight.json` and Docker/cgroup-driver diagnostics, then
+removes those containers before starting the first fresh experimental stack.
+A mismatch aborts before load and must be investigated, not retried to seek
+a passing host. All experimental-stack readbacks remain in place as well.
 Quota/readback, update-timing or delivered-load mismatches are explicit comparison
 quality failures; measured outcomes remain available. Restart/OOM never changes
 the checkout SLO label and is never itself an automatic exclusion or retry.
@@ -176,6 +202,25 @@ signed; the two relative magnitudes are unsigned and interpreted with that sign.
 All ten ILR coordinates are retained by the transformation: no selected group
 balance is substituted for the full composition.
 
+## Actuator correction and preceding campaign
+
+The unchanged [0.1.0 design](design-v0.1.0.json) requested a model-dependent
+extra point at thousandth-CPU precision. In its six-block execution, five such
+points were rounded upward by the runtime: both checkout and advertising gained
+CPU, increasing their combined effective limit from 0.70 to 0.71. The quota
+checks correctly marked those five blocks comparison-invalid. The sixth block
+was fully comparison-valid and recorded an unsafe transfer permitted by the
+model. Correcting the actuator does not erase that model failure.
+
+Revision 0.1.1 adapts executable limits to the hundredth-CPU grid and adds the
+preflight. The mathematical model, fit, five calibration quotas, base validation
+grid, workload, timing and outcome definitions are unchanged. The additional
+recommended point can move or coincide with an existing grid point, so its
+insertion and subsequent timestamps can differ. This is a new campaign, not a
+retroactive relabeling of old observations. Calibration and validation are both
+repeated; results are not pooled. The prior implementation remains in version
+history for replay of the original artifacts.
+
 ## Running and reading artifacts
 
 Dispatch `boundary-frozen-prediction` with the exact implementation commit in
@@ -191,6 +236,9 @@ python -B boundary/prediction/scripts/prediction_run.py matrix
 The workflow publishes one pre-validation frozen-forecast artifact and one
 complete artifact per block. The aggregate contains `RESULTS.md`, `blocks.csv`,
 `points.csv`, `windows.csv`, `summary.json` and `diagnostics.json`.
+An additional small diagnostics artifact contains the forecast, block status,
+host details, preflight and quota readbacks, so checking limit application does
+not require downloading raw load-generator records.
 Raw block artifacts contain all primary events, k6 metrics/counters, frozen
 forecasts, image inspections, rendered Compose, limit readbacks and runtime
 diagnostics. Recompute from downloaded block artifacts with:

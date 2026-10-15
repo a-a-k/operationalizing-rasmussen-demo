@@ -57,8 +57,11 @@ def evaluate(frozen, session, calibration_valid=True):
                'unsafe_allowed': any(r['false_permission_in_prefix'] for r in rows) if usable and recommend else None,
                'recommended_quota': frozen.get('recommended_quota'),
                'recommended_transfer_cpu': frozen.get('recommended_transfer_cpu'),
+               'recommendation_rounding_cpu': frozen.get('recommendation_rounding_cpu'),
+               'runtime_quota_quantum': config()['recommended_quota_quantum'],
                'predicted_transfer_cpu': predicted, 'last_safe_transfer_cpu': lower,
                'first_unsafe_transfer_cpu': upper, 'observed_crossing': upper is not None,
+               'sampled_bracket_width_cpu': upper-lower if upper is not None and lower is not None else None,
                'no_crossing_grid_censored': baseline_safe and upper is None,
                'overprediction_beyond_observed_bracket_cpu': max(0, predicted-upper) if predicted is not None and upper is not None and usable else None,
                'underprediction_before_observed_bracket_cpu': max(0, lower-predicted) if predicted is not None and upper is not None and usable else None,
@@ -180,6 +183,7 @@ def analyze(inputs, output):
     for row in blocks:
         lines.append(f'| {row["block_id"]} | {row["primary_eligible"]} | {row.get("unsafe_allowed")} | {row.get("recommended_transfer_cpu")} | {row.get("last_safe_transfer_cpu")} / {row.get("first_unsafe_transfer_cpu")} |')
     lines += ['', 'A sampled bracket is not an exact continuous boundary. No observed crossing is censored, not a certified exact prediction.',
+              'Executable CPU limits use a 0.01-CPU grid. The continuous model boundary is retained separately from the rounded recommendation. Small boundary errors can remain unresolved within a sampled bracket.',
               'Only checkout defines the scope gate. Advertising failures and all restart/OOM diagnostics remain visible.',
               'The primary cohorts start 10 seconds after each update and last 60 seconds; transition/gap outcomes are separately retained, not certified safe.',
               'Timeout quantiles are not exact successful response times. Inspect p95_censored and errors before interpreting prediction errors.',

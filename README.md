@@ -12,8 +12,11 @@ decrease, recovery and unchanged-control paths within the same runner,
 with identical endpoints and observation times.
 The separate [frozen boundary-prediction check](boundary/prediction/README.md)
 calibrates a small queue-inspired model per runner, freezes its permitted CPU
-transfer, and tests it on a fresh descending path. Results are pending; coordinate
-equivalence is checked separately from prediction accuracy.
+transfer, and tests it on a fresh descending path. A six-block repeat uses
+executable hundredth-CPU quotas after runtime rounding invalidated five original
+blocks; the remaining valid block recorded an unsafe permitted transfer.
+Repeat results are pending; coordinate equivalence is checked separately from
+prediction accuracy.
 
 Executable runtime probes and saved-data analyses for observing resource
 adaptation under closed administrative budgets. The measurement layer retains
