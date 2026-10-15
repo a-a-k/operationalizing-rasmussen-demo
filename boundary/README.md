@@ -4,6 +4,11 @@ This separate exploratory experiment asks whether a checkout SLO transition is
 reproducible under fixed quotas and controlled offered load. It does not fit a
 performance model, test adaptation, or compare coordinate systems.
 
+Separate follow-ups are the [paired transition comparison](history/README.md)
+and the [frozen boundary-prediction check](prediction/README.md). The latter
+calibrates per runner before independently testing a fresh descending path;
+it does not retrofit a model to this static campaign's validation outcomes.
+
 The first completed campaign and its retained primary evidence are available
 in [the results interpretation](results/static-v0.1.0/README.md).
 

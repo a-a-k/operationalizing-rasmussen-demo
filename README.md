@@ -10,6 +10,10 @@ calculation is validated by this calibration alone.
 The [paired history follow-up](boundary/history/README.md) compares quota
 decrease, recovery and unchanged-control paths within the same runner,
 with identical endpoints and observation times.
+The separate [frozen boundary-prediction check](boundary/prediction/README.md)
+calibrates a small queue-inspired model per runner, freezes its permitted CPU
+transfer, and tests it on a fresh descending path. Results are pending; coordinate
+equivalence is checked separately from prediction accuracy.
 
 Executable runtime probes and saved-data analyses for observing resource
 adaptation under closed administrative budgets. The measurement layer retains
