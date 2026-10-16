@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+import os
 from decimal import Decimal, ROUND_CEILING
 from pathlib import Path
 import sys
@@ -10,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'boundary/scripts'))
 from spec import allocation as static_allocation, load
 
-DESIGN = ROOT / 'boundary/prediction/design-v0.1.1.json'
+DESIGN = ROOT / os.environ.get('BOUNDARY_PREDICTION_DESIGN', 'boundary/prediction/design-v0.1.1.json')
 
 
 def allocation(quota):
@@ -78,6 +79,17 @@ def validation_plan(forecast):
     q = forecast.get('recommended_quota')
     if q is not None and min(quotas) <= q <= max(quotas):
         quotas.append(q)
+    fine_band = None
+    if q is not None and cfg.get('fine_band_half_width_cpu') is not None:
+        quantum = Decimal(str(cfg['recommended_quota_quantum']))
+        width = Decimal(str(cfg['fine_band_half_width_cpu']))
+        left = max(Decimal(str(min(quotas))), Decimal(str(q))-width)
+        right = min(Decimal(str(max(quotas))), Decimal(str(q))+width)
+        lo = int((left/quantum).to_integral_value(rounding=ROUND_CEILING))
+        hi = int(right/quantum)
+        quotas.extend(float(i*quantum) for i in range(lo, hi+1))
+        fine_band = {'center': q, 'lower': float(lo*quantum), 'upper': float(hi*quantum),
+                     'quantum': float(quantum)}
     quotas = sorted(set(quotas), reverse=True)
     intervals = [{'offset': t, 'seconds': cfg['window_seconds'], 'quota': quotas[0],
                   'measured': t == cfg['validation_baseline_seconds'], 'role': 'baseline'}
@@ -90,8 +102,11 @@ def validation_plan(forecast):
                           'measured': False, 'role': 'transition'})
         intervals.append({'offset': t + cfg['post_update_guard_seconds'], 'seconds': cfg['window_seconds'],
                           'quota': quota, 'measured': True, 'role': 'validation'})
-    return {'kind': 'validation', 'quota': quotas[0], 'quotas': quotas, 'updates': updates,
+    plan = {'kind': 'validation', 'quota': quotas[0], 'quotas': quotas, 'updates': updates,
             'intervals': intervals, 'total_seconds': max(r['offset'] + r['seconds'] for r in intervals)}
+    if cfg.get('fine_band_half_width_cpu') is not None:
+        plan['fine_band'] = fine_band
+    return plan
 
 
 def load_config(plan):

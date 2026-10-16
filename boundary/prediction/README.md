@@ -3,8 +3,54 @@
 This small exploratory campaign tests a concrete question: **after calibration,
 how much checkout CPU does a fixed model permit transferring to advertising,
 and does a new descending run violate checkout SLO before that allowance is
-exhausted?** Revision 0.1.1 repeats all six runner blocks after an actuator-grid
-correction; its results are not yet available.
+exhausted?** Revision 0.1.1 completed six technically valid blocks; four recorded
+an unsafe transfer permitted by the model. The separate fine-grid revision below
+uses exact thousandth-CPU limits and preserves that preceding result.
+
+## Fine-grid revision 0.1.2
+
+The [fine-grid design](design-v0.1.2.json) is executed by the separate
+[fine-grid workflow](../../.github/workflows/boundary-prediction-fine.yml).
+Each of six new hosted runners selects `cgroupfs` before starting the experiment,
+records its driver, and checks all 221 possible thousandth-CPU checkout/ad pairs.
+The five calibration quotas, model, 40/s checkout and 100/s advertising workloads,
+SLO definitions, fresh-stack separation and model freeze remain as specified below.
+
+Before validation, form the union of the original coarse grid and every
+0.001-CPU point within 0.020 CPU of either side of the frozen executable
+recommendation, clipped to 0.08--0.30. The fine band contains at most 41 points.
+For example, a recommendation of 0.140 gives a fine band 0.120--0.160.
+The complete ordered plan is uploaded before the independent validation starts.
+An abstention retains the coarse grid for diagnostics. Validation never adjusts
+the grid in response to observed latency or failures.
+
+Every allocation is still held for 90 seconds, with the original 60-second
+primary cohort beginning 10 seconds after intervention. Smaller steps therefore
+change the adaptation history and its elapsed time; results are not pooled with
+the previous campaign. Validation lasts less than 90 minutes; allow approximately
+two hours for a whole block, with a 180-minute job cap.
+
+Report the actual last-safe/first-unsafe bracket width. Claim 0.001-CPU sampled
+resolution only when both endpoints lie inside the fine band and are adjacent
+thousandths. A crossing outside the band retains its coarse interval. A missing
+crossing is censored. These sampled transitions do not establish monotonic
+runtime behavior or exact continuous boundaries.
+
+The primary result still concerns 500 ms and <1% checkout failures. Additional
+fixed latency limits 300, 400, 500, 600, 750 and 1000 ms describe sensitivity;
+none supplies a replacement primary success criterion. Each reports eligibility,
+observed crossings, frozen-model permission and censored cases. Separate 10-second
+cohorts retain descriptive dynamics, including warmup and transition intervals.
+Three measured margins track checkout p95 <=500 ms, checkout errors <1%, and
+at least 99% of advertising attempts receiving a response within 200 ms. These
+are experimental requirements. The advertising margin is descriptive; it does
+not alter the primary checkout scope gate. Accounting timeliness is not measured
+in this series. Windows are repeated observations within a runner, not replicates.
+
+The added result files are `dynamic-10s.csv`, `requirement-margins.csv` and
+`threshold-crossings.csv`. The original artifact set and small quota diagnostics
+are retained. New parameters, old data, and retry rules are never mixed across
+campaigns.
 
 It follows the [static calibration](../README.md) and
 [paired transition comparison](../history/README.md), without changing either.

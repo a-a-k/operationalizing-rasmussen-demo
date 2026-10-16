@@ -52,6 +52,7 @@ def evaluate(frozen, session, calibration_valid=True):
     lower = start-previous_safe if previous_safe is not None else None
     upper = start-first_unsafe if first_unsafe is not None else None
     predicted = frozen.get('predicted_transfer_supremum_cpu')
+    band = frozen.get('plan', {}).get('fine_band')
     summary = {'comparison_valid': usable, 'baseline_checkout_safe': baseline_safe,
                'model_status': frozen['status'], 'primary_eligible': usable and recommend,
                'unsafe_allowed': any(r['false_permission_in_prefix'] for r in rows) if usable and recommend else None,
@@ -62,6 +63,9 @@ def evaluate(frozen, session, calibration_valid=True):
                'predicted_transfer_cpu': predicted, 'last_safe_transfer_cpu': lower,
                'first_unsafe_transfer_cpu': upper, 'observed_crossing': upper is not None,
                'sampled_bracket_width_cpu': upper-lower if upper is not None and lower is not None else None,
+               'fine_band_lower_quota': band['lower'] if band else None,
+               'fine_band_upper_quota': band['upper'] if band else None,
+               'crossing_resolved_at_fine_step': (band['lower'] <= first_unsafe < previous_safe <= band['upper'] and previous_safe-first_unsafe <= band['quantum']+1e-9) if band and first_unsafe is not None and previous_safe is not None else None,
                'no_crossing_grid_censored': baseline_safe and upper is None,
                'overprediction_beyond_observed_bracket_cpu': max(0, predicted-upper) if predicted is not None and upper is not None and usable else None,
                'underprediction_before_observed_bracket_cpu': max(0, lower-predicted) if predicted is not None and upper is not None and usable else None,
@@ -113,6 +117,7 @@ def analyze(inputs, output):
     output.mkdir(parents=True, exist_ok=False)
     selected, attempts = select_blocks(inputs)
     blocks, points, windows, diagnostics = [], [], [], []
+    dynamic_rows, requirement_rows, threshold_rows = [], [], []
     for ident, path in sorted(selected.items()):
         block, folder = load(path), path.parent
         observations, calibration_valid = [], True
@@ -152,6 +157,14 @@ def analyze(inputs, output):
         if session['started_ms'] <= frozen['frozen_ms']:
             raise ValueError('Validation began before model freeze')
         summary, rows = evaluate(frozen, session, calibration_valid)
+        if config().get('secondary_latency_thresholds_ms') and session['infrastructure_valid']:
+            from prediction_dynamic import secondary_results
+            with gzip.open(folder / 'validation/primary-events.json.gz', 'rt', encoding='utf-8') as stream:
+                primary = json.load(stream)
+            dynamic, requirements, thresholds = secondary_results(frozen, session, primary, calibration_valid)
+            dynamic_rows.extend({'block_id': ident, **r} for r in dynamic)
+            requirement_rows.extend({'block_id': ident, **r} for r in requirements)
+            threshold_rows.extend({'block_id': ident, **r} for r in thresholds)
         blocks.append({'block_id': ident, 'run_attempt': block['run_attempt'], **summary,
                        'latency_boundary_quota': frozen.get('latency_boundary_quota'),
                        'relative_endpoint_distance': frozen.get('relative_endpoint_distance'),
@@ -161,7 +174,10 @@ def analyze(inputs, output):
         points.extend({'block_id': ident, **r} for r in rows)
         windows.extend({'block_id': ident, 'session_id': 'validation', **w} for w in session['windows'])
         diagnostics.append({'block_id': ident, 'session_id': 'validation', 'events': failure_diagnostics(folder / 'validation', session)})
-    for name, rows in [('blocks', blocks), ('points', points), ('windows', windows)]:
+    tables = [('blocks', blocks), ('points', points), ('windows', windows)]
+    if config().get('secondary_latency_thresholds_ms'):
+        tables.extend([('dynamic-10s', dynamic_rows), ('requirement-margins', requirement_rows), ('threshold-crossings', threshold_rows)])
+    for name, rows in tables:
         with (output / (name + '.csv')).open('w', newline='', encoding='utf-8') as stream:
             writer = csv.DictWriter(stream, fieldnames=list(dict.fromkeys(k for row in rows for k in row)))
             writer.writeheader()
@@ -174,6 +190,13 @@ def analyze(inputs, output):
                'primary': 'At least one model-permitted unsafe point in the first-crossing prefix of the descending validation.',
                'unit': 'One independently calibrated and validated runner block, not a window or request.',
                'scope': 'Checkout SLO at the declared observation times on a descending path. No global system safety, recovery validity, confidence guarantee, or empirical CoDA accuracy advantage.'}
+    if config().get('secondary_latency_thresholds_ms'):
+        summary['secondary_thresholds'] = [
+            {'threshold_ms': threshold,
+             'eligible': sum(r['eligible'] for r in threshold_rows if r['threshold_ms'] == threshold),
+             'observed_crossings': sum(r['eligible'] and r['observed_crossing'] for r in threshold_rows if r['threshold_ms'] == threshold),
+             'unsafe_allowed': sum(r['eligible'] and r['first_unsafe_permitted'] is True for r in threshold_rows if r['threshold_ms'] == threshold)}
+            for threshold in config()['secondary_latency_thresholds_ms']]
     for name, data in [('summary', summary), ('diagnostics', diagnostics)]:
         (output / (name + '.json')).write_text(json.dumps(data, indent=2, allow_nan=False) + '\n', encoding='utf-8')
     lines = ['# Frozen boundary prediction check', '',
@@ -183,12 +206,19 @@ def analyze(inputs, output):
     for row in blocks:
         lines.append(f'| {row["block_id"]} | {row["primary_eligible"]} | {row.get("unsafe_allowed")} | {row.get("recommended_transfer_cpu")} | {row.get("last_safe_transfer_cpu")} / {row.get("first_unsafe_transfer_cpu")} |')
     lines += ['', 'A sampled bracket is not an exact continuous boundary. No observed crossing is censored, not a certified exact prediction.',
-              'Executable CPU limits use a 0.01-CPU grid. The continuous model boundary is retained separately from the rounded recommendation. Small boundary errors can remain unresolved within a sampled bracket.',
+              f'Executable CPU limits use a {config()["recommended_quota_quantum"]}-CPU grid. The continuous model boundary is retained separately from the rounded recommendation. Small boundary errors can remain unresolved within a sampled bracket.',
               'Only checkout defines the scope gate. Advertising failures and all restart/OOM diagnostics remain visible.',
               'The primary cohorts start 10 seconds after each update and last 60 seconds; transition/gap outcomes are separately retained, not certified safe.',
               'Timeout quantiles are not exact successful response times. Inspect p95_censored and errors before interpreting prediction errors.',
               'Quota/ILR equality checks implementation of the same model and physical path; it does not improve the model itself.',
               'Abstentions, invalid baselines, technical failures and incomplete blocks must accompany the primary fraction. No binary success threshold is applied.']
+    if config().get('secondary_latency_thresholds_ms'):
+        lines += ['', 'Fine sampling covers the frozen model-based band only; inspect crossing_resolved_at_fine_step and the actual bracket width.',
+                  'Smaller CPU steps at the same 90-second cadence change the physical adaptation history. This campaign is not pooled with earlier runs.',
+                  'Secondary thresholds are fixed diagnostics, not alternative primary success criteria. A missing crossing is censored.', '',
+                  '| Latency threshold ms | Eligible blocks | Observed crossings | Unsafe allowed |', '|---|---|---|---|']
+        for row in summary['secondary_thresholds']:
+            lines.append(f'| {row["threshold_ms"]} | {row["eligible"]} | {row["observed_crossings"]} | {row["unsafe_allowed"]} |')
     (output / 'RESULTS.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
     print(json.dumps({k: summary[k] for k in ['expected_blocks', 'received_blocks', 'primary_eligible', 'unsafe_allowed']}))
 

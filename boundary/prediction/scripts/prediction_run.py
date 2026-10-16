@@ -41,7 +41,7 @@ def quota_preflight(output, block_id, image):
         for service, name in names.items():
             initial = runtime_allocation(max(config()['validation_grid']))['cpu'][service]
             command(['docker', 'run', '-d', '--name', name, '--network', 'none',
-                     '--cpus', f'{initial:.2f}', '--memory', '64m', '--memory-swap', '64m',
+                     '--cpus', f'{initial:.8f}', '--memory', '64m', '--memory-swap', '64m',
                      '--entrypoint', '/bin/sh', image, '-c', 'sleep 600'])
             created.append(name)
         for index, quota in enumerate(preflight_quotas()):
@@ -53,7 +53,7 @@ def quota_preflight(output, block_id, image):
                 stack.apply(state, None, output / 'quota-preflight-updates.jsonl')
             else:
                 for name, value in state['cpu'].items():
-                    command(['docker', 'update', '--cpus', f'{value:.2f}', name])
+                    command(['docker', 'update', '--cpus', f'{value:.8f}', name])
             check = quota_check(state, base_config())
             report['checks'].append({'checkout_quota': quota, 'requested': state, **check})
             save(output / 'quota-preflight.json', report)
@@ -236,6 +236,9 @@ def calibrate(upstream, output, block_id):
              'cpu': json.loads(command(['lscpu', '--json']).stdout), 'kernel': command(['uname', '-r']).stdout.strip(),
              'docker': json.loads(command(['docker', 'version', '--format', '{{json .}}']).stdout),
              'docker_info': json.loads(command(['docker', 'info', '--format', '{{json .}}']).stdout)})
+        required_driver = config().get('cgroup_driver')
+        if required_driver and load(output / 'host-context.json')['docker_info']['CgroupDriver'] != required_driver:
+            raise RuntimeError('Required cgroup driver is not active')
         images = sorted({*parent['images'].values(), *runtime['additional_images'].values(), parent['workload']['k6_image']})
         for image in images:
             command(['docker', 'pull', image])
