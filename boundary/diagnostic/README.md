@@ -23,8 +23,11 @@ The average checkout ceiling is identical. Shortening the period changes how
 that allowance is delivered, not its amount. All other service periods remain
 100 ms. Docker describes quota/period controls in its
 [resource documentation](https://docs.docker.com/engine/containers/resource_constraints/).
-Limits are explicit integers in the executable Compose configuration and are
-checked against actual `cpu.max`; no NanoCPU conversion or rounding is assumed.
+Working limits are explicit integers in the saved target Compose configuration
+and update journal, checked against actual `cpu.max`; no NanoCPU conversion or
+rounding is assumed. Startup has no SUT CPU ceilings: first wait for stack
+health, then apply working limits and check health and limits again. Only then
+start the auxiliary shell and the offered-load warmup. RAM ceilings stay fixed.
 
 The auxiliary shell uses the existing digest-pinned workload image, no network,
 32 MiB RAM and the same 0.5-CPU ceiling in both background conditions. It is
@@ -35,7 +38,7 @@ the shell actually consumes that amount on every runner.
 
 ## Size and execution
 
-The [design](design-v0.1.0.json) contains four runner blocks. Each executes all
+The [design](design-v0.1.1.json) contains four runner blocks. Each executes all
 four conditions with a fresh stack and fresh volumes, 180 seconds of warmup
 and two 60-second measured start cohorts. The order is counterbalanced: every
 condition occupies each position once and every directed adjacent pair occurs
@@ -47,6 +50,12 @@ limited to unit checks. At roughly 20 minutes of offered load per runner plus
 startup, pulls and archival, expect approximately 30--45 minutes wall time.
 The job cap is 75 minutes. Existing runtime versions, image digests, health
 checks, load generator, censoring rules and SLO scoring are reused.
+
+Startup revision 0.1.1 supersedes [0.1.0](design-v0.1.0.json): applying working
+CPU ceilings during initial container creation prevented Kafka from finishing
+initialization before its dependency health-check budget expired in several
+conditions. That incomplete campaign is retained separately. No conditions or
+runner replications are pooled between these versions.
 
 Every completed condition is retained, whether safe or unsafe. SUT restart/OOM
 is diagnostic, not an exclusion or an automatic SLO failure. Infrastructure

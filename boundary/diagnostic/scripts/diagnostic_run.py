@@ -25,6 +25,21 @@ def expected_limits(state, condition):
             for name, cpu in state['cpu'].items()}
 
 
+def start_stack(compose, ready, timeout, state, condition, journal):
+    command([*compose, 'up', '-d', '--no-build', '--pull', 'never'])
+    stack.engine.wait_for_stack(ready, timeout)
+    for name, (quota, period) in expected_limits(state, condition).items():
+        started = time.time()*1000
+        response = command(['docker', 'update', '--cpu-period', str(period), '--cpu-quota', str(quota), name], check=False)
+        with journal.open('a', encoding='utf-8') as stream:
+            stream.write(json.dumps({'service': name, 'quota_us': quota, 'period_us': period,
+                                    'started_ms': started, 'ended_ms': time.time()*1000,
+                                    'exit_code': response.returncode, 'stderr': response.stderr})+'\n')
+        if response.returncode:
+            raise RuntimeError('Explicit CPU update failed: '+name+': '+response.stderr)
+    stack.engine.wait_for_stack(ready, timeout)
+
+
 def check_snapshot(items, actual, state, condition, require_running=False):
     expected = expected_limits(state, condition)
     rows, errors = {}, []
@@ -81,10 +96,11 @@ def check_compose(upstream, output):
     output.mkdir(parents=True, exist_ok=True)
     original = json.loads(command([*stack.prefix(upstream, 'diagnostic-schema'), 'config', '--format', 'json']).stdout)
     for condition in config()['conditions']:
-        path = output/(condition['id']+'.json')
-        save(path, render(original, condition))
-        command(['docker', 'compose', '--project-directory', str(upstream), '-f', str(path), 'config', '--quiet'])
-    print('All four executable Compose configurations passed schema checks', flush=True)
+        for limited in [False, True]:
+            path = output/(condition['id']+('-target' if limited else '-startup')+'.json')
+            save(path, render(original, condition, limited=limited))
+            command(['docker', 'compose', '--project-directory', str(upstream), '-f', str(path), 'config', '--quiet'])
+    print('All startup and target Compose configurations passed schema checks', flush=True)
 
 
 def run_session(upstream, output, block_id, condition):
@@ -106,18 +122,18 @@ def run_session(upstream, output, block_id, condition):
         # Resolve all original bind paths before saving the executable configuration.
         original = json.loads(command([*compose, 'config', '--format', 'json']).stdout)
         save(output/'rendered-source-compose.json', original)
+        save(output/'startup-compose.json', render(original, condition, limited=False))
         save(output/'runtime-compose.json', render(original, condition))
         compose = ['docker', 'compose', '--project-name', project, '--project-directory', str(upstream),
-                   '-f', str(output/'runtime-compose.json')]
+                   '-f', str(output/'startup-compose.json')]
         command([*compose, 'config', '--quiet'])
         ef, ee = (output/'container-events.jsonl').open('w'), (output/'container-events.stderr.log').open('w')
         handles.extend([ef, ee])
         events = subprocess.Popen(['docker', 'events', '--filter', 'type=container', '--filter',
             'label=com.docker.compose.project='+project, '--format', '{{json .}}'], stdout=ef, stderr=ee)
-        command([*compose, 'up', '-d', '--no-build', '--pull', 'never'])
         ready = {**parent, 'required_running_containers': parent['required_running_containers']+['accounting', 'kafka'],
                  'mandatory_healthy_containers': parent['mandatory_healthy_containers']+['kafka']}
-        stack.engine.wait_for_stack(ready, runtime['health_timeout_seconds'])
+        start_stack(compose, ready, runtime['health_timeout_seconds'], state, condition, output/'initial-updates.jsonl')
         initial = quota_check(state, condition, require_running=True)
         save(output/'initial-quota-checks.json', initial)
         if not initial['valid']:

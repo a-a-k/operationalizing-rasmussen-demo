@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'boundary/prediction/scripts'))
 from prediction_spec import base_config, load, load_config, runtime_allocation
 
-DESIGN = ROOT / 'boundary/diagnostic/design-v0.1.0.json'
+DESIGN = ROOT / 'boundary/diagnostic/design-v0.1.1.json'
 
 
 def config():
@@ -42,20 +42,23 @@ def limits(cpu, period):
     return int(quota), period
 
 
-def render(source, condition):
-    """Set limits at creation, avoiding incompatible NanoCPUs/update semantics."""
+def render(source, condition, limited=True):
+    """Keep startup and target configurations explicit, without NanoCPU fields."""
     rendered = copy.deepcopy(source)
     state = runtime_allocation(config()['checkout_cpu'])
     for name, cpu in state['cpu'].items():
         service = rendered['services'][name]
         service.pop('cpus', None)
+        service.pop('cpu_quota', None)
+        service.pop('cpu_period', None)
         resource_limits = service.setdefault('deploy', {}).setdefault('resources', {}).setdefault('limits', {})
         resource_limits.pop('cpus', None)
         resource_limits['memory'] = str(state['memory'][name])
         period = condition['period_us'] if name == 'checkout' else config()['other_period_us']
         quota, period = limits(cpu, period)
-        service.update(cpu_quota=quota, cpu_period=period,
-                       mem_limit=str(state['memory'][name]), memswap_limit=str(state['memory'][name]))
+        service.update(mem_limit=str(state['memory'][name]), memswap_limit=str(state['memory'][name]))
+        if limited:
+            service.update(cpu_quota=quota, cpu_period=period)
     return rendered
 
 

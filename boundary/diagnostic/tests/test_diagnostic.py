@@ -8,10 +8,11 @@ import sys
 import tempfile
 import unittest
 from unittest.mock import patch
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 from diagnostic_spec import DESIGN, base_config, config, limits, matrix, plan, render, runtime_allocation
-from diagnostic_run import check_snapshot, expected_limits
+from diagnostic_run import check_snapshot, expected_limits, start_stack
 from diagnostic_observe import CPU_FIELDS, container_delta, host_delta
 from diagnostic_analyze import analyze, contrast, pooled_plan
 from prediction_primary import score
@@ -50,6 +51,33 @@ class DiagnosticTests(unittest.TestCase):
             self.assertEqual(service['cpu_quota']/service['cpu_period'], state['cpu'][name])
             self.assertEqual(service['cpu_period'], 10000 if name == 'checkout' else 100000)
             self.assertEqual(service['mem_limit'], str(state['memory'][name]))
+
+    def test_startup_has_no_cpu_ceiling_but_keeps_ram_fixed(self):
+        state = runtime_allocation(.14)
+        source = {'services': {n: {'cpus': '.4', 'cpu_quota': 40000, 'cpu_period': 100000,
+                                   'deploy': {'resources': {'limits': {'cpus': '.4'}}}}
+                               for n in state['cpu']}}
+        rendered = render(source, config()['conditions'][1], limited=False)
+        for name, service in rendered['services'].items():
+            for key in ['cpus', 'cpu_quota', 'cpu_period']:
+                self.assertNotIn(key, service)
+            self.assertNotIn('cpus', service['deploy']['resources']['limits'])
+            self.assertEqual(service['mem_limit'], str(state['memory'][name]))
+
+    def test_initial_health_precedes_updates_and_offered_load(self):
+        sequence = []
+        def execute(args, **kwargs):
+            sequence.append('up' if args[1] == 'compose' else 'update')
+            if args[1] == 'update':
+                self.assertNotIn('--cpus', args)
+            return SimpleNamespace(returncode=0, stderr='')
+        with tempfile.TemporaryDirectory() as temporary, patch('diagnostic_run.command', side_effect=execute), \
+                patch('diagnostic_run.stack.engine.wait_for_stack', side_effect=lambda *args: sequence.append('health')):
+            start_stack(['docker', 'compose'], {}, 300, runtime_allocation(.14), config()['conditions'][1],
+                        Path(temporary)/'updates.jsonl')
+        self.assertEqual(sequence[:2], ['up', 'health'])
+        self.assertEqual(sequence[2:-1], ['update']*11)
+        self.assertEqual(sequence[-1], 'health')
 
     def snapshot(self):
         condition = config()['conditions'][1]
