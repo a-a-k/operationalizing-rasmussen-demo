@@ -21,6 +21,10 @@ The separate [CPU-context diagnostic](boundary/diagnostic/README.md) keeps the
 allocation fixed and intervenes on checkout scheduling period and external CPU
 contention in paired runner blocks. It diagnoses possible causes of latency
 variation, without fitting a replacement boundary model.
+The [matched-period prediction follow-up](boundary/period-prediction/README.md)
+calibrates the unchanged formula separately at two CPU periods and tests both
+frozen forecasts on fresh stacks at one common quota. It distinguishes faster
+responses from reduced prediction error; it is not a dynamic boundary validation.
 
 Executable runtime probes and saved-data analyses for observing resource
 adaptation under closed administrative budgets. The measurement layer retains
