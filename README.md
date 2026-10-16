@@ -1,5 +1,14 @@
 # Closed-allocation drift measurement
 
+The separate [continuous runtime monitor](drift-monitor/design-v0.1.0.json)
+compares full-covariance MEWMA on measured CPU shares and on their complete ILR
+coordinates. It uses uninterrupted load, a measured settling gate, separate
+background fitting/calibration, and fresh paired test histories. Quotas define
+interventions but are not observer inputs. Signals without interventions are
+not automatically labeled false positives; relative movement is distinct from
+unusual movement or an external requirement violation. Execution is manual via
+[the dedicated workflow](.github/workflows/compositional-mewma.yml).
+
 Separate new experiment: [static CPU boundary calibration](boundary/README.md)
 checks reproducibility at fixed quotas and controlled arrival rates. It is not
 part of the completed adaptive-history comparisons below.
