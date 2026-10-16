@@ -17,6 +17,10 @@ executable hundredth-CPU quotas after runtime rounding invalidated five original
 blocks; the remaining valid block recorded an unsafe permitted transfer.
 Repeat results are pending; coordinate equivalence is checked separately from
 prediction accuracy.
+The separate [CPU-context diagnostic](boundary/diagnostic/README.md) keeps the
+allocation fixed and intervenes on checkout scheduling period and external CPU
+contention in paired runner blocks. It diagnoses possible causes of latency
+variation, without fitting a replacement boundary model.
 
 Executable runtime probes and saved-data analyses for observing resource
 adaptation under closed administrative budgets. The measurement layer retains
