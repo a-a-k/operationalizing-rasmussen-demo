@@ -101,10 +101,10 @@ def figure(jobs, pair_rows, output):
     logs = np.log(x) - np.log(base_x)
     clr_change = logs - logs.mean(axis=1, keepdims=True)
     epochs = np.arange(1, len(cpu) + 1)
-    axes[0, 0].imshow((cpu / base).T, aspect="auto", cmap="viridis", extent=(.5, len(cpu)+.5, -.5, len(base)-.5))
+    axes[0, 0].imshow((cpu / base).T, origin="lower", aspect="auto", cmap="viridis", extent=(.5, len(cpu)+.5, -.5, len(base)-.5))
     axes[0, 0].set(yticks=range(len(base)), yticklabels=cfg["parts"], xlabel="Цикл")
     axes[0, 0].set_title("A  Потребление / исходное потребление")
-    picture = axes[0, 1].imshow(clr_change.T, aspect="auto", cmap="RdBu_r", vmin=-.3, vmax=.3,
+    picture = axes[0, 1].imshow(clr_change.T, origin="lower", aspect="auto", cmap="RdBu_r", vmin=-.3, vmax=.3,
                                       extent=(.5, len(cpu)+.5, -.5, len(base)-.5))
     axes[0, 1].set(yticks=range(len(base)), yticklabels=cfg["parts"], xlabel="Цикл")
     axes[0, 1].set_title("B  Полный относительный сдвиг: CLR")
