@@ -223,6 +223,15 @@ history for replay of the original artifacts.
 
 ## Running and reading artifacts
 
+The separate [actuator check](../../.github/workflows/boundary-quota-precision.yml)
+tests finer limits without an application workload. It records the default
+driver's behavior at five previously rounded points, then selects `cgroupfs`
+on the disposable hosted runner and requires exact `cpu.max` values for all
+221 checkout/advertising pairs from 0.300/0.400 to 0.080/0.620 in 0.001-CPU
+steps. It also checks persistence across memory-limit updates. This technical
+test does not amend the completed campaign. A performance campaign using the
+new driver requires new calibration and validation under that runtime.
+
 Dispatch `boundary-frozen-prediction` with the exact implementation commit in
 `expected_sha`. All runtime work is in GitHub Actions. The six jobs run in
 parallel; expect approximately 60--75 minutes plus queue time, with a 120-minute
