@@ -6,6 +6,30 @@ histories joining pressure, actions, recipient output and external outcomes.
 Runtime observations, representational witnesses, mathematical checks and
 exploratory detector comparisons have distinct roles.
 
+## Position and movement: separate saved-data readout
+
+[Trajectory observability v0.1.0](drift-monitor/trajectory-observability/README.md)
+replays all 988 guarded-adaptation windows and the same 250 selected continuous
+runner pairs. At four quota holds, consumption still moved. At five quota
+restorations, consumption moved closer to its reference without exactly
+returning; the next measured windows satisfied the original requirements.
+The guarded generators were intermittent, so these episodes do not establish
+recovery under continuous load.
+
+In the separate continuous archive, relative path coherence over windows 5–16
+was higher during reallocation in 224/250 pairs (medians 0.160 versus 0.079;
+paired mean difference 0.0786, descriptive paired-bootstrap 95% interval
+[0.0709, 0.0864]). This describes directional accumulation, not safety or an alarm.
+
+Controlled rename/split/merge replay preserves both detailed semantic-service
+and canonical-group trajectories with supplied lineage. A separate within-group
+transfer leaves the canonical channel unchanged but changes the detailed state.
+These are explicitly synthetic transformations of measured source paths, not
+new architecture events or measured counterfactual SLO outcomes.
+See the [complete example](drift-monitor/trajectory-observability/results/v0.1.0/full-history-v0.1.0.png),
+[event table](drift-monitor/trajectory-observability/results/v0.1.0/adaptation-events.csv)
+and [machine summary](drift-monitor/trajectory-observability/results/v0.1.0/summary.json).
+
 ## Independent online warnings: real lead, substantial false-alarm burden
 
 [The separate confirmation](probe8/results/confirmation-v0.1.0/README.md)

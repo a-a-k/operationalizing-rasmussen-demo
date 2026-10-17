@@ -68,10 +68,10 @@ class IntegrityTests(unittest.TestCase):
     def test_checksum_manifest_matches_lf_checkout(self):
         for line in (ROOT / "SHA256SUMS").read_text(encoding="utf-8").splitlines():
             expected, relative = line.split("  ", 1)
-            # Text is canonical LF; compressed primary inputs retain exact bytes.
+            # Text is canonical LF; compressed inputs and PNGs retain exact bytes.
             path=ROOT/relative
             data=path.read_bytes()
-            canonical=data if path.suffix==".gz" else data.replace(b"\r\n", b"\n")
+            canonical=data if path.suffix in {".gz", ".png"} else data.replace(b"\r\n", b"\n")
             self.assertEqual(hashlib.sha256(canonical).hexdigest(), expected, relative)
 
     def test_no_document_sources_or_identifying_docs_and_comments(self):

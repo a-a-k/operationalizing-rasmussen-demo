@@ -8,7 +8,7 @@ Use Python 3.13 from the repository root:
 python -B scripts/verify_archive.py
 ```
 
-This checks canonical-LF SHA-256 hashes, local Markdown links, all eleven
+This checks canonical-LF text/exact-byte binary SHA-256 hashes, local Markdown links, all standard-library
 unit-test suites and the saved-data CPU-history analysis. It does not start
 Docker, contact GitHub, install packages or overwrite committed outputs.
 Identity checks inspect local Git configuration solely to detect documentation
@@ -48,6 +48,26 @@ entire selected-prefix witnesses and separately unlabeled geometry checks.
 The [archived interpretation](probe7/results/accumulated-v0.1.0/README.md) explains
 why this measurement task differs from the additional one-step analogy task.
 Original designs and external SLO labels are not overwritten.
+
+## Trajectory observability: optional numerical replay
+
+The [separate readout](drift-monitor/trajectory-observability/README.md) bundles
+all required measured inputs, including 48 native CPU streams and 250 compact
+continuous paired records. Its numerical replay requires the pinned NumPy and
+Matplotlib versions; the lightweight archive verifier above remains standard
+library only.
+
+```bash
+python -m pip install -r drift-monitor/trajectory-observability/requirements.txt
+python -B drift-monitor/trajectory-observability/scripts/analyze.py --output-dir artifacts/trajectory-observability-replay
+python -B drift-monitor/trajectory-observability/scripts/check_replay.py --output-dir artifacts/trajectory-observability-replay
+python -B -m unittest discover -s drift-monitor/trajectory-observability/tests -v
+```
+
+This starts no workloads. The output directory is scratch space, not the
+committed archive. Use --no-figures to skip rendering. Compare CSV and JSON
+outputs with [the versioned results](drift-monitor/trajectory-observability/results/v0.1.0/).
+The procedure changes no frozen MEWMA rules and adds no runtime replications.
 
 ## Full runtime reruns: manual GitHub Actions only
 
@@ -131,6 +151,6 @@ See [primary-input boundaries](probe7/results/main-v0.2.0/primary/README.md):
 these committed packs preserve scoring inputs, not every original telemetry log.
 
 The manifest uses canonical LF for text and exact bytes for compressed primary
-inputs. It excludes only itself and LICENSE. A review mirror may redact the
+inputs and PNG figures. It excludes only itself and LICENSE. A review mirror may redact the
 copyright holder without changing the measurement evidence. This exception
 does not permit changes to code, data, designs or interpretation documents.

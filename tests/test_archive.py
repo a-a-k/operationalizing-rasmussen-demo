@@ -35,6 +35,14 @@ class ArchiveTests(unittest.TestCase):
             p.write_bytes(b"a\nb")
             self.assertNotEqual(before,checks.sha256_lf(p))
 
+    def test_png_figures_are_hashed_as_binary(self):
+        with tempfile.TemporaryDirectory() as name:
+            p = Path(name)/"figure.png"
+            data = b"\x89PNG\r\n\x1a\n\x00example"
+            p.write_bytes(data)
+            import hashlib
+            self.assertEqual(checks.sha256_lf(p), hashlib.sha256(data).hexdigest())
+
     def test_no_git_archive_enumeration(self):
         with tempfile.TemporaryDirectory() as name:
             p = Path(name)

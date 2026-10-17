@@ -1,5 +1,12 @@
 # Closed-allocation drift measurement
 
+New saved-data readout: [position, movement and component continuity](drift-monitor/trajectory-observability/README.md)
+separates accumulated relative displacement, actual increments and their EWMA,
+without changing the original detectors. It includes complete measured histories,
+native CPU-stream replay, a 250-pair directional-accumulation summary and a
+separate controlled structural replay. See also the
+[plain-language interpretation](drift-monitor/trajectory-observability/RESULTS_RU_v0.1.0.md).
+
 The separate [continuous runtime monitor](drift-monitor/design-v0.1.0.json)
 compares full-covariance MEWMA on measured CPU shares and on their complete ILR
 coordinates. It uses uninterrupted load, a measured settling gate, separate
@@ -56,6 +63,9 @@ a diagnostic and never overrides that label.
 
 ## Start here
 
+- [Trajectory observability](drift-monitor/trajectory-observability/README.md):
+  procedure, full-history figures, every hold/restoration and reproducible inputs;
+  descriptive observation, not a new forecast or SLO-boundary claim.
 - [Formal glossary / Формальный глоссарий](#formal-glossary): определения, переменные, формулы и роли всех представлений; версия 0.1.2.
 - [Passive short-horizon warnings](probe8/README.md): frozen old-data rules and
   separate independent confirmation, including every signal and its outcome.

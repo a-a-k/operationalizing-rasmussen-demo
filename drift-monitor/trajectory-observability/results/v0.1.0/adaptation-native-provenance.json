@@ -1,0 +1,290 @@
+[
+  {
+    "block_id": "balanced-busy-01",
+    "policy": "adaptive",
+    "native_source": "inputs/native/balanced-busy-01/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "3e8e591160db44011431e7a6df61feb94237107109c7cd70b23710633a148972"
+  },
+  {
+    "block_id": "balanced-busy-01",
+    "policy": "control",
+    "native_source": "inputs/native/balanced-busy-01/control/resource-samples.jsonl.gz",
+    "native_sha256": "8e8795cec5c0be84b8f78b0859ce38f66d9c52501948c0d181e502822cbcde51"
+  },
+  {
+    "block_id": "balanced-busy-02",
+    "policy": "adaptive",
+    "native_source": "inputs/native/balanced-busy-02/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "f2a7a2ebc22dad1024033c43d2d36bb1fa57663f0320751853c638f762a51b8f"
+  },
+  {
+    "block_id": "balanced-busy-02",
+    "policy": "control",
+    "native_source": "inputs/native/balanced-busy-02/control/resource-samples.jsonl.gz",
+    "native_sha256": "2ea6698d830c379266ed8c2c1495bd6e9ae847cb464885e08434f20af2c36996"
+  },
+  {
+    "block_id": "balanced-busy-03",
+    "policy": "adaptive",
+    "native_source": "inputs/native/balanced-busy-03/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "68e2873bbedeae19b95ca7e3d4493877a73361512f29a758e3d3482d501d553c"
+  },
+  {
+    "block_id": "balanced-busy-03",
+    "policy": "control",
+    "native_source": "inputs/native/balanced-busy-03/control/resource-samples.jsonl.gz",
+    "native_sha256": "94e232838448e5970f583ae1d95d2118767d6d9f292f7b82a22241b4ac2c0206"
+  },
+  {
+    "block_id": "balanced-busy-04",
+    "policy": "adaptive",
+    "native_source": "inputs/native/balanced-busy-04/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "bf4736ec05eeeab7b187399a07cce9e7f94a3f9553cfc509742edfab284473bc"
+  },
+  {
+    "block_id": "balanced-busy-04",
+    "policy": "control",
+    "native_source": "inputs/native/balanced-busy-04/control/resource-samples.jsonl.gz",
+    "native_sha256": "5120b17ae3a92d83f89dadedde35f382902148cafafc645572068b4056f9c28f"
+  },
+  {
+    "block_id": "balanced-moderate-01",
+    "policy": "adaptive",
+    "native_source": "inputs/native/balanced-moderate-01/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "8cc70d27ad345c91f5e30a12b9f9e14ef580318b350b9b394d3268c8c03df6c7"
+  },
+  {
+    "block_id": "balanced-moderate-01",
+    "policy": "control",
+    "native_source": "inputs/native/balanced-moderate-01/control/resource-samples.jsonl.gz",
+    "native_sha256": "ba75fa47c6790c1a0e9a0301fa7d23b7b743e843d9cd9e5e842a9a267a83a040"
+  },
+  {
+    "block_id": "balanced-moderate-02",
+    "policy": "adaptive",
+    "native_source": "inputs/native/balanced-moderate-02/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "7e52b0a86463d100f052686c0b9b1a92d3e053839b09936801133fee2252619d"
+  },
+  {
+    "block_id": "balanced-moderate-02",
+    "policy": "control",
+    "native_source": "inputs/native/balanced-moderate-02/control/resource-samples.jsonl.gz",
+    "native_sha256": "5913d0e69f8b90887f8392cb5283524a50b37a861e0626b4a58a35d26e7bea0c"
+  },
+  {
+    "block_id": "balanced-moderate-03",
+    "policy": "adaptive",
+    "native_source": "inputs/native/balanced-moderate-03/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "f55cd1e02fad4d13d48d0f0b64d7634e963fa44141bc346c6c73afc0a929b49f"
+  },
+  {
+    "block_id": "balanced-moderate-03",
+    "policy": "control",
+    "native_source": "inputs/native/balanced-moderate-03/control/resource-samples.jsonl.gz",
+    "native_sha256": "4d6ebc8e9916749163ca29dafb8952c6724727a1825cbfef339d2171d86bd6f1"
+  },
+  {
+    "block_id": "balanced-moderate-04",
+    "policy": "adaptive",
+    "native_source": "inputs/native/balanced-moderate-04/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "a7ef92a27e8e67885327cacea8ded43655c35f23db961d263ff2cfd00e5bc585"
+  },
+  {
+    "block_id": "balanced-moderate-04",
+    "policy": "control",
+    "native_source": "inputs/native/balanced-moderate-04/control/resource-samples.jsonl.gz",
+    "native_sha256": "8c4d06440d9aabc6ac9827f3e38b9bfab34b499f442d0435aa6297fb0689a2be"
+  },
+  {
+    "block_id": "interactive-busy-01",
+    "policy": "adaptive",
+    "native_source": "inputs/native/interactive-busy-01/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "4ec6686256cc7bdee2ed3bac7850c9ccc5fbe28a8c4deab9e3157b33e67d0d0c"
+  },
+  {
+    "block_id": "interactive-busy-01",
+    "policy": "control",
+    "native_source": "inputs/native/interactive-busy-01/control/resource-samples.jsonl.gz",
+    "native_sha256": "2ce7b1a5b25ce6798d2d73c3dd377a62832befe89fc07cfba71dc6037fdac1b9"
+  },
+  {
+    "block_id": "interactive-busy-02",
+    "policy": "adaptive",
+    "native_source": "inputs/native/interactive-busy-02/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "a703205cbee8dfd0fc35263be91e73df25d202561ecb1d08f834cd818187d20e"
+  },
+  {
+    "block_id": "interactive-busy-02",
+    "policy": "control",
+    "native_source": "inputs/native/interactive-busy-02/control/resource-samples.jsonl.gz",
+    "native_sha256": "ad3e1f0e78f579f22f2d56d3fc8d65f8411d9db83d69f18531c60ec92a23568a"
+  },
+  {
+    "block_id": "interactive-busy-03",
+    "policy": "adaptive",
+    "native_source": "inputs/native/interactive-busy-03/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "4f4b509b37e44abc26adeb2c10a0efcccb8dac19247a8d7a71543ab21da3a78e"
+  },
+  {
+    "block_id": "interactive-busy-03",
+    "policy": "control",
+    "native_source": "inputs/native/interactive-busy-03/control/resource-samples.jsonl.gz",
+    "native_sha256": "c2d98d8acf743d1ee325e7cc85b5641fa5d7c564841328960c880e7304074cc0"
+  },
+  {
+    "block_id": "interactive-busy-04",
+    "policy": "adaptive",
+    "native_source": "inputs/native/interactive-busy-04/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "43690d86dea739067c1a7889b71ddbf510ef5eef5ae9a5593236990be7e5d429"
+  },
+  {
+    "block_id": "interactive-busy-04",
+    "policy": "control",
+    "native_source": "inputs/native/interactive-busy-04/control/resource-samples.jsonl.gz",
+    "native_sha256": "ec2d10c8ff3c3d19c8d8c4c34399110c40c84136356f4ac3b8548bd42f15f447"
+  },
+  {
+    "block_id": "interactive-moderate-01",
+    "policy": "adaptive",
+    "native_source": "inputs/native/interactive-moderate-01/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "9c39784a4074165bf975d4e2ad9afaafd9e9658f78c754ddb04aafdb0b9c6124"
+  },
+  {
+    "block_id": "interactive-moderate-01",
+    "policy": "control",
+    "native_source": "inputs/native/interactive-moderate-01/control/resource-samples.jsonl.gz",
+    "native_sha256": "6b93ca091b89f3ec5bfea5366b290f38e2858f3c2b28eb6e5334961eaca2b278"
+  },
+  {
+    "block_id": "interactive-moderate-02",
+    "policy": "adaptive",
+    "native_source": "inputs/native/interactive-moderate-02/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "99560cac1ffd313df97303144d1a07a0247cfc1429ae8662e9cbeaa49c6f2771"
+  },
+  {
+    "block_id": "interactive-moderate-02",
+    "policy": "control",
+    "native_source": "inputs/native/interactive-moderate-02/control/resource-samples.jsonl.gz",
+    "native_sha256": "3427533686f78b5fc0949361a038f55a53e24164e07446f9ccc1a14ce2c00a6c"
+  },
+  {
+    "block_id": "interactive-moderate-03",
+    "policy": "adaptive",
+    "native_source": "inputs/native/interactive-moderate-03/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "130a13b14eca89444ceff6d690ae383fa02a91febd68aa20948a75aa7c6cab87"
+  },
+  {
+    "block_id": "interactive-moderate-03",
+    "policy": "control",
+    "native_source": "inputs/native/interactive-moderate-03/control/resource-samples.jsonl.gz",
+    "native_sha256": "ad0ac9c7bf8ab48c7fe62479c50e380294d08777525d0482df6c61de650524c4"
+  },
+  {
+    "block_id": "interactive-moderate-04",
+    "policy": "adaptive",
+    "native_source": "inputs/native/interactive-moderate-04/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "2e75410d779bc5312027ca57aecc681d0e5057e4d4a5dde89061903e6c3ea658"
+  },
+  {
+    "block_id": "interactive-moderate-04",
+    "policy": "control",
+    "native_source": "inputs/native/interactive-moderate-04/control/resource-samples.jsonl.gz",
+    "native_sha256": "dd0a302ea8afdab6485272e667ab30b3c74f2010da1353db7f67ef5193411830"
+  },
+  {
+    "block_id": "ledger-busy-01",
+    "policy": "adaptive",
+    "native_source": "inputs/native/ledger-busy-01/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "d6dcdcffc52a821539a848e3c1d8770e63ad801b2a620a204305b230a90301b2"
+  },
+  {
+    "block_id": "ledger-busy-01",
+    "policy": "control",
+    "native_source": "inputs/native/ledger-busy-01/control/resource-samples.jsonl.gz",
+    "native_sha256": "2adfdceed72630dd57b8b853fee855ea2a07f9b6ef22cba5c1b73d378f0c6834"
+  },
+  {
+    "block_id": "ledger-busy-02",
+    "policy": "adaptive",
+    "native_source": "inputs/native/ledger-busy-02/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "25060b7ac8239306d932094b3911cef1f1fcf7729cc0b80d1d7079de6825c439"
+  },
+  {
+    "block_id": "ledger-busy-02",
+    "policy": "control",
+    "native_source": "inputs/native/ledger-busy-02/control/resource-samples.jsonl.gz",
+    "native_sha256": "939d37118be440d26f12925ea81e45bea7cc8b8602e9d6245e54ccd01242a3f6"
+  },
+  {
+    "block_id": "ledger-busy-03",
+    "policy": "adaptive",
+    "native_source": "inputs/native/ledger-busy-03/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "12790f863dfa97c9891af44a4f18dfb4d4ece0e27e137a7a786386d304d8285b"
+  },
+  {
+    "block_id": "ledger-busy-03",
+    "policy": "control",
+    "native_source": "inputs/native/ledger-busy-03/control/resource-samples.jsonl.gz",
+    "native_sha256": "ba8dbb70d69a6d8b417c417e679b47c10502c4dc685acdb9ee1e8fde771fcef7"
+  },
+  {
+    "block_id": "ledger-busy-04",
+    "policy": "adaptive",
+    "native_source": "inputs/native/ledger-busy-04/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "0dc31c7f230839998f84b437c060f30a9498606b62fea1aa746f75ee9a390f47"
+  },
+  {
+    "block_id": "ledger-busy-04",
+    "policy": "control",
+    "native_source": "inputs/native/ledger-busy-04/control/resource-samples.jsonl.gz",
+    "native_sha256": "03d178cd0d968c5c4eb59893273cc00af380ca16824220729be44d361ef1b599"
+  },
+  {
+    "block_id": "ledger-moderate-01",
+    "policy": "adaptive",
+    "native_source": "inputs/native/ledger-moderate-01/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "dbd4b4873fc06032eefc1807b308cd59af2dbfa69aecb4f8fa3c6cdab102575e"
+  },
+  {
+    "block_id": "ledger-moderate-01",
+    "policy": "control",
+    "native_source": "inputs/native/ledger-moderate-01/control/resource-samples.jsonl.gz",
+    "native_sha256": "1d9c8d71b82805e88c51dc6077c22b57468358f355d7cf35d54704adcd6f14a3"
+  },
+  {
+    "block_id": "ledger-moderate-02",
+    "policy": "adaptive",
+    "native_source": "inputs/native/ledger-moderate-02/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "6fd06977c4db33afc5ec0c353377e656c0c911de05182407665cc2f54eb6659f"
+  },
+  {
+    "block_id": "ledger-moderate-02",
+    "policy": "control",
+    "native_source": "inputs/native/ledger-moderate-02/control/resource-samples.jsonl.gz",
+    "native_sha256": "778815043ec7d0c1692145635bcc49b0d1791da74bfb38ac388eed77710789cd"
+  },
+  {
+    "block_id": "ledger-moderate-03",
+    "policy": "adaptive",
+    "native_source": "inputs/native/ledger-moderate-03/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "a8f3a6d2280ec5236f62843c6e06de700991c3b8d3a6ae8d9bde1b2de1777ead"
+  },
+  {
+    "block_id": "ledger-moderate-03",
+    "policy": "control",
+    "native_source": "inputs/native/ledger-moderate-03/control/resource-samples.jsonl.gz",
+    "native_sha256": "678fbdb396b3d8e5aa9c3ccda8b506d966059ac05d7ea7dc55d3e9df2b7f324f"
+  },
+  {
+    "block_id": "ledger-moderate-04",
+    "policy": "adaptive",
+    "native_source": "inputs/native/ledger-moderate-04/adaptive/resource-samples.jsonl.gz",
+    "native_sha256": "3f3ed2cf857ffab8c2b84e5c3f7b15501aea536700ff24212edb5eef5fcea76f"
+  },
+  {
+    "block_id": "ledger-moderate-04",
+    "policy": "control",
+    "native_source": "inputs/native/ledger-moderate-04/control/resource-samples.jsonl.gz",
+    "native_sha256": "ddd88528337ee46357d18c40e807eabc12018827547443a73f31e7d96bc6444f"
+  }
+]
