@@ -9,6 +9,13 @@ not automatically labeled false positives; relative movement is distinct from
 unusual movement or an external requirement violation. Execution is manual via
 [the dedicated workflow](.github/workflows/compositional-mewma.yml).
 
+The separate [250-pair extension](drift-monitor/design-v0.1.1.json) reuses the
+original frozen background model without refitting. It adds new test histories
+under unchanged runtime conditions, reports them separately from the initial
+twenty pairs, and uses [its own workflow](.github/workflows/compositional-mewma-extended.yml).
+The extension increases test precision conditional on that frozen calibration;
+it does not add independent calibrations or demonstrate cross-system transfer.
+
 Separate new experiment: [static CPU boundary calibration](boundary/README.md)
 checks reproducibility at fixed quotas and controlled arrival rates. It is not
 part of the completed adaptive-history comparisons below.

@@ -6,17 +6,25 @@ from decimal import Decimal
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
-DESIGN = ROOT / "drift-monitor/design-v0.1.0.json"
+DESIGN = ROOT / os.getenv("MONITOR_DESIGN", "drift-monitor/design-v0.1.0.json")
 METHODS = ("raw_composition", "ilr_composition")
 
 
 def load(path):
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+    value = json.loads(Path(path).read_text(encoding="utf-8"))
+    if isinstance(value, dict) and "inherits" in value:
+        allowed = {"inherits", "version", "test_repetitions", "test_repetition_start", "randomization_salt",
+                   "example_block", "source_frozen_model", "comparison", "sample_size_note"}
+        if set(value) - allowed:
+            raise ValueError("A replication overlay must not change runtime or detector settings")
+        return {**load(ROOT / value["inherits"]), **value}
+    return value
 
 
 def save(path, value):
@@ -33,7 +41,10 @@ def matrix(phase):
     rows = []
     for context_index, context in enumerate(cfg["initial_states"]):
         cell = []
-        for rep in range(1, 6):
+        repetitions = cfg["test_repetitions"] if phase == "test" else cfg["background_repetitions"]
+        count = repetitions[context] if isinstance(repetitions, dict) else repetitions
+        start = cfg.get("test_repetition_start", 1) if phase == "test" else 1
+        for rep in range(start, start + count):
             bid = context + "-r" + str(rep)
             cell.append({"block_id": bid, "context": context, "repetition": rep,
                          "role": "test" if phase == "test" else "fit" if rep in cfg["fit_repetitions"] else "calibration",
@@ -44,6 +55,28 @@ def matrix(phase):
                 row["order"] = ["drift", "control"] if (i + context_index) % 2 == 0 else ["control", "drift"]
         rows.extend(cell)
     return rows
+
+
+def load_frozen(folder):
+    paths = list(Path(folder).rglob("frozen-model.json"))
+    if not paths:
+        raise ValueError("No frozen background model artifact")
+    path = max(paths, key=lambda p: int(load(p)["run_attempt"]))
+    frozen, cfg = load(path), load(DESIGN)
+    source = cfg.get("source_frozen_model")
+    if source:
+        if digest(ROOT / cfg["inherits"]) != source["design_sha256_lf"]:
+            raise ValueError("Inherited measurement design differs from the frozen source")
+        if digest(path) != source["model_sha256_lf"]:
+            raise ValueError("Frozen source model checksum mismatch")
+        for key in ("execution_commit", "design_sha256_lf", "run_id", "run_attempt"):
+            if str(frozen[key]) != str(source[key]):
+                raise ValueError("Frozen source provenance mismatch: " + key)
+    elif frozen["design_sha256_lf"] != digest(DESIGN) or frozen["execution_commit"] != os.environ["GITHUB_SHA"]:
+        raise ValueError("Frozen model provenance differs from this execution")
+    if frozen["lambda"] != cfg["ewma_lambda"]:
+        raise ValueError("Frozen smoothing parameter mismatch")
+    return frozen
 
 
 def helmert(parts):
@@ -168,6 +201,8 @@ class Observer:
 
 def fit_background(jobs):
     cfg = load(DESIGN)
+    if cfg.get("source_frozen_model"):
+        raise ValueError("The replication reuses a frozen model and must not refit backgrounds")
     fit = [j for j in jobs if j["role"] == "fit" and j["histories"]["background"]["qualified"]]
     cal = [j for j in jobs if j["role"] == "calibration" and j["histories"]["background"]["qualified"]]
     if len(fit) < cfg["minimum_fit_histories"] or len(cal) < cfg["minimum_calibration_histories"]:

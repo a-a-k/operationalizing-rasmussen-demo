@@ -11,13 +11,55 @@ from unittest.mock import Mock, patch
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from monitor_core import (DESIGN, METHODS, Observer, allocation, close, coordinates,
-                          feature, fit_background, helmert, integrate, load, matrix, settling, timing)
+from monitor_core import (ROOT, DESIGN, METHODS, Observer, allocation, close, coordinates, digest,
+                          feature, fit_background, helmert, integrate, load, load_frozen, matrix, save, settling, timing)
 from monitor_analyze import figure, plt, score_history
 from monitor_run import first_origin
 
 
 class MonitorChecks(unittest.TestCase):
+    def test_extension_is_250_new_balanced_pairs_without_physical_changes(self):
+        extension = ROOT / "drift-monitor/design-v0.1.1.json"
+        base, cfg = load(DESIGN), load(extension)
+        changed = {"version", "test_repetitions", "randomization_salt", "example_block", "comparison"}
+        for key in base.keys() - changed:
+            self.assertEqual(base[key], cfg[key], key)
+        with patch("monitor_core.DESIGN", extension):
+            rows = matrix("test")
+            self.assertEqual(len(rows), 250)
+            self.assertEqual(len({r["block_id"] for r in rows}), 250)
+            self.assertTrue(all(r["repetition"] >= 6 for r in rows))
+            self.assertEqual(sum(r["order"][0] == "drift" for r in rows), 125)
+            self.assertEqual({c: sum(r["context"] == c for r in rows) for c in cfg["initial_states"]}, cfg["test_repetitions"])
+            with self.assertRaisesRegex(ValueError, "must not refit"):
+                fit_background([])
+
+    def test_replication_overlay_cannot_change_runtime_settings(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "invalid.json"
+            save(path, {"inherits": "drift-monitor/design-v0.1.0.json", "cpu_step_per_donor": .1})
+            with self.assertRaisesRegex(ValueError, "must not change runtime"):
+                load(path)
+
+    def test_replication_source_checksum_and_provenance_are_enforced(self):
+        extension = ROOT / "drift-monitor/design-v0.1.1.json"
+        overlay = json.loads(extension.read_text())
+        source = overlay["source_frozen_model"]
+        frozen = {k: source[k] for k in ("run_id", "run_attempt", "execution_commit", "design_sha256_lf")}
+        frozen["lambda"] = .2
+        with tempfile.TemporaryDirectory() as temporary:
+            folder = Path(temporary)
+            model, design = folder / "frozen-model.json", folder / "design.json"
+            save(model, frozen)
+            source["model_sha256_lf"] = digest(model)
+            save(design, overlay)
+            with patch("monitor_core.DESIGN", design):
+                self.assertEqual(load_frozen(folder), frozen)
+                frozen["lambda"] = .3
+                save(model, frozen)
+                with self.assertRaisesRegex(ValueError, "checksum mismatch"):
+                    load_frozen(folder)
+
     def test_heatmap_rows_follow_service_labels(self):
         cfg = load(DESIGN)
         cpu = np.arange(1, 12, dtype=float).tolist()

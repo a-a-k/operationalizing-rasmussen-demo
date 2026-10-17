@@ -1,0 +1,18 @@
+{
+  "inherits": "drift-monitor/design-v0.1.0.json",
+  "version": "continuous-compositional-monitor-0.1.1",
+  "test_repetitions": {"balanced": 63, "interactive": 63, "ledger": 62, "ad-rich": 62},
+  "test_repetition_start": 6,
+  "randomization_salt": "continuous-compositional-monitor-20261017-0.1.1",
+  "example_block": "balanced-r6",
+  "source_frozen_model": {
+    "run_id": "38949391158",
+    "run_attempt": "1",
+    "artifact_name": "monitor-frozen-model-attempt-1",
+    "execution_commit": "faa9a287805bc7f15c528b3dbba78b4bec036ee4",
+    "design_sha256_lf": "6de193443f5628870c8b9ada889d7f58f36b87177ecb76b29cb3520ce86f5c2f",
+    "model_sha256_lf": "0ed95159ba12d706d8c55d33532426e5105fc8c00ba0f5dd1ecb5b766504c4a7"
+  },
+  "comparison": "A fixed extension of 250 new paired runners in the same four initial contexts. Each runner executes a fresh drift history and a fresh unchanged-control history. The source background model is reused byte-for-byte, without refitting or threshold selection. Test order is balanced 125/125. Original test results are reported separately, not pooled into the extension's primary result.",
+  "sample_size_note": "The extension was requested after the original twenty-pair result was inspected. Its size is fixed at 250 attempted pairs before execution, with no outcome-based stopping or replacement of settling failures. It estimates performance conditional on one frozen background fit/calibration; it does not remove uncertainty in that fit or establish transfer to other systems."
+}

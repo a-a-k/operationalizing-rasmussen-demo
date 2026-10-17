@@ -13,7 +13,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from monitor_core import (DESIGN, METHODS, Observer, close, digest, feature, fit_background, load, matrix, save)
+from monitor_core import (DESIGN, METHODS, Observer, close, digest, feature, fit_background, load, load_frozen, matrix, save)
 
 
 def csv_save(path, rows):
@@ -143,7 +143,7 @@ def figure(jobs, pair_rows, output):
             ax.axvline(cfg["pre_intervention_windows"] + .5, color="#a77e44", ls=":", lw=1)
         ax.spines[["top", "right"]].set_visible(False)
     fig.suptitle("Непрерывная runtime-история: полное состояние, относительное движение и MEWMA", fontsize=15, y=.99)
-    fig.text(.025, .025, "Пример balanced-r1 задан до выполнения. Вертикальная отметка — начало вмешательства.\n"
+    fig.text(.025, .025, f"Пример {cfg['example_block']} задан до выполнения. Вертикальная отметка — начало вмешательства.\n"
              "Квоты определяют вмешательство, но не входят в наблюдатели; относительное движение не является само по себе сигналом опасности.", fontsize=9)
     fig.tight_layout(rect=(.01, .1, .99, .96), w_pad=2.5, h_pad=2.3)
     for ext in ("png", "svg", "pdf"):
@@ -154,8 +154,7 @@ def figure(jobs, pair_rows, output):
 def compare(inputs, model_folder, output):
     cfg = load(DESIGN)
     jobs = read_jobs(inputs, "test")
-    candidates = [load(p) for p in model_folder.rglob("frozen-model.json")]
-    frozen = max(candidates, key=lambda r: int(r["run_attempt"]))
+    frozen = load_frozen(model_folder)
     statuses, decisions, pairs, trajectories = [], [], [], []
     for bid, job in sorted(jobs.items()):
         if job["frozen_model"] != frozen:
@@ -200,6 +199,9 @@ def compare(inputs, model_folder, output):
                "methods": methods, "fit_histories": len(frozen["fit_ids"]), "calibration_histories": len(frozen["calibration_ids"]),
                "interpretation": "Known-intervention detection and timing. Control signals are not automatically false positives. Settling is an engineering gate, not proof of stationarity.",
                "frozen_model_replayed": True}
+    if cfg.get("source_frozen_model"):
+        summary["source_frozen_model"] = cfg["source_frozen_model"]
+        summary["sample_size_note"] = cfg["sample_size_note"]
     if pairs:
         differences = np.array([r["ilr_minus_raw_restricted_delay"] for r in pairs])
         rng = np.random.default_rng(cfg["bootstrap_seed"])

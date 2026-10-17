@@ -13,7 +13,7 @@ import time
 import traceback
 
 from monitor_core import (ROOT, DESIGN, Observer, SampleReader, allocation, digest,
-                          feature, integrate, load, matrix, save, settling, timing)
+                          feature, integrate, load, load_frozen, matrix, save, settling, timing)
 import numpy as np
 
 sys.path.insert(0, str(ROOT / "probe7/scripts"))
@@ -78,16 +78,6 @@ def compress(folder):
                 while data := source.read(1024 * 1024):
                     target.write(data)
             path.unlink()
-
-
-def load_frozen(folder):
-    candidates = [load(p) for p in folder.rglob("frozen-model.json")]
-    if not candidates:
-        raise ValueError("No frozen background model artifact")
-    frozen = max(candidates, key=lambda r: int(r["run_attempt"]))
-    if frozen["design_sha256_lf"] != digest(DESIGN) or frozen["execution_commit"] != os.environ["GITHUB_SHA"]:
-        raise ValueError("Frozen model provenance differs from this execution")
-    return frozen
 
 
 def prepare(upstream, output):
