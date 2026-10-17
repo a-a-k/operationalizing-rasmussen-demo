@@ -140,6 +140,7 @@ class TrajectoryArchiveTests(unittest.TestCase):
                 continue
             for value in forbidden:
                 self.assertNotIn(value, content, path.relative_to(MODULE).as_posix())
+            self.assertNotRegex(content, r"[\u0400-\u04ff]", path.relative_to(MODULE).as_posix())
 
 
 if __name__ == "__main__":

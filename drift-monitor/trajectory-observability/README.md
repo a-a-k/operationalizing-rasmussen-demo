@@ -5,7 +5,7 @@ from **how it is changing now**. It reuses saved runtime measurements; no new
 application runs, fitted forecasts, alert thresholds or controller changes are
 introduced. The original MEWMA model and its signal results are unchanged.
 
-Read the [plain-language Russian interpretation](RESULTS_RU_v0.1.0.md),
+Read the procedure and interpretation below, the
 [machine summary](results/v0.1.0/summary.json) and
 [complete illustrated history](results/v0.1.0/full-history-v0.1.0.png).
 
