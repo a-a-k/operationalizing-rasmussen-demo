@@ -1,0 +1,1111 @@
+{
+  "histories": 8,
+  "report_batches": 181,
+  "geometry_available": 135,
+  "sources": {
+    "increment": {
+      "availability": {
+        "no_adjacent_direction": 16,
+        "available": 119,
+        "missing_lineage": 16,
+        "zero_part": 30
+      },
+      "ray_status": {
+        "finite_exit": 51,
+        "already_violated": 34,
+        "no_forward_crossing": 34
+      },
+      "first_constraints": {
+        "currency": 31,
+        "catalog": 19,
+        "catalog+currency": 1
+      },
+      "maximum_absolute_verification_errors": {
+        "ratio": 3.885780586188048e-16,
+        "log_odds_slope": 3.9968028886505635e-14,
+        "exit_distance": 5.595524044110789e-14,
+        "intersection_composition": 3.6914915568786455e-15
+      },
+      "independent_checks": 119
+    },
+    "smoothed_increment": {
+      "availability": {
+        "no_adjacent_direction": 16,
+        "available": 119,
+        "missing_lineage": 16,
+        "zero_part": 30
+      },
+      "ray_status": {
+        "finite_exit": 52,
+        "already_violated": 34,
+        "no_forward_crossing": 33
+      },
+      "first_constraints": {
+        "currency": 28,
+        "catalog": 24
+      },
+      "maximum_absolute_verification_errors": {
+        "ratio": 3.885780586188048e-16,
+        "log_odds_slope": 3.1086244689504383e-15,
+        "exit_distance": 3.552713678800501e-14,
+        "intersection_composition": 3.552713678800501e-15
+      },
+      "independent_checks": 119
+    }
+  },
+  "matched_local_state_opposite_direction_pairs": 30,
+  "matched_pairs_with_all_policies_satisfied": 26,
+  "matched_pairs_are_independent_trials": false,
+  "runtime_started": false,
+  "instant_smoothed_direction_disagreements": 48,
+  "instant_smoothed_strict_opposites": 43,
+  "direction_available_and_all_policies_satisfied": 85,
+  "safe_report_direction_comparison": {
+    "both_finite_same_first": 34,
+    "both_finite_different_first": 13,
+    "neither_finite": 29,
+    "only_smoothed_finite": 5,
+    "only_last_increment_finite": 4
+  },
+  "same_window_policy_only": [
+    {
+      "a": {
+        "history": "history-01",
+        "window": 14,
+        "report_index": 15,
+        "policy_version": 4
+      },
+      "b": {
+        "history": "history-01",
+        "window": 14,
+        "report_index": 16,
+        "policy_version": 5
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "finite_exit",
+          "old_distance": 1.3435302877142434,
+          "new_distance": 0.18627628775399205,
+          "old_first_constraints": [
+            "currency"
+          ],
+          "new_first_constraints": [
+            "currency"
+          ]
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "finite_exit",
+          "old_distance": 1.3435302877142437,
+          "new_distance": 0.18627628775399208,
+          "old_first_constraints": [
+            "currency"
+          ],
+          "new_first_constraints": [
+            "currency"
+          ]
+        }
+      },
+      "current_policy_status_changed": false
+    },
+    {
+      "a": {
+        "history": "history-02",
+        "window": 8,
+        "report_index": 8,
+        "policy_version": 2
+      },
+      "b": {
+        "history": "history-02",
+        "window": 8,
+        "report_index": 9,
+        "policy_version": 3
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "already_violated",
+          "old_distance": null,
+          "new_distance": 0.0,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "already_violated",
+          "old_distance": 0.36681352544346724,
+          "new_distance": 0.0,
+          "old_first_constraints": [
+            "catalog"
+          ],
+          "new_first_constraints": []
+        }
+      },
+      "current_policy_status_changed": true
+    },
+    {
+      "a": {
+        "history": "history-02",
+        "window": 14,
+        "report_index": 16,
+        "policy_version": 4
+      },
+      "b": {
+        "history": "history-02",
+        "window": 14,
+        "report_index": 17,
+        "policy_version": 5
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "no_forward_crossing",
+          "old_distance": null,
+          "new_distance": null,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "no_forward_crossing",
+          "old_distance": null,
+          "new_distance": null,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        }
+      },
+      "current_policy_status_changed": false
+    },
+    {
+      "a": {
+        "history": "history-03",
+        "window": 14,
+        "report_index": 15,
+        "policy_version": 4
+      },
+      "b": {
+        "history": "history-03",
+        "window": 14,
+        "report_index": 16,
+        "policy_version": 5
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "finite_exit",
+          "old_distance": 1.3938141179817243,
+          "new_distance": 0.19324798412878272,
+          "old_first_constraints": [
+            "catalog"
+          ],
+          "new_first_constraints": [
+            "catalog"
+          ]
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "finite_exit",
+          "old_distance": 1.3938141179817245,
+          "new_distance": 0.19324798412878275,
+          "old_first_constraints": [
+            "catalog"
+          ],
+          "new_first_constraints": [
+            "catalog"
+          ]
+        }
+      },
+      "current_policy_status_changed": false
+    },
+    {
+      "a": {
+        "history": "history-04",
+        "window": 14,
+        "report_index": 15,
+        "policy_version": 4
+      },
+      "b": {
+        "history": "history-04",
+        "window": 14,
+        "report_index": 16,
+        "policy_version": 5
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "no_forward_crossing",
+          "old_distance": null,
+          "new_distance": null,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "no_forward_crossing",
+          "old_distance": null,
+          "new_distance": null,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        }
+      },
+      "current_policy_status_changed": false
+    },
+    {
+      "a": {
+        "history": "history-05",
+        "window": 14,
+        "report_index": 15,
+        "policy_version": 4
+      },
+      "b": {
+        "history": "history-05",
+        "window": 14,
+        "report_index": 16,
+        "policy_version": 5
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "no_forward_crossing",
+          "old_distance": null,
+          "new_distance": null,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "no_forward_crossing",
+          "old_distance": null,
+          "new_distance": null,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        }
+      },
+      "current_policy_status_changed": false
+    },
+    {
+      "a": {
+        "history": "history-06",
+        "window": 8,
+        "report_index": 8,
+        "policy_version": 2
+      },
+      "b": {
+        "history": "history-06",
+        "window": 8,
+        "report_index": 9,
+        "policy_version": 3
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "already_violated",
+          "old_distance": 2.2096492973156683,
+          "new_distance": 0.0,
+          "old_first_constraints": [
+            "catalog"
+          ],
+          "new_first_constraints": []
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "already_violated",
+          "old_distance": 0.3686798586299805,
+          "new_distance": 0.0,
+          "old_first_constraints": [
+            "catalog"
+          ],
+          "new_first_constraints": []
+        }
+      },
+      "current_policy_status_changed": true
+    },
+    {
+      "a": {
+        "history": "history-06",
+        "window": 9,
+        "report_index": 10,
+        "policy_version": 3
+      },
+      "b": {
+        "history": "history-06",
+        "window": 9,
+        "report_index": 11,
+        "policy_version": 4
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "already_violated",
+          "new_status": "finite_exit",
+          "old_distance": 0.0,
+          "new_distance": 0.29158438638889245,
+          "old_first_constraints": [],
+          "new_first_constraints": [
+            "currency"
+          ]
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "already_violated",
+          "new_status": "finite_exit",
+          "old_distance": 0.0,
+          "new_distance": 0.3469759769481425,
+          "old_first_constraints": [],
+          "new_first_constraints": [
+            "catalog"
+          ]
+        }
+      },
+      "current_policy_status_changed": true
+    },
+    {
+      "a": {
+        "history": "history-06",
+        "window": 14,
+        "report_index": 17,
+        "policy_version": 4
+      },
+      "b": {
+        "history": "history-06",
+        "window": 14,
+        "report_index": 18,
+        "policy_version": 5
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "no_forward_crossing",
+          "old_distance": null,
+          "new_distance": null,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "no_forward_crossing",
+          "new_status": "no_forward_crossing",
+          "old_distance": null,
+          "new_distance": null,
+          "old_first_constraints": [],
+          "new_first_constraints": []
+        }
+      },
+      "current_policy_status_changed": false
+    },
+    {
+      "a": {
+        "history": "history-07",
+        "window": 8,
+        "report_index": 8,
+        "policy_version": 2
+      },
+      "b": {
+        "history": "history-07",
+        "window": 8,
+        "report_index": 9,
+        "policy_version": 3
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "already_violated",
+          "old_distance": 0.2607646595597466,
+          "new_distance": 0.0,
+          "old_first_constraints": [
+            "currency"
+          ],
+          "new_first_constraints": []
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "already_violated",
+          "old_distance": 0.2556060958320881,
+          "new_distance": 0.0,
+          "old_first_constraints": [
+            "currency"
+          ],
+          "new_first_constraints": []
+        }
+      },
+      "current_policy_status_changed": true
+    },
+    {
+      "a": {
+        "history": "history-07",
+        "window": 9,
+        "report_index": 10,
+        "policy_version": 3
+      },
+      "b": {
+        "history": "history-07",
+        "window": 9,
+        "report_index": 11,
+        "policy_version": 4
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "already_violated",
+          "new_status": "finite_exit",
+          "old_distance": 0.0,
+          "new_distance": 0.4288133919113475,
+          "old_first_constraints": [],
+          "new_first_constraints": [
+            "catalog"
+          ]
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "already_violated",
+          "new_status": "finite_exit",
+          "old_distance": 0.0,
+          "new_distance": 0.257883560443899,
+          "old_first_constraints": [],
+          "new_first_constraints": [
+            "currency"
+          ]
+        }
+      },
+      "current_policy_status_changed": true
+    },
+    {
+      "a": {
+        "history": "history-07",
+        "window": 14,
+        "report_index": 17,
+        "policy_version": 4
+      },
+      "b": {
+        "history": "history-07",
+        "window": 14,
+        "report_index": 18,
+        "policy_version": 5
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "finite_exit",
+          "old_distance": 2.3577239694715044,
+          "new_distance": 0.5131533983327228,
+          "old_first_constraints": [
+            "currency"
+          ],
+          "new_first_constraints": [
+            "currency"
+          ]
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "finite_exit",
+          "old_distance": 2.3577239694715044,
+          "new_distance": 0.5131533983327228,
+          "old_first_constraints": [
+            "currency"
+          ],
+          "new_first_constraints": [
+            "currency"
+          ]
+        }
+      },
+      "current_policy_status_changed": false
+    },
+    {
+      "a": {
+        "history": "history-08",
+        "window": 14,
+        "report_index": 15,
+        "policy_version": 4
+      },
+      "b": {
+        "history": "history-08",
+        "window": 14,
+        "report_index": 16,
+        "policy_version": 5
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "finite_exit",
+          "old_distance": 14.393265544443711,
+          "new_distance": 4.244660494795541,
+          "old_first_constraints": [
+            "catalog"
+          ],
+          "new_first_constraints": [
+            "catalog"
+          ]
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "direction_unchanged": true,
+          "old_status": "finite_exit",
+          "new_status": "finite_exit",
+          "old_distance": 14.393265544443707,
+          "new_distance": 4.24466049479554,
+          "old_first_constraints": [
+            "catalog"
+          ],
+          "new_first_constraints": [
+            "catalog"
+          ]
+        }
+      },
+      "current_policy_status_changed": false
+    }
+  ],
+  "example_reports": [
+    {
+      "history": "history-01",
+      "report_index": 10,
+      "window": 10,
+      "observed_ms": 1792499288582.9116,
+      "policy_version": 4,
+      "geometry_status": "available",
+      "policy_status": "available",
+      "event_counts": [
+        100,
+        20,
+        100,
+        24
+      ],
+      "groups": {
+        "catalog": {
+          "first": 100,
+          "retry": 20,
+          "ratio": 0.16666666666666666,
+          "rho": 0.5,
+          "margin": 0.33333333333333337,
+          "violation": false
+        },
+        "currency": {
+          "first": 100,
+          "retry": 24,
+          "ratio": 0.1935483870967742,
+          "rho": 0.5,
+          "margin": 0.3064516129032258,
+          "violation": false
+        }
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "ilr": {
+            "status": "no_forward_crossing",
+            "distance": null,
+            "first_constraints": [],
+            "currently_violated": [],
+            "velocity_norm": 1.1014802627626106,
+            "groups": {
+              "catalog": {
+                "ratio": 0.16666666666666652,
+                "rho": 0.5,
+                "current_violation": false,
+                "signed_perpendicular_distance": 1.1380444617808738,
+                "direction": "away",
+                "log_odds_slope": -0.9184013058402839,
+                "exit_distance": null
+              },
+              "currency": {
+                "ratio": 0.19354838709677413,
+                "rho": 0.5,
+                "current_violation": false,
+                "signed_perpendicular_distance": 1.0091236526153797,
+                "direction": "away",
+                "log_odds_slope": -1.0700645632863843,
+                "exit_distance": null
+              }
+            },
+            "unit_direction": [
+              0.6494077912102451,
+              -0.374935763069075,
+              0.6615834749200145
+            ],
+            "intersection_composition": null
+          },
+          "direct": {
+            "status": "no_forward_crossing",
+            "distance": null,
+            "first_constraints": [],
+            "currently_violated": [],
+            "velocity_norm": 1.1014802627626112,
+            "groups": {
+              "catalog": {
+                "ratio": 0.16666666666666666,
+                "rho": 0.5,
+                "current_violation": false,
+                "direction": "away",
+                "log_odds_slope": -0.9184013058402831,
+                "exit_distance": null
+              },
+              "currency": {
+                "ratio": 0.1935483870967742,
+                "rho": 0.5,
+                "current_violation": false,
+                "direction": "away",
+                "log_odds_slope": -1.0700645632863848,
+                "exit_distance": null
+              }
+            },
+            "unit_direction": [
+              0.497116467281667,
+              -0.42128483855861615,
+              0.497116467281667,
+              -0.5729480960047179
+            ],
+            "intersection_composition": null
+          },
+          "verification_errors": {
+            "ratio": 1.3877787807814457e-16,
+            "log_odds_slope": 7.771561172376096e-16,
+            "intersection_composition": 0.0
+          }
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "ilr": {
+            "status": "no_forward_crossing",
+            "distance": null,
+            "first_constraints": [],
+            "currently_violated": [],
+            "velocity_norm": 0.12056815824663612,
+            "groups": {
+              "catalog": {
+                "ratio": 0.16666666666666652,
+                "rho": 0.5,
+                "current_violation": false,
+                "signed_perpendicular_distance": 1.1380444617808738,
+                "direction": "away",
+                "log_odds_slope": -1.0460880169469626,
+                "exit_distance": null
+              },
+              "currency": {
+                "ratio": 0.19354838709677413,
+                "rho": 0.5,
+                "current_violation": false,
+                "signed_perpendicular_distance": 1.0091236526153797,
+                "direction": "away",
+                "log_odds_slope": -0.949214197287562,
+                "exit_distance": null
+              }
+            },
+            "unit_direction": [
+              0.7396959305011852,
+              -0.4270636445933299,
+              0.5200640093936975
+            ],
+            "intersection_composition": null
+          },
+          "direct": {
+            "status": "no_forward_crossing",
+            "distance": null,
+            "first_constraints": [],
+            "currently_violated": [],
+            "velocity_norm": 0.12056815824663615,
+            "groups": {
+              "catalog": {
+                "ratio": 0.16666666666666666,
+                "rho": 0.5,
+                "current_violation": false,
+                "direction": "away",
+                "log_odds_slope": -1.046088016946962,
+                "exit_distance": null
+              },
+              "currency": {
+                "ratio": 0.1935483870967742,
+                "rho": 0.5,
+                "current_violation": false,
+                "direction": "away",
+                "log_odds_slope": -0.9492141972875625,
+                "exit_distance": null
+              }
+            },
+            "unit_direction": [
+              0.4988255535586311,
+              -0.5472624633883308,
+              0.4988255535586311,
+              -0.45038864372893145
+            ],
+            "intersection_composition": null
+          },
+          "verification_errors": {
+            "ratio": 1.3877787807814457e-16,
+            "log_odds_slope": 6.661338147750939e-16,
+            "intersection_composition": 0.0
+          }
+        }
+      }
+    },
+    {
+      "history": "history-03",
+      "report_index": 15,
+      "window": 14,
+      "observed_ms": 1792499303607.1282,
+      "policy_version": 4,
+      "geometry_status": "available",
+      "policy_status": "available",
+      "event_counts": [
+        100,
+        20,
+        100,
+        15
+      ],
+      "groups": {
+        "catalog": {
+          "first": 100,
+          "retry": 20,
+          "ratio": 0.16666666666666666,
+          "rho": 0.5,
+          "margin": 0.33333333333333337,
+          "violation": false
+        },
+        "currency": {
+          "first": 100,
+          "retry": 15,
+          "ratio": 0.13043478260869565,
+          "rho": 0.5,
+          "margin": 0.3695652173913043,
+          "violation": false
+        }
+      },
+      "directions": {
+        "increment": {
+          "availability": "available",
+          "ilr": {
+            "status": "finite_exit",
+            "distance": 1.3938141179817243,
+            "first_constraints": [
+              "catalog"
+            ],
+            "currently_violated": [],
+            "velocity_norm": 0.09124488311550548,
+            "groups": {
+              "catalog": {
+                "ratio": 0.16666666666666652,
+                "rho": 0.5,
+                "current_violation": false,
+                "signed_perpendicular_distance": 1.1380444617808738,
+                "direction": "toward",
+                "log_odds_slope": 1.1547005383792535,
+                "exit_distance": 1.3938141179817243
+              },
+              "currency": {
+                "ratio": 0.13043478260869562,
+                "rho": 0.5,
+                "current_violation": false,
+                "signed_perpendicular_distance": 1.3414664060373274,
+                "direction": "tangent",
+                "log_odds_slope": 2.275957200481571e-15,
+                "exit_distance": null
+              }
+            },
+            "unit_direction": [
+              -0.8164965809277274,
+              0.471404520791031,
+              0.33333333333333093
+            ],
+            "intersection_composition": [
+              0.31746031746031717,
+              0.31746031746031717,
+              0.31746031746031794,
+              0.04761904761904784
+            ]
+          },
+          "direct": {
+            "status": "finite_exit",
+            "distance": 1.3938141179817265,
+            "first_constraints": [
+              "catalog"
+            ],
+            "currently_violated": [],
+            "velocity_norm": 0.09124488311550573,
+            "groups": {
+              "catalog": {
+                "ratio": 0.16666666666666666,
+                "rho": 0.5,
+                "current_violation": false,
+                "direction": "toward",
+                "log_odds_slope": 1.1547005383792515,
+                "exit_distance": 1.3938141179817265
+              },
+              "currency": {
+                "ratio": 0.13043478260869565,
+                "rho": 0.5,
+                "current_violation": false,
+                "direction": "tangent",
+                "log_odds_slope": 0.0,
+                "exit_distance": null
+              }
+            },
+            "unit_direction": [
+              -0.28867513459481287,
+              0.8660254037844386,
+              -0.28867513459481287,
+              -0.28867513459481287
+            ],
+            "intersection_composition": [
+              0.31746031746031744,
+              0.31746031746031744,
+              0.31746031746031744,
+              0.047619047619047575
+            ]
+          },
+          "verification_errors": {
+            "ratio": 1.3877787807814457e-16,
+            "log_odds_slope": 2.275957200481571e-15,
+            "exit_distance": 2.220446049250313e-15,
+            "intersection_composition": 4.996003610813204e-16
+          }
+        },
+        "smoothed_increment": {
+          "availability": "available",
+          "ilr": {
+            "status": "finite_exit",
+            "distance": 1.3938141179817245,
+            "first_constraints": [
+              "catalog"
+            ],
+            "currently_violated": [],
+            "velocity_norm": 0.0182489766231011,
+            "groups": {
+              "catalog": {
+                "ratio": 0.16666666666666652,
+                "rho": 0.5,
+                "current_violation": false,
+                "signed_perpendicular_distance": 1.1380444617808738,
+                "direction": "toward",
+                "log_odds_slope": 1.1547005383792532,
+                "exit_distance": 1.3938141179817245
+              },
+              "currency": {
+                "ratio": 0.13043478260869562,
+                "rho": 0.5,
+                "current_violation": false,
+                "signed_perpendicular_distance": 1.3414664060373274,
+                "direction": "tangent",
+                "log_odds_slope": 2.275957200481571e-15,
+                "exit_distance": null
+              }
+            },
+            "unit_direction": [
+              -0.8164965809277273,
+              0.471404520791031,
+              0.33333333333333093
+            ],
+            "intersection_composition": [
+              0.3174603174603171,
+              0.3174603174603171,
+              0.3174603174603179,
+              0.04761904761904783
+            ]
+          },
+          "direct": {
+            "status": "finite_exit",
+            "distance": 1.393814117981726,
+            "first_constraints": [
+              "catalog"
+            ],
+            "currently_violated": [],
+            "velocity_norm": 0.018248976623101144,
+            "groups": {
+              "catalog": {
+                "ratio": 0.16666666666666666,
+                "rho": 0.5,
+                "current_violation": false,
+                "direction": "toward",
+                "log_odds_slope": 1.1547005383792517,
+                "exit_distance": 1.393814117981726
+              },
+              "currency": {
+                "ratio": 0.13043478260869565,
+                "rho": 0.5,
+                "current_violation": false,
+                "direction": "tangent",
+                "log_odds_slope": 0.0,
+                "exit_distance": null
+              }
+            },
+            "unit_direction": [
+              -0.2886751345948129,
+              0.8660254037844387,
+              -0.2886751345948129,
+              -0.2886751345948129
+            ],
+            "intersection_composition": [
+              0.31746031746031755,
+              0.3174603174603173,
+              0.31746031746031755,
+              0.04761904761904759
+            ]
+          },
+          "verification_errors": {
+            "ratio": 1.3877787807814457e-16,
+            "log_odds_slope": 2.275957200481571e-15,
+            "exit_distance": 1.5543122344752192e-15,
+            "intersection_composition": 4.440892098500626e-16
+          }
+        }
+      }
+    }
+  ],
+  "per_history": [
+    {
+      "history": "history-01",
+      "reports": 22,
+      "increment": {
+        "finite_exit": 8,
+        "already_violated": 4,
+        "no_forward_crossing": 2
+      },
+      "smoothed_increment": {
+        "finite_exit": 8,
+        "already_violated": 4,
+        "no_forward_crossing": 2
+      }
+    },
+    {
+      "history": "history-02",
+      "reports": 23,
+      "increment": {
+        "finite_exit": 7,
+        "already_violated": 4,
+        "no_forward_crossing": 4
+      },
+      "smoothed_increment": {
+        "finite_exit": 7,
+        "already_violated": 4,
+        "no_forward_crossing": 4
+      }
+    },
+    {
+      "history": "history-03",
+      "reports": 22,
+      "increment": {
+        "no_forward_crossing": 3,
+        "finite_exit": 7,
+        "already_violated": 4
+      },
+      "smoothed_increment": {
+        "no_forward_crossing": 4,
+        "already_violated": 4,
+        "finite_exit": 6
+      }
+    },
+    {
+      "history": "history-04",
+      "reports": 22,
+      "increment": {
+        "no_forward_crossing": 9,
+        "finite_exit": 2,
+        "already_violated": 4
+      },
+      "smoothed_increment": {
+        "no_forward_crossing": 7,
+        "already_violated": 4,
+        "finite_exit": 4
+      }
+    },
+    {
+      "history": "history-05",
+      "reports": 22,
+      "increment": {
+        "finite_exit": 4,
+        "no_forward_crossing": 6,
+        "already_violated": 4
+      },
+      "smoothed_increment": {
+        "finite_exit": 5,
+        "no_forward_crossing": 5,
+        "already_violated": 4
+      }
+    },
+    {
+      "history": "history-06",
+      "reports": 24,
+      "increment": {
+        "finite_exit": 7,
+        "already_violated": 5,
+        "no_forward_crossing": 5
+      },
+      "smoothed_increment": {
+        "finite_exit": 7,
+        "already_violated": 5,
+        "no_forward_crossing": 5
+      }
+    },
+    {
+      "history": "history-07",
+      "reports": 24,
+      "increment": {
+        "no_forward_crossing": 2,
+        "finite_exit": 9,
+        "already_violated": 5
+      },
+      "smoothed_increment": {
+        "no_forward_crossing": 3,
+        "finite_exit": 8,
+        "already_violated": 5
+      }
+    },
+    {
+      "history": "history-08",
+      "reports": 22,
+      "increment": {
+        "finite_exit": 7,
+        "no_forward_crossing": 3,
+        "already_violated": 4
+      },
+      "smoothed_increment": {
+        "finite_exit": 7,
+        "no_forward_crossing": 3,
+        "already_violated": 4
+      }
+    }
+  ]
+}

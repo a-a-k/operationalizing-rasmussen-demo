@@ -17,6 +17,15 @@ Runtime is restricted to the separate manual
 engineering datasets are retained separately from the eight-history campaign.
 Plotting is optional and uses `evolving-state/plot-requirements.txt`.
 
+The [directional extension](evolving-state/results/campaign-v0.1.1/directional-v0.1.0/README.md)
+uses only those saved inputs. Recompute conditional policy intersections and
+the independent multiplicative-path check:
+
+```sh
+python -B evolving-state/scripts/directional.py --output artifacts/directional-replay
+python -B -m unittest discover -s evolving-state/tests -p test_directional.py -v
+```
+
 ## Lightweight offline verification
 
 Use Python 3.13 from the repository root:

@@ -142,3 +142,7 @@ Evidence:
 - [Initial engineering execution](results/engineering-v0.1.0/README.md).
 - [Refined engineering execution](results/engineering-v0.1.1/README.md).
 - [Main eight-history results, interpretation and reproduction](results/campaign-v0.1.1/README.md).
+- [Conditional direction and policy-boundary distance](results/campaign-v0.1.1/directional-v0.1.0/README.md):
+  a versioned retrospective extension, independently checked on the same paths
+  in the original parts. It separates current policy status, latest motion,
+  smoothed motion and changed constraints; it is not a future-violation forecast.

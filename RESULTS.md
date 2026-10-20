@@ -11,6 +11,16 @@ failures under controlled delivery faults. Updated direct ratios and CoDA
 matched; the advantage over a stale schema concerns the updating measurement
 contract, not uniquely better policy detection by CoDA.
 
+The [retrospective directional extension](evolving-state/results/campaign-v0.1.1/directional-v0.1.0/README.md)
+adds conditional boundary diagnosis. Of 85 reports with available direction
+and both policies satisfied, 51 latest-increment rays and 52 smoothed rays
+intersect a current policy boundary. Independent continuation in the original
+parts agrees in all 119 available calculations per direction. Thirty matched
+local-state pairs have opposite latest directions; 26 pairs satisfy both
+policies in both observations. These are overlapping descriptive observations,
+not independent trials, forecasts of actual crossings, or an accuracy advantage
+over an updated direct method using the same history and path.
+
 The closed-resource evidence below is a separate set of experiments.
 
 The evidence supports a measurement model for closed resource adaptation:

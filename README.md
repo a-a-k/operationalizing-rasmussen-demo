@@ -10,6 +10,11 @@ policy-status changes at unchanged measured state, and the same policy accuracy
 for updated direct ratios and CoDA. The updating contract, not uniquely better
 policy detection by CoDA, accounts for the gain over the fixed-schema ablation.
 
+The [directional extension](evolving-state/results/campaign-v0.1.1/directional-v0.1.0/README.md)
+checks orientation and conditional distance to the first current policy boundary
+along the latest and smoothed relative directions. It replays the existing eight
+histories and verifies the same paths independently in the original parts.
+
 New saved-data readout: [position, movement and component continuity](drift-monitor/trajectory-observability/README.md)
 separates accumulated relative displacement, actual increments and their EWMA,
 without changing the original detectors. It includes complete measured histories,

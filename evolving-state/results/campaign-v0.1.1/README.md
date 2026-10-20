@@ -11,6 +11,12 @@ The equally updated **direct-ratio observer worked just as accurately**.
 This campaign establishes an executable, supported form of evolving-state
 observation, not a uniquely superior CoDA detector.
 
+The separate [directional readout](directional-v0.1.0/README.md) now checks what
+the retained trajectory adds: orientation relative to each current policy and
+conditional distance to the first boundary along a fixed relative direction.
+It reuses these histories without changing their runtime results or claiming
+prediction of the actual future.
+
 ## What actually ran
 
 The [fixed design](../../design-v0.1.1.json) was exercised on eight fresh hosted
