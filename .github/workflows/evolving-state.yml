@@ -1,0 +1,128 @@
+name: evolving-state-observer
+
+on:
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: Exact implementation commit
+        required: true
+        type: string
+      phase:
+        description: Engineering gate or eight new descriptive histories
+        required: true
+        type: choice
+        options: [engineering, campaign]
+        default: engineering
+
+permissions:
+  contents: read
+
+concurrency:
+  group: evolving-state-observer
+  cancel-in-progress: false
+
+env:
+  EXPECTED_SHA: ${{ inputs.expected_sha }}
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Verify archive and diagnostic contracts without a workload
+        run: |
+          set -euo pipefail
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          sha256sum --quiet --check SHA256SUMS
+          python -B -m unittest discover -s evolving-state/tests -v
+
+  observe:
+    needs: verify
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        block: ${{ fromJSON(inputs.phase == 'engineering' && '["engineering-01"]' || '["history-01","history-02","history-03","history-04","history-05","history-06","history-07","history-08"]') }}
+    name: observe-${{ matrix.block }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: open-telemetry/opentelemetry-demo
+          ref: 1755859a9de82c2e5e225be68abc401a5ebf2b4f
+          path: upstream/otel-demo
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Real reads, actual forwarding updates, three passive observers
+        env:
+          BLOCK: ${{ matrix.block }}
+        run: |
+          test "$GITHUB_SHA" = "$EXPECTED_SHA"
+          python -B evolving-state/scripts/run.py --upstream upstream/otel-demo --output "artifacts/$BLOCK" --block "$BLOCK"
+      - name: Reconstruct the history independently
+        if: always()
+        run: python -B evolving-state/scripts/analyze.py --inputs artifacts --output local-analysis
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: evolving-state-${{ matrix.block }}-attempt-${{ github.run_attempt }}
+          path: |
+            artifacts/
+            local-analysis/
+          if-no-files-found: warn
+          retention-days: 90
+          compression-level: 1
+
+  evaluate:
+    if: always() && needs.verify.result == 'success'
+    needs: [verify, observe]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          pattern: evolving-state-*-attempt-*
+          path: inputs
+      - name: Compare every recorded history and verify native PromQL arithmetic
+        run: |
+          python -B evolving-state/scripts/analyze.py --inputs inputs --output evaluation
+          python -B evolving-state/scripts/promql_check.py --inputs inputs --output native-promql
+      - name: Check engineering completeness, not an empirical success threshold
+        run: |
+          python - <<'PY'
+          import json
+          rows=json.load(open("evaluation/summary.json"))["histories"]
+          assert rows and all(r["complete"] and not r["missing_windows"] for r in rows)
+          for row in rows:
+              assert row["direct_coda_disagreements"] == 0
+              assert row["upstream_successes"] > 0, "No actual application reads"
+              assert row["k6_dropped_iterations"] == 0, "Insufficient load-generator capacity"
+              for mode in ("direct", "coda"):
+                  r=row["methods"][mode]
+                  assert r["state_errors"] == r["policy_errors"] == 0
+                  assert r["maximum_margin_error"] < 1e-12
+                  assert r["maximum_delta_margin_error"] < 1e-12
+          print("Recording, replay, native arithmetic and available diagnoses verified")
+          PY
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: evolving-state-evaluation-attempt-${{ github.run_attempt }}
+          path: |
+            evaluation/
+            native-promql/*.json
+            native-promql/*.log
+          if-no-files-found: warn
+          retention-days: 90

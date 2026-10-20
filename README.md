@@ -1,5 +1,11 @@
 # Closed-allocation drift measurement
 
+New separate runtime study: [evolving-state observation](evolving-state/README.md)
+checks current attempt composition and retry-policy diagnosis through actual
+forwarding-component updates and policy changes. Its three passive observers
+share inputs; updated direct ratios are checked with native PromQL. Engineering
+validation is pending; no empirical result is claimed yet.
+
 New saved-data readout: [position, movement and component continuity](drift-monitor/trajectory-observability/README.md)
 separates accumulated relative displacement, actual increments and their EWMA,
 without changing the original detectors. It includes complete measured histories,
