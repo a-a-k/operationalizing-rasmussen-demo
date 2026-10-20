@@ -71,7 +71,8 @@ class PipelineTests(unittest.TestCase):
                 self.assertEqual(result["methods"][mode]["state_errors"], 0)
                 self.assertEqual(result["methods"][mode]["policy_errors"], 0)
                 self.assertEqual(result["methods"][mode]["status_counts"]["no_attempts"], 2)
-                self.assertGreater(result["methods"][mode]["held_diagnosis_time"]["incorrect_ms"], 0)
+                self.assertGreater(result["methods"][mode]["held_diagnosis_time"]["stale_ms"], 0)
+                self.assertEqual(result["methods"][mode]["held_diagnosis_time"]["incorrect_ms"], 0)
 
     def test_aggregate_corruption_is_caught_by_independent_events(self):
         with tempfile.TemporaryDirectory() as name:
@@ -94,6 +95,20 @@ class PipelineTests(unittest.TestCase):
             # Runtime empty windows expose no component rows; zero-denominator
             # fixtures should not turn absence into a safe decision.
             self.assertEqual(tests[-1]["promql_expr_test"][0]["exp_samples"], [])
+
+    def test_native_policy_input_is_received_metadata_not_oracle(self):
+        with tempfile.TemporaryDirectory() as name:
+            directory = Path(name)
+            inputs, _ = build(directory)
+            inputs[0]["metadata"]["policies"]["1"]["limits"]["catalog"] = .1
+            jsonl(directory / "observer-inputs.jsonl", inputs)
+            test = fixture(directory)["tests"][0]
+            limit = next(r for r in test["input_series"]
+                         if r["series"] == 'retry_policy_limit{group="catalog"}')
+            self.assertEqual(limit["values"], "0.1")
+            expected = next(r for r in test["promql_expr_test"][1]["exp_samples"]
+                            if r["labels"] == '{group="catalog"}')
+            self.assertEqual(expected["value"], 0)
 
 
 if __name__ == "__main__":

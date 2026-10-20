@@ -1,6 +1,7 @@
 # Evolving-state observation
 
-Status: implementation and engineering validation; **no empirical result yet**.
+Status: initial engineering execution completed; refined engineering validation
+and the descriptive campaign are pending. **No final empirical claim yet.**
 This separate experiment does not replace or revise previous campaigns.
 
 ## Question and scope
@@ -18,7 +19,8 @@ logical requests and extra attempt load are measured, not assumed to improve.
 This is not natural production drift, arbitrary lineage discovery, or an
 automatic adaptation controller.
 
-The [definition](design-v0.1.0.json) specifies the schedule and runtime inputs.
+The [current definition](design-v0.1.1.json) specifies the schedule and runtime inputs.
+The [initial engineering definition](design-v0.1.0.json) is retained separately.
 Runtime workloads execute only in the [dedicated hosted workflow](../.github/workflows/evolving-state.yml).
 Local work is limited to unit checks and saved-data analysis.
 
@@ -29,7 +31,7 @@ For group `g` and a completed, nonoverlapping ten-second window:
 - `F_g`: starts of first attempts at this one client layer.
 - `R_g`: starts of subsequent attempts for those logical calls.
 - `r_g = R_g / (F_g + R_g)`: retry fraction among physical attempt starts.
-- `rho_g(t)`: the policy actually effective at diagnosis time.
+- `rho_g(t)`: the policy actually effective at the atomic snapshot time.
 - `m_g(t) = rho_g(t) - r_g(t)`: current policy margin.
 
 An attempt belongs to its start window, even if its response arrives later.
@@ -42,11 +44,18 @@ The windowed fraction is our precise experimental policy. Retry budgeting has
 a [practical motivation](https://sre.google/sre-book/handling-overload/), but
 this fraction is not claimed to reproduce every product's budget semantics.
 Exceeding it establishes a policy violation, not proof of application overload.
+It is an observational requirement, not an enforced rate limiter: none of the
+three observers changes retry decisions.
 
 For comparable group scopes, `delta_m = delta_rho - delta_r`. This is a
 decomposition of a changed diagnosis, not proof of a causal application mechanism.
 Policy publication, actual application and observer receipt are recorded
 separately. A threshold change can create a violation without preceding drift.
+Pointwise reconstruction is checked as of the snapshot's `generated_ms`.
+Time-weighted coverage additionally counts the delay before the next poll:
+a held report can become stale when a policy changes or a new window completes.
+This delay is not silently counted as correct observation. External k6 response
+records separately check successful logical completions at the requesting client.
 
 The complete composition has four parts, in order:
 `catalog:first, catalog:retry, currency:first, currency:retry`.
@@ -113,3 +122,13 @@ histories are planned after this gate, with all attempts retained. This is a
 small descriptive PoC, not a reliability claim or a success-by-majority test.
 No automatic rollback, operator benefit or prevention of service violations
 is established by this passive study.
+
+The initial engineering execution had 18 windows, no dropped load iterations and
+4,442 successful upstream reads. All available updated diagnoses matched the
+individual event journal and native PromQL. It also exposed 23 client attempts
+without a forwarding-worker receipt during component startup, and one late
+request in the nominal idle window. Revision 0.1.1 adds readiness checks and a
+second idle window, and decouples observer polling from intervention execution.
+The policy-only sequence is relaxed then tightened to exercise a policy-only
+boundary contrast. These refinements precede the descriptive campaign; the
+initial execution is not pooled with it.

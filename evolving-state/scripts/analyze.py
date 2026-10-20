@@ -132,11 +132,13 @@ def compare(directory):
         }
         # A held report can become stale before the next poll. Split intervals at
         # actual policy applications and completed-window boundaries.
-        spans = {"total_ms": 0., "trustworthy_ms": 0., "unavailable_ms": 0., "incorrect_ms": 0.}
+        spans = {"total_ms": 0., "trustworthy_ms": 0., "unavailable_ms": 0.,
+                 "stale_ms": 0., "incorrect_ms": 0.}
         for i, (item, result) in enumerate(zip(inputs, diagnoses)):
             start = item["snapshot"]["received_ms"]
             stop = (inputs[i + 1]["snapshot"]["received_ms"] if i + 1 < len(inputs)
-                    else cfg["origin_ms"] + cfg["windows"] * cfg["window_seconds"] * 1000 + 1200)
+                    else status.get("collection_finished_ms",
+                                    cfg["origin_ms"] + cfg["windows"] * cfg["window_seconds"] * 1000 + 1200))
             selected = [r for r in rows if r["received_ms"] == start]
             cuts = [start, max(start, stop)]
             cuts += [e["applied_ms"] for e in events if e["type"] == "configuration_applied"
@@ -157,8 +159,12 @@ def compare(directory):
                     r["trustworthy"] and r["window"] == latest_window
                     and abs(r["reported_rho"] - at_time["groups"][r["group"]]["rho"]) < 1e-12
                     for r in selected)
+                stale = any(r["window"] != latest_window or
+                            (r["reported_rho"] is not None and
+                             r["reported_rho"] != at_time["groups"][r["group"]]["rho"]) for r in selected)
                 key = ("trustworthy_ms" if current_correct else "unavailable_ms"
-                       if any(r["status"] != "available" for r in selected) else "incorrect_ms")
+                       if any(r["status"] != "available" for r in selected)
+                       else "stale_ms" if stale else "incorrect_ms")
                 spans[key] += duration
         states[mode]["held_diagnosis_time"] = spans
     # Applied-to-first-correct reporting latency, without consulting intended event labels.
@@ -168,12 +174,16 @@ def compare(directory):
         at = event["applied_ms"]
         old_config = updates[event_index - 1]["config"]
         representation_changed = event["config"]["deployment"] != old_config["deployment"]
-        next_update = updates[event_index + 1]["applied_ms"] if event_index + 1 < len(updates) else math.inf
+        # An unrelated policy edit must not censor observation of the new
+        # deployment in the next completed measurement window.
+        next_update = next((e["applied_ms"] for e in updates[event_index + 1:]
+                            if e["config"]["deployment"] != event["config"]["deployment"]), math.inf) if representation_changed else math.inf
         for mode in ("fixed", "direct", "coda"):
             # For lineage updates require a window actually containing new components.
             candidates = [i for i, item in enumerate(inputs)
                           if item["snapshot"]["received_ms"] >= at
-                          and item["snapshot"]["received_ms"] < next_update
+                          and item["snapshot"]["generated_ms"] >= at
+                          and item["snapshot"]["window_end_ms"] <= next_update
                           and item["snapshot"]["configuration_version"] >= event["config"]["version"]]
             first, exposure = None, None
             for i in candidates:
@@ -184,7 +194,10 @@ def compare(directory):
                 if exposure is None:
                     exposure = snap["received_ms"]
                 relevant = [r for r in records if r["mode"] == mode and r["received_ms"] == snap["received_ms"]]
-                policy_matches = diagnoses[i]["rows"][("fixed", "direct", "coda").index(mode)]["policy_used"] == event["config"]["policy_version"]
+                policy_matches = diagnoses[i]["rows"][("fixed", "direct", "coda").index(mode)]["policy_used"] == truth_by_input[i]["policy_version"]
+                if not representation_changed and event["config"]["policy_version"] != old_config["policy_version"]:
+                    if snap["policy_version"] != event["config"]["policy_version"]:
+                        continue
                 if policy_matches and all(r["trustworthy"] for r in relevant):
                     first = snap["received_ms"] - at
                     break
@@ -193,7 +206,15 @@ def compare(directory):
                             "first_exposed_ms": exposure,
                             "first_correct_after_update_ms": first,
                             "first_correct_after_exposure_ms": first - (exposure - at) if first is not None else None,
-                            "censored_at_next_update": first is None})
+                            "unavailable_in_observed_applicability": first is None,
+                            "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."})
+    client = []
+    for stream in ("stdout.log", "stderr.log"):
+        for line in (directory / "k6" / stream).read_text(encoding="utf-8").splitlines() if (directory / "k6" / stream).exists() else []:
+            if line.startswith("CLIENT "):
+                client.append(json.loads(line[7:]))
+    if len({r["logical_id"] for r in client}) != len(client):
+        raise ValueError("Duplicate external-client logical identity")
     summary = {"block": status["block"], "complete": True,
                "missing_windows": sorted(expected_windows - actual_windows),
                "observer_input_batches": len(inputs), "direct_coda_disagreements": disagreements,
@@ -203,11 +224,47 @@ def compare(directory):
                "upstream_successes": sum(e["upstream_status"] == 200 for e in forwarded),
                "logical_completed": len(logical), "logical_successes": sum(e["status"] == 200 for e in logical),
                "k6_dropped_iterations": json.loads((directory / "k6/summary.json").read_text())["metrics"].get("dropped_iterations", {}).get("values", {}).get("count", 0),
+               "external_client_completed": len(client) if client else None,
+               "external_client_successes": sum(r["status"] == 200 for r in client) if client else None,
+               "k6_iterations": json.loads((directory / "k6/summary.json").read_text())["metrics"].get("iterations", {}).get("values", {}).get("count"),
                "explicit_worker_annotations": len(list((directory / "journals").glob("reader-*.jsonl"))),
                "initial_group_annotations": 2,
                "successor_lineage_annotations": max(0, len(list((directory / "journals").glob("reader-*.jsonl"))) - 2),
+               "manual_runtime_repairs": 0,
                "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."}
     return summary, records, geometric
+
+
+def execution_windows(directory):
+    """Actual useful completions and attempt load, by separately stated cohorts."""
+    cfg = json.loads((directory / "load-config.json").read_text())
+    events = lines(directory / "journals/client.jsonl")
+    starts = {e["logical_id"]: e for e in events if e["type"] == "logical_start"}
+    ends = {e["logical_id"]: e for e in events if e["type"] == "logical_end"}
+    client = []
+    for stream in ("stdout.log", "stderr.log"):
+        path = directory / "k6" / stream
+        for line in path.read_text(encoding="utf-8").splitlines() if path.exists() else []:
+            if line.startswith("CLIENT "):
+                client.append(json.loads(line[7:]))
+    output = []
+    for window in range(1, cfg["windows"] + 1):
+        lower = cfg["origin_ms"] + (window - 1) * cfg["window_seconds"] * 1000
+        upper = lower + cfg["window_seconds"] * 1000
+        for group in ("catalog", "currency"):
+            attempts = [e for e in events if e["type"] == "attempt_start"
+                        and e["logical_group"] == group and lower <= e["started_ms"] < upper]
+            logical = [e for e in starts.values() if e["logical_group"] == group and lower <= e["started_ms"] < upper]
+            external = [e for e in client if e["group"] == group and lower <= e["started_ms"] < upper]
+            output.append({"window": window, "group": group,
+                           "first_attempt_starts": sum(e["attempt"] == 0 for e in attempts),
+                           "retry_attempt_starts": sum(e["attempt"] > 0 for e in attempts),
+                           "gateway_logical_started": len(logical),
+                           "gateway_logical_success": sum(ends.get(e["logical_id"], {}).get("status") == 200 for e in logical),
+                           "external_client_completed": len(external) if client else None,
+                           "external_client_success": sum(e["status"] == 200 for e in external) if client else None,
+                           "execution_versions": json.dumps(sorted({e["configuration"] for e in attempts}))})
+    return output
 
 
 def main():
@@ -215,12 +272,14 @@ def main():
     parser.add_argument("--inputs", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    summaries, rows, geometry = [], [], []
+    summaries, rows, geometry, executions = [], [], [], []
     for status in sorted(args.inputs.rglob("status.json")):
         summary, records, g = compare(status.parent)
         summaries.append(summary)
         rows.extend(records)
         geometry.extend(g)
+        if summary["complete"]:
+            executions.extend({"block": summary["block"], **r} for r in execution_windows(status.parent))
     if not summaries:
         raise ValueError("No histories found")
     save(args.output / "summary.json", {"histories": summaries})
@@ -230,6 +289,11 @@ def main():
             writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
             writer.writeheader()
             writer.writerows(rows)
+    if executions:
+        with (args.output / "execution-windows.csv").open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(handle, fieldnames=list(executions[0]))
+            writer.writeheader()
+            writer.writerows(executions)
     print(json.dumps({"received_histories": len(summaries),
                       "complete": sum(s["complete"] for s in summaries),
                       "direct_coda_disagreements": sum(s.get("direct_coda_disagreements", 0) for s in summaries)}))

@@ -47,7 +47,8 @@ def fixture(directory):
                     series.append({"series": "attempt_window_count{" + labels + "}", "values": "0"})
         ratios, violations = [], []
         for group, actual in truth["groups"].items():
-            series.append({"series": f'retry_policy_limit{{group="{group}"}}', "values": str(actual["rho"])})
+            received_limit = item["metadata"]["policies"][str(snapshot["policy_version"])]["limits"][group]
+            series.append({"series": f'retry_policy_limit{{group="{group}"}}', "values": str(received_limit)})
             if actual["ratio"] is not None:
                 ratios.append({"labels": f'{{group="{group}"}}', "value": actual["ratio"]})
                 violations.append({"labels": f'{{group="{group}"}}', "value": int(actual["violation"])})

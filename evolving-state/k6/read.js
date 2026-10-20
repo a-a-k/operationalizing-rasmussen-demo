@@ -10,7 +10,7 @@ for (const group of ['catalog', 'currency']) {
     exec: 'read',
     rate: cfg.logical_rate_per_group,
     timeUnit: '1s',
-    duration: `${(cfg.windows - 1) * cfg.window_seconds}s`,
+    duration: `${cfg.active_windows * cfg.window_seconds}s`,
     preAllocatedVUs: cfg.preallocated_vus_per_group,
     maxVUs: cfg.preallocated_vus_per_group,
     gracefulStop: '10s',
@@ -30,11 +30,14 @@ export function setup() {
 export function read() {
   const group = exec.scenario.name;
   const id = `${cfg.block_id}:${group}:${exec.scenario.iterationInTest}`;
-  http.get(`http://retry-gateway:8080/request/${group}`, {
+  const start = Date.now();
+  const response = http.get(`http://retry-gateway:8080/request/${group}`, {
     headers: {'X-Logical-Id': id},
     timeout: `${cfg.request_timeout_seconds}s`,
     tags: {name: `logical_${group}`},
   });
+  console.log('CLIENT ' + JSON.stringify({logical_id: id, group, started_ms: start,
+    completed_ms: Date.now(), status: response.status, error_code: response.error_code || 0}));
 }
 export function handleSummary(data) {
   return {'/artifacts/summary.json': JSON.stringify(data, null, 2)};

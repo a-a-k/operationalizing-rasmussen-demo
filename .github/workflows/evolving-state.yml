@@ -109,11 +109,14 @@ jobs:
               assert row["direct_coda_disagreements"] == 0
               assert row["upstream_successes"] > 0, "No actual application reads"
               assert row["k6_dropped_iterations"] == 0, "Insufficient load-generator capacity"
+              assert row["external_client_completed"] == row["k6_iterations"], "Incomplete external-client journal"
               for mode in ("direct", "coda"):
                   r=row["methods"][mode]
                   assert r["state_errors"] == r["policy_errors"] == 0
                   assert r["maximum_margin_error"] < 1e-12
                   assert r["maximum_delta_margin_error"] < 1e-12
+                  assert r["maximum_delta_ratio_error"] < 1e-12
+                  assert r["maximum_delta_policy_error"] < 1e-12
           print("Recording, replay, native arithmetic and available diagnoses verified")
           PY
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
