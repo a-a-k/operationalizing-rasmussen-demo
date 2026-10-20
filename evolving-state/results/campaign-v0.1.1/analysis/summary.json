@@ -1,0 +1,3172 @@
+{
+  "histories": [
+    {
+      "block": "history-01",
+      "complete": true,
+      "missing_windows": [],
+      "observer_input_batches": 22,
+      "direct_coda_disagreements": 0,
+      "live_prefix_replay": "identical_except_compute_time",
+      "methods": {
+        "fixed": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 16,
+            "missing_lineage": 24,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 10,
+          "policy_errors": 6,
+          "state_errors": 0,
+          "maximum_margin_error": 0.25,
+          "maximum_delta_margin_error": 0.25,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0.25,
+          "median_compute_microseconds": 33.4905,
+          "held_diagnosis_time": {
+            "total_ms": 181582.79858398438,
+            "trustworthy_ms": 49378.131591796875,
+            "unavailable_ms": 111412.068359375,
+            "stale_ms": 20792.5986328125,
+            "incorrect_ms": 0.0
+          }
+        },
+        "direct": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 36,
+            "missing_lineage": 4,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 36,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 23.7405,
+          "held_diagnosis_time": {
+            "total_ms": 181582.79858398438,
+            "trustworthy_ms": 153889.92602539062,
+            "unavailable_ms": 23178.4775390625,
+            "stale_ms": 4514.39501953125,
+            "incorrect_ms": 0.0
+          }
+        },
+        "coda": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 36,
+            "missing_lineage": 4,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 36,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 34.5375,
+          "held_diagnosis_time": {
+            "total_ms": 181582.79858398438,
+            "trustworthy_ms": 153889.92602539062,
+            "unavailable_ms": 23178.4775390625,
+            "stale_ms": 4514.39501953125,
+            "incorrect_ms": 0.0
+          }
+        }
+      },
+      "update_latencies": [
+        {
+          "configuration": 2,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499218410.3472,
+          "first_correct_after_update_ms": 100.534423828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499218410.3472,
+          "first_correct_after_update_ms": 100.534423828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499218410.3472,
+          "first_correct_after_update_ms": 100.534423828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499238455.678,
+          "first_correct_after_update_ms": 139.929931640625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499238455.678,
+          "first_correct_after_update_ms": 139.929931640625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499238455.678,
+          "first_correct_after_update_ms": 139.929931640625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499248481.6553,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499248481.6553,
+          "first_correct_after_update_ms": 162.323974609375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499248481.6553,
+          "first_correct_after_update_ms": 162.323974609375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499268530.6406,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499268530.6406,
+          "first_correct_after_update_ms": 9095.4462890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499268530.6406,
+          "first_correct_after_update_ms": 9095.4462890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268530.6406,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268530.6406,
+          "first_correct_after_update_ms": 91.27978515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268530.6406,
+          "first_correct_after_update_ms": 91.27978515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278555.9868,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278555.9868,
+          "first_correct_after_update_ms": 113.0517578125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278555.9868,
+          "first_correct_after_update_ms": 113.0517578125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499308639.8186,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499308639.8186,
+          "first_correct_after_update_ms": 20173.627197265625,
+          "first_correct_after_exposure_ms": 11528.7451171875,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499308639.8186,
+          "first_correct_after_update_ms": 20173.627197265625,
+          "first_correct_after_exposure_ms": 11528.7451171875,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499338713.2363,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499338713.2363,
+          "first_correct_after_update_ms": 9785.627197265625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499338713.2363,
+          "first_correct_after_update_ms": 9785.627197265625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499338713.2363,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499338713.2363,
+          "first_correct_after_update_ms": 282.310791015625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499338713.2363,
+          "first_correct_after_update_ms": 282.310791015625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499358768.7444,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499358768.7444,
+          "first_correct_after_update_ms": 331.426025390625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499358768.7444,
+          "first_correct_after_update_ms": 331.426025390625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        }
+      ],
+      "client_attempts": 4444,
+      "forwarded_attempts": 4444,
+      "attempts_without_worker_receipt": 0,
+      "upstream_successes": 4444,
+      "logical_completed": 3400,
+      "logical_successes": 3216,
+      "k6_dropped_iterations": 0,
+      "external_client_completed": 3400,
+      "external_client_successes": 3216,
+      "k6_iterations": 3400,
+      "explicit_worker_annotations": 7,
+      "initial_group_annotations": 2,
+      "successor_lineage_annotations": 5,
+      "manual_runtime_repairs": 0,
+      "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."
+    },
+    {
+      "block": "history-02",
+      "complete": true,
+      "missing_windows": [],
+      "observer_input_batches": 23,
+      "direct_coda_disagreements": 0,
+      "live_prefix_replay": "identical_except_compute_time",
+      "methods": {
+        "fixed": {
+          "group_diagnoses": 46,
+          "status_counts": {
+            "available": 16,
+            "missing_lineage": 28,
+            "no_attempts": 2
+          },
+          "trustworthy_group_diagnoses": 10,
+          "policy_errors": 6,
+          "state_errors": 0,
+          "maximum_margin_error": 0.25,
+          "maximum_delta_margin_error": 0.25,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0.25,
+          "median_compute_microseconds": 35.081,
+          "held_diagnosis_time": {
+            "total_ms": 181536.62475585938,
+            "trustworthy_ms": 49304.942138671875,
+            "unavailable_ms": 111313.05395507812,
+            "stale_ms": 20918.628662109375,
+            "incorrect_ms": 0.0
+          }
+        },
+        "direct": {
+          "group_diagnoses": 46,
+          "status_counts": {
+            "available": 39,
+            "missing_lineage": 4,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 39,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 30.405,
+          "held_diagnosis_time": {
+            "total_ms": 181536.62475585938,
+            "trustworthy_ms": 153763.59423828125,
+            "unavailable_ms": 23511.728515625,
+            "stale_ms": 4261.302001953125,
+            "incorrect_ms": 0.0
+          }
+        },
+        "coda": {
+          "group_diagnoses": 46,
+          "status_counts": {
+            "available": 39,
+            "missing_lineage": 4,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 39,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 37.756,
+          "held_diagnosis_time": {
+            "total_ms": 181536.62475585938,
+            "trustworthy_ms": 153763.59423828125,
+            "unavailable_ms": 23511.728515625,
+            "stale_ms": 4261.302001953125,
+            "incorrect_ms": 0.0
+          }
+        }
+      },
+      "update_latencies": [
+        {
+          "configuration": 2,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499248896.1199,
+          "first_correct_after_update_ms": 109.764404296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499248896.1199,
+          "first_correct_after_update_ms": 109.764404296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499248896.1199,
+          "first_correct_after_update_ms": 109.764404296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268957.9473,
+          "first_correct_after_update_ms": 164.661376953125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268957.9473,
+          "first_correct_after_update_ms": 164.661376953125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268957.9473,
+          "first_correct_after_update_ms": 164.661376953125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278994.1255,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278994.1255,
+          "first_correct_after_update_ms": 196.766845703125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278994.1255,
+          "first_correct_after_update_ms": 196.766845703125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499299059.918,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499299059.918,
+          "first_correct_after_update_ms": 7993.73779296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499299059.918,
+          "first_correct_after_update_ms": 7993.73779296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499299562.4358,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499299562.4358,
+          "first_correct_after_update_ms": 492.55517578125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499299562.4358,
+          "first_correct_after_update_ms": 492.55517578125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499309092.91,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499309092.91,
+          "first_correct_after_update_ms": 19.2412109375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499309092.91,
+          "first_correct_after_update_ms": 19.2412109375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499339191.5034,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499339191.5034,
+          "first_correct_after_update_ms": 20500.874267578125,
+          "first_correct_after_exposure_ms": 12041.06201171875,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499339191.5034,
+          "first_correct_after_update_ms": 20500.874267578125,
+          "first_correct_after_exposure_ms": 12041.06201171875,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499368805.0164,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499368805.0164,
+          "first_correct_after_update_ms": 8450.0732421875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499368805.0164,
+          "first_correct_after_update_ms": 8450.0732421875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499378838.3643,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499378838.3643,
+          "first_correct_after_update_ms": 9979.591796875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499378838.3643,
+          "first_correct_after_update_ms": 9979.591796875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499388871.098,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499388871.098,
+          "first_correct_after_update_ms": 3.918212890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499388871.098,
+          "first_correct_after_update_ms": 3.918212890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        }
+      ],
+      "client_attempts": 4429,
+      "forwarded_attempts": 4429,
+      "attempts_without_worker_receipt": 0,
+      "upstream_successes": 4429,
+      "logical_completed": 3401,
+      "logical_successes": 3228,
+      "k6_dropped_iterations": 0,
+      "external_client_completed": 3401,
+      "external_client_successes": 3228,
+      "k6_iterations": 3401,
+      "explicit_worker_annotations": 7,
+      "initial_group_annotations": 2,
+      "successor_lineage_annotations": 5,
+      "manual_runtime_repairs": 0,
+      "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."
+    },
+    {
+      "block": "history-03",
+      "complete": true,
+      "missing_windows": [],
+      "observer_input_batches": 22,
+      "direct_coda_disagreements": 0,
+      "live_prefix_replay": "identical_except_compute_time",
+      "methods": {
+        "fixed": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 16,
+            "missing_lineage": 26,
+            "no_attempts": 2
+          },
+          "trustworthy_group_diagnoses": 10,
+          "policy_errors": 6,
+          "state_errors": 0,
+          "maximum_margin_error": 0.25,
+          "maximum_delta_margin_error": 0.25,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0.25,
+          "median_compute_microseconds": 41.6475,
+          "held_diagnosis_time": {
+            "total_ms": 181461.65478515625,
+            "trustworthy_ms": 49248.358642578125,
+            "unavailable_ms": 111230.14697265625,
+            "stale_ms": 20983.149169921875,
+            "incorrect_ms": 0.0
+          }
+        },
+        "direct": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 37,
+            "missing_lineage": 4,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 37,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 40.2605,
+          "held_diagnosis_time": {
+            "total_ms": 181461.65478515625,
+            "trustworthy_ms": 154415.34008789062,
+            "unavailable_ms": 23413.48681640625,
+            "stale_ms": 3632.827880859375,
+            "incorrect_ms": 0.0
+          }
+        },
+        "coda": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 37,
+            "missing_lineage": 4,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 37,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 51.7525,
+          "held_diagnosis_time": {
+            "total_ms": 181461.65478515625,
+            "trustworthy_ms": 154415.34008789062,
+            "unavailable_ms": 23413.48681640625,
+            "stale_ms": 3632.827880859375,
+            "incorrect_ms": 0.0
+          }
+        }
+      },
+      "update_latencies": [
+        {
+          "configuration": 2,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499193732.8381,
+          "first_correct_after_update_ms": 117.896484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499193732.8381,
+          "first_correct_after_update_ms": 117.896484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499193732.8381,
+          "first_correct_after_update_ms": 117.896484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499213800.5098,
+          "first_correct_after_update_ms": 178.003173828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499213800.5098,
+          "first_correct_after_update_ms": 178.003173828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499213800.5098,
+          "first_correct_after_update_ms": 178.003173828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499223832.1604,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499223832.1604,
+          "first_correct_after_update_ms": 201.649658203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499223832.1604,
+          "first_correct_after_update_ms": 201.649658203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499243902.0022,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499243902.0022,
+          "first_correct_after_update_ms": 8071.626220703125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499243902.0022,
+          "first_correct_after_update_ms": 8071.626220703125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499243902.0022,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499243902.0022,
+          "first_correct_after_update_ms": 67.764404296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499243902.0022,
+          "first_correct_after_update_ms": 67.764404296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499253933.1416,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499253933.1416,
+          "first_correct_after_update_ms": 94.507080078125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499253933.1416,
+          "first_correct_after_update_ms": 94.507080078125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499284034.8242,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499284034.8242,
+          "first_correct_after_update_ms": 20098.25341796875,
+          "first_correct_after_exposure_ms": 12042.343017578125,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499284034.8242,
+          "first_correct_after_update_ms": 20098.25341796875,
+          "first_correct_after_exposure_ms": 12042.343017578125,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499313652.9304,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499313652.9304,
+          "first_correct_after_update_ms": 9043.21044921875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499313652.9304,
+          "first_correct_after_update_ms": 9043.21044921875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499313652.9304,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499313652.9304,
+          "first_correct_after_update_ms": 39.5205078125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499313652.9304,
+          "first_correct_after_update_ms": 39.5205078125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499333725.646,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499333725.646,
+          "first_correct_after_update_ms": 105.4189453125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499333725.646,
+          "first_correct_after_update_ms": 105.4189453125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        }
+      ],
+      "client_attempts": 4442,
+      "forwarded_attempts": 4442,
+      "attempts_without_worker_receipt": 0,
+      "upstream_successes": 4442,
+      "logical_completed": 3401,
+      "logical_successes": 3232,
+      "k6_dropped_iterations": 0,
+      "external_client_completed": 3401,
+      "external_client_successes": 3232,
+      "k6_iterations": 3401,
+      "explicit_worker_annotations": 7,
+      "initial_group_annotations": 2,
+      "successor_lineage_annotations": 5,
+      "manual_runtime_repairs": 0,
+      "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."
+    },
+    {
+      "block": "history-04",
+      "complete": true,
+      "missing_windows": [],
+      "observer_input_batches": 22,
+      "direct_coda_disagreements": 0,
+      "live_prefix_replay": "identical_except_compute_time",
+      "methods": {
+        "fixed": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 16,
+            "missing_lineage": 26,
+            "no_attempts": 2
+          },
+          "trustworthy_group_diagnoses": 10,
+          "policy_errors": 6,
+          "state_errors": 0,
+          "maximum_margin_error": 0.25,
+          "maximum_delta_margin_error": 0.25,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0.25,
+          "median_compute_microseconds": 40.180499999999995,
+          "held_diagnosis_time": {
+            "total_ms": 181422.81762695312,
+            "trustworthy_ms": 49252.1650390625,
+            "unavailable_ms": 111197.31518554688,
+            "stale_ms": 20973.33740234375,
+            "incorrect_ms": 0.0
+          }
+        },
+        "direct": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 38,
+            "missing_lineage": 4,
+            "no_attempts": 2
+          },
+          "trustworthy_group_diagnoses": 38,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 37.585,
+          "held_diagnosis_time": {
+            "total_ms": 181422.81762695312,
+            "trustworthy_ms": 164434.08178710938,
+            "unavailable_ms": 13364.36962890625,
+            "stale_ms": 3624.3662109375,
+            "incorrect_ms": 0.0
+          }
+        },
+        "coda": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 38,
+            "missing_lineage": 4,
+            "no_attempts": 2
+          },
+          "trustworthy_group_diagnoses": 38,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 47.257999999999996,
+          "held_diagnosis_time": {
+            "total_ms": 181422.81762695312,
+            "trustworthy_ms": 164434.08178710938,
+            "unavailable_ms": 13364.36962890625,
+            "stale_ms": 3624.3662109375,
+            "incorrect_ms": 0.0
+          }
+        }
+      },
+      "update_latencies": [
+        {
+          "configuration": 2,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499222339.434,
+          "first_correct_after_update_ms": 122.6728515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499222339.434,
+          "first_correct_after_update_ms": 122.6728515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499222339.434,
+          "first_correct_after_update_ms": 122.6728515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499242404.4553,
+          "first_correct_after_update_ms": 181.12353515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499242404.4553,
+          "first_correct_after_update_ms": 181.12353515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499242404.4553,
+          "first_correct_after_update_ms": 181.12353515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499252433.9954,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499252433.9954,
+          "first_correct_after_update_ms": 206.89404296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499252433.9954,
+          "first_correct_after_update_ms": 206.89404296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499272495.6313,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499272495.6313,
+          "first_correct_after_update_ms": 8067.0361328125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499272495.6313,
+          "first_correct_after_update_ms": 8067.0361328125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499272495.6313,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499272495.6313,
+          "first_correct_after_update_ms": 62.522705078125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499272495.6313,
+          "first_correct_after_update_ms": 62.522705078125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499282525.9883,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499282525.9883,
+          "first_correct_after_update_ms": 88.96337890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499282525.9883,
+          "first_correct_after_update_ms": 88.96337890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499312624.8262,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499312624.8262,
+          "first_correct_after_update_ms": 20102.285888671875,
+          "first_correct_after_exposure_ms": 12039.399658203125,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499312624.8262,
+          "first_correct_after_update_ms": 20102.285888671875,
+          "first_correct_after_exposure_ms": 12039.399658203125,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499342230.1558,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499342230.1558,
+          "first_correct_after_update_ms": 8553.4765625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499342230.1558,
+          "first_correct_after_update_ms": 8553.4765625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499352261.887,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499352261.887,
+          "first_correct_after_update_ms": 9581.18310546875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499352261.887,
+          "first_correct_after_update_ms": 9581.18310546875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499372335.407,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499372335.407,
+          "first_correct_after_update_ms": 9647.967529296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499372335.407,
+          "first_correct_after_update_ms": 9647.967529296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        }
+      ],
+      "client_attempts": 4431,
+      "forwarded_attempts": 4431,
+      "attempts_without_worker_receipt": 0,
+      "upstream_successes": 4431,
+      "logical_completed": 3402,
+      "logical_successes": 3231,
+      "k6_dropped_iterations": 0,
+      "external_client_completed": 3402,
+      "external_client_successes": 3231,
+      "k6_iterations": 3402,
+      "explicit_worker_annotations": 7,
+      "initial_group_annotations": 2,
+      "successor_lineage_annotations": 5,
+      "manual_runtime_repairs": 0,
+      "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."
+    },
+    {
+      "block": "history-05",
+      "complete": true,
+      "missing_windows": [],
+      "observer_input_batches": 22,
+      "direct_coda_disagreements": 0,
+      "live_prefix_replay": "identical_except_compute_time",
+      "methods": {
+        "fixed": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 16,
+            "missing_lineage": 24,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 10,
+          "policy_errors": 6,
+          "state_errors": 0,
+          "maximum_margin_error": 0.25,
+          "maximum_delta_margin_error": 0.25,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0.25,
+          "median_compute_microseconds": 37.9165,
+          "held_diagnosis_time": {
+            "total_ms": 181581.24096679688,
+            "trustworthy_ms": 49184.4033203125,
+            "unavailable_ms": 111356.30004882812,
+            "stale_ms": 21040.53759765625,
+            "incorrect_ms": 0.0
+          }
+        },
+        "direct": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 36,
+            "missing_lineage": 4,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 36,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 37.201,
+          "held_diagnosis_time": {
+            "total_ms": 181581.24096679688,
+            "trustworthy_ms": 153504.400390625,
+            "unavailable_ms": 24063.418212890625,
+            "stale_ms": 4013.42236328125,
+            "incorrect_ms": 0.0
+          }
+        },
+        "coda": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 36,
+            "missing_lineage": 4,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 36,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 48.712,
+          "held_diagnosis_time": {
+            "total_ms": 181581.24096679688,
+            "trustworthy_ms": 153504.400390625,
+            "unavailable_ms": 24063.418212890625,
+            "stale_ms": 4013.42236328125,
+            "incorrect_ms": 0.0
+          }
+        }
+      },
+      "update_latencies": [
+        {
+          "configuration": 2,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499219639.885,
+          "first_correct_after_update_ms": 117.8701171875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499219639.885,
+          "first_correct_after_update_ms": 117.8701171875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499219639.885,
+          "first_correct_after_update_ms": 117.8701171875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499239705.7537,
+          "first_correct_after_update_ms": 177.352294921875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499239705.7537,
+          "first_correct_after_update_ms": 177.352294921875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499239705.7537,
+          "first_correct_after_update_ms": 177.352294921875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499249735.242,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499249735.242,
+          "first_correct_after_update_ms": 203.034423828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499249735.242,
+          "first_correct_after_update_ms": 203.034423828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499269802.4019,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499269802.4019,
+          "first_correct_after_update_ms": 8016.624267578125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499269802.4019,
+          "first_correct_after_update_ms": 8016.624267578125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499269802.4019,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499269802.4019,
+          "first_correct_after_update_ms": 11.85205078125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499269802.4019,
+          "first_correct_after_update_ms": 11.85205078125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499279833.4434,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499279833.4434,
+          "first_correct_after_update_ms": 38.577880859375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499279833.4434,
+          "first_correct_after_update_ms": 38.577880859375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499309931.1482,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499309931.1482,
+          "first_correct_after_update_ms": 20462.65625,
+          "first_correct_after_exposure_ms": 12541.19287109375,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499309931.1482,
+          "first_correct_after_update_ms": 20462.65625,
+          "first_correct_after_exposure_ms": 12541.19287109375,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499339535.9966,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499339535.9966,
+          "first_correct_after_update_ms": 8893.12646484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499339535.9966,
+          "first_correct_after_update_ms": 8893.12646484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499349568.5798,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499349568.5798,
+          "first_correct_after_update_ms": 9922.068359375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499349568.5798,
+          "first_correct_after_update_ms": 9922.068359375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499369636.4766,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499369636.4766,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499369636.4766,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        }
+      ],
+      "client_attempts": 4427,
+      "forwarded_attempts": 4427,
+      "attempts_without_worker_receipt": 0,
+      "upstream_successes": 4427,
+      "logical_completed": 3400,
+      "logical_successes": 3223,
+      "k6_dropped_iterations": 0,
+      "external_client_completed": 3400,
+      "external_client_successes": 3223,
+      "k6_iterations": 3400,
+      "explicit_worker_annotations": 7,
+      "initial_group_annotations": 2,
+      "successor_lineage_annotations": 5,
+      "manual_runtime_repairs": 0,
+      "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."
+    },
+    {
+      "block": "history-06",
+      "complete": true,
+      "missing_windows": [],
+      "observer_input_batches": 24,
+      "direct_coda_disagreements": 0,
+      "live_prefix_replay": "identical_except_compute_time",
+      "methods": {
+        "fixed": {
+          "group_diagnoses": 48,
+          "status_counts": {
+            "available": 16,
+            "missing_lineage": 30,
+            "no_attempts": 2
+          },
+          "trustworthy_group_diagnoses": 10,
+          "policy_errors": 6,
+          "state_errors": 0,
+          "maximum_margin_error": 0.25,
+          "maximum_delta_margin_error": 0.25,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0.25,
+          "median_compute_microseconds": 41.448,
+          "held_diagnosis_time": {
+            "total_ms": 181361.7041015625,
+            "trustworthy_ms": 49170.8740234375,
+            "unavailable_ms": 111091.15795898438,
+            "stale_ms": 21099.672119140625,
+            "incorrect_ms": 0.0
+          }
+        },
+        "direct": {
+          "group_diagnoses": 48,
+          "status_counts": {
+            "available": 41,
+            "missing_lineage": 4,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 41,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 40.04,
+          "held_diagnosis_time": {
+            "total_ms": 181361.7041015625,
+            "trustworthy_ms": 152041.4853515625,
+            "unavailable_ms": 24240.0478515625,
+            "stale_ms": 5080.1708984375,
+            "incorrect_ms": 0.0
+          }
+        },
+        "coda": {
+          "group_diagnoses": 48,
+          "status_counts": {
+            "available": 41,
+            "missing_lineage": 4,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 41,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 52.3525,
+          "held_diagnosis_time": {
+            "total_ms": 181361.7041015625,
+            "trustworthy_ms": 152041.4853515625,
+            "unavailable_ms": 24240.0478515625,
+            "stale_ms": 5080.1708984375,
+            "incorrect_ms": 0.0
+          }
+        }
+      },
+      "update_latencies": [
+        {
+          "configuration": 2,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499196763.558,
+          "first_correct_after_update_ms": 135.174072265625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499196763.558,
+          "first_correct_after_update_ms": 135.174072265625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499196763.558,
+          "first_correct_after_update_ms": 135.174072265625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499216838.1487,
+          "first_correct_after_update_ms": 202.72021484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499216838.1487,
+          "first_correct_after_update_ms": 202.72021484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499216838.1487,
+          "first_correct_after_update_ms": 202.72021484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499226874.0833,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499226874.0833,
+          "first_correct_after_update_ms": 234.224609375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499226874.0833,
+          "first_correct_after_update_ms": 234.224609375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499246958.7183,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499246958.7183,
+          "first_correct_after_update_ms": 7940.0791015625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499246958.7183,
+          "first_correct_after_update_ms": 7940.0791015625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499247461.2192,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499247461.2192,
+          "first_correct_after_update_ms": 438.805908203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499247461.2192,
+          "first_correct_after_update_ms": 438.805908203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499257502.9395,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499257502.9395,
+          "first_correct_after_update_ms": 476.4658203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499257502.9395,
+          "first_correct_after_update_ms": 476.4658203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499286628.2488,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499286628.2488,
+          "first_correct_after_update_ms": 20319.578125,
+          "first_correct_after_exposure_ms": 13048.707275390625,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499286628.2488,
+          "first_correct_after_update_ms": 20319.578125,
+          "first_correct_after_exposure_ms": 13048.707275390625,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499316746.1968,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499316746.1968,
+          "first_correct_after_update_ms": 8713.14453125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499316746.1968,
+          "first_correct_after_update_ms": 8713.14453125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499326784.0054,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499326784.0054,
+          "first_correct_after_update_ms": 9746.817138671875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499326784.0054,
+          "first_correct_after_update_ms": 9746.817138671875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499346858.5356,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499346858.5356,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499346858.5356,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        }
+      ],
+      "client_attempts": 4398,
+      "forwarded_attempts": 4398,
+      "attempts_without_worker_receipt": 0,
+      "upstream_successes": 4398,
+      "logical_completed": 3401,
+      "logical_successes": 3245,
+      "k6_dropped_iterations": 0,
+      "external_client_completed": 3401,
+      "external_client_successes": 3245,
+      "k6_iterations": 3401,
+      "explicit_worker_annotations": 7,
+      "initial_group_annotations": 2,
+      "successor_lineage_annotations": 5,
+      "manual_runtime_repairs": 0,
+      "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."
+    },
+    {
+      "block": "history-07",
+      "complete": true,
+      "missing_windows": [],
+      "observer_input_batches": 24,
+      "direct_coda_disagreements": 0,
+      "live_prefix_replay": "identical_except_compute_time",
+      "methods": {
+        "fixed": {
+          "group_diagnoses": 48,
+          "status_counts": {
+            "available": 17,
+            "missing_lineage": 28,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 10,
+          "policy_errors": 6,
+          "state_errors": 0,
+          "maximum_margin_error": 0.25,
+          "maximum_delta_margin_error": 0.25,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0.25,
+          "median_compute_microseconds": 53.540499999999994,
+          "held_diagnosis_time": {
+            "total_ms": 181457.23876953125,
+            "trustworthy_ms": 49012.372314453125,
+            "unavailable_ms": 111155.41088867188,
+            "stale_ms": 21289.45556640625,
+            "incorrect_ms": 0.0
+          }
+        },
+        "direct": {
+          "group_diagnoses": 48,
+          "status_counts": {
+            "available": 41,
+            "missing_lineage": 4,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 41,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 43.171499999999995,
+          "held_diagnosis_time": {
+            "total_ms": 181457.23876953125,
+            "trustworthy_ms": 152357.44799804688,
+            "unavailable_ms": 24307.526611328125,
+            "stale_ms": 4792.26416015625,
+            "incorrect_ms": 0.0
+          }
+        },
+        "coda": {
+          "group_diagnoses": 48,
+          "status_counts": {
+            "available": 41,
+            "missing_lineage": 4,
+            "no_attempts": 3
+          },
+          "trustworthy_group_diagnoses": 41,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 60.949,
+          "held_diagnosis_time": {
+            "total_ms": 181457.23876953125,
+            "trustworthy_ms": 152357.44799804688,
+            "unavailable_ms": 24307.526611328125,
+            "stale_ms": 4792.26416015625,
+            "incorrect_ms": 0.0
+          }
+        }
+      },
+      "update_latencies": [
+        {
+          "configuration": 2,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499217453.711,
+          "first_correct_after_update_ms": 153.71533203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499217453.711,
+          "first_correct_after_update_ms": 153.71533203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499217453.711,
+          "first_correct_after_update_ms": 153.71533203125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499237538.9673,
+          "first_correct_after_update_ms": 231.043212890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499237538.9673,
+          "first_correct_after_update_ms": 231.043212890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499237538.9673,
+          "first_correct_after_update_ms": 231.043212890625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499247580.9946,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499247580.9946,
+          "first_correct_after_update_ms": 267.89892578125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499247580.9946,
+          "first_correct_after_update_ms": 267.89892578125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499267670.1934,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499267670.1934,
+          "first_correct_after_update_ms": 7945.38916015625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499267670.1934,
+          "first_correct_after_update_ms": 7945.38916015625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268175.4417,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268175.4417,
+          "first_correct_after_update_ms": 445.45263671875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499268175.4417,
+          "first_correct_after_update_ms": 445.45263671875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278220.571,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278220.571,
+          "first_correct_after_update_ms": 483.95361328125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499278220.571,
+          "first_correct_after_update_ms": 483.95361328125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499307336.9333,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499307336.9333,
+          "first_correct_after_update_ms": 20332.044921875,
+          "first_correct_after_exposure_ms": 13050.96923828125,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499307336.9333,
+          "first_correct_after_update_ms": 20332.044921875,
+          "first_correct_after_exposure_ms": 13050.96923828125,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499337451.9844,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499337451.9844,
+          "first_correct_after_update_ms": 8644.978271484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499337451.9844,
+          "first_correct_after_update_ms": 8644.978271484375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499337451.9844,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499337451.9844,
+          "first_correct_after_update_ms": 140.22314453125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499337451.9844,
+          "first_correct_after_update_ms": 140.22314453125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499357526.7664,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499357526.7664,
+          "first_correct_after_update_ms": 207.7509765625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499357526.7664,
+          "first_correct_after_update_ms": 207.7509765625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        }
+      ],
+      "client_attempts": 4417,
+      "forwarded_attempts": 4417,
+      "attempts_without_worker_receipt": 0,
+      "upstream_successes": 4417,
+      "logical_completed": 3401,
+      "logical_successes": 3230,
+      "k6_dropped_iterations": 0,
+      "external_client_completed": 3401,
+      "external_client_successes": 3230,
+      "k6_iterations": 3401,
+      "explicit_worker_annotations": 7,
+      "initial_group_annotations": 2,
+      "successor_lineage_annotations": 5,
+      "manual_runtime_repairs": 0,
+      "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."
+    },
+    {
+      "block": "history-08",
+      "complete": true,
+      "missing_windows": [],
+      "observer_input_batches": 22,
+      "direct_coda_disagreements": 0,
+      "live_prefix_replay": "identical_except_compute_time",
+      "methods": {
+        "fixed": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 16,
+            "missing_lineage": 24,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 10,
+          "policy_errors": 6,
+          "state_errors": 0,
+          "maximum_margin_error": 0.25,
+          "maximum_delta_margin_error": 0.25,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0.25,
+          "median_compute_microseconds": 40.591,
+          "held_diagnosis_time": {
+            "total_ms": 181168.67797851562,
+            "trustworthy_ms": 49073.68359375,
+            "unavailable_ms": 110914.31689453125,
+            "stale_ms": 21180.677490234375,
+            "incorrect_ms": 0.0
+          }
+        },
+        "direct": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 36,
+            "missing_lineage": 4,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 36,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 39.378,
+          "held_diagnosis_time": {
+            "total_ms": 181168.67797851562,
+            "trustworthy_ms": 152652.61352539062,
+            "unavailable_ms": 24074.833984375,
+            "stale_ms": 4441.23046875,
+            "incorrect_ms": 0.0
+          }
+        },
+        "coda": {
+          "group_diagnoses": 44,
+          "status_counts": {
+            "available": 36,
+            "missing_lineage": 4,
+            "no_attempts": 4
+          },
+          "trustworthy_group_diagnoses": 36,
+          "policy_errors": 0,
+          "state_errors": 0,
+          "maximum_margin_error": 0,
+          "maximum_delta_margin_error": 0,
+          "maximum_delta_ratio_error": 0,
+          "maximum_delta_policy_error": 0,
+          "median_compute_microseconds": 48.2005,
+          "held_diagnosis_time": {
+            "total_ms": 181168.67797851562,
+            "trustworthy_ms": 152652.61352539062,
+            "unavailable_ms": 24074.833984375,
+            "stale_ms": 4441.23046875,
+            "incorrect_ms": 0.0
+          }
+        }
+      },
+      "update_latencies": [
+        {
+          "configuration": 2,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499194491.91,
+          "first_correct_after_update_ms": 143.95654296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499194491.91,
+          "first_correct_after_update_ms": 143.95654296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 2,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499194491.91,
+          "first_correct_after_update_ms": 143.95654296875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499214562.6975,
+          "first_correct_after_update_ms": 207.083740234375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499214562.6975,
+          "first_correct_after_update_ms": 207.083740234375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 3,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499214562.6975,
+          "first_correct_after_update_ms": 207.083740234375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499224598.811,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499224598.811,
+          "first_correct_after_update_ms": 238.740966796875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 4,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499224598.811,
+          "first_correct_after_update_ms": 238.740966796875,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499244674.693,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499244674.693,
+          "first_correct_after_update_ms": 8016.68798828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 5,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499244674.693,
+          "first_correct_after_update_ms": 8016.68798828125,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499244674.693,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499244674.693,
+          "first_correct_after_update_ms": 12.7802734375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 6,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499244674.693,
+          "first_correct_after_update_ms": 12.7802734375,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499254715.8145,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499254715.8145,
+          "first_correct_after_update_ms": 49.494140625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 7,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499254715.8145,
+          "first_correct_after_update_ms": 49.494140625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499284333.303,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499284333.303,
+          "first_correct_after_update_ms": 20473.91064453125,
+          "first_correct_after_exposure_ms": 13048.958251953125,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 8,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499284333.303,
+          "first_correct_after_update_ms": 20473.91064453125,
+          "first_correct_after_exposure_ms": 13048.958251953125,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "fixed",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499314449.9758,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "direct",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499314449.9758,
+          "first_correct_after_update_ms": 8877.916015625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 9,
+          "mode": "coda",
+          "representation_changed": true,
+          "first_exposed_ms": 1792499314449.9758,
+          "first_correct_after_update_ms": 8877.916015625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499324489.1768,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499324489.1768,
+          "first_correct_after_update_ms": 9912.9228515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 10,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499324489.1768,
+          "first_correct_after_update_ms": 9912.9228515625,
+          "first_correct_after_exposure_ms": 0.0,
+          "unavailable_in_observed_applicability": false,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "fixed",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499344563.1343,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "direct",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499344563.1343,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        },
+        {
+          "configuration": 11,
+          "mode": "coda",
+          "representation_changed": false,
+          "first_exposed_ms": 1792499344563.1343,
+          "first_correct_after_update_ms": null,
+          "first_correct_after_exposure_ms": null,
+          "unavailable_in_observed_applicability": true,
+          "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."
+        }
+      ],
+      "client_attempts": 4422,
+      "forwarded_attempts": 4422,
+      "attempts_without_worker_receipt": 0,
+      "upstream_successes": 4422,
+      "logical_completed": 3400,
+      "logical_successes": 3205,
+      "k6_dropped_iterations": 0,
+      "external_client_completed": 3400,
+      "external_client_successes": 3205,
+      "k6_iterations": 3400,
+      "explicit_worker_annotations": 7,
+      "initial_group_annotations": 2,
+      "successor_lineage_annotations": 5,
+      "manual_runtime_repairs": 0,
+      "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."
+    }
+  ]
+}

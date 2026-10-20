@@ -1,0 +1,149 @@
+{
+  "deployments": {
+    "1": {
+      "version": 1,
+      "components": {
+        "reader-a": {
+          "group": "catalog",
+          "predecessors": [],
+          "container_id": "203cdfa71a0d4424471ff106b8a68342e727da8972f31dfe38236e45a7ef00ec",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        },
+        "reader-b": {
+          "group": "currency",
+          "predecessors": [],
+          "container_id": "0c68e311d0a12cae1e01b9b8a4c7c2084262ca21d8f71dbc1c209712f2b12413",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        }
+      },
+      "extracted_ms": 1792499156613.5825
+    },
+    "2": {
+      "version": 2,
+      "components": {
+        "reader-b": {
+          "group": "currency",
+          "predecessors": [],
+          "container_id": "0c68e311d0a12cae1e01b9b8a4c7c2084262ca21d8f71dbc1c209712f2b12413",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        },
+        "reader-c": {
+          "group": null,
+          "predecessors": [
+            "reader-a"
+          ],
+          "container_id": "f249bcce9fad0941fb5fd91fa1ec806c94dc3cae5182634dfbe5f485dfee2855",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        },
+        "reader-d": {
+          "group": null,
+          "predecessors": [
+            "reader-a"
+          ],
+          "container_id": "b1920cacd00b1a0ff75bf39883322da3abf0eee176b51529dbe1055a5451935c",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        }
+      },
+      "extracted_ms": 1792499239017.7266
+    },
+    "3": {
+      "version": 3,
+      "components": {
+        "reader-b": {
+          "group": "currency",
+          "predecessors": [],
+          "container_id": "0c68e311d0a12cae1e01b9b8a4c7c2084262ca21d8f71dbc1c209712f2b12413",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        },
+        "reader-e": {
+          "group": null,
+          "predecessors": [
+            "reader-c",
+            "reader-d"
+          ],
+          "container_id": "814df1015e3197c16955a4183240a048a5df6df8dc26c35bdf58486fdb4621aa",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        },
+        "reader-f": {
+          "group": null,
+          "predecessors": [
+            "reader-c",
+            "reader-d"
+          ],
+          "container_id": "bb0b55e437c927460b9be084b35b85b1db0b914014b29ca102ded8d395be9e68",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        }
+      },
+      "extracted_ms": 1792499279356.4575
+    },
+    "4": {
+      "version": 4,
+      "components": {
+        "reader-b": {
+          "group": "currency",
+          "predecessors": [],
+          "container_id": "0c68e311d0a12cae1e01b9b8a4c7c2084262ca21d8f71dbc1c209712f2b12413",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        },
+        "reader-g": {
+          "group": null,
+          "predecessors": [
+            "reader-e",
+            "reader-f"
+          ],
+          "container_id": "9c4fb524db51816e19bb3c5e9b851fc67c9a2d9740b2771b037bcdc536592f32",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        }
+      },
+      "extracted_ms": 1792499308031.8955
+    }
+  },
+  "policies": {
+    "1": {
+      "version": 1,
+      "limits": {
+        "catalog": 0.25,
+        "currency": 0.25
+      },
+      "published_ms": 1792499156613.6118,
+      "effective_ms": 1792499156614.4775
+    },
+    "2": {
+      "version": 2,
+      "limits": {
+        "catalog": 0.5,
+        "currency": 0.5
+      },
+      "published_ms": 1792499226638.7563,
+      "effective_ms": 1792499226639.8586
+    },
+    "3": {
+      "version": 3,
+      "limits": {
+        "catalog": 0.1,
+        "currency": 0.1
+      },
+      "published_ms": 1792499247021.5144,
+      "effective_ms": 1792499247022.4133
+    },
+    "4": {
+      "version": 4,
+      "limits": {
+        "catalog": 0.5,
+        "currency": 0.5
+      },
+      "published_ms": 1792499257025.392,
+      "effective_ms": 1792499257026.4736
+    },
+    "5": {
+      "version": 5,
+      "limits": {
+        "catalog": 0.2,
+        "currency": 0.2
+      },
+      "published_ms": 1792499308031.943,
+      "effective_ms": 1792499308033.0522
+    }
+  },
+  "initial_policy": 1
+}

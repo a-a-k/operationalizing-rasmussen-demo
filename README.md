@@ -3,8 +3,12 @@
 New separate runtime study: [evolving-state observation](evolving-state/README.md)
 checks current attempt composition and retry-policy diagnosis through actual
 forwarding-component updates and policy changes. Its three passive observers
-share inputs; updated direct ratios are checked with native PromQL. Engineering
-validation is pending; no empirical result is claimed yet.
+share inputs; updated direct ratios are checked with native PromQL.
+[Eight-history results](evolving-state/results/campaign-v0.1.1/README.md) retain
+all 35,410 attempt starts and show correct available updated diagnoses, five
+policy-status changes at unchanged measured state, and the same policy accuracy
+for updated direct ratios and CoDA. The updating contract, not uniquely better
+policy detection by CoDA, accounts for the gain over the fixed-schema ablation.
 
 New saved-data readout: [position, movement and component continuity](drift-monitor/trajectory-observability/README.md)
 separates accumulated relative displacement, actual increments and their EWMA,

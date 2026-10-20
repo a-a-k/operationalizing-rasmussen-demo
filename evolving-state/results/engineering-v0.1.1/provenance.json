@@ -1,0 +1,110 @@
+{
+  "label": "engineering-v0.1.1",
+  "histories": {
+    "engineering-01": [
+      {
+        "file": "status.json",
+        "source_sha256_lf": "3080f1c034365d30c241d05894cece394a0c72028a6880be4a41ec7ea04e27a0",
+        "archived_sha256_lf": "95fcbb2f6d359b15c76dcdbed0455955542d4d10a68b64bcf5d8f95950f7047e"
+      },
+      {
+        "file": "design.json",
+        "source_sha256_lf": "22ef6179e6b3803a81f59f1b0ea3ed8102c28f2e99215d24ea441e17e0806bf4",
+        "archived_sha256_lf": "22ef6179e6b3803a81f59f1b0ea3ed8102c28f2e99215d24ea441e17e0806bf4"
+      },
+      {
+        "file": "load-config.json",
+        "source_sha256_lf": "21b0e099575f9dbe2ea1492976faa3dcfdf8690d9eb61697545ab326cba53f3e",
+        "archived_sha256_lf": "21b0e099575f9dbe2ea1492976faa3dcfdf8690d9eb61697545ab326cba53f3e"
+      },
+      {
+        "file": "initial-metadata.json",
+        "source_sha256_lf": "4ea33ff8e6c9531fc6c6cd63207bbac468cc8e4346253475aa640823b2fc0cb4",
+        "archived_sha256_lf": "4ea33ff8e6c9531fc6c6cd63207bbac468cc8e4346253475aa640823b2fc0cb4"
+      },
+      {
+        "file": "initial-configuration.json",
+        "source_sha256_lf": "6084f4b189f39586dcc7c4be83581f750cdb99a7762a9c07fd63ffef210a3fa4",
+        "archived_sha256_lf": "6084f4b189f39586dcc7c4be83581f750cdb99a7762a9c07fd63ffef210a3fa4"
+      },
+      {
+        "file": "final-metadata.json",
+        "source_sha256_lf": "3fb204a21a4cde7e84168bd0372b227dedfc8ec28632c829d46f2b07ca5214e5",
+        "archived_sha256_lf": "3fb204a21a4cde7e84168bd0372b227dedfc8ec28632c829d46f2b07ca5214e5"
+      },
+      {
+        "file": "k6/summary.json",
+        "source_sha256_lf": "86a5e5423c1da7f9e5ee89e9eaf8a78818c03e64d2ad07506af35896aad2be55",
+        "archived_sha256_lf": "d0cb8db3eb71e8d0a9329d6b278b40f75fe1633de4f6562ae699db4a0689213d"
+      },
+      {
+        "file": "observer-inputs.jsonl.gz",
+        "source_sha256_lf": "719c310b8fc1c8dce4b51d9e94375b472da5600dba07e53b6c79bddae6b7864d",
+        "archived_uncompressed_sha256_lf": "719c310b8fc1c8dce4b51d9e94375b472da5600dba07e53b6c79bddae6b7864d"
+      },
+      {
+        "file": "diagnoses.jsonl.gz",
+        "source_sha256_lf": "c471e3364380c43893a408bac22ce527883df573c37df05da81a0024668b2d07",
+        "archived_uncompressed_sha256_lf": "c471e3364380c43893a408bac22ce527883df573c37df05da81a0024668b2d07"
+      },
+      {
+        "file": "interventions.jsonl.gz",
+        "source_sha256_lf": "b92bfbb2a5812815eca46e9b618caa1a69e54ef97769c563307c767974ca7884",
+        "archived_uncompressed_sha256_lf": "b92bfbb2a5812815eca46e9b618caa1a69e54ef97769c563307c767974ca7884"
+      },
+      {
+        "file": "metadata-receipts.jsonl.gz",
+        "source_sha256_lf": "e82ef69a1d558e6f4b605cd3e68a85e5d4a2b86927083c8044ab2f3b6c33e5f1",
+        "archived_uncompressed_sha256_lf": "e82ef69a1d558e6f4b605cd3e68a85e5d4a2b86927083c8044ab2f3b6c33e5f1"
+      },
+      {
+        "file": "journals/client.jsonl.gz",
+        "source_sha256_lf": "52020cb1ba57be93cf464c2dd12fa78263f58f0539a96fbc96f2771ab621d812",
+        "archived_uncompressed_sha256_lf": "52020cb1ba57be93cf464c2dd12fa78263f58f0539a96fbc96f2771ab621d812"
+      },
+      {
+        "file": "journals/reader-a.jsonl.gz",
+        "source_sha256_lf": "68ea6680cb5f98c268db293aa097a6c471ef0010fe81c80b91b52a5ecab77512",
+        "archived_uncompressed_sha256_lf": "68ea6680cb5f98c268db293aa097a6c471ef0010fe81c80b91b52a5ecab77512"
+      },
+      {
+        "file": "journals/reader-b.jsonl.gz",
+        "source_sha256_lf": "47c9e47c18b0892e5ee9fe06ce7f5946055999309451ecae96c4653ab6ca7ced",
+        "archived_uncompressed_sha256_lf": "47c9e47c18b0892e5ee9fe06ce7f5946055999309451ecae96c4653ab6ca7ced"
+      },
+      {
+        "file": "journals/reader-c.jsonl.gz",
+        "source_sha256_lf": "68aa995b3c5de4053ed28a4f222f98bf3375b6cefb490680783e375d5cff674d",
+        "archived_uncompressed_sha256_lf": "68aa995b3c5de4053ed28a4f222f98bf3375b6cefb490680783e375d5cff674d"
+      },
+      {
+        "file": "journals/reader-d.jsonl.gz",
+        "source_sha256_lf": "907542cd2bd85775843bf0cd406d0cf4541c680438ac90c8bcb959e6b5ed85f0",
+        "archived_uncompressed_sha256_lf": "907542cd2bd85775843bf0cd406d0cf4541c680438ac90c8bcb959e6b5ed85f0"
+      },
+      {
+        "file": "journals/reader-e.jsonl.gz",
+        "source_sha256_lf": "0ec665ab4f125d2f1bf6f835bd554df0bf955aa2ab562e4e99aaac6d8cfed30e",
+        "archived_uncompressed_sha256_lf": "0ec665ab4f125d2f1bf6f835bd554df0bf955aa2ab562e4e99aaac6d8cfed30e"
+      },
+      {
+        "file": "journals/reader-f.jsonl.gz",
+        "source_sha256_lf": "661a5c09f30e4c68ff812ef52dd0930437fe88e3a854b400b7dcaa731f36085d",
+        "archived_uncompressed_sha256_lf": "661a5c09f30e4c68ff812ef52dd0930437fe88e3a854b400b7dcaa731f36085d"
+      },
+      {
+        "file": "journals/reader-g.jsonl.gz",
+        "source_sha256_lf": "dd7a00c87f97a857ce05946fd514af3503c39924a5e5dd3c674f9029d8059f79",
+        "archived_uncompressed_sha256_lf": "dd7a00c87f97a857ce05946fd514af3503c39924a5e5dd3c674f9029d8059f79"
+      },
+      {
+        "file": "k6/client-responses.jsonl.gz",
+        "operation": "CLIENT records only, extracted from raw generator logs",
+        "uncompressed_sha256": "6dbe1dc97846d07e9330cc47538b621a80e00598e200a2935108422243c69ae2",
+        "records": 3402
+      }
+    ]
+  },
+  "analysis_source_sha256_lf": "41d2f1b20a7d92b9cba55fc4fffd7915655b1237a02e10c435baf7387f74cc34",
+  "omitted": "Host paths, workflow-run identifiers, container console logs and unneeded rendered deployment paths. Native source artifacts remain separate; the retained event and observation inputs reproduce the analysis."
+}

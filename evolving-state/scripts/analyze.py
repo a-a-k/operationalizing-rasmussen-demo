@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 import csv
+import gzip
 import json
 import math
 from pathlib import Path
@@ -13,9 +14,30 @@ from observer import Observer
 
 
 def lines(path):
+    if not path.exists() and Path(str(path) + ".gz").exists():
+        path = Path(str(path) + ".gz")
     if not path.exists():
         return []
-    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line]
+    text = gzip.decompress(path.read_bytes()).decode("utf-8") if path.suffix == ".gz" else path.read_text(encoding="utf-8")
+    return [json.loads(line) for line in text.splitlines() if line]
+
+
+def worker_journals(directory):
+    return sorted(p for p in (directory / "journals").glob("reader-*.jsonl*")
+                  if p.name.endswith((".jsonl", ".jsonl.gz")))
+
+
+def client_responses(directory):
+    canonical = directory / "k6/client-responses.jsonl"
+    if canonical.exists() or Path(str(canonical) + ".gz").exists():
+        return lines(canonical)
+    records = []
+    for stream in ("stdout.log", "stderr.log"):
+        path = directory / "k6" / stream
+        for line in path.read_text(encoding="utf-8").splitlines() if path.exists() else []:
+            if line.startswith("CLIENT "):
+                records.append(json.loads(line[7:]))
+    return records
 
 
 def save(path, value):
@@ -111,7 +133,7 @@ def compare(directory):
     ids = [(e["logical_id"], e["attempt"]) for e in attempts]
     if len(ids) != len(set(ids)):
         raise ValueError("Duplicate client attempt identity")
-    forwarded = [e for p in (directory / "journals").glob("reader-*.jsonl") for e in lines(p)]
+    forwarded = [e for p in worker_journals(directory) for e in lines(p)]
     forward_ids = [(e["logical_id"], e["attempt"]) for e in forwarded]
     if len(forward_ids) != len(set(forward_ids)) or set(forward_ids) - set(ids):
         raise ValueError("Duplicate or unmatched forwarded attempt")
@@ -208,11 +230,7 @@ def compare(directory):
                             "first_correct_after_exposure_ms": first - (exposure - at) if first is not None else None,
                             "unavailable_in_observed_applicability": first is None,
                             "meaning": "Correct report of the latest completed window under the current received policy; not detection of a causal execution effect."})
-    client = []
-    for stream in ("stdout.log", "stderr.log"):
-        for line in (directory / "k6" / stream).read_text(encoding="utf-8").splitlines() if (directory / "k6" / stream).exists() else []:
-            if line.startswith("CLIENT "):
-                client.append(json.loads(line[7:]))
+    client = client_responses(directory)
     if len({r["logical_id"] for r in client}) != len(client):
         raise ValueError("Duplicate external-client logical identity")
     summary = {"block": status["block"], "complete": True,
@@ -227,9 +245,9 @@ def compare(directory):
                "external_client_completed": len(client) if client else None,
                "external_client_successes": sum(r["status"] == 200 for r in client) if client else None,
                "k6_iterations": json.loads((directory / "k6/summary.json").read_text())["metrics"].get("iterations", {}).get("values", {}).get("count"),
-               "explicit_worker_annotations": len(list((directory / "journals").glob("reader-*.jsonl"))),
+               "explicit_worker_annotations": len(worker_journals(directory)),
                "initial_group_annotations": 2,
-               "successor_lineage_annotations": max(0, len(list((directory / "journals").glob("reader-*.jsonl"))) - 2),
+               "successor_lineage_annotations": max(0, len(worker_journals(directory)) - 2),
                "manual_runtime_repairs": 0,
                "limitation": "Scripted updates and delivery faults; eight descriptive replications planned after engineering."}
     return summary, records, geometric
@@ -241,12 +259,7 @@ def execution_windows(directory):
     events = lines(directory / "journals/client.jsonl")
     starts = {e["logical_id"]: e for e in events if e["type"] == "logical_start"}
     ends = {e["logical_id"]: e for e in events if e["type"] == "logical_end"}
-    client = []
-    for stream in ("stdout.log", "stderr.log"):
-        path = directory / "k6" / stream
-        for line in path.read_text(encoding="utf-8").splitlines() if path.exists() else []:
-            if line.startswith("CLIENT "):
-                client.append(json.loads(line[7:]))
+    client = client_responses(directory)
     output = []
     for window in range(1, cfg["windows"] + 1):
         lower = cfg["origin_ms"] + (window - 1) * cfg["window_seconds"] * 1000

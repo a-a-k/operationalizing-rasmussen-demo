@@ -1,0 +1,42 @@
+[
+  {
+    "history": "history-01",
+    "tests": 20,
+    "exit_code": 0
+  },
+  {
+    "history": "history-02",
+    "tests": 21,
+    "exit_code": 0
+  },
+  {
+    "history": "history-03",
+    "tests": 20,
+    "exit_code": 0
+  },
+  {
+    "history": "history-04",
+    "tests": 20,
+    "exit_code": 0
+  },
+  {
+    "history": "history-05",
+    "tests": 20,
+    "exit_code": 0
+  },
+  {
+    "history": "history-06",
+    "tests": 22,
+    "exit_code": 0
+  },
+  {
+    "history": "history-07",
+    "tests": 22,
+    "exit_code": 0
+  },
+  {
+    "history": "history-08",
+    "tests": 20,
+    "exit_code": 0
+  }
+]

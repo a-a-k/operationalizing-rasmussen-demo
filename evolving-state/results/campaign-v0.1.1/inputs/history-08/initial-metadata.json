@@ -1,0 +1,34 @@
+{
+  "deployments": {
+    "1": {
+      "version": 1,
+      "components": {
+        "reader-a": {
+          "group": "catalog",
+          "predecessors": [],
+          "container_id": "a53adf9659db240b3ea1b0e5bb54be06b024e9d2787c6809dddb2a389f95ea37",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        },
+        "reader-b": {
+          "group": "currency",
+          "predecessors": [],
+          "container_id": "1bd2b56476976ddaa4df3affceafc1aaa9ab34909e7c0d3bef6b477c00f44bed",
+          "image_id": "sha256:ce3ff9524414289fc922d9d5dc1de87abc77a39ff2ff5007435839f2af1d7569"
+        }
+      },
+      "extracted_ms": 1792499154330.8242
+    }
+  },
+  "policies": {
+    "1": {
+      "version": 1,
+      "limits": {
+        "catalog": 0.25,
+        "currency": 0.25
+      },
+      "published_ms": 1792499154330.862,
+      "effective_ms": 1792499154332.2917
+    }
+  },
+  "initial_policy": 1
+}

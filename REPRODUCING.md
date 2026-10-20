@@ -1,5 +1,22 @@
 # Reproduction and archive verification
 
+## Evolving-state campaign
+
+The [dedicated results](evolving-state/results/campaign-v0.1.1/README.md)
+include the eight complete histories, compressed event-level inputs, native
+PromQL validation, interpretation and a full-history figure. Reconstruct the
+main numerical comparison without starting a workload:
+
+```sh
+python -B evolving-state/scripts/analyze.py --inputs evolving-state/results/campaign-v0.1.1/inputs --output artifacts/evolving-state-replay
+python -B -m unittest discover -s evolving-state/tests -v
+```
+
+Runtime is restricted to the separate manual
+[evolving-state workflow](.github/workflows/evolving-state.yml). The two
+engineering datasets are retained separately from the eight-history campaign.
+Plotting is optional and uses `evolving-state/plot-requirements.txt`.
+
 ## Lightweight offline verification
 
 Use Python 3.13 from the repository root:

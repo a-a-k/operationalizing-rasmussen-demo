@@ -1,0 +1,1297 @@
+{
+  "histories": [
+    {
+      "block": "history-01",
+      "allowance_cohorts": [
+        {
+          "max_attempts": 2,
+          "fault_probability": 0.45,
+          "logical_calls": 400,
+          "client_observed_calls": 400,
+          "client_successes": 315,
+          "success_fraction": 0.7875,
+          "attempt_starts": 582,
+          "retry_starts": 182,
+          "retry_fraction": 0.3127147766323024,
+          "third_attempts": 0,
+          "third_attempt_rescues": 0
+        },
+        {
+          "max_attempts": 3,
+          "fault_probability": 0.45,
+          "logical_calls": 802,
+          "client_observed_calls": 802,
+          "client_successes": 725,
+          "success_fraction": 0.9039900249376559,
+          "attempt_starts": 1320,
+          "retry_starts": 518,
+          "retry_fraction": 0.3924242424242424,
+          "third_attempts": 162,
+          "third_attempt_rescues": 85
+        }
+      ],
+      "clients_without_gateway_start": 0,
+      "same_window_policy_only_witnesses": [
+        {
+          "window": 14,
+          "from_policy": 4,
+          "to_policy": 5,
+          "state_unchanged": true,
+          "policy_decision_changed": false,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 18,
+              "ratio": 0.15254237288135594,
+              "rho": 0.5,
+              "margin": 0.34745762711864403,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.007243227582210632,
+              "delta_policy": 0.0,
+              "delta_margin": -0.007243227582210632
+            },
+            "currency": {
+              "first": 100,
+              "retry": 20,
+              "ratio": 0.16666666666666666,
+              "rho": 0.5,
+              "margin": 0.33333333333333337,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.05162241887905604,
+              "delta_policy": 0.0,
+              "delta_margin": -0.051622418879056
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 18,
+              "ratio": 0.15254237288135594,
+              "rho": 0.2,
+              "margin": 0.04745762711864407,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            },
+            "currency": {
+              "first": 100,
+              "retry": 20,
+              "ratio": 0.16666666666666666,
+              "rho": 0.2,
+              "margin": 0.033333333333333354,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.30000000000000004
+            }
+          }
+        }
+      ],
+      "policy_update_latencies": [
+        {
+          "policy_version": 2,
+          "correct_report_after_apply_ms": 162.323974609375
+        },
+        {
+          "policy_version": 3,
+          "correct_report_after_apply_ms": 91.27978515625
+        },
+        {
+          "policy_version": 4,
+          "correct_report_after_apply_ms": 113.0517578125
+        },
+        {
+          "policy_version": 5,
+          "correct_report_after_apply_ms": 263.487060546875
+        }
+      ],
+      "geometry_status_counts": {
+        "available": 16,
+        "missing_lineage": 2,
+        "zero_part": 4
+      },
+      "limits": "Cohorts span different times and include later policy/component changes with the same fault setting. Their rate comparison is descriptive, not a randomized causal estimate. Third-attempt rescues are directly recorded within-request witnesses under controlled delivery faults; they do not estimate production benefit."
+    },
+    {
+      "block": "history-02",
+      "allowance_cohorts": [
+        {
+          "max_attempts": 2,
+          "fault_probability": 0.45,
+          "logical_calls": 400,
+          "client_observed_calls": 400,
+          "client_successes": 316,
+          "success_fraction": 0.79,
+          "attempt_starts": 576,
+          "retry_starts": 176,
+          "retry_fraction": 0.3055555555555556,
+          "third_attempts": 0,
+          "third_attempt_rescues": 0
+        },
+        {
+          "max_attempts": 3,
+          "fault_probability": 0.45,
+          "logical_calls": 806,
+          "client_observed_calls": 806,
+          "client_successes": 739,
+          "success_fraction": 0.9168734491315137,
+          "attempt_starts": 1325,
+          "retry_starts": 519,
+          "retry_fraction": 0.39169811320754716,
+          "third_attempts": 153,
+          "third_attempt_rescues": 86
+        }
+      ],
+      "clients_without_gateway_start": 0,
+      "same_window_policy_only_witnesses": [
+        {
+          "window": 8,
+          "from_policy": 2,
+          "to_policy": 3,
+          "state_unchanged": true,
+          "policy_decision_changed": true,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 66,
+              "ratio": 0.39759036144578314,
+              "rho": 0.5,
+              "margin": 0.10240963855421686,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.01761431691678994,
+              "delta_policy": 0.0,
+              "delta_margin": 0.01761431691678994
+            },
+            "currency": {
+              "first": 100,
+              "retry": 54,
+              "ratio": 0.35064935064935066,
+              "rho": 0.5,
+              "margin": 0.14935064935064934,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.03585371683531191,
+              "delta_policy": 0.0,
+              "delta_margin": 0.03585371683531191
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 66,
+              "ratio": 0.39759036144578314,
+              "rho": 0.1,
+              "margin": -0.2975903614457831,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.4,
+              "delta_margin": -0.39999999999999997
+            },
+            "currency": {
+              "first": 100,
+              "retry": 54,
+              "ratio": 0.35064935064935066,
+              "rho": 0.1,
+              "margin": -0.2506493506493507,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.4,
+              "delta_margin": -0.4
+            }
+          }
+        },
+        {
+          "window": 14,
+          "from_policy": 4,
+          "to_policy": 5,
+          "state_unchanged": true,
+          "policy_decision_changed": false,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 13,
+              "ratio": 0.11504424778761062,
+              "rho": 0.5,
+              "margin": 0.38495575221238937,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": 0.0,
+              "delta_margin": 0.0
+            },
+            "currency": {
+              "first": 100,
+              "retry": 22,
+              "ratio": 0.18032786885245902,
+              "rho": 0.5,
+              "margin": 0.319672131147541,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.006664001066240155,
+              "delta_policy": 0.0,
+              "delta_margin": 0.0066640010662402105
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 13,
+              "ratio": 0.11504424778761062,
+              "rho": 0.2,
+              "margin": 0.0849557522123894,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.3
+            },
+            "currency": {
+              "first": 100,
+              "retry": 22,
+              "ratio": 0.18032786885245902,
+              "rho": 0.2,
+              "margin": 0.01967213114754099,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.30000000000000004
+            }
+          }
+        }
+      ],
+      "policy_update_latencies": [
+        {
+          "policy_version": 2,
+          "correct_report_after_apply_ms": 196.766845703125
+        },
+        {
+          "policy_version": 3,
+          "correct_report_after_apply_ms": 492.55517578125
+        },
+        {
+          "policy_version": 4,
+          "correct_report_after_apply_ms": 19.2412109375
+        },
+        {
+          "policy_version": 5,
+          "correct_report_after_apply_ms": 424.789794921875
+        }
+      ],
+      "geometry_status_counts": {
+        "available": 17,
+        "missing_lineage": 2,
+        "zero_part": 4
+      },
+      "limits": "Cohorts span different times and include later policy/component changes with the same fault setting. Their rate comparison is descriptive, not a randomized causal estimate. Third-attempt rescues are directly recorded within-request witnesses under controlled delivery faults; they do not estimate production benefit."
+    },
+    {
+      "block": "history-03",
+      "allowance_cohorts": [
+        {
+          "max_attempts": 2,
+          "fault_probability": 0.45,
+          "logical_calls": 400,
+          "client_observed_calls": 400,
+          "client_successes": 333,
+          "success_fraction": 0.8325,
+          "attempt_starts": 564,
+          "retry_starts": 164,
+          "retry_fraction": 0.2907801418439716,
+          "third_attempts": 0,
+          "third_attempt_rescues": 0
+        },
+        {
+          "max_attempts": 3,
+          "fault_probability": 0.45,
+          "logical_calls": 804,
+          "client_observed_calls": 804,
+          "client_successes": 729,
+          "success_fraction": 0.9067164179104478,
+          "attempt_starts": 1341,
+          "retry_starts": 537,
+          "retry_fraction": 0.4004474272930649,
+          "third_attempts": 169,
+          "third_attempt_rescues": 94
+        }
+      ],
+      "clients_without_gateway_start": 0,
+      "same_window_policy_only_witnesses": [
+        {
+          "window": 14,
+          "from_policy": 4,
+          "to_policy": 5,
+          "state_unchanged": true,
+          "policy_decision_changed": false,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 20,
+              "ratio": 0.16666666666666666,
+              "rho": 0.5,
+              "margin": 0.33333333333333337,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.014124293785310715,
+              "delta_policy": 0.0,
+              "delta_margin": -0.01412429378531066
+            },
+            "currency": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.5,
+              "margin": 0.3695652173913043,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": 0.0,
+              "delta_margin": 0.0
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 20,
+              "ratio": 0.16666666666666666,
+              "rho": 0.2,
+              "margin": 0.033333333333333354,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.30000000000000004
+            },
+            "currency": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.2,
+              "margin": 0.06956521739130436,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            }
+          }
+        }
+      ],
+      "policy_update_latencies": [
+        {
+          "policy_version": 2,
+          "correct_report_after_apply_ms": 201.649658203125
+        },
+        {
+          "policy_version": 3,
+          "correct_report_after_apply_ms": 67.764404296875
+        },
+        {
+          "policy_version": 4,
+          "correct_report_after_apply_ms": 94.507080078125
+        },
+        {
+          "policy_version": 5,
+          "correct_report_after_apply_ms": 2.730224609375
+        }
+      ],
+      "geometry_status_counts": {
+        "available": 16,
+        "missing_lineage": 2,
+        "zero_part": 4
+      },
+      "limits": "Cohorts span different times and include later policy/component changes with the same fault setting. Their rate comparison is descriptive, not a randomized causal estimate. Third-attempt rescues are directly recorded within-request witnesses under controlled delivery faults; they do not estimate production benefit."
+    },
+    {
+      "block": "history-04",
+      "allowance_cohorts": [
+        {
+          "max_attempts": 2,
+          "fault_probability": 0.45,
+          "logical_calls": 400,
+          "client_observed_calls": 400,
+          "client_successes": 319,
+          "success_fraction": 0.7975,
+          "attempt_starts": 571,
+          "retry_starts": 171,
+          "retry_fraction": 0.29947460595446584,
+          "third_attempts": 0,
+          "third_attempt_rescues": 0
+        },
+        {
+          "max_attempts": 3,
+          "fault_probability": 0.45,
+          "logical_calls": 804,
+          "client_observed_calls": 804,
+          "client_successes": 733,
+          "success_fraction": 0.9116915422885572,
+          "attempt_starts": 1321,
+          "retry_starts": 517,
+          "retry_fraction": 0.39137017411052233,
+          "third_attempts": 156,
+          "third_attempt_rescues": 85
+        }
+      ],
+      "clients_without_gateway_start": 0,
+      "same_window_policy_only_witnesses": [
+        {
+          "window": 14,
+          "from_policy": 4,
+          "to_policy": 5,
+          "state_unchanged": true,
+          "policy_decision_changed": false,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.5,
+              "margin": 0.3695652173913043,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.04311893639956882,
+              "delta_policy": 0.0,
+              "delta_margin": 0.043118936399568764
+            },
+            "currency": {
+              "first": 100,
+              "retry": 12,
+              "ratio": 0.10714285714285714,
+              "rho": 0.5,
+              "margin": 0.39285714285714285,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.05252100840336134,
+              "delta_policy": 0.0,
+              "delta_margin": 0.052521008403361324
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.2,
+              "margin": 0.06956521739130436,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            },
+            "currency": {
+              "first": 100,
+              "retry": 12,
+              "ratio": 0.10714285714285714,
+              "rho": 0.2,
+              "margin": 0.09285714285714287,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.3
+            }
+          }
+        }
+      ],
+      "policy_update_latencies": [
+        {
+          "policy_version": 2,
+          "correct_report_after_apply_ms": 206.89404296875
+        },
+        {
+          "policy_version": 3,
+          "correct_report_after_apply_ms": 62.522705078125
+        },
+        {
+          "policy_version": 4,
+          "correct_report_after_apply_ms": 88.96337890625
+        },
+        {
+          "policy_version": 5,
+          "correct_report_after_apply_ms": 26.3447265625
+        }
+      ],
+      "geometry_status_counts": {
+        "available": 17,
+        "missing_lineage": 2,
+        "zero_part": 3
+      },
+      "limits": "Cohorts span different times and include later policy/component changes with the same fault setting. Their rate comparison is descriptive, not a randomized causal estimate. Third-attempt rescues are directly recorded within-request witnesses under controlled delivery faults; they do not estimate production benefit."
+    },
+    {
+      "block": "history-05",
+      "allowance_cohorts": [
+        {
+          "max_attempts": 2,
+          "fault_probability": 0.45,
+          "logical_calls": 400,
+          "client_observed_calls": 400,
+          "client_successes": 314,
+          "success_fraction": 0.785,
+          "attempt_starts": 573,
+          "retry_starts": 173,
+          "retry_fraction": 0.3019197207678883,
+          "third_attempts": 0,
+          "third_attempt_rescues": 0
+        },
+        {
+          "max_attempts": 3,
+          "fault_probability": 0.45,
+          "logical_calls": 806,
+          "client_observed_calls": 806,
+          "client_successes": 735,
+          "success_fraction": 0.9119106699751861,
+          "attempt_starts": 1316,
+          "retry_starts": 510,
+          "retry_fraction": 0.38753799392097266,
+          "third_attempts": 150,
+          "third_attempt_rescues": 79
+        }
+      ],
+      "clients_without_gateway_start": 0,
+      "same_window_policy_only_witnesses": [
+        {
+          "window": 14,
+          "from_policy": 4,
+          "to_policy": 5,
+          "state_unchanged": true,
+          "policy_decision_changed": false,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.5,
+              "margin": 0.3695652173913043,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": 0.0,
+              "delta_margin": 0.0
+            },
+            "currency": {
+              "first": 100,
+              "retry": 17,
+              "ratio": 0.1452991452991453,
+              "rho": 0.5,
+              "margin": 0.35470085470085466,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.07345085470085469,
+              "delta_policy": 0.0,
+              "delta_margin": 0.07345085470085466
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.2,
+              "margin": 0.06956521739130436,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            },
+            "currency": {
+              "first": 100,
+              "retry": 17,
+              "ratio": 0.1452991452991453,
+              "rho": 0.2,
+              "margin": 0.0547008547008547,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            }
+          }
+        }
+      ],
+      "policy_update_latencies": [
+        {
+          "policy_version": 2,
+          "correct_report_after_apply_ms": 203.034423828125
+        },
+        {
+          "policy_version": 3,
+          "correct_report_after_apply_ms": 11.85205078125
+        },
+        {
+          "policy_version": 4,
+          "correct_report_after_apply_ms": 38.577880859375
+        },
+        {
+          "policy_version": 5,
+          "correct_report_after_apply_ms": 361.56005859375
+        }
+      ],
+      "geometry_status_counts": {
+        "available": 16,
+        "missing_lineage": 2,
+        "zero_part": 4
+      },
+      "limits": "Cohorts span different times and include later policy/component changes with the same fault setting. Their rate comparison is descriptive, not a randomized causal estimate. Third-attempt rescues are directly recorded within-request witnesses under controlled delivery faults; they do not estimate production benefit."
+    },
+    {
+      "block": "history-06",
+      "allowance_cohorts": [
+        {
+          "max_attempts": 2,
+          "fault_probability": 0.45,
+          "logical_calls": 400,
+          "client_observed_calls": 400,
+          "client_successes": 332,
+          "success_fraction": 0.83,
+          "attempt_starts": 563,
+          "retry_starts": 163,
+          "retry_fraction": 0.2895204262877442,
+          "third_attempts": 0,
+          "third_attempt_rescues": 0
+        },
+        {
+          "max_attempts": 3,
+          "fault_probability": 0.45,
+          "logical_calls": 808,
+          "client_observed_calls": 808,
+          "client_successes": 731,
+          "success_fraction": 0.9047029702970297,
+          "attempt_starts": 1325,
+          "retry_starts": 517,
+          "retry_fraction": 0.390188679245283,
+          "third_attempts": 156,
+          "third_attempt_rescues": 79
+        }
+      ],
+      "clients_without_gateway_start": 0,
+      "same_window_policy_only_witnesses": [
+        {
+          "window": 8,
+          "from_policy": 2,
+          "to_policy": 3,
+          "state_unchanged": true,
+          "policy_decision_changed": true,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 66,
+              "ratio": 0.39759036144578314,
+              "rho": 0.5,
+              "margin": 0.10240963855421686,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.007346459006758732,
+              "delta_policy": 0.0,
+              "delta_margin": -0.007346459006758732
+            },
+            "currency": {
+              "first": 100,
+              "retry": 57,
+              "ratio": 0.3630573248407643,
+              "rho": 0.5,
+              "margin": 0.1369426751592357,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.04170457992114046,
+              "delta_policy": 0.0,
+              "delta_margin": 0.04170457992114046
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 66,
+              "ratio": 0.39759036144578314,
+              "rho": 0.1,
+              "margin": -0.2975903614457831,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.4,
+              "delta_margin": -0.39999999999999997
+            },
+            "currency": {
+              "first": 100,
+              "retry": 57,
+              "ratio": 0.3630573248407643,
+              "rho": 0.1,
+              "margin": -0.2630573248407643,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.4,
+              "delta_margin": -0.39999999999999997
+            }
+          }
+        },
+        {
+          "window": 9,
+          "from_policy": 3,
+          "to_policy": 4,
+          "state_unchanged": true,
+          "policy_decision_changed": true,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 70,
+              "ratio": 0.4117647058823529,
+              "rho": 0.1,
+              "margin": -0.31176470588235294,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.014174344436569786,
+              "delta_policy": 0.0,
+              "delta_margin": -0.014174344436569841
+            },
+            "currency": {
+              "first": 100,
+              "retry": 70,
+              "ratio": 0.4117647058823529,
+              "rho": 0.1,
+              "margin": -0.31176470588235294,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.048707381041588615,
+              "delta_policy": 0.0,
+              "delta_margin": -0.04870738104158867
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 70,
+              "ratio": 0.4117647058823529,
+              "rho": 0.5,
+              "margin": 0.08823529411764708,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": 0.4,
+              "delta_margin": 0.4
+            },
+            "currency": {
+              "first": 100,
+              "retry": 70,
+              "ratio": 0.4117647058823529,
+              "rho": 0.5,
+              "margin": 0.08823529411764708,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": 0.4,
+              "delta_margin": 0.4
+            }
+          }
+        },
+        {
+          "window": 14,
+          "from_policy": 4,
+          "to_policy": 5,
+          "state_unchanged": true,
+          "policy_decision_changed": false,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.5,
+              "margin": 0.3695652173913043,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.00749625187406297,
+              "delta_policy": 0.0,
+              "delta_margin": 0.0074962518740629425
+            },
+            "currency": {
+              "first": 100,
+              "retry": 17,
+              "ratio": 0.1452991452991453,
+              "rho": 0.5,
+              "margin": 0.35470085470085466,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.028254573709119157,
+              "delta_policy": 0.0,
+              "delta_margin": 0.028254573709119102
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.2,
+              "margin": 0.06956521739130436,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            },
+            "currency": {
+              "first": 100,
+              "retry": 17,
+              "ratio": 0.1452991452991453,
+              "rho": 0.2,
+              "margin": 0.0547008547008547,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            }
+          }
+        }
+      ],
+      "policy_update_latencies": [
+        {
+          "policy_version": 2,
+          "correct_report_after_apply_ms": 234.224609375
+        },
+        {
+          "policy_version": 3,
+          "correct_report_after_apply_ms": 438.805908203125
+        },
+        {
+          "policy_version": 4,
+          "correct_report_after_apply_ms": 476.4658203125
+        },
+        {
+          "policy_version": 5,
+          "correct_report_after_apply_ms": 179.558349609375
+        }
+      ],
+      "geometry_status_counts": {
+        "available": 19,
+        "missing_lineage": 2,
+        "zero_part": 3
+      },
+      "limits": "Cohorts span different times and include later policy/component changes with the same fault setting. Their rate comparison is descriptive, not a randomized causal estimate. Third-attempt rescues are directly recorded within-request witnesses under controlled delivery faults; they do not estimate production benefit."
+    },
+    {
+      "block": "history-07",
+      "allowance_cohorts": [
+        {
+          "max_attempts": 2,
+          "fault_probability": 0.45,
+          "logical_calls": 400,
+          "client_observed_calls": 400,
+          "client_successes": 325,
+          "success_fraction": 0.8125,
+          "attempt_starts": 578,
+          "retry_starts": 178,
+          "retry_fraction": 0.3079584775086505,
+          "third_attempts": 0,
+          "third_attempt_rescues": 0
+        },
+        {
+          "max_attempts": 3,
+          "fault_probability": 0.45,
+          "logical_calls": 808,
+          "client_observed_calls": 808,
+          "client_successes": 730,
+          "success_fraction": 0.9034653465346535,
+          "attempt_starts": 1301,
+          "retry_starts": 493,
+          "retry_fraction": 0.3789392774788624,
+          "third_attempts": 156,
+          "third_attempt_rescues": 78
+        }
+      ],
+      "clients_without_gateway_start": 0,
+      "same_window_policy_only_witnesses": [
+        {
+          "window": 8,
+          "from_policy": 2,
+          "to_policy": 3,
+          "state_unchanged": true,
+          "policy_decision_changed": true,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 53,
+              "ratio": 0.3464052287581699,
+              "rho": 0.5,
+              "margin": 0.15359477124183007,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": 0.0,
+              "delta_margin": 0.0
+            },
+            "currency": {
+              "first": 100,
+              "retry": 74,
+              "ratio": 0.42528735632183906,
+              "rho": 0.5,
+              "margin": 0.07471264367816094,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.05028735632183906,
+              "delta_policy": 0.0,
+              "delta_margin": -0.05028735632183906
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 53,
+              "ratio": 0.3464052287581699,
+              "rho": 0.1,
+              "margin": -0.24640522875816992,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.4,
+              "delta_margin": -0.4
+            },
+            "currency": {
+              "first": 100,
+              "retry": 74,
+              "ratio": 0.42528735632183906,
+              "rho": 0.1,
+              "margin": -0.325287356321839,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.4,
+              "delta_margin": -0.39999999999999997
+            }
+          }
+        },
+        {
+          "window": 9,
+          "from_policy": 3,
+          "to_policy": 4,
+          "state_unchanged": true,
+          "policy_decision_changed": true,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 60,
+              "ratio": 0.375,
+              "rho": 0.1,
+              "margin": -0.275,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.028594771241830075,
+              "delta_policy": 0.0,
+              "delta_margin": -0.028594771241830103
+            },
+            "currency": {
+              "first": 100,
+              "retry": 75,
+              "ratio": 0.42857142857142855,
+              "rho": 0.1,
+              "margin": -0.3285714285714285,
+              "violation": true,
+              "status": "available",
+              "delta_ratio": 0.003284072249589487,
+              "delta_policy": 0.0,
+              "delta_margin": -0.003284072249589487
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 60,
+              "ratio": 0.375,
+              "rho": 0.5,
+              "margin": 0.125,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": 0.4,
+              "delta_margin": 0.4
+            },
+            "currency": {
+              "first": 100,
+              "retry": 75,
+              "ratio": 0.42857142857142855,
+              "rho": 0.5,
+              "margin": 0.07142857142857145,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": 0.4,
+              "delta_margin": 0.39999999999999997
+            }
+          }
+        },
+        {
+          "window": 14,
+          "from_policy": 4,
+          "to_policy": 5,
+          "state_unchanged": true,
+          "policy_decision_changed": false,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.5,
+              "margin": 0.3695652173913043,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.049893086243763374,
+              "delta_policy": 0.0,
+              "delta_margin": 0.04989308624376332
+            },
+            "currency": {
+              "first": 100,
+              "retry": 17,
+              "ratio": 0.1452991452991453,
+              "rho": 0.5,
+              "margin": 0.35470085470085466,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.04620004620004621,
+              "delta_policy": 0.0,
+              "delta_margin": -0.04620004620004625
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 15,
+              "ratio": 0.13043478260869565,
+              "rho": 0.2,
+              "margin": 0.06956521739130436,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            },
+            "currency": {
+              "first": 100,
+              "retry": 17,
+              "ratio": 0.1452991452991453,
+              "rho": 0.2,
+              "margin": 0.0547008547008547,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.29999999999999993
+            }
+          }
+        }
+      ],
+      "policy_update_latencies": [
+        {
+          "policy_version": 2,
+          "correct_report_after_apply_ms": 267.89892578125
+        },
+        {
+          "policy_version": 3,
+          "correct_report_after_apply_ms": 445.45263671875
+        },
+        {
+          "policy_version": 4,
+          "correct_report_after_apply_ms": 483.95361328125
+        },
+        {
+          "policy_version": 5,
+          "correct_report_after_apply_ms": 112.776123046875
+        }
+      ],
+      "geometry_status_counts": {
+        "available": 18,
+        "missing_lineage": 2,
+        "zero_part": 4
+      },
+      "limits": "Cohorts span different times and include later policy/component changes with the same fault setting. Their rate comparison is descriptive, not a randomized causal estimate. Third-attempt rescues are directly recorded within-request witnesses under controlled delivery faults; they do not estimate production benefit."
+    },
+    {
+      "block": "history-08",
+      "allowance_cohorts": [
+        {
+          "max_attempts": 2,
+          "fault_probability": 0.45,
+          "logical_calls": 400,
+          "client_observed_calls": 400,
+          "client_successes": 315,
+          "success_fraction": 0.7875,
+          "attempt_starts": 590,
+          "retry_starts": 190,
+          "retry_fraction": 0.3220338983050847,
+          "third_attempts": 0,
+          "third_attempt_rescues": 0
+        },
+        {
+          "max_attempts": 3,
+          "fault_probability": 0.45,
+          "logical_calls": 806,
+          "client_observed_calls": 806,
+          "client_successes": 713,
+          "success_fraction": 0.8846153846153846,
+          "attempt_starts": 1343,
+          "retry_starts": 537,
+          "retry_fraction": 0.39985107967237526,
+          "third_attempts": 174,
+          "third_attempt_rescues": 81
+        }
+      ],
+      "clients_without_gateway_start": 0,
+      "same_window_policy_only_witnesses": [
+        {
+          "window": 14,
+          "from_policy": 4,
+          "to_policy": 5,
+          "state_unchanged": true,
+          "policy_decision_changed": false,
+          "before": {
+            "catalog": {
+              "first": 100,
+              "retry": 14,
+              "ratio": 0.12280701754385964,
+              "rho": 0.5,
+              "margin": 0.37719298245614036,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.007762769756249024,
+              "delta_policy": 0.0,
+              "delta_margin": -0.0077627697562490106
+            },
+            "currency": {
+              "first": 100,
+              "retry": 11,
+              "ratio": 0.0990990990990991,
+              "rho": 0.5,
+              "margin": 0.4009009009009009,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": -0.06756756756756756,
+              "delta_policy": 0.0,
+              "delta_margin": 0.06756756756756754
+            }
+          },
+          "after": {
+            "catalog": {
+              "first": 100,
+              "retry": 14,
+              "ratio": 0.12280701754385964,
+              "rho": 0.2,
+              "margin": 0.07719298245614037,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.3
+            },
+            "currency": {
+              "first": 100,
+              "retry": 11,
+              "ratio": 0.0990990990990991,
+              "rho": 0.2,
+              "margin": 0.10090090090090091,
+              "violation": false,
+              "status": "available",
+              "delta_ratio": 0.0,
+              "delta_policy": -0.3,
+              "delta_margin": -0.3
+            }
+          }
+        }
+      ],
+      "policy_update_latencies": [
+        {
+          "policy_version": 2,
+          "correct_report_after_apply_ms": 238.740966796875
+        },
+        {
+          "policy_version": 3,
+          "correct_report_after_apply_ms": 12.7802734375
+        },
+        {
+          "policy_version": 4,
+          "correct_report_after_apply_ms": 49.494140625
+        },
+        {
+          "policy_version": 5,
+          "correct_report_after_apply_ms": 348.4853515625
+        }
+      ],
+      "geometry_status_counts": {
+        "available": 16,
+        "missing_lineage": 2,
+        "zero_part": 4
+      },
+      "limits": "Cohorts span different times and include later policy/component changes with the same fault setting. Their rate comparison is descriptive, not a randomized causal estimate. Third-attempt rescues are directly recorded within-request witnesses under controlled delivery faults; they do not estimate production benefit."
+    }
+  ],
+  "methods": {
+    "fixed": {
+      "group_diagnoses": 362,
+      "trustworthy_group_diagnoses": 80,
+      "policy_errors": 48,
+      "state_errors": 0,
+      "status_counts": {
+        "available": 129,
+        "missing_lineage": 210,
+        "no_attempts": 23
+      },
+      "per_history_median_compute_microseconds": {
+        "median": 40.38575,
+        "min": 33.4905,
+        "max": 53.540499999999994
+      }
+    },
+    "direct": {
+      "group_diagnoses": 362,
+      "trustworthy_group_diagnoses": 304,
+      "policy_errors": 0,
+      "state_errors": 0,
+      "status_counts": {
+        "available": 304,
+        "missing_lineage": 32,
+        "no_attempts": 26
+      },
+      "per_history_median_compute_microseconds": {
+        "median": 38.4815,
+        "min": 23.7405,
+        "max": 43.171499999999995
+      }
+    },
+    "coda": {
+      "group_diagnoses": 362,
+      "trustworthy_group_diagnoses": 304,
+      "policy_errors": 0,
+      "state_errors": 0,
+      "status_counts": {
+        "available": 304,
+        "missing_lineage": 32,
+        "no_attempts": 26
+      },
+      "per_history_median_compute_microseconds": {
+        "median": 48.45625,
+        "min": 34.5375,
+        "max": 60.949
+      }
+    }
+  },
+  "same_window_policy_only_witnesses": 13,
+  "same_window_policy_decision_flips": 5,
+  "third_attempt_rescues": 667,
+  "third_attempts": 1276,
+  "cohort_success_fraction_increased_histories": 8,
+  "cohort_retry_fraction_increased_histories": 8,
+  "geometry_status_counts": {
+    "available": 135,
+    "missing_lineage": 16,
+    "zero_part": 30
+  },
+  "statistical_unit": "history; no binomial confidence interval treats dependent windows as independent"
+}

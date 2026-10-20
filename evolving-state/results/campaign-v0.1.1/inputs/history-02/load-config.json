@@ -1,0 +1,116 @@
+{
+  "version": "evolving-state-0.1.1",
+  "status": "engineering refinement before the eight-history descriptive campaign",
+  "predecessor": "design-v0.1.0.json",
+  "revision": "Wait for new forwarding workers before handing over routes; run observation on an independent polling thread; add a second idle window; measure lineage latency until the next lineage change rather than the next unrelated policy change. The two policy-only changes now relax then tighten the limit, so the intended policy-only contrast spans the expected retry fraction. Original engineering data remain separate.",
+  "upstream_commit": "1755859a9de82c2e5e225be68abc401a5ebf2b4f",
+  "parent_runtime": "probe1/runtime.json",
+  "python_image": "docker.io/library/python@sha256:8fb4cfa1a2616d7b8e0c2175cc6ad68f5729c34ea8488c0b360d2934b7be9024",
+  "groups": [
+    "catalog",
+    "currency"
+  ],
+  "parts": [
+    "catalog:first",
+    "catalog:retry",
+    "currency:first",
+    "currency:retry"
+  ],
+  "window_seconds": 10,
+  "windows": 19,
+  "active_windows": 17,
+  "logical_rate_per_group": 10,
+  "preallocated_vus_per_group": 80,
+  "request_timeout_seconds": 6,
+  "attempt_timeout_seconds": 1,
+  "observer_poll_seconds": 0.5,
+  "initial_policy": {
+    "catalog": 0.25,
+    "currency": 0.25
+  },
+  "ewma_alpha": 0.2,
+  "policy_comparison_tolerance": 1e-12,
+  "replications_after_engineering": 8,
+  "policy_semantics": "For each logical group, first and retry attempt starts at one instrumented client layer in the most recent completed nonoverlapping 10-second window. The atomic snapshot announces the policy effective at its generated_ms; received_ms marks diagnosis availability. Evaluate reconstruction against that snapshot time and separately account for held-report staleness against actual policy applications and new completed windows. Logical successes are counted separately. The policy is an observational requirement, not an enforced rate limiter. This is an experimental windowed policy, not an exact implementation of another product's retry budget.",
+  "zero_semantics": "R=0,F>0: ratio is zero, policy defined, full log-ratio geometry unavailable. F+R=0: no policy observation for that group. Missing telemetry, missing lineage and missing current policy have distinct statuses.",
+  "scope": "Passive observation. Scripted faults occur after actual upstream reads. Supported component transitions use explicit deployment annotations; arbitrary semantic lineage inference is not claimed. No automatic rollback, service-failure forecast or guaranteed geometry advantage.",
+  "scheduled_changes": [
+    {
+      "window": 1,
+      "event": "baseline",
+      "fault_probability": 0.12,
+      "max_attempts": 2
+    },
+    {
+      "window": 4,
+      "event": "delivery_fault_increase",
+      "fault_probability": 0.45
+    },
+    {
+      "window": 6,
+      "event": "increase_attempt_allowance",
+      "max_attempts": 3
+    },
+    {
+      "window": 7,
+      "event": "policy_only_relax",
+      "rho": 0.5
+    },
+    {
+      "window": 8,
+      "event": "split_catalog"
+    },
+    {
+      "window": 9,
+      "event": "policy_only_tighten",
+      "rho": 0.1
+    },
+    {
+      "window": 10,
+      "event": "execution_and_policy",
+      "fault_probability": 0.15,
+      "rho": 0.5
+    },
+    {
+      "window": 12,
+      "event": "replace_catalog_delayed_metadata",
+      "metadata_delay_windows": 2
+    },
+    {
+      "window": 15,
+      "event": "merge_execution_and_policy",
+      "fault_probability": 0.35,
+      "rho": 0.2
+    },
+    {
+      "window": 16,
+      "event": "no_retries",
+      "fault_probability": 0.0,
+      "max_attempts": 1
+    },
+    {
+      "window": 18,
+      "event": "no_arrivals"
+    }
+  ],
+  "analysis": {
+    "unit": "one independently started runner history; observer comparisons paired within history",
+    "primary": [
+      "state reconstruction error",
+      "current policy decision error",
+      "margin-change decomposition error",
+      "update latency",
+      "trustworthy diagnosis coverage"
+    ],
+    "secondary": [
+      "observer computation time",
+      "explicit annotation count",
+      "missing-metadata duration",
+      "logical success and attempt load"
+    ],
+    "comparison": "Fixed initial schema is a staleness ablation. Updated direct ratios and full ILR receive identical available metadata and telemetry. Native PromQL replay verifies the direct aggregation/arithmetic, not the performance of a complete deployed alerting platform.",
+    "interpretation": "Report all runs, unavailable intervals and errors. No success-by-majority threshold. Adjacent windows are not independent replicates. Fault intervention and attempt allowance changes are scripted, not discovered by the observer."
+  },
+  "origin_ms": 1792499218758,
+  "block_id": "history-02"
+}

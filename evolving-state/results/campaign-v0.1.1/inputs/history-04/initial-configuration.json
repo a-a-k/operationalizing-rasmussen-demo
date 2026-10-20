@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "deployment": 1,
+  "policy_version": 1,
+  "policy_limits": {
+    "catalog": 0.25,
+    "currency": 0.25
+  },
+  "routes": {
+    "catalog": [
+      "reader-a"
+    ],
+    "currency": [
+      "reader-b"
+    ]
+  },
+  "fault_probability": 0.12,
+  "max_attempts": 2,
+  "origin_ms": 1792499192188,
+  "windows": 19,
+  "window_seconds": 10,
+  "attempt_timeout_seconds": 1,
+  "seed": 2841523344
+}

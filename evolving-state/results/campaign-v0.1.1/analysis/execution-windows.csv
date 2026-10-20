@@ -1,0 +1,305 @@
+block,window,group,first_attempt_starts,retry_attempt_starts,gateway_logical_started,gateway_logical_success,external_client_completed,external_client_success,execution_versions
+history-01,1,catalog,100,10,100,98,100,98,[1]
+history-01,1,currency,100,16,100,99,100,99,[1]
+history-01,2,catalog,100,8,100,98,100,98,[1]
+history-01,2,currency,100,17,100,100,100,100,[1]
+history-01,3,catalog,100,15,100,100,100,100,[1]
+history-01,3,currency,100,13,100,100,100,100,[1]
+history-01,4,catalog,100,44,100,78,100,78,"[1, 2]"
+history-01,4,currency,100,38,100,87,100,87,"[1, 2]"
+history-01,5,catalog,100,56,100,73,100,73,[2]
+history-01,5,currency,100,44,100,77,100,77,[2]
+history-01,6,catalog,100,72,100,89,100,89,"[2, 3]"
+history-01,6,currency,100,55,100,91,100,91,"[2, 3]"
+history-01,7,catalog,100,62,100,93,100,93,"[3, 4]"
+history-01,7,currency,100,56,100,94,100,94,"[3, 4]"
+history-01,8,catalog,100,64,100,91,100,91,"[4, 5]"
+history-01,8,currency,100,73,100,88,100,88,"[4, 5]"
+history-01,9,catalog,100,55,100,93,100,93,"[5, 6]"
+history-01,9,currency,100,78,100,84,100,84,"[5, 6]"
+history-01,10,catalog,100,20,100,100,100,100,"[6, 7]"
+history-01,10,currency,100,24,100,100,100,100,"[6, 7]"
+history-01,11,catalog,100,13,100,99,100,99,[7]
+history-01,11,currency,100,11,100,100,100,100,[7]
+history-01,12,catalog,100,20,100,100,100,100,"[7, 8]"
+history-01,12,currency,100,20,100,100,100,100,"[7, 8]"
+history-01,13,catalog,100,17,100,98,100,98,[8]
+history-01,13,currency,100,13,100,100,100,100,[8]
+history-01,14,catalog,100,18,100,100,100,100,[8]
+history-01,14,currency,100,20,100,99,100,99,[8]
+history-01,15,catalog,100,43,100,95,100,95,"[8, 9]"
+history-01,15,currency,100,48,100,92,100,92,"[8, 9]"
+history-01,16,catalog,100,0,100,100,100,100,"[9, 10]"
+history-01,16,currency,100,1,100,100,100,100,"[9, 10]"
+history-01,17,catalog,100,0,100,100,100,100,[10]
+history-01,17,currency,100,0,100,100,100,100,[10]
+history-01,18,catalog,0,0,0,0,0,0,[]
+history-01,18,currency,0,0,0,0,0,0,[]
+history-01,19,catalog,0,0,0,0,0,0,[]
+history-01,19,currency,0,0,0,0,0,0,[]
+history-02,1,catalog,100,10,100,99,100,99,[1]
+history-02,1,currency,100,13,100,96,100,96,[1]
+history-02,2,catalog,100,11,100,99,100,99,[1]
+history-02,2,currency,100,15,100,95,100,95,[1]
+history-02,3,catalog,100,17,100,100,100,100,[1]
+history-02,3,currency,100,12,100,99,100,99,[1]
+history-02,4,catalog,100,38,100,82,100,82,"[1, 2]"
+history-02,4,currency,100,43,100,78,100,78,"[1, 2]"
+history-02,5,catalog,100,46,100,81,100,81,[2]
+history-02,5,currency,100,47,100,75,100,75,[2]
+history-02,6,catalog,100,66,100,94,100,94,"[2, 3]"
+history-02,6,currency,100,56,100,93,100,93,"[2, 3]"
+history-02,7,catalog,100,71,100,92,100,92,"[3, 4]"
+history-02,7,currency,100,63,100,96,100,96,"[3, 4]"
+history-02,8,catalog,100,66,100,91,100,91,"[4, 5]"
+history-02,8,currency,100,54,100,91,100,91,"[4, 5]"
+history-02,9,catalog,100,68,100,89,100,89,"[5, 6]"
+history-02,9,currency,100,73,100,87,100,87,"[5, 6]"
+history-02,10,catalog,100,14,100,100,100,100,"[6, 7]"
+history-02,10,currency,100,13,100,100,100,100,"[6, 7]"
+history-02,11,catalog,100,16,100,100,100,100,[7]
+history-02,11,currency,100,16,100,100,100,100,[7]
+history-02,12,catalog,100,15,100,100,100,100,"[7, 8]"
+history-02,12,currency,100,20,100,98,100,98,"[7, 8]"
+history-02,13,catalog,100,13,100,99,100,99,[8]
+history-02,13,currency,100,23,100,99,100,99,[8]
+history-02,14,catalog,100,13,100,100,100,100,[8]
+history-02,14,currency,100,22,100,99,100,99,[8]
+history-02,15,catalog,100,43,100,97,100,97,"[8, 9]"
+history-02,15,currency,100,50,100,98,100,98,"[8, 9]"
+history-02,16,catalog,100,1,100,100,100,100,"[9, 10]"
+history-02,16,currency,100,0,100,100,100,100,"[9, 10]"
+history-02,17,catalog,100,0,100,100,100,100,[10]
+history-02,17,currency,100,0,100,100,100,100,[10]
+history-02,18,catalog,1,0,1,1,1,1,[10]
+history-02,18,currency,0,0,0,0,0,0,[]
+history-02,19,catalog,0,0,0,0,0,0,[]
+history-02,19,currency,0,0,0,0,0,0,[]
+history-03,1,catalog,100,12,100,98,100,98,[1]
+history-03,1,currency,100,14,100,98,100,98,[1]
+history-03,2,catalog,100,9,100,98,100,98,[1]
+history-03,2,currency,100,7,100,98,100,98,[1]
+history-03,3,catalog,100,11,100,100,100,100,[1]
+history-03,3,currency,100,11,100,100,100,100,[1]
+history-03,4,catalog,100,45,100,82,100,82,"[1, 2]"
+history-03,4,currency,100,44,100,80,100,80,"[1, 2]"
+history-03,5,catalog,100,37,100,84,100,84,[2]
+history-03,5,currency,100,37,100,87,100,87,[2]
+history-03,6,catalog,100,70,100,88,100,88,"[2, 3]"
+history-03,6,currency,100,70,100,91,100,91,"[2, 3]"
+history-03,7,catalog,100,56,100,94,100,94,"[3, 4]"
+history-03,7,currency,100,73,100,88,100,88,"[3, 4]"
+history-03,8,catalog,100,63,100,95,100,95,"[4, 5]"
+history-03,8,currency,100,67,100,88,100,88,"[4, 5]"
+history-03,9,catalog,100,64,100,92,100,92,"[5, 6]"
+history-03,9,currency,100,66,100,89,100,89,"[5, 6]"
+history-03,10,catalog,100,16,100,100,100,100,"[6, 7]"
+history-03,10,currency,100,20,100,98,100,98,"[6, 7]"
+history-03,11,catalog,100,16,100,99,100,99,[7]
+history-03,11,currency,100,18,100,100,100,100,[7]
+history-03,12,catalog,100,20,100,100,100,100,"[7, 8]"
+history-03,12,currency,100,21,100,98,100,98,"[7, 8]"
+history-03,13,catalog,100,18,100,100,100,100,[8]
+history-03,13,currency,100,15,100,99,100,99,[8]
+history-03,14,catalog,100,20,100,100,100,100,[8]
+history-03,14,currency,100,15,100,100,100,100,[8]
+history-03,15,catalog,100,52,100,94,100,94,"[8, 9]"
+history-03,15,currency,100,53,100,93,100,93,"[8, 9]"
+history-03,16,catalog,100,1,100,100,100,100,"[9, 10]"
+history-03,16,currency,100,0,100,100,100,100,"[9, 10]"
+history-03,17,catalog,100,0,100,100,100,100,[10]
+history-03,17,currency,100,0,100,100,100,100,[10]
+history-03,18,catalog,1,0,1,1,1,1,[10]
+history-03,18,currency,0,0,0,0,0,0,[]
+history-03,19,catalog,0,0,0,0,0,0,[]
+history-03,19,currency,0,0,0,0,0,0,[]
+history-04,1,catalog,100,12,100,100,100,100,[1]
+history-04,1,currency,100,11,100,98,100,98,[1]
+history-04,2,catalog,100,10,100,98,100,98,[1]
+history-04,2,currency,100,9,100,98,100,98,[1]
+history-04,3,catalog,100,11,100,100,100,100,[1]
+history-04,3,currency,100,6,100,99,100,99,[1]
+history-04,4,catalog,100,45,100,81,100,81,"[1, 2]"
+history-04,4,currency,100,36,100,83,100,83,"[1, 2]"
+history-04,5,catalog,100,39,100,77,100,77,[2]
+history-04,5,currency,100,50,100,78,100,78,[2]
+history-04,6,catalog,100,64,100,89,100,89,"[2, 3]"
+history-04,6,currency,100,65,100,91,100,91,"[2, 3]"
+history-04,7,catalog,100,56,100,95,100,95,"[3, 4]"
+history-04,7,currency,100,59,100,90,100,90,"[3, 4]"
+history-04,8,catalog,100,67,100,91,100,91,"[4, 5]"
+history-04,8,currency,100,75,100,88,100,88,"[4, 5]"
+history-04,9,catalog,100,60,100,94,100,94,"[5, 6]"
+history-04,9,currency,100,67,100,91,100,91,"[5, 6]"
+history-04,10,catalog,100,23,100,100,100,100,"[6, 7]"
+history-04,10,currency,100,29,100,99,100,99,"[6, 7]"
+history-04,11,catalog,100,12,100,100,100,100,[7]
+history-04,11,currency,100,16,100,100,100,100,[7]
+history-04,12,catalog,100,20,100,100,100,100,"[7, 8]"
+history-04,12,currency,100,20,100,100,100,100,"[7, 8]"
+history-04,13,catalog,100,21,100,100,100,100,[8]
+history-04,13,currency,100,19,100,99,100,99,[8]
+history-04,14,catalog,100,15,100,100,100,100,[8]
+history-04,14,currency,100,12,100,100,100,100,[8]
+history-04,15,catalog,100,45,100,95,100,95,"[8, 9]"
+history-04,15,currency,100,50,100,95,100,95,"[8, 9]"
+history-04,16,catalog,100,3,100,100,100,100,"[9, 10]"
+history-04,16,currency,100,2,100,100,100,100,"[9, 10]"
+history-04,17,catalog,100,0,100,100,100,100,[10]
+history-04,17,currency,100,0,100,100,100,100,[10]
+history-04,18,catalog,1,0,1,1,1,1,[10]
+history-04,18,currency,1,0,1,1,1,1,[10]
+history-04,19,catalog,0,0,0,0,0,0,[]
+history-04,19,currency,0,0,0,0,0,0,[]
+history-05,1,catalog,100,11,100,99,100,99,[1]
+history-05,1,currency,100,11,100,99,100,99,[1]
+history-05,2,catalog,100,11,100,98,100,98,[1]
+history-05,2,currency,100,22,100,97,100,97,[1]
+history-05,3,catalog,100,8,100,100,100,100,[1]
+history-05,3,currency,100,11,100,99,100,99,[1]
+history-05,4,catalog,100,41,100,83,100,83,"[1, 2]"
+history-05,4,currency,100,40,100,78,100,78,"[1, 2]"
+history-05,5,catalog,100,48,100,78,100,78,[2]
+history-05,5,currency,100,44,100,75,100,75,[2]
+history-05,6,catalog,100,58,100,93,100,93,"[2, 3]"
+history-05,6,currency,100,71,100,92,100,92,"[2, 3]"
+history-05,7,catalog,100,71,100,88,100,88,"[3, 4]"
+history-05,7,currency,100,66,100,92,100,92,"[3, 4]"
+history-05,8,catalog,100,63,100,89,100,89,"[4, 5]"
+history-05,8,currency,100,60,100,90,100,90,"[4, 5]"
+history-05,9,catalog,100,59,100,91,100,91,"[5, 6]"
+history-05,9,currency,100,57,100,94,100,94,"[5, 6]"
+history-05,10,catalog,100,19,100,100,100,100,"[6, 7]"
+history-05,10,currency,100,30,100,99,100,99,"[6, 7]"
+history-05,11,catalog,100,19,100,100,100,100,[7]
+history-05,11,currency,100,17,100,100,100,100,[7]
+history-05,12,catalog,100,13,100,100,100,100,"[7, 8]"
+history-05,12,currency,100,8,100,100,100,100,"[7, 8]"
+history-05,13,catalog,100,15,100,100,100,100,[8]
+history-05,13,currency,100,28,100,99,100,99,[8]
+history-05,14,catalog,100,15,100,100,100,100,[8]
+history-05,14,currency,100,17,100,100,100,100,[8]
+history-05,15,catalog,100,57,100,96,100,96,"[8, 9]"
+history-05,15,currency,100,36,100,94,100,94,"[8, 9]"
+history-05,16,catalog,100,0,100,100,100,100,"[9, 10]"
+history-05,16,currency,100,1,100,100,100,100,"[9, 10]"
+history-05,17,catalog,100,0,100,100,100,100,[10]
+history-05,17,currency,100,0,100,100,100,100,[10]
+history-05,18,catalog,0,0,0,0,0,0,[]
+history-05,18,currency,0,0,0,0,0,0,[]
+history-05,19,catalog,0,0,0,0,0,0,[]
+history-05,19,currency,0,0,0,0,0,0,[]
+history-06,1,catalog,100,9,100,99,100,99,[1]
+history-06,1,currency,100,13,100,98,100,98,[1]
+history-06,2,catalog,100,12,100,99,100,99,[1]
+history-06,2,currency,100,13,100,100,100,100,[1]
+history-06,3,catalog,100,13,100,98,100,98,[1]
+history-06,3,currency,100,15,100,100,100,100,[1]
+history-06,4,catalog,100,39,100,87,100,87,"[1, 2]"
+history-06,4,currency,100,42,100,82,100,82,"[1, 2]"
+history-06,5,catalog,100,40,100,84,100,84,[2]
+history-06,5,currency,100,42,100,79,100,79,[2]
+history-06,6,catalog,100,65,100,94,100,94,"[2, 3]"
+history-06,6,currency,100,48,100,95,100,95,"[2, 3]"
+history-06,7,catalog,100,64,100,85,100,85,"[3, 4]"
+history-06,7,currency,100,68,100,89,100,89,"[3, 4]"
+history-06,8,catalog,100,66,100,91,100,91,"[4, 5]"
+history-06,8,currency,100,57,100,91,100,91,"[4, 5]"
+history-06,9,catalog,100,70,100,88,100,88,"[5, 6]"
+history-06,9,currency,100,70,100,91,100,91,"[5, 6]"
+history-06,10,catalog,100,19,100,100,100,100,"[6, 7]"
+history-06,10,currency,100,21,100,99,100,99,"[6, 7]"
+history-06,11,catalog,100,16,100,100,100,100,[7]
+history-06,11,currency,100,17,100,100,100,100,[7]
+history-06,12,catalog,100,18,100,100,100,100,"[7, 8]"
+history-06,12,currency,100,6,100,100,100,100,"[7, 8]"
+history-06,13,catalog,100,16,100,100,100,100,[8]
+history-06,13,currency,100,21,100,100,100,100,[8]
+history-06,14,catalog,100,15,100,99,100,99,[8]
+history-06,14,currency,100,17,100,99,100,99,[8]
+history-06,15,catalog,100,45,100,100,100,100,"[8, 9]"
+history-06,15,currency,100,35,100,97,100,97,"[8, 9]"
+history-06,16,catalog,100,4,100,100,100,100,"[9, 10]"
+history-06,16,currency,100,1,100,100,100,100,"[9, 10]"
+history-06,17,catalog,100,0,100,100,100,100,[10]
+history-06,17,currency,100,0,100,100,100,100,[10]
+history-06,18,catalog,1,0,1,1,1,1,[10]
+history-06,18,currency,0,0,0,0,0,0,[]
+history-06,19,catalog,0,0,0,0,0,0,[]
+history-06,19,currency,0,0,0,0,0,0,[]
+history-07,1,catalog,100,15,100,98,100,98,[1]
+history-07,1,currency,100,20,100,97,100,97,[1]
+history-07,2,catalog,100,12,100,98,100,98,[1]
+history-07,2,currency,100,6,100,99,100,99,[1]
+history-07,3,catalog,100,16,100,98,100,98,[1]
+history-07,3,currency,100,12,100,100,100,100,[1]
+history-07,4,catalog,100,55,100,79,100,79,"[1, 2]"
+history-07,4,currency,100,41,100,85,100,85,"[1, 2]"
+history-07,5,catalog,100,48,100,79,100,79,[2]
+history-07,5,currency,100,34,100,82,100,82,[2]
+history-07,6,catalog,100,52,100,91,100,91,"[2, 3]"
+history-07,6,currency,100,59,100,90,100,90,"[2, 3]"
+history-07,7,catalog,100,53,100,92,100,92,"[3, 4]"
+history-07,7,currency,100,60,100,92,100,92,"[3, 4]"
+history-07,8,catalog,100,53,100,95,100,95,"[4, 5]"
+history-07,8,currency,100,74,100,88,100,88,"[4, 5]"
+history-07,9,catalog,100,60,100,90,100,90,"[5, 6]"
+history-07,9,currency,100,75,100,86,100,86,"[5, 6]"
+history-07,10,catalog,100,20,100,99,100,99,"[6, 7]"
+history-07,10,currency,100,20,100,98,100,98,"[6, 7]"
+history-07,11,catalog,100,32,100,99,100,99,[7]
+history-07,11,currency,100,18,100,100,100,100,[7]
+history-07,12,catalog,100,16,100,100,100,100,"[7, 8]"
+history-07,12,currency,100,17,100,99,100,99,"[7, 8]"
+history-07,13,catalog,100,22,100,100,100,100,[8]
+history-07,13,currency,100,11,100,100,100,100,[8]
+history-07,14,catalog,100,15,100,100,100,100,[8]
+history-07,14,currency,100,17,100,100,100,100,[8]
+history-07,15,catalog,100,44,100,97,100,97,"[8, 9]"
+history-07,15,currency,100,39,100,98,100,98,"[8, 9]"
+history-07,16,catalog,100,0,100,100,100,100,"[9, 10]"
+history-07,16,currency,100,0,100,100,100,100,"[9, 10]"
+history-07,17,catalog,100,0,100,100,100,100,[10]
+history-07,17,currency,100,0,100,100,100,100,[10]
+history-07,18,catalog,0,0,0,0,0,0,[]
+history-07,18,currency,1,0,1,1,1,1,[10]
+history-07,19,catalog,0,0,0,0,0,0,[]
+history-07,19,currency,0,0,0,0,0,0,[]
+history-08,1,catalog,100,16,100,97,100,97,[1]
+history-08,1,currency,100,13,100,98,100,98,[1]
+history-08,2,catalog,100,10,100,100,100,100,[1]
+history-08,2,currency,100,14,100,97,100,97,[1]
+history-08,3,catalog,100,8,100,100,100,100,[1]
+history-08,3,currency,100,10,100,99,100,99,[1]
+history-08,4,catalog,100,45,100,81,100,81,"[1, 2]"
+history-08,4,currency,100,46,100,84,100,84,"[1, 2]"
+history-08,5,catalog,100,53,100,77,100,77,[2]
+history-08,5,currency,100,47,100,73,100,73,[2]
+history-08,6,catalog,100,62,100,91,100,91,"[2, 3]"
+history-08,6,currency,100,61,100,91,100,91,"[2, 3]"
+history-08,7,catalog,100,60,100,91,100,91,"[3, 4]"
+history-08,7,currency,100,64,100,88,100,88,"[3, 4]"
+history-08,8,catalog,100,58,100,86,100,86,"[4, 5]"
+history-08,8,currency,100,84,100,87,100,87,"[4, 5]"
+history-08,9,catalog,100,63,100,93,100,93,"[5, 6]"
+history-08,9,currency,100,82,100,80,100,80,"[5, 6]"
+history-08,10,catalog,100,21,100,99,100,99,"[6, 7]"
+history-08,10,currency,100,18,100,100,100,100,"[6, 7]"
+history-08,11,catalog,100,18,100,100,100,100,[7]
+history-08,11,currency,100,12,100,100,100,100,[7]
+history-08,12,catalog,100,23,100,99,100,99,"[7, 8]"
+history-08,12,currency,100,15,100,100,100,100,"[7, 8]"
+history-08,13,catalog,100,13,100,100,100,100,[8]
+history-08,13,currency,100,20,100,100,100,100,[8]
+history-08,14,catalog,100,14,100,100,100,100,[8]
+history-08,14,currency,100,11,100,100,100,100,[8]
+history-08,15,catalog,100,36,100,94,100,94,"[8, 9]"
+history-08,15,currency,100,25,100,100,100,100,"[8, 9]"
+history-08,16,catalog,100,0,100,100,100,100,"[9, 10]"
+history-08,16,currency,100,0,100,100,100,100,"[9, 10]"
+history-08,17,catalog,100,0,100,100,100,100,[10]
+history-08,17,currency,100,0,100,100,100,100,[10]
+history-08,18,catalog,0,0,0,0,0,0,[]
+history-08,18,currency,0,0,0,0,0,0,[]
+history-08,19,catalog,0,0,0,0,0,0,[]
+history-08,19,currency,0,0,0,0,0,0,[]

@@ -1,5 +1,18 @@
 # Results and interpretation
 
+## Evolving state and current constraints
+
+The separate [eight-history runtime campaign](evolving-state/results/campaign-v0.1.1/README.md)
+observes a retry adaptation, actual forwarding-component updates and policy
+edits. All 304 available updated group assessments matched the event oracle.
+Five policy-status changes occurred at unchanged measured counts. The recorded
+benefit/work trade-off includes 667 calls rescued by a third attempt after two
+failures under controlled delivery faults. Updated direct ratios and CoDA
+matched; the advantage over a stale schema concerns the updating measurement
+contract, not uniquely better policy detection by CoDA.
+
+The closed-resource evidence below is a separate set of experiments.
+
 The evidence supports a measurement model for closed resource adaptation:
 complete selected allocation state, consistent relative-drift geometry, and
 histories joining pressure, actions, recipient output and external outcomes.

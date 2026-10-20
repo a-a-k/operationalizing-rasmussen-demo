@@ -1,7 +1,9 @@
 # Evolving-state observation
 
-Status: initial engineering execution completed; refined engineering validation
-and the descriptive campaign are pending. **No final empirical claim yet.**
+Status: [eight new histories completed](results/campaign-v0.1.1/README.md), with
+the two engineering executions retained separately. All available updated
+diagnoses matched the event oracle. Updated direct ratios matched CoDA; the
+comparison does not establish uniquely superior compositional policy detection.
 This separate experiment does not replace or revise previous campaigns.
 
 ## Question and scope
@@ -70,6 +72,8 @@ attempts give a valid zero ratio but unavailable complete log geometry. No
 attempts give no ratio observation. Missing lineage, missing policy and missing
 telemetry are different from either zero case. Movement is not interpolated
 across unavailable windows.
+When a policy or metadata event re-emits the same completed window, its
+per-window increment is retained, not added to the EWMA a second time.
 
 ## Fair comparisons
 
@@ -118,7 +122,7 @@ annotations. Report useful logical completions and physical attempt load
 separately. Do not count correlated windows as independent replications.
 
 The initial engineering run validates execution and recording. Eight fresh
-histories are planned after this gate, with all attempts retained. This is a
+histories followed this gate, with all attempts retained. This is a
 small descriptive PoC, not a reliability claim or a success-by-majority test.
 No automatic rollback, operator benefit or prevention of service violations
 is established by this passive study.
@@ -132,3 +136,9 @@ second idle window, and decouples observer polling from intervention execution.
 The policy-only sequence is relaxed then tightened to exercise a policy-only
 boundary contrast. These refinements precede the descriptive campaign; the
 initial execution is not pooled with it.
+
+Evidence:
+
+- [Initial engineering execution](results/engineering-v0.1.0/README.md).
+- [Refined engineering execution](results/engineering-v0.1.1/README.md).
+- [Main eight-history results, interpretation and reproduction](results/campaign-v0.1.1/README.md).

@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from observer import Observer
 from analyze import compare, save
 from promql_check import fixture
+from archive import export_history
 from test_observer import metadata, snap
 
 
@@ -38,6 +39,7 @@ def build(directory):
                 attempt = int(j == 4)
                 events.append({"type": "attempt_start", "logical_id": request, "attempt": attempt,
                                "logical_group": group, "component": component,
+                               "configuration": 1,
                                "started_ms": (window - 1) * 10000 + j + 100})
                 forwarded.append({"logical_id": request, "attempt": attempt, "upstream_status": 200})
                 if j < 4:
@@ -109,6 +111,21 @@ class PipelineTests(unittest.TestCase):
             expected = next(r for r in test["promql_expr_test"][1]["exp_samples"]
                             if r["labels"] == '{group="catalog"}')
             self.assertEqual(expected["value"], 0)
+
+    def test_compressed_evidence_replays_without_host_identifiers(self):
+        with tempfile.TemporaryDirectory() as name:
+            source = Path(name) / "source"
+            build(source)
+            state = json.loads((source / "status.json").read_text())
+            state["workflow_run_id"] = "fixture-run"
+            state["workflow_attempt"] = "1"
+            save(source / "status.json", state)
+            destination = Path(name) / "archive"
+            provenance = export_history(source, destination)
+            self.assertEqual(compare(source), compare(destination))
+            self.assertTrue((destination / "journals/client.jsonl.gz").exists())
+            self.assertNotIn("workflow_run_id", (destination / "status.json").read_text())
+            self.assertGreater(len(provenance), 3)
 
 
 if __name__ == "__main__":
