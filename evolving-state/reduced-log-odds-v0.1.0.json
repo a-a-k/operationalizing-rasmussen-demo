@@ -1,0 +1,12 @@
+{
+  "version": "0.1.0",
+  "analysis_kind": "retrospective consistency check on existing histories",
+  "input": "results/campaign-v0.1.1",
+  "coordinates": ["log(R_catalog/F_catalog)", "log(R_currency/F_currency)"],
+  "directions": ["adjacent increment", "EWMA of adjacent increments with alpha=0.2"],
+  "policy": "Use the same effective policies and the full-state common availability mask; retain repeated windows and reset after gaps identically",
+  "outputs_compared": ["orientation relative to each policy", "first constraints along the same proportional continuation", "current violations"],
+  "expected_result": "Mathematical equivalence for these policy outputs; no representation superiority is proposed",
+  "distance": "Full-state Aitchison distance is not recoverable from these two log-odds alone and is not compared",
+  "runtime_started": false
+}

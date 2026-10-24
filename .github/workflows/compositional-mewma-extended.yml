@@ -15,7 +15,6 @@ on:
 
 permissions:
   contents: read
-  actions: read
 
 concurrency:
   group: continuous-mewma-250
@@ -63,13 +62,10 @@ jobs:
               rows = [r for r in rows if r["block_id"] in set(ids)]
           print("test=" + json.dumps({"include": rows}, separators=(",", ":")))
           PY
-          python -B -c 'import sys; sys.path.insert(0,"drift-monitor/scripts"); from monitor_core import load,DESIGN; c=load(DESIGN)["source_frozen_model"]; print("source_run="+c["run_id"]); print("source_artifact="+c["artifact_name"])' >> "$GITHUB_OUTPUT"
-      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
-        with:
-          github-token: ${{ github.token }}
-          run-id: ${{ steps.matrix.outputs.source_run }}
-          name: ${{ steps.matrix.outputs.source_artifact }}
-          path: frozen-inputs
+      - name: Use the archived model without an expiring artifact dependency
+        run: |
+          mkdir -p frozen-inputs
+          cp drift-monitor/results/campaign-v0.1.1/inputs/frozen-model.json frozen-inputs/
       - name: Verify exact source model without refitting
         env:
           MONITOR_DESIGN: drift-monitor/design-v0.1.1.json
@@ -111,7 +107,7 @@ jobs:
       - name: Select exact-quota driver on the disposable runner
         run: |
           mkdir -p artifacts/driver
-          sudo --preserve-env=GITHUB_ACTIONS,RUNNER_ENVIRONMENT /usr/bin/python3 boundary/prediction/scripts/quota_precision.py configure --output artifacts/driver
+          sudo --preserve-env=GITHUB_ACTIONS,RUNNER_ENVIRONMENT /usr/bin/python3 runtime/quota_driver.py --output artifacts/driver
       - name: Fresh pair under unchanged measurement and detector settings
         env:
           BLOCK_ID: ${{ matrix.block_id }}

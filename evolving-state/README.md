@@ -1,10 +1,9 @@
 # Evolving-state observation
 
 Status: [eight new histories completed](results/campaign-v0.1.1/README.md), with
-the two engineering executions retained separately. All available updated
+two engineering executions excluded from the eight-history evidence. All available updated
 diagnoses matched the event oracle. Updated direct ratios matched CoDA; the
 comparison does not establish uniquely superior compositional policy detection.
-This separate experiment does not replace or revise previous campaigns.
 
 ## Question and scope
 
@@ -22,7 +21,6 @@ This is not natural production drift, arbitrary lineage discovery, or an
 automatic adaptation controller.
 
 The [current definition](design-v0.1.1.json) specifies the schedule and runtime inputs.
-The [initial engineering definition](design-v0.1.0.json) is retained separately.
 Runtime workloads execute only in the [dedicated hosted workflow](../.github/workflows/evolving-state.yml).
 Local work is limited to unit checks and saved-data analysis.
 
@@ -127,22 +125,13 @@ small descriptive PoC, not a reliability claim or a success-by-majority test.
 No automatic rollback, operator benefit or prevention of service violations
 is established by this passive study.
 
-The initial engineering execution had 18 windows, no dropped load iterations and
-4,442 successful upstream reads. All available updated diagnoses matched the
-individual event journal and native PromQL. It also exposed 23 client attempts
-without a forwarding-worker receipt during component startup, and one late
-request in the nominal idle window. Revision 0.1.1 adds readiness checks and a
-second idle window, and decouples observer polling from intervention execution.
-The policy-only sequence is relaxed then tightened to exercise a policy-only
-boundary contrast. These refinements precede the descriptive campaign; the
-initial execution is not pooled with it.
-
 Evidence:
 
-- [Initial engineering execution](results/engineering-v0.1.0/README.md).
-- [Refined engineering execution](results/engineering-v0.1.1/README.md).
 - [Main eight-history results, interpretation and reproduction](results/campaign-v0.1.1/README.md).
 - [Conditional direction and policy-boundary distance](results/campaign-v0.1.1/directional-v0.1.0/README.md):
   a versioned retrospective extension, independently checked on the same paths
   in the original parts. It separates current policy status, latest motion,
   smoothed motion and changed constraints; it is not a future-violation forecast.
+- [Reduced log-odds comparison](results/campaign-v0.1.1/directional-v0.1.0/reduced-v0.1.0/README.md):
+  two log-odds histories reproduce policy orientations and first constraints
+  on the common availability mask.

@@ -1,0 +1,15 @@
+{
+  "histories": 8,
+  "comparisons": 238,
+  "orientation_disagreements": 0,
+  "first_constraint_disagreements": 0,
+  "unavailable_direction_reports": {
+    "no_adjacent_direction": 32,
+    "missing_lineage": 32,
+    "zero_part": 60
+  },
+  "common_availability_mask": true,
+  "dimensions": 2,
+  "distance_comparison": "Not claimed: the two coordinates omit the full-state Aitchison norm",
+  "runtime_started": false
+}

@@ -1,0 +1,10 @@
+{
+  "upstream_commit": "1755859a9de82c2e5e225be68abc401a5ebf2b4f",
+  "parent_runtime": "probe1/runtime.json",
+  "additional_images": {
+    "accounting": "ghcr.io/open-telemetry/demo@sha256:74c490f862da264bc7c3b93fefb1a6cfce138861c3c6a8e0ceb32363bef17aaf",
+    "kafka": "ghcr.io/open-telemetry/demo@sha256:0601750a3ca4db7d27f746dc73f4180fda162e7a92a1a4847f5b6ae9ac51d477",
+    "fraud-detection": "ghcr.io/open-telemetry/demo@sha256:1cdfd1bcf476914c39afff9d91144fe7a6bffd6b897b4e29b20485791c8ec6a5"
+  },
+  "health_timeout_seconds": 300
+}

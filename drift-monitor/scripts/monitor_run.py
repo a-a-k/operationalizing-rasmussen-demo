@@ -16,8 +16,8 @@ from monitor_core import (ROOT, DESIGN, Observer, SampleReader, allocation, dige
                           feature, integrate, load, load_frozen, matrix, save, settling, timing)
 import numpy as np
 
-sys.path.insert(0, str(ROOT / "probe7/scripts"))
-import runtime as stack
+sys.path.insert(0, str(ROOT / "runtime"))
+import runtime_support as stack
 
 
 def command(args, check=True, timeout=600):
@@ -82,8 +82,8 @@ def compress(folder):
 
 def prepare(upstream, output):
     cfg = load(DESIGN)
-    runtime = load(ROOT / cfg["runtime"])
-    parent = load(ROOT / runtime["parent_runtime"])
+    runtime = load(stack.runtime_path(cfg["runtime"]))
+    parent = load(stack.runtime_path(runtime["parent_runtime"]))
     actual = command(["git", "-C", str(upstream), "rev-parse", "HEAD"]).stdout.strip()
     if actual != runtime["upstream_commit"]:
         raise ValueError("Upstream source mismatch")
@@ -136,7 +136,7 @@ def session(upstream, output, row, policy, cfg, runtime, parent, frozen, smoke=F
         command([*compose, "up", "-d", "--no-build", "--pull", "never"])
         ready = {**parent, "required_running_containers": parent["required_running_containers"] + ["accounting", "kafka"],
                  "mandatory_healthy_containers": parent["mandatory_healthy_containers"] + ["kafka"]}
-        stack.engine.wait_for_stack(ready, runtime["health_timeout_seconds"])
+        stack.wait_for_stack(ready, runtime["health_timeout_seconds"])
         stack.apply(state, None, output / "initial-updates.jsonl")
         initial = quota_check(state)
         save(output / "initial-quota-checks.json", initial)
@@ -148,7 +148,7 @@ def session(upstream, output, row, policy, cfg, runtime, parent, frozen, smoke=F
         samples = output / "resource-samples.jsonl"
         save(output / "observer-config.json", {"containers": cfg["parts"] + [generator], "output": str(samples),
              "stop_file": str(output / ".observer-stop"), "interval_seconds": cfg["sampling_seconds"], "refresh_seconds": 6})
-        sampler = subprocess.Popen(["sudo", "-n", sys.executable, str(ROOT / "probe3/scripts/observe.py"),
+        sampler = subprocess.Popen(["sudo", "-n", sys.executable, str(ROOT / "runtime/sample_resources.py"),
                                     "--config", str(output / "observer-config.json")])
         reader = SampleReader(samples)
         load_cfg = {**cfg, "total_seconds": timing(cfg)[-1]["measurement_end"]}

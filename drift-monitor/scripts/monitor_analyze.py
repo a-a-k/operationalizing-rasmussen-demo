@@ -8,9 +8,6 @@ import json
 import os
 from pathlib import Path
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 
 from monitor_core import (DESIGN, METHODS, Observer, close, digest, feature, fit_background, load, load_frozen, matrix, save)
@@ -83,72 +80,6 @@ def score_history(history, frozen, policy):
     return output
 
 
-def figure(jobs, pair_rows, output):
-    cfg = load(DESIGN)
-    job = jobs.get(cfg["example_block"])
-    if not job or not all(p in job["histories"] for p in ("drift", "control")):
-        return
-    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 9, "svg.fonttype": "none", "pdf.fonttype": 42})
-    fig, axes = plt.subplots(2, 3, figsize=(15, 8.3))
-    colors = {"raw_composition": "#778795", "ilr_composition": "#176b9e"}
-    history = job["histories"]["drift"]
-    if len(history.get("observations", [])) != cfg["monitor_windows"] or not all(w["valid"] for w in history["observations"]):
-        plt.close(fig)
-        return
-    cpu = np.array([w["cpu"] for w in history["observations"]])
-    base = np.array(history["reference"]["cpu"])
-    x, base_x = close(cpu), close(base)
-    logs = np.log(x) - np.log(base_x)
-    clr_change = logs - logs.mean(axis=1, keepdims=True)
-    epochs = np.arange(1, len(cpu) + 1)
-    axes[0, 0].imshow((cpu / base).T, origin="lower", aspect="auto", cmap="viridis", extent=(.5, len(cpu)+.5, -.5, len(base)-.5))
-    axes[0, 0].set(yticks=range(len(base)), yticklabels=cfg["parts"], xlabel="Цикл")
-    axes[0, 0].set_title("A  Потребление / исходное потребление")
-    picture = axes[0, 1].imshow(clr_change.T, origin="lower", aspect="auto", cmap="RdBu_r", vmin=-.3, vmax=.3,
-                                      extent=(.5, len(cpu)+.5, -.5, len(base)-.5))
-    axes[0, 1].set(yticks=range(len(base)), yticklabels=cfg["parts"], xlabel="Цикл")
-    axes[0, 1].set_title("B  Полный относительный сдвиг: CLR")
-    fig.colorbar(picture, ax=axes[0, 1], fraction=.045)
-    for policy, style in (("drift", "-"), ("control", "--")):
-        h = job["histories"][policy]
-        good = [w for w in h.get("observations", []) if w["valid"]]
-        axes[0, 2].plot([w["epoch"] for w in good], [w["aitchison_displacement"] for w in good], style,
-                         color="#176b9e" if policy == "drift" else "#778795", label=policy)
-        for method in METHODS:
-            scored = [w for w in good if w.get("online")]
-            axes[1, 1].plot([w["epoch"] for w in scored], [w["online"][method]["score"] / w["online"][method]["threshold"] for w in scored],
-                             style, color=colors[method], label=method + ":" + policy)
-    axes[0, 2].set(xlabel="Цикл", ylabel="Расстояние Айтчисона от опорного состояния")
-    axes[0, 2].set_title("C  Движение видно и без сигнала")
-    axes[0, 2].legend(frameon=False)
-    if pair_rows:
-        raw = [r["raw_first_drift_epoch"] or cfg["monitor_windows"] + 1 for r in pair_rows]
-        ilr = [r["ilr_first_drift_epoch"] or cfg["monitor_windows"] + 1 for r in pair_rows]
-        axes[1, 0].scatter(raw, ilr, alpha=.65, color="#176b9e")
-        axes[1, 0].plot([1, 17], [1, 17], ":", color="#777")
-    axes[1, 0].set(xlabel="Первый сигнал: MEWMA напрямую", ylabel="Первый сигнал: MEWMA в ILR", xlim=(.5, 17.5), ylim=(.5, 17.5))
-    axes[1, 0].set_title("D  Все общие проверочные пары; 17 = нет сигнала")
-    axes[1, 1].axhline(1, color="#a94b4b", ls=":")
-    axes[1, 1].set(xlabel="Цикл", ylabel="Статистика / порог")
-    axes[1, 1].set_title("E  Зафиксированные наблюдатели")
-    axes[1, 1].legend(fontsize=6, frameon=False)
-    for policy, style in (("drift", "-"), ("control", "--")):
-        windows = job["histories"][policy].get("load", {}).get("windows", [])
-        axes[1, 2].plot([w["epoch"] for w in windows], [w["ad_goodput"] for w in windows], style,
-                         label=policy, color="#176b9e" if policy == "drift" else "#778795")
-    axes[1, 2].set(xlabel="Цикл", ylabel="Успешные ответы рекламы внутри окна / с")
-    axes[1, 2].set_title("F  Выход получателя измеряется отдельно")
-    for ax in axes.ravel():
-        if ax not in (axes[0, 0], axes[0, 1], axes[1, 0]):
-            ax.axvline(cfg["pre_intervention_windows"] + .5, color="#a77e44", ls=":", lw=1)
-        ax.spines[["top", "right"]].set_visible(False)
-    fig.suptitle("Непрерывная runtime-история: полное состояние, относительное движение и MEWMA", fontsize=15, y=.99)
-    fig.text(.025, .025, f"Пример {cfg['example_block']} задан до выполнения. Вертикальная отметка — начало вмешательства.\n"
-             "Квоты определяют вмешательство, но не входят в наблюдатели; относительное движение не является само по себе сигналом опасности.", fontsize=9)
-    fig.tight_layout(rect=(.01, .1, .99, .96), w_pad=2.5, h_pad=2.3)
-    for ext in ("png", "svg", "pdf"):
-        fig.savefig(output / ("trajectory." + ext), dpi=170, metadata={"Creator": "Continuous runtime observation"})
-    plt.close(fig)
 
 
 def compare(inputs, model_folder, output):
@@ -213,7 +144,6 @@ def compare(inputs, model_folder, output):
     csv_save(output / "decisions.csv", decisions)
     csv_save(output / "pairs.csv", pairs)
     csv_save(output / "trajectories.csv", trajectories)
-    figure(jobs, pairs, output)
     print(json.dumps(summary, indent=2))
 
 

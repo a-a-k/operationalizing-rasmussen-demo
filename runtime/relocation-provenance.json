@@ -1,0 +1,77 @@
+{
+  "runtime_files": {
+    "runtime/compose.lock.yaml": {
+      "source_label": "probe1/compose.lock.yaml",
+      "source_sha256_lf": "68030084c2a0f1dc26d24f23eb1ef5353438a4c27db13ca0593e2bc55e952480",
+      "operation": "exact LF copy"
+    },
+    "runtime/otel.env": {
+      "source_label": "probe1/otel.env",
+      "source_sha256_lf": "2550a11ddeee1889dcce8de683be788b9477e6bbf88b8755123c3a58e83097a4",
+      "operation": "exact LF copy"
+    },
+    "runtime/cpu-overlay.yaml": {
+      "source_label": "probe7/compose-v0.1.1.yaml",
+      "source_sha256_lf": "144c8a55fb5e0fb6191eba3fad438050caa2cbec7d6806acccb4fc849167ff31",
+      "operation": "exact LF copy"
+    },
+    "runtime/sample_resources.py": {
+      "source_label": "probe3/scripts/observe.py",
+      "source_sha256_lf": "808c328d1c0306ee8f38795c1d0b9fb369d97c0e9ab38176d93b125d9b70ccf8",
+      "operation": "exact LF copy"
+    },
+    "runtime/base-lock.json": {
+      "source_label": "probe1/runtime.json",
+      "source_sha256_lf": "48a3225868b9f032b6ff484b01383d71901d9bec2e725d2f3fea8c9fa400e942",
+      "operation": "selected runtime fields"
+    },
+    "runtime/cpu-lock.json": {
+      "source_label": "probe7/runtime-v0.2.0.json",
+      "source_sha256_lf": "ec9c0db22412e3970e03e031c2a22977ec3beed435265bd84500b17ae7b40356",
+      "operation": "selected runtime fields"
+    }
+  },
+  "extracted_functions": {
+    "runtime/runtime_support.py:run": {
+      "source_label": "probe1/scripts/run_trial.py",
+      "ast_sha256": "6c0d27154a4958ac9ccd481d41920f60d68dc7d54d93a501a770fc8ced7f0734"
+    },
+    "runtime/runtime_support.py:inspect_container": {
+      "source_label": "probe1/scripts/run_trial.py",
+      "ast_sha256": "a3921a21b7cea5987f1c02a2ecfb51acc9d744222749ee4d2fbe997a1d9c027d"
+    },
+    "runtime/runtime_support.py:wait_for_stack": {
+      "source_label": "probe1/scripts/run_trial.py",
+      "ast_sha256": "cad1a5bfdb8249ca5429827f6139d093bb80b1be3f547967b1d33c28913ab8fb"
+    },
+    "runtime/runtime_support.py:command": {
+      "source_label": "probe7/scripts/runtime.py",
+      "ast_sha256": "669b11ee2e0f559c79cbe43f35ed40005fa862e8ff660d400249a5cb4584ca9b"
+    },
+    "runtime/runtime_support.py:apply": {
+      "source_label": "probe7/scripts/runtime.py",
+      "ast_sha256": "e806f35232cb49a8a8efb01d6e13754f18d263a23631937e94ded64c836abef6"
+    },
+    "runtime/runtime_support.py:quotas": {
+      "source_label": "probe7/scripts/runtime.py",
+      "ast_sha256": "277882c6176b0c04b8d50affbc751ec98488abe49c1beda4d4b778a611ac2bef"
+    },
+    "runtime/quota_driver.py:command": {
+      "source_label": "boundary/prediction/scripts/quota_precision.py",
+      "ast_sha256": "0c0654e742ce13adf68379414ef87ef22e46d03f19d7e22c231101f9849b6612"
+    },
+    "runtime/quota_driver.py:save": {
+      "source_label": "boundary/prediction/scripts/quota_precision.py",
+      "ast_sha256": "73aed8273ab4d7a871d53e18cac00b155a2ecc1458da0bd445a236c1edbac12c"
+    },
+    "runtime/quota_driver.py:hosted_only": {
+      "source_label": "boundary/prediction/scripts/quota_precision.py",
+      "ast_sha256": "1c5925aee8d0c7d398858a104c3d2bf2958c3b8c26d105b2b201b7bf077598b7"
+    },
+    "runtime/quota_driver.py:configure": {
+      "source_label": "boundary/prediction/scripts/quota_precision.py",
+      "ast_sha256": "ec4ff8dec4e21510377dc37d1d239d048b2834234557632c9bcc1de09a5eb261"
+    }
+  },
+  "method_change": "None; path relocation and removal of unused campaign code only"
+}

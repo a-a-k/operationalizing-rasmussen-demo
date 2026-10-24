@@ -19,8 +19,8 @@ from observer import Observer
 ROOT = Path(__file__).resolve().parents[2]
 MODULE = ROOT / "evolving-state"
 DESIGN = MODULE / "design-v0.1.1.json"
-sys.path.insert(0, str(ROOT / "probe1/scripts"))
-from run_trial import compose_prefix, wait_for_stack
+sys.path.insert(0, str(ROOT / "runtime"))
+from runtime_support import compose_prefix, wait_for_stack, runtime_path
 
 
 def save(path, value):
@@ -128,7 +128,7 @@ def main():
     if os.getenv("GITHUB_ACTIONS") != "true" or os.getenv("RUNNER_ENVIRONMENT") != "github-hosted":
         raise RuntimeError("Runtime is restricted to disposable GitHub-hosted runners")
     cfg = json.loads(DESIGN.read_text())
-    parent = json.loads((ROOT / cfg["parent_runtime"]).read_text())
+    parent = json.loads(runtime_path(cfg["parent_runtime"]).read_text())
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     (output / "journals").mkdir()

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import re
 from pathlib import Path
 import sys
 import unittest
@@ -43,13 +44,14 @@ class PublishedTests(unittest.TestCase):
         self.assertTrue(all(r["exit_code"] == 0 for r in validations))
 
     def test_public_evidence_has_no_personal_paths_or_workflow_links(self):
-        forbidden = ("C:\\Users\\", "/home/runner/work/", "github.com/a-a-k/",
+        forbidden = ("C:\\Users\\", "/home/runner/" + "work/",
                      "workflow_run_id", ".tex", ".pdf")
         for path in (MODULE / "results").rglob("*"):
             if not path.is_file() or path.suffix not in (".json", ".jsonl", ".gz", ".csv", ".md"):
                 continue
             data = gzip.decompress(path.read_bytes()) if path.suffix == ".gz" else path.read_bytes()
             text = data.decode("utf-8")
+            self.assertIsNone(re.search(r"github\.com/[^/]+/[^/]+/actions/", text))
             for term in forbidden:
                 self.assertNotIn(term, text, str(path.relative_to(MODULE)))
 

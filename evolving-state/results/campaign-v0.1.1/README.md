@@ -20,7 +20,7 @@ prediction of the actual future.
 ## What actually ran
 
 The [fixed design](../../design-v0.1.1.json) was exercised on eight fresh hosted
-runners after two separately retained engineering executions. No history was
+runners after two engineering executions excluded from this dataset. No history was
 replaced or rerun. Each history had 19 ten-second observation windows under an
 open-loop stream of catalog and currency reads.
 
@@ -159,6 +159,12 @@ contract**. They cannot be attributed uniquely to CoDA, because updated direct
 rules matched it. Stable logical-group labels could also be maintained at the
 metric producer; this experiment does not establish that a separate lineage
 observer is necessary or better than that deployment choice.
+
+The [separate reduced log-odds replay](directional-v0.1.0/reduced-v0.1.0/README.md)
+uses two histories `log(R/F)` with the same policies, smoothing and availability.
+It reproduces all policy orientations and first constraints of the full-state
+calculation on the common mask. These outputs do not require all three ILR
+coordinates.
 
 Scope is limited to supported annotated forwarding transitions, controlled
 delivery faults, and the specified policy. No failure prediction, causal model

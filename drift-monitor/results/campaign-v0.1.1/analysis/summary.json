@@ -1,0 +1,57 @@
+{
+  "attempts": 273,
+  "qualified_pairs": 250,
+  "background_histories": 20,
+  "fit_histories": 8,
+  "calibration_histories": 12,
+  "background_model_reproduced": true,
+  "maximum_online_score_replay_error": 8.29913915367797e-12,
+  "cycle_seconds": 40,
+  "restricted_delay_cycles": 12,
+  "pre_intervention_cycles": 4,
+  "selection": "First qualified original block attempt; no selection by detector outcome",
+  "attempt_qualification": {
+    "True": 250,
+    "False": 23
+  },
+  "recorded_test_measurement_windows": 8736,
+  "rows": [
+    {
+      "ilr_threshold_factor": 1.0,
+      "pairs": 250,
+      "earlier": 207,
+      "tied": 40,
+      "later": 3,
+      "mean_advance_cycles": 1.252,
+      "mean_advance_seconds": 50.08,
+      "control_signals": {
+        "raw_composition": 6,
+        "ilr_composition": 9
+      },
+      "detected_drift_histories": {
+        "raw_composition": 250,
+        "ilr_composition": 250
+      },
+      "retrospective_threshold_change": false
+    },
+    {
+      "ilr_threshold_factor": 1.1,
+      "pairs": 250,
+      "earlier": 179,
+      "tied": 66,
+      "later": 5,
+      "mean_advance_cycles": 0.972,
+      "mean_advance_seconds": 38.88,
+      "control_signals": {
+        "raw_composition": 6,
+        "ilr_composition": 6
+      },
+      "detected_drift_histories": {
+        "raw_composition": 250,
+        "ilr_composition": 250
+      },
+      "retrospective_threshold_change": true
+    }
+  ],
+  "runtime_started": false
+}

@@ -1,5 +1,0 @@
-{
-  "version": "3.15.0",
-  "linux_amd64_url": "https://github.com/prometheus/prometheus/releases/download/v3.15.0/prometheus-3.15.0.linux-amd64.tar.gz",
-  "tar_sha256": "2a542df32eac02ee17b9d844fb2aa1de00dafa5476579ba8a3ba862e9d572ea0"
-}

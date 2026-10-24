@@ -1,6 +1,0 @@
-unsafe_block,unsafe_epoch,safe_block,safe_epoch,local_distance,full_ilr_distance,unsafe_checkout_p95_ms,safe_checkout_p95_ms,unsafe_accounting_timely_fraction,safe_accounting_timely_fraction
-balanced-busy-01,19,balanced-busy-02,18,0.0,0.587515848548206,1874.8331554999984,122.94823145,0.42916666666666664,1.0
-interactive-busy-01,6,interactive-busy-02,6,0.0,0.19998715513571555,609.2536344999997,120.4864752,1.0,1.0
-interactive-busy-01,6,interactive-busy-03,6,0.0,0.22218376943538581,609.2536344999997,294.01147474999993,1.0,1.0
-interactive-busy-04,9,interactive-busy-02,9,0.0,0.23540652528213726,848.9112215999995,119.79705369999998,1.0,1.0
-interactive-busy-03,11,interactive-busy-02,10,0.0,0.5059096655806277,964.442409649999,121.69823969999999,1.0,1.0

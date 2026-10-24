@@ -1,182 +1,79 @@
-# Reproduction and archive verification
+# Reproduction
 
-## Evolving-state campaign
+## Verify the retained artifact
 
-The [dedicated results](evolving-state/results/campaign-v0.1.1/README.md)
-include the eight complete histories, compressed event-level inputs, native
-PromQL validation, interpretation and a full-history figure. Reconstruct the
-main numerical comparison without starting a workload:
+Use Python 3.13 and the pinned numerical dependency:
 
 ```sh
-python -B evolving-state/scripts/analyze.py --inputs evolving-state/results/campaign-v0.1.1/inputs --output artifacts/evolving-state-replay
-python -B -m unittest discover -s evolving-state/tests -v
+python -m pip install -r requirements.txt
+python -B scripts/verify_archive.py --report artifacts/verification.json
 ```
 
-Runtime is restricted to the separate manual
-[evolving-state workflow](.github/workflows/evolving-state.yml). The two
-engineering datasets are retained separately from the eight-history campaign.
-Plotting is optional and uses `evolving-state/plot-requirements.txt`.
+Verification covers canonical-LF text and exact-byte compressed/PNG hashes,
+local links, retained scope, both studies, reduced log-odds, frozen CPU fitting
+and calibration, online scores, both threshold rows, and runtime relocation.
+It starts no workloads and does not overwrite evidence. LICENSE is distributed
+separately from the measurement checksum manifest.
 
-The [directional extension](evolving-state/results/campaign-v0.1.1/directional-v0.1.0/README.md)
-uses only those saved inputs. Recompute conditional policy intersections and
-the independent multiplicative-path check:
+## Recompute the eight-history study
 
 ```sh
-python -B evolving-state/scripts/directional.py --output artifacts/directional-replay
-python -B -m unittest discover -s evolving-state/tests -p test_directional.py -v
+python -B evolving-state/scripts/analyze.py --inputs evolving-state/results/campaign-v0.1.1/inputs --output artifacts/evolving-state
+python -B evolving-state/scripts/directional.py --output artifacts/directional
+python -B evolving-state/scripts/reduced.py --output artifacts/reduced-log-odds
 ```
 
-## Lightweight offline verification
+These rebuild state/policy assessments from events, check conditional contact
+for both directions, and independently maintain two log-odds histories to compare
+orientations and first constraints on the same availability mask.
 
-Use Python 3.13 from the repository root:
+The call-level benefit and policy-only witnesses can be regenerated using
+`python -B evolving-state/scripts/describe.py --bundle <copy-of-bundle>`.
+Optional plotting uses `evolving-state/plot-requirements.txt` and
+`evolving-state/scripts/render.py --bundle <copy-of-bundle>`.
+Those descriptive/plot commands write inside their supplied bundle; use a copy.
 
-```bash
-python -B scripts/verify_archive.py
+Native arithmetic validation uses a local Linux `promtool`:
+
+```sh
+python -B evolving-state/scripts/promql_check.py --inputs evolving-state/results/campaign-v0.1.1/inputs --output artifacts/native-promql --promtool /path/to/promtool
 ```
 
-This checks canonical-LF text/exact-byte binary SHA-256 hashes, local Markdown links, all standard-library
-unit-test suites and the saved-data CPU-history analysis. It does not start
-Docker, contact GitHub, install packages or overwrite committed outputs.
-Identity checks inspect local Git configuration solely to detect documentation
-and comment leaks; they never change authorship or export identities.
+Omitting `--promtool` downloads the checksum-pinned engine to the output directory.
+The saved native results validate arithmetic rather than platform latency.
 
-To regenerate the versioned retrospective CPU-history tables into scratch space:
+## Recompute the CPU comparison
 
-```bash
-python -B probe5/scripts/analyze_history.py --output-dir artifacts/cpu-history-v0.1.0
+```sh
+python -B drift-monitor/scripts/replay_evidence.py --output artifacts/cpu-replay
 ```
 
-The [analysis definition](probe5/history-analysis-v0.1.0.json) fixes step 6
-retrospectively. Source quotas, outcomes and validity flags are retained;
-missing outcomes and actual timestamps are not inferred. Compare outputs with
-[the archived analysis](probe5/results/history-v0.1.0/).
+This refits the model from the same 20 backgrounds, checks the original frozen
+model, reconstructs first-qualified selection from all 273 attempts, replays
+online scores and reproduces both threshold rows. Original model bytes remain
+unchanged. Numerical tolerances accommodate platform differences; identities,
+hashes, selected attempts and discrete counts must agree.
 
-Geometry can also be reproduced without workloads:
+## New workloads on GitHub Actions
 
-```bash
-python -B geometry/scripts/analyze.py --commit 0000000000000000000000000000000000000000 --run-id 0 --output artifacts/geometry-v0.1.0
-```
+| Workflow | Scope |
+|---|---|
+| [evolving-state.yml](.github/workflows/evolving-state.yml) | Engineering check or eight new retry/forwarding histories |
+| [compositional-mewma.yml](.github/workflows/compositional-mewma.yml) | Twenty fitting/calibration backgrounds |
+| [compositional-mewma-extended.yml](.github/workflows/compositional-mewma-extended.yml) | New 250-pair batch with the archived frozen model; optional explicit block subset |
+| [verify.yml](.github/workflows/verify.yml) | Read-only archive and upstream/runtime-configuration checks |
 
-The zero identifiers explicitly mark a local replay without Actions provenance,
-not a newly executed hosted run. Original execution identifiers remain in the
-committed geometry summary.
+Supply `expected_sha` as the exact implementation commit for runtime dispatch.
+New runs are separate datasets and do not replace archived counts. Shared pinned
+images, overlays, sampling and quota readback are in [runtime/](runtime/README.md).
+The CPU study's executed design files retain their original bytes.
 
-For accumulated guarded histories, use the committed source data only:
+## Retention and evidence boundaries
 
-```bash
-python -B probe7/scripts/analyze_accumulated.py --output-dir artifacts/accumulated-history-replay
-```
+Committed CPU records retain integrated measurements, coverage, quota/timing
+checks, qualifications, configurations and online scores. They do not duplicate
+every per-second stream or container log. Source hashes identify original records.
+All twenty backgrounds and every test attempt are retained, including failures.
 
-The [analysis definition](probe7/accumulated-analysis-v0.1.0.json) pins original
-record hashes and marks retrospective selections. Outputs include all 988
-windows, complete displacement vectors, requirement margins, command reversals,
-entire selected-prefix witnesses and separately unlabeled geometry checks.
-The [archived interpretation](probe7/results/accumulated-v0.1.0/README.md) explains
-why this measurement task differs from the additional one-step analogy task.
-Original designs and external SLO labels are not overwritten.
-
-## Trajectory observability: optional numerical replay
-
-The [separate readout](drift-monitor/trajectory-observability/README.md) bundles
-all required measured inputs, including 48 native CPU streams and 250 compact
-continuous paired records. Its numerical replay requires the pinned NumPy and
-Matplotlib versions; the lightweight archive verifier above remains standard
-library only.
-
-```bash
-python -m pip install -r drift-monitor/trajectory-observability/requirements.txt
-python -B drift-monitor/trajectory-observability/scripts/analyze.py --output-dir artifacts/trajectory-observability-replay
-python -B drift-monitor/trajectory-observability/scripts/check_replay.py --output-dir artifacts/trajectory-observability-replay
-python -B -m unittest discover -s drift-monitor/trajectory-observability/tests -v
-```
-
-This starts no workloads. The output directory is scratch space, not the
-committed archive. Use --no-figures to skip rendering. Compare CSV and JSON
-outputs with [the versioned results](drift-monitor/trajectory-observability/results/v0.1.0/).
-The procedure changes no frozen MEWMA rules and adds no runtime replications.
-
-## Full runtime reruns: manual GitHub Actions only
-
-The [250-job drift-generalization workflow](.github/workflows/drift-generalization.yml)
-runs the fixed [three-method comparison](probe9/README.md). Its matrix is 25
-initial CPU compositions by two loads by five repetitions. Each job contains
-paired adaptive/control histories; aggregation compares ILR and raw shares
-separately against native Prometheus. Set expected_sha to the exact campaign
-commit. Missing or failed jobs are not replaced.
-The completed 250-pair execution, compact source records, native responses and
-plain-language interpretation are archived in
-[probe9/results/generalization-v0.1.0](probe9/results/generalization-v0.1.0/RESULTS.md).
-
-The [native practical forecast replay](.github/workflows/practical-forecast-replay.yml)
-is also manual, but starts no workload: checksum-pinned Prometheus executes
-queries over saved observations. Set expected_sha to its exact commit. Its
-[definition](probe8/practical-baseline-v0.1.0.md) describes the practical-method
-provenance, short-history adaptations and retrospective comparison boundary.
-
-Set expected_sha to the exact checked-out commit. Engineering gates are outside
-the reported replication set. Every rerun is a new series, not a replacement
-for or an automatic addition to the committed counts.
-
-| Series | Workflow | Fixed scope |
-| --- | --- | --- |
-| Guarded full-stack adaptation | [guarded-adaptation.yml](.github/workflows/guarded-adaptation.yml) | mode=campaign; finalized main v0.2.0, 24 runner pairs. Technical mode=pilot is separate, not needed to read saved results. |
-| Passive warning confirmation | [warning-confirmation.yml](.github/workflows/warning-confirmation.yml) | Separate 20 new runner pairs; frozen source model and thresholds, no effect on allocation policy. |
-| Sequential CPU migration | [migration.yml](.github/workflows/migration.yml) | execute=true; simultaneous-workload gate, then 20 paired histories. No replacements. |
-| Joint CPU/RAM follow-up | [joint-resources-v0.2.yml](.github/workflows/joint-resources-v0.2.yml) | Active v0.2.0; 20 four-history blocks. |
-| Fixed endpoints | [followup.yml](.github/workflows/followup.yml) | execute=true; smoke, then 16 A/B pairs and 12 six-condition blocks, 104 points. |
-| Threshold scenarios | [scenarios.yml](.github/workflows/scenarios.yml) | execute=true; maximum-load gate, then 120 points in 20 jobs. |
-| Geometry replay | [geometry.yml](.github/workflows/geometry.yml) | Saved-data analysis only. |
-| Accumulated guarded-history replay | [guarded-history-analysis.yml](.github/workflows/guarded-history-analysis.yml) | Saved-data analysis only; no services or additional observations. |
-| Warning-rule development | [warning-development.yml](.github/workflows/warning-development.yml) | Archived source data only; already frozen for the independent confirmation. |
-| Static checks / optional smoke | [verify.yml](.github/workflows/verify.yml) | Push/PR runs static checks; manual runtime_smoke=true additionally starts a stack. |
-
-Historical workflows are preserved separately:
-
-- [probe1.yml](.github/workflows/probe1.yml): original 256-pair series, including
-  the disclosed generator-gate deviation. For an independent rerun, start with
-  an empty controller_run_id; the controller manages only that fixed series.
-- [probe2.yml](.github/workflows/probe2.yml): original 32-block follow-up.
-- [joint-resources.yml](.github/workflows/joint-resources.yml): original v0.1.0
-  engineering-gated definition; its campaign did not start.
-- [ram-calibration.yml](.github/workflows/ram-calibration.yml): nine engineering
-  observations, never pooled with the active CPU/RAM campaign.
-
-No outcome triggers an extra scientific campaign. Changes to runtime inputs
-require a new version and separate provenance, not editing executed designs.
-
-## Archive boundaries
-
-[RESULTS.md](RESULTS.md) links every conclusion to committed observations.
-Aggregate JSONs contain counts and provenance; CSVs contain individual outcomes.
-[Probe 3 block records](probe3/results/block-level.json) preserve inputs for
-aggregation replay. [Probe 4 thresholds](probe4/results/thresholds.csv) retain
-every achievable rule, including disabled channels.
-
-Native k6 streams, container events and resource samples are distinct artifacts.
-Retention periods are defined by each workflow: raw streams commonly expire
-after 14 days and aggregates after 90. Expired streams cannot be reconstructed
-from a CSV. Preserve raw artifacts separately before expiry for new reruns.
-
-Keep the committed compact evidence available through review and subsequent
-archival use. Actions retention is not the repository's archival lifetime.
-Preserve a durable snapshot of the exact reviewed commit and its checksum manifest.
-
-The guarded follow-up can be replayed from committed block records:
-
-```bash
-python -B probe7/scripts/analyze.py --block-records probe7/results/main-v0.2.0/block-level.json --output-dir artifacts/guarded-replay
-```
-
-Its external labels can be independently rescored from preserved primary values:
-
-```bash
-python -B probe7/scripts/audit_primary.py --inputs probe7/results/main-v0.2.0/primary --output-dir artifacts/guarded-primary-replay
-```
-
-See [primary-input boundaries](probe7/results/main-v0.2.0/primary/README.md):
-these committed packs preserve scoring inputs, not every original telemetry log.
-
-The manifest uses canonical LF for text and exact bytes for compressed primary
-inputs and PNG figures. It excludes only itself and LICENSE. A review mirror may redact the
-copyright holder without changing the measurement evidence. This exception
-does not permit changes to code, data, designs or interpretation documents.
+Keep the reviewed snapshot and checksum manifest available independently of
+finite Actions artifact retention. Preserve new raw outputs before expiration.

@@ -68,7 +68,7 @@ def main():
     args = parser.parse_args()
     if args.promtool is None:
         root = Path(__file__).resolve().parents[2]
-        spec = json.loads((root / "probe8/practical-baseline-v0.1.0.json").read_text())["prometheus"]
+        spec = json.loads((root / "runtime/prometheus.json").read_text())
         args.output.mkdir(parents=True, exist_ok=True)
         archive = args.output / "prometheus.tar.gz"
         urllib.request.urlretrieve(spec["linux_amd64_url"], archive)

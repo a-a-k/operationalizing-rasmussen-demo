@@ -13,7 +13,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from monitor_core import (ROOT, DESIGN, METHODS, Observer, allocation, close, coordinates, digest,
                           feature, fit_background, helmert, integrate, load, load_frozen, matrix, save, settling, timing)
-from monitor_analyze import figure, plt, score_history
+from monitor_analyze import score_history
 from monitor_run import first_origin
 
 
@@ -60,19 +60,6 @@ class MonitorChecks(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "checksum mismatch"):
                     load_frozen(folder)
 
-    def test_heatmap_rows_follow_service_labels(self):
-        cfg = load(DESIGN)
-        cpu = np.arange(1, 12, dtype=float).tolist()
-        history = {"reference": {"cpu": cpu}, "observations": [
-            {"epoch": epoch, "valid": True, "cpu": cpu, "aitchison_displacement": 0., "online": None}
-            for epoch in range(1, cfg["monitor_windows"] + 1)]}
-        jobs = {cfg["example_block"]: {"histories": {"drift": history, "control": history}}}
-        canvas, axes = plt.subplots(2, 3, figsize=(15, 8.3))
-        with tempfile.TemporaryDirectory() as temporary, patch("monitor_analyze.plt.subplots", return_value=(canvas, axes)):
-            figure(jobs, [], Path(temporary))
-            for axis in axes[0, :2]:
-                self.assertEqual(axis.images[0].origin, "lower")
-                self.assertEqual([label.get_text() for label in axis.get_yticklabels()], cfg["parts"])
 
     def test_generator_origin_is_read_from_either_log_stream(self):
         with tempfile.TemporaryDirectory() as temporary:
